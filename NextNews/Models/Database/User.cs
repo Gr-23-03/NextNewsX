@@ -17,7 +17,7 @@ public class User: IdentityUser
     
     [DataType(DataType.DateTime)]
     [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
-    public DateTime DateofBirth { get; set; }
+    public DateTime? DateofBirth { get; set; }
 
 
     public ICollection<Subscription> Subscriptions { get; set; }
