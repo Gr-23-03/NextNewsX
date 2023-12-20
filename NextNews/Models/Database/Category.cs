@@ -7,7 +7,7 @@ namespace NextNews.Models.Database
        
         public int Id { get; set; }
 
-        [Display(Name = "Category Name")]
+        [Display(Name = "Category Name : ")]
         public string? Name { get; set; }
 
         public  ICollection<Article>? Articles {  get; set; }    
