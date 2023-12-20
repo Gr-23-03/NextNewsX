@@ -7,6 +7,9 @@ namespace NextNews.Services
         List<Article> GetArticles();
 
         public void AddArticle(Article article);
+        public Task<Article> GetArticleByIdAsync(int id);
+        public Task UpdateArticleAsync(Article article);
+        public Task DeleteArticleAsync(int id);
 
     }
 }
