@@ -16,11 +16,16 @@ namespace NextNews.Controllers
             _userService = userService;
         }
 
+
         public IActionResult Index()
         {
+
             var users = _userService.GetUsers();
             _logger.LogInformation("Hello");
-            return View();
+
+            return View(); 
+
+
         }
 
         public IActionResult Privacy()
