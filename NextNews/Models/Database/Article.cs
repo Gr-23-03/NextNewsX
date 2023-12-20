@@ -4,7 +4,7 @@ namespace NextNews.Models.Database
 {
     public class Article
     {
-  
+       [Key]
         public int Id { get; set; }
 
         [DataType(DataType.DateTime)]

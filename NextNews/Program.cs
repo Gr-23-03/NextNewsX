@@ -43,6 +43,7 @@ namespace NextNews
             });
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<IUserService,UserService>();
+            builder.Services.AddScoped<IArticleService, ArticleService>();
             var app = builder.Build();
 
 
