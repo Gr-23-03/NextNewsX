@@ -1,4 +1,5 @@
-﻿using NextNews.Models.Database;
+﻿using Microsoft.AspNetCore.Mvc;
+using NextNews.Models.Database;
 
 namespace NextNews.Services
 {
@@ -6,6 +7,8 @@ namespace NextNews.Services
     {
 
         List<User> GetUsers();
+
+        Task<List<User>> GetUsersAsync();
 
     }
 }
