@@ -7,6 +7,7 @@ namespace NextNews.Services
     {
 
         List<User> GetUsers();
+      
 
         Task<List<User>> GetUsersAsync();
 

@@ -23,12 +23,10 @@ namespace NextNews.Services
         }
 
 
+
         public async Task<List<User>> GetUsersAsync()
         {
             return await _context.Users.ToListAsync();
         }
-
-
-
     }
 }
