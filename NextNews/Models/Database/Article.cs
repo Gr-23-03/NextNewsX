@@ -5,7 +5,7 @@ namespace NextNews.Models.Database
 {
     public class Article
     {
-       [Key]
+       
         public int Id { get; set; }
 
         [DataType(DataType.DateTime)]
@@ -29,7 +29,7 @@ namespace NextNews.Models.Database
         [Display(Name = "Author:")]
         public string? AuthorName { get; set; }
 
-        public int CategoryId {  get; set; }
+        public int? CategoryId {  get; set; }
 
         [ForeignKey("CategoryId")]
         public Category? Category { get; set; }
