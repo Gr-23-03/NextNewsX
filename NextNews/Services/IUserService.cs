@@ -6,6 +6,7 @@ namespace NextNews.Services
     {
 
         List<User> GetUsers();
+      
 
     }
 }

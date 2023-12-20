@@ -20,6 +20,6 @@ namespace NextNews.Services
             return _context.Users.ToList();
         }
 
-
+       
     }
 }
