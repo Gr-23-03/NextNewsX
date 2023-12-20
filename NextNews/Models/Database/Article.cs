@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NextNews.Models.Database
 {
@@ -30,6 +31,7 @@ namespace NextNews.Models.Database
 
         public int CategoryId {  get; set; }
 
+        [ForeignKey("CategoryId")]
         public Category? Category { get; set; }
     }
 }

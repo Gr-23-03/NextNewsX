@@ -42,8 +42,12 @@ namespace NextNews
                 options.User.RequireUniqueEmail = true;
             });
             builder.Services.AddControllersWithViews();
+          
+            // SERVICES
             builder.Services.AddScoped<IUserService,UserService>();
             builder.Services.AddScoped<IArticleService, ArticleService>();
+            builder.Services.AddScoped<ICategoryService,CategoryService>();
+
             var app = builder.Build();
 
 
