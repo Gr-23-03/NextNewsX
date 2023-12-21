@@ -12,16 +12,21 @@ namespace NextNews.Controllers
         { 
             _articleService = articleService;
         }
+
+
+
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction(nameof(ListArticles));
         }
+
         //Action for list of article
         public IActionResult ListArticles() 
         { 
         var articles= _articleService.GetArticles();
             return View(articles);
         }
+
         //Action to Add article
         //[HttpPost]
         public IActionResult AddArticle( Article article) 
@@ -33,6 +38,7 @@ namespace NextNews.Controllers
             }
         return  View("CreateArticle", article);
         }
+
         public IActionResult CreateArticle()
         {
             return View();
