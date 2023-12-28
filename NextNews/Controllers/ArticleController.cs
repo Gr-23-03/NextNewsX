@@ -28,7 +28,7 @@ namespace NextNews.Controllers
         }
 
         //Action to Add article
-        //[HttpPost]
+        [HttpPost]
         public IActionResult AddArticle( Article article) 
         {
             if (ModelState.IsValid) 
