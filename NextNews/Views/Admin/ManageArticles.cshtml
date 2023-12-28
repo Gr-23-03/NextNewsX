@@ -1,0 +1,53 @@
+﻿@model List<NextNews.Models.Database.Article>
+
+
+@{
+    ViewData["Title"] = "ManageArticles";
+}
+
+<h1>ManageArticles</h1>
+
+<table style="border:dashed">
+    <thead>
+        <tr>
+            <th>Article ID</th>
+            
+
+            <th>AuthorName </th>
+            <th>HeadLine</th>
+
+            <th>ContentSummary</th>
+            <th>Content</th>
+            <th>DateStamp</th>
+            <th>LinkText</th>
+            <th>ImageLink </th>
+            <th>CategoryId </th>
+
+
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var article in Model)
+        {
+            <tr>
+                <td>@article.Id</td>
+                
+
+                <td>@article.AuthorName</td>
+                <td>@article.HeadLine</td>
+                <td>@article.ContentSummary</td>
+                <td>@article.Content</td>
+                <td>@article.DateStamp</td>
+                <td>@article.LinkText</td>
+                <td>@article.ImageLink</td>
+                <td>@article.CategoryId</td>
+                
+                <td>
+                    <a asp-action="EditArticle" asp-route-id="@article.Id">Edit</a> |
+                    <a asp-action="DeleteArticle" asp-route-id="@article.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System;
 using Microsoft.VisualBasic;
 using System.ComponentModel.DataAnnotations;
 
@@ -6,7 +7,10 @@ namespace NextNews.Models.Database;
 
 public class User: IdentityUser
 {
+
    
+
+
     [Display(Name = "First Name")]
     public string? FirstName { get; set; }
 
