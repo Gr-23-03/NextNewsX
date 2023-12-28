@@ -20,7 +20,10 @@ namespace NextNews
 
 
             builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
             builder.Services.Configure<IdentityOptions>(options =>
             {
                 // Password settings.
@@ -42,9 +45,34 @@ namespace NextNews
                 options.User.RequireUniqueEmail = true;
             });
             builder.Services.AddControllersWithViews();
+          
+            // SERVICES
             builder.Services.AddScoped<IUserService,UserService>();
+            builder.Services.AddScoped<IArticleService, ArticleService>();
             builder.Services.AddScoped<ICategoryService,CategoryService>();
+            builder.Services.AddScoped<IRoleManagementService, RoleManagementService>();
+            builder.Services.AddScoped<SeedData>();
+
             var app = builder.Build();
+
+
+            // Seed data during application program
+            // Create a scope to resolve scoped services
+            using (var scope = app.Services.CreateScope())
+            {
+                var serviceProvider = scope.ServiceProvider;
+
+                // Initialize seed data
+                SeedData.InitializeAsync(serviceProvider).Wait();
+            }
+
+
+
+
+
+
+
+
 
 
             // Configure the HTTP request pipeline.
