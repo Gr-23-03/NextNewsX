@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using NextNews.Models.Database;
 using NextNews.Services;
 
@@ -26,7 +27,7 @@ namespace NextNews.Controllers
         var articles= _articleService.GetArticles();
             return View(articles);
         }
-
+       
         //Action to Add article
         [HttpPost]
         public IActionResult AddArticle( Article article) 
@@ -36,11 +37,19 @@ namespace NextNews.Controllers
             _articleService.AddArticle(article);
                 return RedirectToAction("ListArticles");
             }
-        return  View("CreateArticle", article);
+
+            // If there is an error, repopulate the categories
+            var categories = _articleService.GetCategories();
+            ViewBag.Categories = new SelectList(categories, "Id", "Name");
+
+            return  View("CreateArticle", article);
         }
 
         public IActionResult CreateArticle()
         {
+            var categories = _articleService.GetCategories();
+            ViewBag.Categories = new SelectList(categories, "Id", "Name");
+           
             return View();
         }
 

@@ -1,4 +1,5 @@
-﻿using NextNews.Data;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using NextNews.Data;
 using NextNews.Models.Database;
 
 namespace NextNews.Services
@@ -22,16 +23,18 @@ namespace NextNews.Services
         { 
             _context.Articles.Add(article);
             _context.SaveChanges();
+            List<Category> categories = _context.Categories.ToList();
+
         }
 
-        //details category
+        //details
         public async Task<Article> GetArticleByIdAsync(int id)
         {
             return await _context.Articles.FindAsync(id);
         }
 
 
-        //Update category
+        //Update 
         public async Task UpdateArticleAsync(Article article)
         {
             _context.Articles.Update(article);
@@ -40,7 +43,7 @@ namespace NextNews.Services
 
 
 
-        //delete category
+        //delete
 
         public async Task DeleteArticleAsync(int id)
         {
@@ -52,6 +55,11 @@ namespace NextNews.Services
             }
         }
 
+        //Get Categories to select them in create view
+        public List<Category> GetCategories() 
+        { 
+            return _context.Categories.ToList();
+        }
 
     }
 }
