@@ -25,6 +25,8 @@ public class User: IdentityUser
 
 
     public ICollection<Subscription> Subscriptions { get; set; }
+    public ICollection<Article> LikedArtilces { get; set; }
+ 
 
     
 }
