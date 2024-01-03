@@ -1,4 +1,5 @@
-﻿using NextNews.Models.Database;
+﻿using NextNews.Models;
+using NextNews.Models.Database;
 
 namespace NextNews.Services
 {
@@ -10,6 +11,9 @@ namespace NextNews.Services
         public Task<Article> GetArticleByIdAsync(int id);
         public Task UpdateArticleAsync(Article article);
         public Task DeleteArticleAsync(int id);
+        public List<Category> GetCategories();
 
+     //  Task<IEnumerable<LatestNewsViewModel>> GetLatestNewsViewModels();
+        
     }
 }
