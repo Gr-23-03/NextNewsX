@@ -1,0 +1,14 @@
+﻿@model IEnumerable<LatestNewsViewModel>
+
+<div class="latest-news">
+    @foreach (var news in Model)
+    {
+        <div class="latest-news-item">
+            <a href="@Url.Action("Details", "News", new { id = news.Id })">
+                <h2 class="latest-news-headline">@news.HeadLine</h2>
+            </a>
+            <p class="latest-news-summary">@news.ContentSummary</p>
+            <p class="latest-news-date">Published on @news.DateStamp?.ToString("yyyy-MM-dd")</p>
+        </div>
+    }
+</div>
