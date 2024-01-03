@@ -12,6 +12,11 @@ namespace NextNews.Services
         public Task UpdateArticleAsync(Article article);
         public Task DeleteArticleAsync(int id);
         public List<Category> GetCategories();
+        public void AddLikes(int id, string userId );
+        public void IncreamentViews(Article article);
+
+
+
 
      //  Task<IEnumerable<LatestNewsViewModel>> GetLatestNewsViewModels();
         

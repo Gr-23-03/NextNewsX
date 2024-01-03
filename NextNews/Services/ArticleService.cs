@@ -1,7 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using NextNews.Data;
 using NextNews.Models;
 using NextNews.Models.Database;
+using SQLitePCL;
+using System.Diagnostics.Metrics;
+using System.Linq;
 
 namespace NextNews.Services
 {
@@ -16,15 +21,14 @@ namespace NextNews.Services
 
         public List<Article> GetArticles()
         {
-            return _context.Articles.ToList();
+            return _context.Articles.Include(x => x.UsersLiked).ToList();
         }
-
-        public void AddArticle(Article article) 
-        { 
+        
+        public void AddArticle(Article article)
+        {
             _context.Articles.Add(article);
             _context.SaveChanges();
             List<Category> categories = _context.Categories.ToList();
-
         }
 
         //details
@@ -55,9 +59,47 @@ namespace NextNews.Services
         }
 
         //Get Categories to select them in create view
-        public List<Category> GetCategories() 
-        { 
+        public List<Category> GetCategories()
+        {
             return _context.Categories.ToList();
+        }
+
+
+        //Add no. of likes
+        public void AddLikes(int articleId, string userId)
+        {
+            var article = _context.Articles.Include(x => x.UsersLiked).FirstOrDefault(x => x.Id == articleId);
+
+            if (article is null) return;
+
+            if (article.UsersLiked.Any(x => x.Id == userId))
+            {
+                article.UsersLiked = article.UsersLiked.Where(x => x.Id != userId).ToList();
+            }
+            else
+            {
+                var user = _context.Users.Find(userId);
+                if (user is null) return;
+
+                article.UsersLiked.Add(user);
+            }
+
+            _context.SaveChanges();
+
+        }
+
+        public void IncreamentViews(Article article)
+        {
+            if (article.Views is null)
+            {
+                article.Views = 1;
+            }
+            else
+            {
+                article.Views++;
+            }
+            _context.SaveChanges();
+
         }
 
         //// Retrieve the latest news as LatestNewsViewModel instances
@@ -80,7 +122,6 @@ namespace NextNews.Services
 
         //    return latestNewsViewModels;
         //}
-
 
 
     }

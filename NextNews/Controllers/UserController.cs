@@ -31,5 +31,6 @@ namespace NextNews.Controllers
 
             return View(users);
         }
+       
     }
 }
