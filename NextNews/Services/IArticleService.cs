@@ -1,4 +1,5 @@
-﻿using NextNews.Models.Database;
+﻿using NextNews.Models;
+using NextNews.Models.Database;
 
 namespace NextNews.Services
 {
@@ -17,5 +18,7 @@ namespace NextNews.Services
 
 
 
+     //  Task<IEnumerable<LatestNewsViewModel>> GetLatestNewsViewModels();
+        
     }
 }

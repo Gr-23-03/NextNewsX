@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NextNews.Data;
+using NextNews.Models;
 using NextNews.Models.Database;
 using SQLitePCL;
 using System.Diagnostics.Metrics;
@@ -13,7 +14,6 @@ namespace NextNews.Services
     {
         private readonly ApplicationDbContext _context;
 
-
         public ArticleService(ApplicationDbContext context)
         {
             _context = context;
@@ -21,15 +21,14 @@ namespace NextNews.Services
 
         public List<Article> GetArticles()
         {
-
             return _context.Articles.Include(x => x.UsersLiked).ToList();
         }
+        
         public void AddArticle(Article article)
         {
             _context.Articles.Add(article);
             _context.SaveChanges();
             List<Category> categories = _context.Categories.ToList();
-
         }
 
         //details
@@ -47,8 +46,7 @@ namespace NextNews.Services
         }
 
 
-
-        //delete
+        //delete category
 
         public async Task DeleteArticleAsync(int id)
         {
@@ -65,6 +63,7 @@ namespace NextNews.Services
         {
             return _context.Categories.ToList();
         }
+
 
         //Add no. of likes
         public void AddLikes(int articleId, string userId)
@@ -87,26 +86,6 @@ namespace NextNews.Services
 
             _context.SaveChanges();
 
-            //if (article != null && !article.UserIdsLiked.Contains(userId))
-            //{
-            //    article.Likes++;
-            //    article.UserIdsLiked.Add(userId);
-            //    _context.SaveChanges();
-            //}
-            //else if (article != null && article.UserIdsLiked.Contains(userId))
-            //{
-            //    article.Likes--;
-            //    article.UserIdsLiked.Remove(userId);
-            //    _context.SaveChanges();
-            //}
-
-            //var article = _context.Articles.FirstOrDefault(a => a.Id == id);
-            //if (article != null) 
-            //{
-            //    article.Likes +=1;
-            //    _context.SaveChanges();
-            //}
-
         }
 
         public void IncreamentViews(Article article)
@@ -123,6 +102,28 @@ namespace NextNews.Services
 
         }
 
+        //// Retrieve the latest news as LatestNewsViewModel instances
+        //public async Task<IEnumerable<LatestNewsViewModel>> GetLatestNewsViewModels()
+        //{
+        //    // Retrieve the latest published articles
+        //    var latestPublishedArticles = _context.Articles
+        //        .OrderByDescending(article => article.DateStamp)
+        //        .Take(5)
+        //        .ToList();
+
+        //    // Convert articles to view models
+        //    var latestNewsViewModels = latestPublishedArticles
+        //        .Select(article => new LatestNewsViewModel
+        //        {
+        //            HeadLine = article.HeadLine,
+        //            ContentSummary = article.ContentSummary,
+        //            DateStamp = (DateTime)article.DateStamp
+        //        });
+
+        //    return latestNewsViewModels;
+        //}
+
 
     }
 }
+

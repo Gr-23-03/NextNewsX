@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using NextNews.Data;
 using NextNews.Models.Database;
 
@@ -19,6 +20,20 @@ namespace NextNews.Services
         public async Task<List<Category>> GetCategoriesAsync()
         {
             return await _context.Categories.ToListAsync();
+        }
+
+        public List<Category> GetCategories()
+        {
+            var objList = _context.Categories.ToList();
+
+            return objList;
+        }
+
+        public List<Category> GetCategoriesToFooter()
+        {
+            var objList = _context.Categories.Take(5).ToList();
+
+            return objList;
         }
 
 
