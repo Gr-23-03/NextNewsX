@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using NextNews.Data;
 using NextNews.Models.Database;
 using NextNews.Services;
@@ -50,6 +51,7 @@ namespace NextNews.Controllers
             {
                 await _categoryService.CreateCategoryAsync(category);
                 return RedirectToAction(nameof(Index));
+                
             }
 
             return View(category);

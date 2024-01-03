@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using NextNews.Models;
 using NextNews.Services;
+using NextNews.ViewModels;
 using System.Diagnostics;
 
 namespace NextNews.Controllers
@@ -21,29 +22,22 @@ namespace NextNews.Controllers
        
         public IActionResult Index()
         {
-
-            var users = _userService.GetUsers();
-            _logger.LogInformation("Hello");
-
-            var latestArticles = _articleService.GetArticles().OrderByDescending(obj => obj.DateStamp).Take(5).ToList();
-
-            List<LatestNewsViewModel> vmList = new List<LatestNewsViewModel>();
-
-            foreach (var item in latestArticles)
+            var vm = new HomeIndexVM()
             {
-                var vm = new LatestNewsViewModel()
-                {
-                    Id = item.Id,
-                    HeadLine = item.HeadLine,
-                    DateStamp = item.DateStamp,
-                    ContentSummary = item.ContentSummary
-                };
+                MostPopularArticles = _articleService.GetArticles(),
+                LatestArticles = _articleService.GetArticles()
+                    .OrderByDescending(obj => obj.DateStamp)
+                    .Take(5)
+                    .Select(obj => new LatestNewsViewModel()
+                    {
+                        Id = obj.Id,
+                        HeadLine = obj.HeadLine,
+                        DateStamp = obj.DateStamp,
+                        ContentSummary = obj.ContentSummary
+                    }).ToList()
+            };
 
-                vmList.Add(vm);
-            }
-
-            return View(vmList);
-
+            return View(vm); 
         }
 
        

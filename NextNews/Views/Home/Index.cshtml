@@ -1,19 +1,14 @@
-﻿@model IEnumerable<LatestNewsViewModel>
+﻿@model NextNews.ViewModels.HomeIndexVM
 
 @{
     ViewData["Title"] = "Home Page";
 }
 
-@* <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div> *@
 
-<partial name="_CarouselPartialView" model="Model" />
+<partial name="_CarouselPartialView" model="Model.LatestArticles" />
 
-@* <div class="header">
-    <h1>Latest News</h1>
-   
-</div> *@
+<partial name="_PartialViewArticleList" model="Model.MostPopularArticles"></partial>
 
-@* <partial name="_LatestNewsPartialView" model="Model" /> *@
+
+
+
