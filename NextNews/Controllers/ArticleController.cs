@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using NextNews.Models;
 using NextNews.Models.Database;
 using NextNews.Services;
 
@@ -15,16 +16,41 @@ namespace NextNews.Controllers
         }
 
 
-
         public IActionResult Index()
         {
             return RedirectToAction(nameof(ListArticles));
         }
 
+
+        // Latest articles
+        public ActionResult LatestArticles()
+        {
+            var latestArticles = _articleService.GetArticles().OrderByDescending(obj => obj.DateStamp).Take(5).ToList();
+            
+            List<LatestNewsViewModel> vmList = new List<LatestNewsViewModel>();
+
+            foreach (var item in latestArticles)
+            {
+                var vm = new LatestNewsViewModel()
+                {
+                    Id = item.Id,
+                    HeadLine = item.HeadLine,
+                    DateStamp = item.DateStamp,
+                    ContentSummary = item.ContentSummary
+                   
+                };
+
+                vmList.Add(vm);
+            }
+
+            return View(vmList);
+        }
+
+
         //Action for list of article
         public IActionResult ListArticles() 
         { 
-        var articles= _articleService.GetArticles();
+           var articles= _articleService.GetArticles();
             return View(articles);
         }
        
@@ -34,7 +60,7 @@ namespace NextNews.Controllers
         {
             if (ModelState.IsValid) 
             { 
-            _articleService.AddArticle(article);
+               _articleService.AddArticle(article);
                 return RedirectToAction("ListArticles");
             }
 
@@ -65,7 +91,7 @@ namespace NextNews.Controllers
 
             return View(article);
         }
-
+         
 
         [Authorize]
         public async Task<IActionResult> Edit(int id)

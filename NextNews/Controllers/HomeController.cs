@@ -12,34 +12,47 @@ namespace NextNews.Controllers
         private readonly IUserService _userService;
         private readonly IArticleService _articleService;
 
-        public HomeController(ILogger<HomeController> logger ,IUserService userService, IArticleService articleService)
+        public HomeController(ILogger<HomeController> logger ,IUserService userService, 
+            IArticleService articleService)
         {
             _logger = logger;
             _userService = userService;
             _articleService = articleService;
         }
-
-
+       
         public IActionResult Index()
         {
             var vm = new HomeIndexVM()
             {
                 MostPopularArticles = _articleService.GetArticles(),
-                
+                LatestArticles = _articleService.GetArticles()
+                    .OrderByDescending(obj => obj.DateStamp)
+                    .Take(5)
+                    .Select(obj => new LatestNewsViewModel()
+                    {
+                        Id = obj.Id,
+                        HeadLine = obj.HeadLine,
+                        DateStamp = obj.DateStamp,
+                        ContentSummary = obj.ContentSummary
+                    }).ToList()
             };
 
             return View(vm); 
         }
 
+       
         public IActionResult Privacy()
         {
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
+         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+         public IActionResult Error()
+         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+         }
+
+
+
     }
 }
