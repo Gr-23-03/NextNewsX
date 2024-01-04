@@ -12,6 +12,7 @@ namespace NextNews.Services
         private readonly ApplicationDbContext _context;
 
 
+
         public UserService(ApplicationDbContext context)
         {
             _context = context;
@@ -27,6 +28,11 @@ namespace NextNews.Services
         public async Task<List<User>> GetUsersAsync()
         {
             return await _context.Users.ToListAsync();
+        }
+
+        public void GetUserForLike() 
+        {
+            _context.Users.ToList();
         }
     }
 }

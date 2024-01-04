@@ -6,6 +6,10 @@ namespace NextNews.Services
     {
         Task<List<Category>> GetCategoriesAsync();
 
+        List<Category> GetCategories();
+
+        List<Category> GetCategoriesToFooter();
+
         Task CreateCategoryAsync(Category category);
         Task<Category> GetCategoryByIdAsync(int id);
 
