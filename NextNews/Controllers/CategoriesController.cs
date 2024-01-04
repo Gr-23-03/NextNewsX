@@ -36,7 +36,7 @@ namespace NextNews.Controllers
 
         //create
 
-        [Authorize]
+        [Authorize(Roles = "Editor")]
         public IActionResult Create()
         {
             return View();
@@ -72,7 +72,7 @@ namespace NextNews.Controllers
         }
 
 
-        [Authorize]
+        [Authorize(Roles = "Editor")]
         public async Task<IActionResult> Edit(int id)
         {
             var category = await _categoryService.GetCategoryByIdAsync(id);

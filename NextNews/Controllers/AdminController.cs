@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NextNews.Models.Database;
 using NextNews.Services;
+using NextNews.ViewModels;
 
 namespace NextNews.Controllers
 {
@@ -13,12 +14,36 @@ namespace NextNews.Controllers
 
         private readonly IRoleManagementService _roleManagementService;
         private readonly IArticleService _articleService;
+        private object _context;
+        private readonly IUserService _userService;
 
-        public AdminController(IRoleManagementService roleManagementService, IArticleService articleService)
+        public AdminController(IRoleManagementService roleManagementService, IArticleService articleService ,IUserService userService)
         {
             _roleManagementService = roleManagementService;
             _articleService = articleService;
+            _userService = userService;
         }
+
+
+
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult Index()
+        {
+            List<AdminUserVM> model = _userService.GetUsers().Select(q => new AdminUserVM()
+            {
+                ID = q.Id,
+                FirstName = q.FirstName,
+                LastName = q.LastName,
+                DateofBirth = q.DateofBirth,
+                Email = q.Email,
+            }).ToList();
+
+            return View(model);
+        }
+
+
+        
 
 
         // This is for creating dynamic role wihout seeding
@@ -69,46 +94,7 @@ namespace NextNews.Controllers
     */
 
 
-        [Authorize(Roles = "Editor")]
-        public IActionResult ManageArticles()
-        {
-            // getting a list of articles from the service
-            var articles = _articleService.GetArticles();
-
-            
-            return View(articles);
-        }
-
-        [Authorize(Roles = "Editor")]
-        public IActionResult EditArticle(int id)
-        {
-            // getting the article by ID from the service
-            var article = _articleService.GetArticleByIdAsync(id).Result;
-
-           
-            return View(article);
-        }
-
-        [Authorize(Roles = "Editor")]
-        [HttpPost]
-        public async Task<IActionResult> EditArticle(Article article)
-        {
-            // Updating the article using the service
-            await _articleService.UpdateArticleAsync(article);
-
-            //  redirecting to the article  page
-            return RedirectToAction("ManageArticles");
-        }
-
-        [Authorize(Roles = "Editor")]
-        public async Task<IActionResult> DeleteArticle(int id)
-        {
-            // Deleting the article using the service
-            await _articleService.DeleteArticleAsync(id);
-            
-            return RedirectToAction("ManageArticles");
-        }
-
+       
 
     }
 }

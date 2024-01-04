@@ -8,8 +8,8 @@ namespace NextNews.Models.Database;
 public class User: IdentityUser
 {
 
-   
 
+    
 
     [Display(Name = "First Name")]
     public string? FirstName { get; set; }
@@ -25,8 +25,10 @@ public class User: IdentityUser
 
 
     public ICollection<Subscription> Subscriptions { get; set; }
+
     public ICollection<Article> LikedArtilces { get; set; }
  
 
     
+
 }

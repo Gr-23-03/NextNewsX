@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using NextNews.Models.Database;
+using NextNews.ViewModels;
 using NextNews.Models;
+
 
 namespace NextNews.Data
 {
@@ -16,10 +18,11 @@ namespace NextNews.Data
 
         public DbSet<Article> Articles { get; set; }
         public DbSet<Category> Categories { get; set; }
-
         public DbSet<Subscription> Subscriptions { get; set; }
+        public DbSet<SubscriptionType> SubscriptionTypes { get; set; } 
 
-        public DbSet<SubscriptionType> SubscriptionTypes { get; set; }
+        public DbSet<AdminUserVM> AdminUserVM { get; set; } = default!;
         public DbSet<NextNews.Models.LatestNewsViewModel> LatestNewsViewModel { get; set; } = default!;
+
     }
 }

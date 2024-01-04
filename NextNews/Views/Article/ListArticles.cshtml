@@ -9,45 +9,121 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-@* @foreach (var item in Model)
-{
-    @Html.Raw(item.Content) <br />
-    <br />
-    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id"> Details</a>
-    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id"> Delete </a>
-    <br />
-    <br />
-} *@
 
 
-@foreach (var item in Model)
-{
-    <div class="row" >
-        <div class="col-9">
-            <h1>@item.HeadLine  </h1>
-            <h3>@item.LinkText</h3>
-            <h4>@item.ContentSummary</h4>
-            @Html.Raw(item.Content) <br />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
 
-            <strong>@item.DateStamp  @item.AuthorName  @item.Views    @item.UsersLiked.Count </strong>
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
 
-            <br />
-            <br />
-            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-            <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id"> Details</a>
-          
+        h1 {
+            margin-top: 0;
+        }
 
-           @*  <form action="@Url.Action("Likes", "Article", new { id = item.Id })"  method="post">
-                <button type="submit">Like</button>
-            </form> *@
-            <a class="btn btn-danger" asp-action="Likes" asp-route-id="@item.Id" method="post" asp-route-returnUrl="/Article/ListArticles"> Like </a>
-        </div>
-        <div class="col-3">
-            <img src="@item.ImageLink" style="width:300px;height:300px" />
-          
-           
-        </div>
-   
-</div>
-}
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: white;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #333;
+            color: white;
+            font-weight: bold;
+        }
+
+        td {
+            background-color: #fff;
+        }
+
+            td a {
+                color: #007bff;
+                text-decoration: none;
+            }
+
+                td a:hover {
+                    text-decoration: underline;
+                }
+    </style>
+</head>
+
+
+<body>
+    <header>
+        <h1>@ViewData["Title"]</h1>
+    </header>
+    <table>
+        <thead>
+            <tr>
+                <th>Article ID</th>
+                <th>Author Name</th>
+                <th>Headline</th>
+                <th>Content Summary</th>
+                <th>Content</th>
+                <th>Date Stamp</th>
+                <th>Link Text</th>
+                <th>Image Link</th>
+                <th>Category ID</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var article in Model)
+            {
+                <tr>
+                    <td>@article.Id</td>
+                    <td>@article.AuthorName</td>
+                    <td>@article.HeadLine</td>
+                    <td>@article.ContentSummary</td>
+                    <td>@article.Content</td>
+                    <td>@article.DateStamp</td>
+                    <td>@article.LinkText</td>
+                    <td>@article.ImageLink</td>
+                    <td>@article.CategoryId</td>
+                    <td>
+                       
+                        <a asp-action="Edit" asp-controller="Article" asp-route-id="@article.Id">Edit</a> |
+                        <a asp-action="Delete" asp-controller="Article" asp-route-id="@article.Id">Delete</a>
+                        <a asp-action="Details" asp-controller="Article" asp-route-id="@article.Id">Details</a>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
