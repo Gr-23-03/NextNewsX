@@ -1,22 +1,145 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+}
+
+
+.btn btn-dropdown {
+    background-color: white;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+
+
+.dropdown-menu a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    padding: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+    .dropdown-menu a:hover {
+        background-color: #ddd;
+    }
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown:hover .btn btn-dropdown {
+    background-color: white;
+}
+
+div .dropdown-menu { /* From here design the dropdown*/
+    margin-left: -70px;
+    margin-right: 20px;
+    padding-right: 25PX;
+    display: none;
+    position: absolute;
+    background-color: #3b3f42;
+    min-width: 1300px;
+    min-height: 500px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    color: white;
+}
+
+div.collapse {
+    justify-content: center;
+}
+
+h2 {
+    color: red;
+    margin-left: 60px;
+    margin-top: 20px;
+}
+
+h1, p, img {
+    margin: 20px;
+    margin-left: 60px;
+    margin-top: 20px;
+}
+
+h1 {
+    color: red;
+    font-weight: bold;
+}
+
+a {
+    color: aqua;
+    text-decoration: none;
+}
+
+column {
+    display: inline-block;
+}
+
+.picture {
+    width: 200px;
+    height: 100px;
+}
+
+.col-6 {
+    border-spacing: 1px;
+}
+
+.picture-row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-right: 20px;
+    padding-right: 30px;
+}
+
+.picture-container {
+    width: 30%;
+    margin-bottom: 30px;
+    position: relative;
+    padding-top: 40px;
+    margin-right: 120px;
+}
+
+.picture {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.div.text-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 70%;
+    background-color: #3b3f42;
+    padding-top: -5px;
+    text-align: right;
+    margin-right: 0px;
 }
