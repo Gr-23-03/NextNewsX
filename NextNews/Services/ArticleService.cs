@@ -64,7 +64,7 @@ namespace NextNews.Services
             return _context.Categories.ToList();
         }
 
-
+   
         //Add no. of likes
         public void AddLikes(int articleId, string userId)
         {
@@ -88,6 +88,7 @@ namespace NextNews.Services
 
         }
 
+
         public void IncreamentViews(Article article)
         {
             if (article.Views is null)
@@ -102,28 +103,7 @@ namespace NextNews.Services
 
         }
 
-        //// Retrieve the latest news as LatestNewsViewModel instances
-        //public async Task<IEnumerable<LatestNewsViewModel>> GetLatestNewsViewModels()
-        //{
-        //    // Retrieve the latest published articles
-        //    var latestPublishedArticles = _context.Articles
-        //        .OrderByDescending(article => article.DateStamp)
-        //        .Take(5)
-        //        .ToList();
-
-        //    // Convert articles to view models
-        //    var latestNewsViewModels = latestPublishedArticles
-        //        .Select(article => new LatestNewsViewModel
-        //        {
-        //            HeadLine = article.HeadLine,
-        //            ContentSummary = article.ContentSummary,
-        //            DateStamp = (DateTime)article.DateStamp
-        //        });
-
-        //    return latestNewsViewModels;
-        //}
-
-
+       
     }
 }
 
