@@ -12,8 +12,6 @@ namespace NextNews.Services
         public Task UpdateArticleAsync(Article article);
         public Task DeleteArticleAsync(int id);
         public List<Category> GetCategories();
-
-     //  Task<IEnumerable<LatestNewsViewModel>> GetLatestNewsViewModels();
         
     }
 }
