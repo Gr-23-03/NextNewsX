@@ -1,4 +1,5 @@
-﻿using NextNews.Models.Database;
+﻿using NextNews.Models;
+using NextNews.Models.Database;
 
 namespace NextNews.ViewModels
 {
@@ -6,8 +7,6 @@ namespace NextNews.ViewModels
     {
         public List<Article>? MostPopularArticles { get; set; }
 
-
-
-
+        public List<LatestNewsViewModel>? LatestArticles { get; set; }
     }
 }
