@@ -33,7 +33,6 @@ namespace NextNews.Controllers
         }
 
 
-
         [Authorize(Roles = "Admin")]
         public IActionResult ManageUsers()
         {
@@ -115,6 +114,7 @@ namespace NextNews.Controllers
             await _userService.DeleteUserAsync(id);
             return RedirectToAction(nameof(ManageUsers));
         }
+
 
 
 

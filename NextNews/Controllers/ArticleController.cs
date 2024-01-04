@@ -1,50 +1,96 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using NextNews.Models;
 using NextNews.Models.Database;
 using NextNews.Services;
+using Microsoft.AspNetCore.Identity;
 
 namespace NextNews.Controllers
 {
     public class ArticleController : Controller
     {
         private readonly IArticleService _articleService;
-        public ArticleController(IArticleService articleService) 
-        { 
+        private readonly IUserService _userService;
+        private readonly UserManager<User> _userManager;
+
+
+        public ArticleController(IArticleService articleService, IUserService userService, UserManager<User> userManager)
+        {
             _articleService = articleService;
+            _userService= userService;
+            _userManager = userManager;
         }
-
-
+       
 
         public IActionResult Index()
         {
             return RedirectToAction(nameof(ListArticles));
         }
 
+
+        // Latest articles
+        public ActionResult LatestArticles()
+        {
+            var latestArticles = _articleService.GetArticles().OrderByDescending(obj => obj.DateStamp).Take(5).ToList();
+            
+            List<LatestNewsViewModel> vmList = new List<LatestNewsViewModel>();
+
+            foreach (var item in latestArticles)
+            {
+                var vm = new LatestNewsViewModel()
+                {
+                    Id = item.Id,
+                    HeadLine = item.HeadLine,
+                    DateStamp = item.DateStamp,
+                    ContentSummary = item.ContentSummary
+                   
+                };
+
+                vmList.Add(vm);
+            }
+
+            return View(vmList);
+        }
+
+
         //Action for list of article
-        public IActionResult ListArticles() 
-        { 
-        var articles= _articleService.GetArticles();
+
+        public IActionResult ListArticles()
+        {
+            var articles = _articleService.GetArticles();
+
             return View(articles);
         }
 
         //Action to Add article
-        //[HttpPost]
 
+        [HttpPost]
         [Authorize(Roles = "Editor")]
         public IActionResult AddArticle( Article article) 
         {
-            if (ModelState.IsValid) 
-            { 
-            _articleService.AddArticle(article);
+
+            if (ModelState.IsValid)
+            {
+                _articleService.AddArticle(article);
+
                 return RedirectToAction("ListArticles");
             }
-        return  View("CreateArticle", article);
+
+            // If there is an error, repopulate the categories
+            var categories = _articleService.GetCategories();
+            ViewBag.Categories = new SelectList(categories, "Id", "Name");
+
+            return View("CreateArticle", article);
         }
 
 
         [Authorize(Roles = "Editor")]
         public IActionResult CreateArticle()
         {
+            var categories = _articleService.GetCategories();
+            ViewBag.Categories = new SelectList(categories, "Id", "Name");
+
             return View();
         }
 
@@ -64,9 +110,11 @@ namespace NextNews.Controllers
                 return NotFound();
             }
 
+            _articleService.IncreamentViews(article);
+
             return View(article);
         }
-
+         
 
         [Authorize(Roles = "Editor")]
         public async Task<IActionResult> Edit(int id)
@@ -122,6 +170,18 @@ namespace NextNews.Controllers
             return RedirectToAction(nameof(ListArticles));
         }
 
+        // Method to add likes
+        [Authorize]
+        public IActionResult Likes(int id, string returnUrl)
+        {
+            var userId = _userManager.GetUserId(User)!;
+            _articleService.AddLikes(id, userId);
 
+            return LocalRedirect(returnUrl);
+
+        }
+
+       
+       
     }
 }

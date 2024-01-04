@@ -15,6 +15,7 @@ namespace NextNews.Services
         private readonly UserManager<User> _userManager;
 
 
+
         public UserService(ApplicationDbContext context)
         {
             _context = context;
@@ -33,6 +34,7 @@ namespace NextNews.Services
         {
             return await _context.Users.ToListAsync();
         }
+
 
         public async Task<User> GetUserByIdAsync(string id)
         {
@@ -120,6 +122,12 @@ namespace NextNews.Services
 
 
 
+
+
+        public void GetUserForLike() 
+        {
+            _context.Users.ToList();
+        }
 
     }
 }
