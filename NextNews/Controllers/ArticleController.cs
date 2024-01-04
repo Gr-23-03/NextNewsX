@@ -29,6 +29,8 @@ namespace NextNews.Controllers
 
         //Action to Add article
         //[HttpPost]
+
+        [Authorize(Roles = "Editor")]
         public IActionResult AddArticle( Article article) 
         {
             if (ModelState.IsValid) 
@@ -39,12 +41,20 @@ namespace NextNews.Controllers
         return  View("CreateArticle", article);
         }
 
+
+        [Authorize(Roles = "Editor")]
         public IActionResult CreateArticle()
         {
             return View();
         }
 
+
+
+
+
         //details
+
+        [Authorize(Roles = "Editor")]
         public async Task<IActionResult> Details(int id)
         {
             var article = await _articleService.GetArticleByIdAsync(id);
@@ -58,7 +68,7 @@ namespace NextNews.Controllers
         }
 
 
-        [Authorize]
+        [Authorize(Roles = "Editor")]
         public async Task<IActionResult> Edit(int id)
         {
             var article = await _articleService.GetArticleByIdAsync(id);
@@ -73,7 +83,7 @@ namespace NextNews.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize] // Only authorized users can edit categories
+        [Authorize(Roles = "Editor")] // Only authorized users can edit categories
         public async Task<IActionResult> Edit(int id, [Bind("Id,DateStamp,LinkText,HeadLine,ContentSummary,Content,Views,Likes, ImageLink,AuthorName,CategoryId")] Article article)
         {
             if (id != article.Id)
@@ -90,7 +100,7 @@ namespace NextNews.Controllers
             return View(article);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Editor")]
         public async Task<IActionResult> Delete(int id)
         {
             var article = await _articleService.GetArticleByIdAsync(id);
@@ -105,7 +115,7 @@ namespace NextNews.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize]
+        [Authorize(Roles = "Editor")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await _articleService.DeleteArticleAsync(id);

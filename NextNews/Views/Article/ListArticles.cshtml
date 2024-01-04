@@ -9,81 +9,119 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.DateStamp)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LinkText)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HeadLine)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ContentSummary)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Content)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Views)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Likes)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageLink)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AuthorName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateStamp)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LinkText)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HeadLine)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ContentSummary)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Content)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Views)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Likes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageLink)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AuthorName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: white;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #333;
+            color: white;
+            font-weight: bold;
+        }
+
+        td {
+            background-color: #fff;
+        }
+
+            td a {
+                color: #007bff;
+                text-decoration: none;
+            }
+
+                td a:hover {
+                    text-decoration: underline;
+                }
+    </style>
+</head>
+
+
+<body>
+    <header>
+        <h1>@ViewData["Title"]</h1>
+    </header>
+    <table>
+        <thead>
+            <tr>
+                <th>Article ID</th>
+                <th>Author Name</th>
+                <th>Headline</th>
+                <th>Content Summary</th>
+                <th>Content</th>
+                <th>Date Stamp</th>
+                <th>Link Text</th>
+                <th>Image Link</th>
+                <th>Category ID</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var article in Model)
+            {
+                <tr>
+                    <td>@article.Id</td>
+                    <td>@article.AuthorName</td>
+                    <td>@article.HeadLine</td>
+                    <td>@article.ContentSummary</td>
+                    <td>@article.Content</td>
+                    <td>@article.DateStamp</td>
+                    <td>@article.LinkText</td>
+                    <td>@article.ImageLink</td>
+                    <td>@article.CategoryId</td>
+                    <td>
+                       
+                        <a asp-action="Edit" asp-controller="Article" asp-route-id="@article.Id">Edit</a> |
+                        <a asp-action="Delete" asp-controller="Article" asp-route-id="@article.Id">Delete</a>
+                        <a asp-action="Details" asp-controller="Article" asp-route-id="@article.Id">Details</a>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
