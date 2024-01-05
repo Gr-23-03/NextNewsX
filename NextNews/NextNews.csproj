@@ -18,4 +18,9 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Images\Subscription\" />
+    <Folder Include="wwwroot\images\Subscription\" />
+  </ItemGroup>
+
 </Project>

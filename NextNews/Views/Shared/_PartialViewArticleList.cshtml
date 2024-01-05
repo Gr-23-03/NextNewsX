@@ -92,12 +92,13 @@
  <div class="article-list">
     @foreach (var article in Model)
     {
+       
         <div class="article-item">
             <h2>@Html.DisplayFor(modelItem => article.DateStamp)</h2>
             <p>@Html.DisplayFor(modelItem => article.ContentSummary)</p>
                     <p>@Html.DisplayFor(modelItem => article.HeadLine)</P>
                     <p>@Html.DisplayFor(modelItem => article.LinkText)</p>
-                    <p>@Html.DisplayFor(modelItem => article.Content)</p>
+                    <p>@Html.Raw(article.Content)</p>
                     <p>@Html.DisplayFor(modelItem => article.Views)</p>
                     <p>@Html.DisplayFor(modelItem => article.Likes)</p>
                     <p>@Html.DisplayFor(modelItem => article.ImageLink)</p>
@@ -107,6 +108,7 @@
 
             <a href="@Url.Action("Details", "Articles", new { id = article.Id })">Read More</a>
         </div>
+        
     }
 </div>
  
