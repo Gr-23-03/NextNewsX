@@ -7,5 +7,10 @@
         public string? ContentSummary { get; set; }
         public DateTime? DateStamp { get; set; }
 
+
+        public string? ImageLink { get; set; }
+
+
+
     }
 }
