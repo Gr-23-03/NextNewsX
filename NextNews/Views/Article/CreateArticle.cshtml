@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form id="new-articles-form" asp-action="AddArticle" asp-controller="Article" method="post" >
+        <form id="new-articles-form" asp-action="AddArticle" asp-controller="Article" method="post">
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -24,6 +24,7 @@
                 <span asp-validation-for="LinkText" class="text-danger"></span>
             </div>
             <div class="form-group">
+
                 <label asp-for="HeadLine" class="control-label"></label>
                 <input asp-for="HeadLine" class="form-control" />
                 <span asp-validation-for="HeadLine" class="text-danger"></span>
@@ -35,8 +36,7 @@
             </div>
             <div class="form-group">
                 @* <input id="QuillEditor" asp-for="Content" class="control-label" type="hidden"/> *@
-                    <div id="quill-editor">
-                    </div>    
+                <div id="quill-editor"> </div>
                 @* <input asp-for="Content" class="form-control" />
                 <span asp-validation-for="Content" class="text-danger"></span> *@
             </div>
@@ -60,18 +60,18 @@
                 <input asp-for="AuthorName" class="form-control" />
                 <span asp-validation-for="AuthorName" class="text-danger"></span>
             </div>
-            
 
-           
+
+
             <div class="form-group">
                 <label asp-for="Category" class="control-label"></label>
                 @*  <input asp-for="Category" class="form-control"/> *@
                 <span asp-validation-for="CategoryId" class="text-danger"></span>
-                <select asp-for="CategoryId" class ="form-control" asp-items="@ViewBag.Categories as SelectList"></select>
-               
+                <select asp-for="CategoryId" class="form-control" asp-items="@ViewBag.Categories as SelectList"></select>
+
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary"/>
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -84,5 +84,7 @@
 
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
