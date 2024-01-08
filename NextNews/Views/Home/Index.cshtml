@@ -4,10 +4,55 @@
     ViewData["Title"] = "Home Page";
 }
 
+@* <div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 
-<partial name="_CarouselPartialView" model="Model.LatestArticles" />
+</div> *@
 
-<partial name="_PartialViewArticleList" model="Model.MostPopularArticles"></partial>
+
+<partial name="_CarouselPartialView" model="Model.LatestArticles"></partial>
+
+@* <partial name="_PartialViewArticleList" model="Model.MostPopularArticles"></partial> *@
+
+<div class="row">
+    @* vänstra kolumnen *@
+    <div class="col-9" style="border: 1px solid gray">
+        <img class="img-on-HomeIndex" src="@Model.MostPopularArticle.ImageLink" alt="Article Image" style="width:100%">
+        <h1>@Model.MostPopularArticle.HeadLine</h1>
+        <h5>@Model.MostPopularArticle.ContentSummary</h5>
+    </div>
+
+    @* högra kolumnen *@
+    <div class="col-3">
+
+        <h2 style="color: black">Latest News</h2>
+        @foreach (var news in Model.LatestArticles)
+        {
+            <div>
+
+                <div class="article-image">
+                    <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article Image" style="width:100%">
+                </div>
+
+                <div class="latest-news-headline">
+                    <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
+                        @news.HeadLine
+                    </a>
+                </div>
+
+                <div class="latest-news-item mb-4">
+                </div>
+                <p class="latest-news-summary">@news.ContentSummary</p>
+                <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
+            </div>
+
+        
+        }
+    </div>
+</div>
+
+
 
 
 

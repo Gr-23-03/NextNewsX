@@ -95,9 +95,6 @@ namespace NextNews.Controllers
         }
 
 
-
-
-
         //details
 
         [Authorize(Roles = "Editor")]
