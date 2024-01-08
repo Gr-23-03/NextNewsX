@@ -10,10 +10,7 @@
 
 </div> *@
 
-
 <partial name="_CarouselPartialView" model="Model.LatestArticles"></partial>
-
-@* <partial name="_PartialViewArticleList" model="Model.MostPopularArticles"></partial> *@
 
 <div class="row">
     @* vänstra kolumnen *@
@@ -46,12 +43,10 @@
                 <p class="latest-news-summary">@news.ContentSummary</p>
                 <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
             </div>
-
-        
+   
         }
     </div>
 </div>
-
 
 
 

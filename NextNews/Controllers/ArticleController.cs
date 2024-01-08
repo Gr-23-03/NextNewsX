@@ -70,6 +70,8 @@ namespace NextNews.Controllers
         public IActionResult AddArticle( Article article) 
         {
 
+
+
             if (ModelState.IsValid)
             {
                 _articleService.AddArticle(article);
@@ -169,6 +171,7 @@ namespace NextNews.Controllers
 
         // Method to add likes
         [Authorize]
+        
         public IActionResult Likes(int id, string returnUrl)
         {
             var userId = _userManager.GetUserId(User)!;
