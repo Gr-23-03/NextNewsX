@@ -369,6 +369,78 @@ namespace NextNews.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("NextNews.Models.LatestNewsViewModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ContentSummary")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DateStamp")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("HeadLine")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("LatestNewsViewModel");
+                });
+
+            modelBuilder.Entity("NextNews.ViewModels.AdminUserVM", b =>
+                {
+                    b.Property<string>("ID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("DateofBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("AdminUserVM");
+                });
+
+            modelBuilder.Entity("NextNews.ViewModels.RolesVM", b =>
+                {
+                    b.Property<int>("RoleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleId"));
+
+                    b.Property<string>("AdminUserVMID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("Ischecked")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("RoleName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RoleId");
+
+                    b.HasIndex("AdminUserVMID");
+
+                    b.ToTable("RolesVM");
+                });
+
             modelBuilder.Entity("ArticleUser", b =>
                 {
                     b.HasOne("NextNews.Models.Database.Article", null)
@@ -459,6 +531,13 @@ namespace NextNews.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("NextNews.ViewModels.RolesVM", b =>
+                {
+                    b.HasOne("NextNews.ViewModels.AdminUserVM", null)
+                        .WithMany("Roles")
+                        .HasForeignKey("AdminUserVMID");
+                });
+
             modelBuilder.Entity("NextNews.Models.Database.Category", b =>
                 {
                     b.Navigation("Articles");
@@ -472,6 +551,11 @@ namespace NextNews.Data.Migrations
             modelBuilder.Entity("NextNews.Models.Database.User", b =>
                 {
                     b.Navigation("Subscriptions");
+                });
+
+            modelBuilder.Entity("NextNews.ViewModels.AdminUserVM", b =>
+                {
+                    b.Navigation("Roles");
                 });
 #pragma warning restore 612, 618
         }

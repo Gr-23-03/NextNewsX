@@ -2,7 +2,7 @@
 
 
 <!-- Grid container -->
-<div class="text-center lh-1 text-white" style="background-color: #0000cc">
+<div class="text-center lh-1 text-white" style="background-color: black">
     <!-- Section: Links -->
     <!--Grid row-->
     <div class="row">
@@ -33,10 +33,13 @@
             <a asp-area="Identity" asp-page="/Account/Login" target="_blank" class="text-decoration-none text-white">
                 <h6 class="text-white mb-0">Login</h6>
             </a>
-
             <h6 class="text-white mb-0" style="line-height: 1.5;">Free Subscription</h6>
+            <a asp-action="index" asp-controller="Subscription" target="_blank" class="text-decoration-none text-white">
+                <h6 class="text-white mb-0" style="line-height: 1.5;">Paid Susbscription and Prices</h6>
+            </a>
+           
 
-            <h6 class="text-white mb-0" style="line-height: 1.5;">Paid Susbscription and Prices</h6>
+           
 
             <h6 style="line-height: 1.5;"><a asp-area="" asp-controller="Home" asp-action="Privacy" target="_blank" class="text-decoration-none text-white">Privacy</a></h6>
 
@@ -61,7 +64,7 @@
             <!-- Copyright -->
             <div>
                 © 2023 Copyright:
-                <a class="text-white">NextNews.com</a>
+               <a asp-area="" asp-controller="Home" asp-action="Index" target="_blank" class="text-decoration-none text-white">NextNews.com</a>
             </div>
             <!-- Copyright -->
         </div>
@@ -69,23 +72,23 @@
         <!-- Grid column -->
         <div class="col-12 col-sm-6 col-md-4 @* text-center text-md-end *@">
             <!-- Facebook -->
-            <a class="btn btn-outline-light btn-floating m-1 text-white" role="button">
+            <a href="https://www.facebook.com/lexiconab" class="btn btn-outline-light btn-floating m-0 text-white" role="button">
                 <i class="bi bi-facebook"></i>
             </a>
 
-            <!-- Twitter -->
-            <a class="btn btn-outline-light btn-floating m-1 text-white" role="button">
-                <i class="bi bi-twitter-x"></i>
-            </a>
+            @* <!-- Youtube -->
+            <a class="btn btn-outline-light btn-floating m-0 text-white" role="button">
+                <i class="bi bi-youtube"></i>
+            </a> *@
 
             <!-- Google -->
-            <a class="btn btn-outline-light btn-floating m-1 text-white" role="button">
+            <a href="https://www.lexicon.se/" class="btn btn-outline-light btn-floating m-0 text-white" role="button">
                 <i class="bi bi-google"></i>
             </a>
 
-            <!-- Instagram -->
-            <a class="btn btn-outline-light btn-floating m-1 text-white" role="button">
-                <i class="bi bi-instagram"></i>
+            <!-- LinkedIn -->
+            <a href="https://www.linkedin.com/company/lexicon/" class="btn btn-outline-light btn-floating m-0 text-white" role="button">
+                <i class="bi bi-linkedin"></i>
             </a>
         </div>
         <!-- Grid column -->
