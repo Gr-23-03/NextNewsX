@@ -91,6 +91,8 @@ namespace NextNews.Services
                 existingUser.FirstName = user.FirstName;
                 existingUser.LastName = user.LastName;
                 existingUser.DateofBirth = user.DateofBirth;
+                existingUser.PhoneNumber= user.PhoneNumber;
+                existingUser.Email=user.Email;
               
 
                 // Save changes using UserManager
@@ -109,17 +111,29 @@ namespace NextNews.Services
 
         public async Task DeleteUserAsync(string id)
         {
-            var users = await _context.Users.FindAsync(id);
-
-            if (users != null)
+            try
             {
-                _context.Users.Remove(users);
-                await _context.SaveChangesAsync();
+                var users = await _context.Users.FindAsync(id);
+
+                if (users != null)
+                {
+                    _context.Users.Remove(users);
+                    await _context.SaveChangesAsync();
+                }
+
+
             }
+
+            catch (Exception ex)
+            {
+                
+                throw;
+
+
+            }
+
+
         }
-
-
-
 
 
 
