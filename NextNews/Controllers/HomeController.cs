@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using NextNews.Models;
+using NextNews.Models.Database;
 using NextNews.Services;
 using NextNews.ViewModels;
 using System.Diagnostics;
@@ -19,13 +20,28 @@ namespace NextNews.Controllers
             _userService = userService;
             _articleService = articleService;
         }
-       
+
+        //public IActionResult Index()
+        //{
+        //    var users = _userService.GetUsers();
+        //    _logger.LogInformation("Hello!");
+        //    return View();
+        //}
+
+
+
+        /* Most popular articles
+           Latest articles */
         public IActionResult Index()
         {
+            List<Article> allArticles = _articleService.GetArticles().ToList();
+
             var vm = new HomeIndexVM()
             {
-                MostPopularArticles = _articleService.GetArticles(),
-                LatestArticles = _articleService.GetArticles()
+                MostPopularArticle = allArticles.OrderByDescending(a => a.Views).FirstOrDefault(),
+                MostPopularArticles = allArticles.OrderByDescending(a => a.Views).ToList(),
+                LatestArticle = allArticles.OrderByDescending(obj => obj.DateStamp).FirstOrDefault(),
+                LatestArticles = allArticles
                     .OrderByDescending(obj => obj.DateStamp)
                     .Take(5)
                     .Select(obj => new LatestNewsViewModel()
@@ -33,7 +49,8 @@ namespace NextNews.Controllers
                         Id = obj.Id,
                         HeadLine = obj.HeadLine,
                         DateStamp = obj.DateStamp,
-                        ContentSummary = obj.ContentSummary
+                        ContentSummary = obj.ContentSummary,
+                        ImageLink = obj.ImageLink,
                     }).ToList()
             };
 

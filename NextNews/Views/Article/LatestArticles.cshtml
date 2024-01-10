@@ -5,7 +5,9 @@
 }
 
 <h1>LatestArticles</h1>
-<partial name="_LatestNewsPartialView" model="Model"/>
+ <partial name="_LatestNewsPartialView" model="Model"/>
+
+
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -36,11 +38,22 @@
             <td>
                 @Html.DisplayFor(modelItem => item.DateStamp)
             </td>
+               @*  <td>
+                    @Html.DisplayFor(modelItem => item.ImageLink)
+                </td>
+ *@
+
+
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
+
+                @* <div class=" = col-3">
+                    <img src="@item.ImageLink" style="width:300px; height:300px" . />
+
+                </div> *@
         </tr>
 }
     </tbody>
