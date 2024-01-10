@@ -26,7 +26,9 @@ body {
     display: inline-block;
 }
 
-
+.nav-item:hover {
+    color: red;
+}
 
 .dropdown-menu a {
     color: white;
@@ -43,6 +45,7 @@ body {
         background-color: #3b3f42;
         text-decoration: underline;
         color: red;
+
     }
 
 .dropdown:hover .dropdown-menu {
@@ -55,7 +58,7 @@ body {
 
 
 .dropdown-menu { /* From here design the dropdown*/
-    padding-left: 200px;
+    padding-left: 225px;
     padding-top: 45px;
     display: none;
     position: absolute;
