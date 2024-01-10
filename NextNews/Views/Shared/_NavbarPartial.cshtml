@@ -1,8 +1,11 @@
 ﻿
 <nav class="navbar navbar-light bg-white">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-            <img src="~/images/NEXT.gif" style="height: 130px" asp-controller="Home" />&nbsp;&nbsp;&nbsp;
+
+        <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+            <img src="~/images/NEXT.gif" style="height: 130px" />&nbsp;&nbsp;&nbsp;
+
+
         </a>
     </div>
 </nav>
@@ -33,9 +36,10 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
 
-                    <a class="nav-link active" aria-current="page" style="color:red; font-weight:bold" asp-controller="Home" asp-action="Index">Home</a>
+                <li class="nav-item dropdown"> 
+                    <a class="nav-link dropdown" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 
-                   
+                    <a class="nav-link active" aria-current="page" style="color:red; font-weight:bold" asp-controller="Home" asp-action="Index">Home</a>
 
                 </li>
 
