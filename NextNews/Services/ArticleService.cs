@@ -7,6 +7,9 @@ using NextNews.Models.Database;
 using SQLitePCL;
 using System.Diagnostics.Metrics;
 using System.Linq;
+using System.Collections.Generic;
+
+
 
 namespace NextNews.Services
 {
@@ -88,7 +91,7 @@ namespace NextNews.Services
 
         }
 
-
+        
         public void IncreamentViews(Article article)
         {
             if (article.Views is null)
@@ -102,8 +105,12 @@ namespace NextNews.Services
             _context.SaveChanges();
 
         }
+        public IEnumerable<Article> GetArticlesByCategory(int categoryId)
+        {
+            return _context.Articles.Where(a => a.CategoryId == categoryId).ToList();
+        }
 
-       
+
     }
 }
 

@@ -7,19 +7,18 @@
     <!--Grid row-->
     <div class="row">
         <!-- Grid column -->
-        <div class="col-12 col-sm-6 col-md-4 align-items-center lh-1">
-            <h6 class="font-weight-bold mb-0" style="font-size: 20px;">
-                <a asp-area="" asp-controller="Home" asp-action="Index" target="_blank" class="text-decoration-none text-white">NextNews.com</a>
+        <div class="col-12 col-sm-6 col-md-4 align-items-center">
+            <h6 class="font-weight-bold mb-0" style="font-size: 18px;">
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="text-decoration-none text-white" style="margin-bottom = 0px;">NextNews.com</a>
             </h6>
-            <p class="lh-sm mb-0">
+            <p class="lh-sm m-0">
                 Giving you information for your tomorrow
             </p>
             <ul class="list-unstyled d-flex flex-column gap-1">
                 @foreach (var item in Model)
                 {
                     <li >
-                        <a href="#" class="text-decoration-none text-white">@item.Name</a>
-                        
+                        <a class="text-decoration-none text-white" asp-controller="CategoriesView" asp-action="ArticlesByCategories" asp-route-categoryId="@item.Id">@item.Name</a>
                     </li>
                 }
             </ul>
