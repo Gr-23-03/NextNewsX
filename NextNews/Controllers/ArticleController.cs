@@ -5,6 +5,8 @@ using NextNews.Models;
 using NextNews.Models.Database;
 using NextNews.Services;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using NextNews.ViewModels;
 
 namespace NextNews.Controllers
 {
@@ -18,10 +20,10 @@ namespace NextNews.Controllers
         public ArticleController(IArticleService articleService, IUserService userService, UserManager<User> userManager)
         {
             _articleService = articleService;
-            _userService= userService;
+            _userService = userService;
             _userManager = userManager;
         }
-       
+
 
         public IActionResult Index()
         {
@@ -33,7 +35,7 @@ namespace NextNews.Controllers
         public ActionResult LatestArticles()
         {
             var latestArticles = _articleService.GetArticles().OrderByDescending(obj => obj.DateStamp).Take(5).ToList();
-            
+
             List<LatestNewsViewModel> vmList = new List<LatestNewsViewModel>();
 
             foreach (var item in latestArticles)
@@ -44,7 +46,7 @@ namespace NextNews.Controllers
                     HeadLine = item.HeadLine,
                     DateStamp = item.DateStamp,
                     ContentSummary = item.ContentSummary
-                   
+
                 };
 
                 vmList.Add(vm);
@@ -67,7 +69,7 @@ namespace NextNews.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Editor")]
-        public IActionResult AddArticle( Article article) 
+        public IActionResult AddArticle(Article article)
         {
 
 
@@ -97,16 +99,13 @@ namespace NextNews.Controllers
         }
 
 
-
-
-
         //details
 
         [Authorize(Roles = "Editor")]
         public async Task<IActionResult> Details(int id)
         {
             var article = await _articleService.GetArticleByIdAsync(id);
-
+           
             if (article == null)
             {
                 return NotFound();
@@ -114,9 +113,19 @@ namespace NextNews.Controllers
 
             _articleService.IncreamentViews(article);
 
+            //// Check if the current user has liked the article
+            //var userId = _userManager.GetUserId(User);
+            //var userHasLiked = article.UsersLiked.Any(u => u.Id == userId);
+
+            //// Create a view model
+            //var viewModel = new ArticleDetailsViewModel
+            //{
+            //    Article = article,
+            //    IsLikedByUser = userHasLiked
+            //};
             return View(article);
         }
-         
+
 
         [Authorize(Roles = "Editor")]
         public async Task<IActionResult> Edit(int id)
@@ -180,7 +189,7 @@ namespace NextNews.Controllers
             var userId = _userManager.GetUserId(User)!;
             _articleService.AddLikes(id, userId);
 
-            return LocalRedirect(returnUrl);
+            return Json(new { success = true, message = "Action performed successfully" });
 
         }
 

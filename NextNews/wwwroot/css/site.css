@@ -8,9 +8,7 @@ html {
     }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
+
 
 html {
     position: relative;
@@ -23,33 +21,31 @@ body {
 }
 
 
-.btn btn-dropdown {
-    background-color: white;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-}
-
 .dropdown {
     position: relative;
     display: inline-block;
 }
 
-
+.nav-item:hover {
+    color: red;
+}
 
 .dropdown-menu a {
     color: white;
     padding: 12px 16px;
     text-decoration: none;
-    display: block;
-    padding: 0px;
-    margin-left: 0px;
-    margin-right: 0px;
+    display:inline-block;
+
+   
+    
+
 }
 
     .dropdown-menu a:hover {
-        background-color: #ddd;
+        background-color: #3b3f42;
+        text-decoration: underline;
+        color: red;
+
     }
 
 .dropdown:hover .dropdown-menu {
@@ -60,22 +56,38 @@ body {
     background-color: white;
 }
 
-div .dropdown-menu { /* From here design the dropdown*/
-    margin-left: -70px;
-    margin-right: 20px;
-    padding-right: 25PX;
+
+.dropdown-menu { /* From here design the dropdown*/
+    padding-left: 225px;
+    padding-top: 45px;
     display: none;
     position: absolute;
     background-color: #3b3f42;
-    min-width: 1300px;
-    min-height: 500px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    color: white;
+    min-width: 800px;
+    min-height: 400px;
+    margin-left: -298px;
+    padding-right: 868px;
+    /*box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);*/
+    color: white !important;
+}
+ .dropdown-menu .dropdown-item {
+        
+    font-weight: bold;
+    font-size: 16px; /* Adjust the font size as needed */
+    }
+
+/* Apply styles to the main dropdown links */
+.nav-item.dropdown .nav-link.dropdown {
+    color: black;
+    font-weight: bold;
 }
 
-div.collapse {
-    justify-content: center;
+a {
+    font-weight: bold;
+    color: black;
 }
+
+
 
 h2 {
     color: red;
@@ -84,10 +96,13 @@ h2 {
 }
 
 h1, p, img {
-    margin: 20px;
+/*    margin: 20px;
     margin-left: 60px;
     margin-top: 20px;
-}
+*/}
+
+
+
 
 h1 {
     color: red;
@@ -143,13 +158,16 @@ column {
     padding-top: -5px;
     text-align: right;
     margin-right: 0px;
-=======
-
   margin-bottom: 10px;
 }
-=======
-  margin-bottom: 60px;
+
+
+.img-on-HomeIndex{
+    margin: 15px;
+    border-radius: 10px;
+
 }
+
 
 /*Latest News*/
 .news-carousel {
@@ -162,11 +180,11 @@ column {
 }
 
 .latest-news-item {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    /*display: flex;
+    flex-direction: column;*/
+    /*justify-content: center;*/
     align-items: center;
-    height: 100px;
+    /*height: 200px;*/
     margin-bottom: 20px;
 }
 
@@ -175,7 +193,7 @@ column {
 }
 
 .latest-news-headline {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
 }
 

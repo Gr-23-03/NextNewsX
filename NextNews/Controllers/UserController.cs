@@ -43,7 +43,7 @@ namespace NextNews.Controllers
         }
 
 
-
+/*
 
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditUser(string id)
@@ -65,33 +65,63 @@ namespace NextNews.Controllers
             }
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
+        //[HttpPost]
+        //public async Task<IActionResult> EditUser(User user)
+        //{
+        //    try
+        //    {
+        //        user.NormalizedEmail = user.Email.ToUpper();
+        //        user.UserName = user.Email.ToUpper();
+        //        user.NormalizedUserName = user.UserName.ToUpper();
+
+
+        //        if (ModelState.IsValid)
+        //        {
+        //            await _userService.UpdateUserAsync(user);
+        //            return RedirectToAction("ManageUsers");
+        //        }
+        //        else
+        //        {
+        //            return View("edituser", user);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        return View("Error");
+        //    }
+        //}
+
+
+
         [HttpPost]
-        public async Task<IActionResult> EditUser(User user)
+      
+        [Authorize(Roles = "Admin")] // Only authorized users can edit categories
+        public async Task<IActionResult> Edit(string id, [Bind("Id,FirstName,LastName,DateofBirth,PhoneNumber,Email")] User user)
         {
-            try
+            if (id != user.Id)
             {
-                user.NormalizedEmail = user.Email.ToUpper();
-                user.UserName = user.Email.ToUpper();
-                user.NormalizedUserName = user.UserName.ToUpper();
-
-
-                if (ModelState.IsValid)
-                {
-                    await _userService.UpdateUserAsync(user);
-                    return RedirectToAction("ManageUsers");
-                }
-                else
-                {
-                    return View("edituser", user);
-                }
+                return NotFound();
             }
-            catch (Exception ex)
+
+            if (ModelState.IsValid)
             {
-                
-                return View("Error");
+                await _userService.UpdateUserAsync(user);
+                return RedirectToAction(nameof(ManageUsers));
             }
+
+            return View(user);
         }
+        */
+
+
+
+
+        */
+
+
+
 
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteUser(string id)
@@ -106,16 +136,22 @@ namespace NextNews.Controllers
             return View(user);
         }
 
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+
+        [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             await _userService.DeleteUserAsync(id);
             return RedirectToAction(nameof(ManageUsers));
+           
         }
 
-
+        [Authorize(Roles = "Admin")]
+        public IActionResult DeleteConfirmed()
+        {
+            
+            return View();
+        }
 
 
 
