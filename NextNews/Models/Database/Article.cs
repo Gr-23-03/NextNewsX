@@ -34,6 +34,6 @@ namespace NextNews.Models.Database
         [ForeignKey("CategoryId")]
         public Category? Category { get; set; }
         public ICollection<User>? UsersLiked { get; set; }
-       
+
     }
 }

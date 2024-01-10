@@ -47,3 +47,4 @@ form.onsubmit = function () {
     input.value = quillContent;
     form.appendChild(input);
 };
+

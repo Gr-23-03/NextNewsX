@@ -1,7 +1,16 @@
-﻿@model NextNews.Models.Database.Article
+﻿@using Microsoft.AspNetCore.Identity
+@using NextNews.Models.Database
+@using NextNews.Services
+@model NextNews.Models.Database.Article
+
+@inject UserManager<User> _userManager
+@inject IArticleService _articleService
+@inject IUserService _userService
 
 @{
     ViewData["Title"] = "Details";
+    
+
 }
 
 <h1>Details</h1>
@@ -72,25 +81,47 @@
         </dd>
     </dl>
 </div>
-<div>
-  
-    <a class="btn btn-success" id="likeButton" asp-action="Likes" asp-controller="Article" asp-route-id="@Model.Id" asp-route-returnUrl="/Article/Details/@Model.Id">Like</a>
 
+
+
+<div>
+    
+
+    <a class="btn btn-success" id="likeButton" data-id="@Model.Id" asp-action="Likes" asp-controller="Article" >Like</a>
    
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> 
     <a asp-action="Index">Back to List</a>
 </div>
 
+<script>
+    var isLiked = false; // Initialize the flag
 
-    <script>
-        document.getElementById('likeButton').addEventListener('click', function () {
-            var button = document.getElementById('likeButton');
-            if (button.innerHTML === 'Like') {
-                button.innerHTML = 'Unlike';
-                // Additional logic for when the article is liked
-            } else {
-                button.innerHTML = 'Like';
-                // Additional logic for when the article is unliked
-            }
-        });
-    </script>
+    var likeButton = document.getElementById('likeButton');
+    likeButton.addEventListener('click', function (event) {
+        event.preventDefault(); // Prevent the default form submission behavior
+        var articleId = this.getAttribute('data-id'); // Get article ID
+
+        fetch('/Article/Likes?id=' + articleId,
+            {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                likeButton.innerHTML = isLiked ? 'Like' : 'Unlike';
+                isLiked = !isLiked;
+            })
+            .catch(error => console.error('Error:', error));
+
+        // if (isLiked) {
+        //     likeButton.innerHTML = 'Like';
+        //     // Additional logic for when the article is unliked
+        // } else {
+        //     likeButton.innerHTML = 'Unlike';
+        //     // Additional logic for when the article is liked
+        // }
+
+        // isLiked = !isLiked; // Toggle the flag
+    });
+</script>
+
