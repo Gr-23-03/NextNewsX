@@ -43,7 +43,7 @@ namespace NextNews.Controllers
         }
 
 
-
+/*
 
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditUser(string id)
@@ -92,6 +92,10 @@ namespace NextNews.Controllers
                 return View("Error");
             }
         }
+        */
+
+
+
 
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteUser(string id)
