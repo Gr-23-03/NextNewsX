@@ -32,9 +32,9 @@
             <a asp-area="Identity" asp-page="/Account/Login" target="_blank" class="text-decoration-none text-white">
                 <h6 class="text-white mb-0">Login</h6>
             </a>
-            <h6 class="text-white mb-0" style="line-height: 1.5;">Free Subscription</h6>
+            @* <h6 class="text-white mb-0" style="line-height: 1.5;">Free Subscription</h6> *@
             <a asp-action="index" asp-controller="Subscription" target="_blank" class="text-decoration-none text-white">
-                <h6 class="text-white mb-0" style="line-height: 1.5;">Paid Susbscription and Prices</h6>
+                <h6 class="text-white mb-0" style="line-height: 1.5;">Susbscriptions</h6>
             </a>
            
 
@@ -52,14 +52,12 @@
             <h6><i class="bi bi-telephone-fill mr-0"></i> Redaction: +46 13 21 01 90</h6>
             <h6><i class="bi bi-whatsapp mr-0"></i> Anonimous tips: +46 70 449 75 23</h6>
         </div>
-        <!-- Grid column -->
+        
     </div>
-    <!--Grid row-->
-    <!-- Section: Copyright -->
-
-    <div class="d-flex align-items-center">
+    
+    <div class="d-flex  col-12 col-md-4 text-md-start text-white">
         <!-- Grid column -->
-        <div class="col-12 col-md-4 text-center text-md-start text-white">
+        <div class="align-items-center">
             <!-- Copyright -->
             <div>
                 © 2023 Copyright:
@@ -69,7 +67,7 @@
         </div>
         <!-- Grid column -->
         <!-- Grid column -->
-        <div class="col-12 col-sm-6 col-md-4 @* text-center text-md-end *@">
+        <div class="align-content-center" style="align-content: center;">
             <!-- Facebook -->
             <a href="https://www.facebook.com/lexiconab" class="btn btn-outline-light btn-floating m-0 text-white" role="button">
                 <i class="bi bi-facebook"></i>
