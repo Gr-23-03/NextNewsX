@@ -24,16 +24,21 @@ namespace NextNews.Controllers
         {
             var vm = new HomeIndexVM()
             {
-                MostPopularArticles = _articleService.GetArticles(),
+
+                PopularArticles = _articleService.GetArticles()
+                     .OrderByDescending(a => a.Views)
+                     .Take(5)
+                     .ToList(),
                 LatestArticles = _articleService.GetArticles()
                     .OrderByDescending(obj => obj.DateStamp)
                     .Take(5)
-                    .Select(obj => new LatestNewsViewModel()
+                    .Select(obj => new PopularNewsViewModel()
                     {
                         Id = obj.Id,
                         HeadLine = obj.HeadLine,
                         DateStamp = obj.DateStamp,
-                        ContentSummary = obj.ContentSummary
+                        ContentSummary = obj.ContentSummary,
+                        ImageLink = obj.ImageLink,
                     }).ToList()
             };
 

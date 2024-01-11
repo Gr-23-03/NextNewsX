@@ -22,7 +22,7 @@ namespace NextNews.Data
         public DbSet<SubscriptionType> SubscriptionTypes { get; set; } 
 
         public DbSet<AdminUserVM> AdminUserVM { get; set; } = default!;
-        public DbSet<NextNews.Models.LatestNewsViewModel> LatestNewsViewModel { get; set; } = default!;
+        public DbSet<NextNews.Models.PopularNewsViewModel> LatestNewsViewModel { get; set; } = default!;
 
     }
 }

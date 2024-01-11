@@ -34,11 +34,11 @@ namespace NextNews.Controllers
         {
             var latestArticles = _articleService.GetArticles().OrderByDescending(obj => obj.DateStamp).Take(5).ToList();
             
-            List<LatestNewsViewModel> vmList = new List<LatestNewsViewModel>();
+            List<PopularNewsViewModel> vmList = new List<PopularNewsViewModel>();
 
             foreach (var item in latestArticles)
             {
-                var vm = new LatestNewsViewModel()
+                var vm = new PopularNewsViewModel()
                 {
                     Id = item.Id,
                     HeadLine = item.HeadLine,

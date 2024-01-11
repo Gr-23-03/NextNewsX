@@ -5,8 +5,11 @@ namespace NextNews.ViewModels
 {
     public class HomeIndexVM
     {
-        public List<Article>? MostPopularArticles { get; set; }
+        public List<Article>? PopularArticles { get; set; }
 
-        public List<LatestNewsViewModel>? LatestArticles { get; set; }
-    }
+        public List<PopularNewsViewModel>? LatestArticles { get; set; }
+
+
+
+    }        
 }

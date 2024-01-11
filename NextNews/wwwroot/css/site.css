@@ -78,21 +78,21 @@ div.collapse {
 }
 
 h2 {
-    color: red;
+/*    color: red;
     margin-left: 60px;
     margin-top: 20px;
-}
+*/}
 
 h1, p, img {
-    margin: 20px;
+/*    margin: 20px;
     margin-left: 60px;
     margin-top: 20px;
-}
+*/}
 
 h1 {
-    color: red;
+/*    color: red;
     font-weight: bold;
-}
+*/}
 
 a {
     color: aqua;
