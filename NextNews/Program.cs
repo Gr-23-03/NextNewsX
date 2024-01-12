@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
@@ -55,6 +56,7 @@ namespace NextNews
             builder.Services.AddScoped<IArticleService, ArticleService>();
             builder.Services.AddScoped<ICategoryService,CategoryService>();
             builder.Services.AddScoped<IRoleManagementService, RoleManagementService>();
+            builder.Services.AddScoped<IStatisticService, StatisticService>();
             builder.Services.AddScoped<SeedData>();
 
 
@@ -117,6 +119,9 @@ namespace NextNews
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
             app.MapRazorPages();
+
+          
+
 
             app.Run();
         }
