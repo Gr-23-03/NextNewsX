@@ -1,65 +1,62 @@
-﻿@model IEnumerable<NextNews.ViewModels.AdminUserVM>
-
-@{
-    ViewData["Title"] = "Index";
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
 }
 
-<h1>Index</h1>
+<h1>Admin Dashboard</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateofBirth)
-            </th>
-           @*  <th>
-                @Html.DisplayNameFor(model => model.Password)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ConfirmPassword)
-            </th> *@
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateofBirth)
-            </td>
-            @* <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ConfirmPassword)
-            </td> *@
-            <td>
-                    <a asp-action="EditUser" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">User Statistics</h5>
+                    <canvas id="userChart" width="400" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Article Statistics</h5>
+                    <canvas id="articleChart" width="400" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var userCount = @ViewData["UserCount"];
+            var articleCount = @ViewData["ArticleCount"];
+
+            var userChart = new Chart(document.getElementById('userChart').getContext('2d'), {
+                type: 'pie',
+                data: {
+                    labels: ['Users'],
+                    datasets: [{
+                        data: [userCount],
+                        backgroundColor: ['rgba(75, 192, 192, 0.2)'],
+                        borderColor: ['rgba(75, 192, 192, 1)'],
+                        borderWidth: 1
+                    }]
+                }
+            });
+
+            var articleChart = new Chart(document.getElementById('articleChart').getContext('2d'), {
+                type: 'pie',
+                data: {
+                    labels: ['Articles'],
+                    datasets: [{
+                        data: [articleCount],
+                        backgroundColor: ['rgba(255, 99, 132, 0.2)'],
+                        borderColor: ['rgba(255, 99, 132, 1)'],
+                        borderWidth: 1
+                    }]
+                }
+            });
+        });
+    </script>
 }
-    </tbody>
-</table>
