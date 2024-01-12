@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.ComponentModel.DataAnnotations;
+using System.Security.AccessControl;
 
 namespace NextNews.Models.Database
 {
@@ -10,7 +12,9 @@ namespace NextNews.Models.Database
         [Display(Name = "Category Name : ")]
         public string? Name { get; set; }
 
-        public  ICollection<Article>? Articles {  get; set; }    
+        public string? PictureUrl { get; set; }
 
+        public ICollection<Article>? Articles {  get; set; }    
+        
     }
 }

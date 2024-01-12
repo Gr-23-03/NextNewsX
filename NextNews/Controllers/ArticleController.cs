@@ -7,6 +7,10 @@ using NextNews.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using NextNews.ViewModels;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace NextNews.Controllers
 {
@@ -15,13 +19,15 @@ namespace NextNews.Controllers
         private readonly IArticleService _articleService;
         private readonly IUserService _userService;
         private readonly UserManager<User> _userManager;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
 
-        public ArticleController(IArticleService articleService, IUserService userService, UserManager<User> userManager)
+        public ArticleController(IArticleService articleService, IUserService userService, UserManager<User> userManager, IWebHostEnvironment webHostEnvironment)
         {
             _articleService = articleService;
             _userService = userService;
             _userManager = userManager;
+            _webHostEnvironment = webHostEnvironment;
         }
 
 
@@ -71,11 +77,26 @@ namespace NextNews.Controllers
         [Authorize(Roles = "Editor")]
         public IActionResult AddArticle(Article article)
         {
-
-
-
             if (ModelState.IsValid)
             {
+                // Check if an image file is uploaded
+                if (article.ImageFile != null && article.ImageFile.Length > 0)
+                {
+                    // Process the uploaded file, save it to the server, and set the ImageLink property
+                    // This is just a basic example, you might want to implement more robust file handling
+                    // For simplicity, I'm assuming you have an Images folder in your wwwroot directory
+                    var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "Images");
+                    var uniqueFileName = Guid.NewGuid().ToString() + "_" + article.ImageFile.FileName;
+                    var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        article.ImageFile.CopyTo(fileStream);
+                    }
+
+                    article.ImageLink = "/Images/" + uniqueFileName; // Update the ImageLink property with the file path
+                }
+
                 _articleService.AddArticle(article);
 
                 return RedirectToAction("ListArticles");
@@ -191,9 +212,7 @@ namespace NextNews.Controllers
 
             return Json(new { success = true, message = "Action performed successfully" });
 
-        }
-
-       
+        }     
        
     }
 }
