@@ -65,7 +65,7 @@ namespace NextNews.Controllers
             return View(articles);
         }
 
-        //Action to Add article
+        //Action to Add/Create article
 
         [HttpPost]
         [Authorize(Roles = "Editor")]

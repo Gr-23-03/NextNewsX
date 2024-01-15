@@ -23,6 +23,7 @@ namespace NextNews.Data
 
         public DbSet<AdminUserVM> AdminUserVM { get; set; } = default!;
         public DbSet<NextNews.Models.LatestNewsViewModel> LatestNewsViewModel { get; set; } = default!;
+      
 
     }
 }

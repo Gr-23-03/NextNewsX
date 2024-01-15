@@ -6,7 +6,9 @@ namespace NextNews.Models.Database
     {
         public int Id { get; set; }
 
-        public SubscriptionType? SubscriptionType { get; set; }
+
+        public int SubscriptionTypeId { get; set; }
+        public virtual SubscriptionType? SubscriptionType { get; set; }
 
         public decimal? Price { get; set; }
 
@@ -16,7 +18,7 @@ namespace NextNews.Models.Database
 
         public string? PaymentComplete { get; set;}
 
-        public int UserId { get; set;}
+        public string? UserId { get; set;}
 
         //Foreign Key
         public virtual User? User { get; set; }
