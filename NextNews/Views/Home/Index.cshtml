@@ -14,22 +14,24 @@
 
 <div class="row">
     @* vänstra kolumnen *@
-    <div class="col-9" style="border: 1px solid gray">
-        <img class="img-on-HomeIndex" src="@Model.MostPopularArticle.ImageLink" alt="Article Image" style="width:100%">
-        <h1>@Model.MostPopularArticle.HeadLine</h1>
-        <h5>@Model.MostPopularArticle.ContentSummary</h5>
+    <div class="col-9" style="border: 1px solid gray; border-radius:25px; padding:50px">
+        <img src="@Url News.ImageLink" alt="Article Image" style="width:100%" . />
+        @*  <img class="img-on-HomeIndex"   *@
+      @*   < h1>@Model.PopularArticle.HeadLine</h1>
+        <h5>@Model.PopularArticle.ContentSummary</h5>   *@
+        <partial name="_PartialViewArticleList" model="Model.PopularArticles"></partial>
     </div>
-
+      
     @* högra kolumnen *@
-    <div class="col-3">
+    <div class="col-3" style="border:6px" padding:"3px">
 
         <h2 style="color: black">Latest News</h2>
         @foreach (var news in Model.LatestArticles)
         {
             <div>
 
-                <div class="article-image">
-                    <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article Image" style="width:100%">
+                <div class="article-imageLink">
+                    <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article ImageLink" style="width:100%">
                 </div>
 
                 <div class="latest-news-headline">

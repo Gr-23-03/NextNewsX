@@ -1,22 +1,26 @@
-﻿@model IEnumerable<LatestNewsViewModel>
+﻿@model IEnumerable<NextNews.Models.LatestNewsViewModel>
 
 <div class="container news-carousel">
-
+    
     <div class="latest-news-header">
         <h2 class="latest-news-title">LATEST NEWS</h2>
+      
     </div>
-
+  @*   <partial name="_CarouselPartialView" model="Model.LatestArticles"></partial> *@
     <div id="newsCarousel" class="carousel slide carousel-dark" data-bs-ride="carousel" data-bs-interval="10000">
         <div class="carousel-indicators">
             @{
+               
                 var index = 0;
             }
+            
             @foreach (var news in Model)
             {
                 <button type="button" data-bs-target="#newsCarousel" data-bs-slide-to="@index" class="@(index == 0 ? "active" : "")" aria-current="true" aria-label="Slide @index"></button>
                 index++;
             }
         </div>
+      
         <div class="carousel-inner">
             @{
                 var active = true;
@@ -46,5 +50,6 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button> *@
+       
     </div>
 </div>

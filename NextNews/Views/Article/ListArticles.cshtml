@@ -77,6 +77,8 @@
     <header>
         <h1>@ViewData["Title"]</h1>
     </header>
+    @* <Partial name="_ParViewArticleList" model="Model"></Partial> *@
+   @*  <Partial name="_ParViewArticleList" model="Model"></Partial> *@
     <table>
         <thead>
             <tr>
@@ -100,19 +102,21 @@
                     <td>@article.Id</td>
                     <td>@article.AuthorName</td>
                     <td>@article.HeadLine</td>
+                   
                     <td>@article.ContentSummary</td>
                     <td>@Html.Raw(article.Content)</td>
                     <td>@article.DateStamp</td>
                     <td>@article.LinkText</td>
-                    <td> <img src="@article.ImageLink" style="height:150px;width:150px;" /> </td>
+                    <td> <img src="@article.ImageLink" ImageLinks style="height:150px;width:150px;" /> </td>
                     <td>@article.CategoryId</td>
                     <td>
-                       
+                       <a href="@Url.Action("Details","Articles",new{id=article.Id})">Read More</a>
                         <a asp-action="Edit" asp-controller="Article" asp-route-id="@article.Id">Edit</a> |
                         <a asp-action="Delete" asp-controller="Article" asp-route-id="@article.Id">Delete</a>
                         <a asp-action="Details" asp-controller="Article" asp-route-id="@article.Id">Details</a>
                     </td>
                 </tr>
+                
             }
 
         </tbody>
@@ -123,8 +127,8 @@
 
 
 
-
-
+ 
+ 
 
 
 

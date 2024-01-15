@@ -30,10 +30,11 @@ namespace NextNews.Models.Database
         [Display(Name = "Author:")]
         public string? AuthorName { get; set; }
 
+        [ForeignKey("CategoryId")]
         public int? CategoryId {  get; set; }
 
-        [ForeignKey("CategoryId")]
-        public Category? Category { get; set; }
+        
+        public virtual Category? Category { get; set; }
         public ICollection<User>? UsersLiked { get; set; }
 
         [NotMapped]
