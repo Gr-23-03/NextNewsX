@@ -53,6 +53,13 @@ namespace NextNews.Services
         }
 
 
+        public Category GetCategoryById(int id)
+        {
+            return _context.Categories.Find(id);
+        }
+
+
+
         //Update category
         public async Task UpdateCategoryAsync(Category category)
         {

@@ -17,7 +17,7 @@ namespace NextNews.Controllers
         private object _context;
         private readonly IUserService _userService;
 
-        public AdminController(IRoleManagementService roleManagementService, IArticleService articleService ,IUserService userService)
+        public AdminController(IRoleManagementService roleManagementService,IArticleService articleService ,IUserService userService)
         {
             _roleManagementService = roleManagementService;
             _articleService = articleService;
@@ -30,20 +30,19 @@ namespace NextNews.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
-            List<AdminUserVM> model = _userService.GetUsers().Select(q => new AdminUserVM()
-            {
-                ID = q.Id,
-                FirstName = q.FirstName,
-                LastName = q.LastName,
-                DateofBirth = q.DateofBirth,
-                Email = q.Email,
-            }).ToList();
+            // Fetching user count and article count from services
+            int userCount = _userService.GetUsers().Count();
+            int articleCount = _articleService.GetArticles().Count();
 
-            return View(model);
+            // Pass counts directly to the view
+            ViewData["UserCount"] = userCount;
+            ViewData["ArticleCount"] = articleCount;
+
+            return View();
         }
 
 
-        
+
 
 
         // This is for creating dynamic role wihout seeding
@@ -93,8 +92,12 @@ namespace NextNews.Controllers
 
     */
 
+        [Authorize(Roles = "Admin")]
+        public IActionResult Dashboard()
+        {
+            return View();
+        }
 
-       
 
     }
 }

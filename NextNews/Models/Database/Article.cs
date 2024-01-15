@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Http;
 
 namespace NextNews.Models.Database
 {
@@ -34,6 +35,10 @@ namespace NextNews.Models.Database
         [ForeignKey("CategoryId")]
         public Category? Category { get; set; }
         public ICollection<User>? UsersLiked { get; set; }
+
+        [NotMapped]
+        [Display(Name = "Image File")]
+        public IFormFile ImageFile { get; set; }
 
     }
 }

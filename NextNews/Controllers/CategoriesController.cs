@@ -10,6 +10,7 @@ using Microsoft.Identity.Client;
 using NextNews.Data;
 using NextNews.Models.Database;
 using NextNews.Services;
+using NextNews.ViewModels;
 
 namespace NextNews.Controllers
 {
@@ -19,9 +20,11 @@ namespace NextNews.Controllers
 
         private readonly ICategoryService _categoryService;
 
-        public CategoriesController(ICategoryService categoryService)
+        private readonly ApplicationDbContext _context;
+        public CategoriesController(ApplicationDbContext context, ICategoryService categoryService)
         {
             _categoryService = categoryService;
+            _context = context;
         }
 
 
@@ -129,6 +132,37 @@ namespace NextNews.Controllers
 
 
 
+    // search articles by category and article headline and by words
+
+        public async Task<IActionResult> Search(string searchString)
+        {
+            searchString = searchString.Trim();
+
+            var categoryQuery = from c in _context.Categories orderby c.Id select c.Name.ToLower();
+
+
+
+
+            var articles = _context.Articles.Include(article => article.Category).Where(article => (article.Category != null && article.Category.Name.ToLower() == searchString.ToLower()) ||
+            (article.HeadLine.ToLower().Contains(searchString) || article.Content.ToLower().Contains(searchString))).ToList();
+
+
+
+            // Additional filtering based on the search string
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                articles = articles.Where(a => a.HeadLine.Contains(searchString) || a.Content.Contains(searchString)).OrderByDescending(article => article.DateStamp).ToList();
+            }
+
+            var viewModel = new CategoryViewModel
+            {
+                CategoryNames = new SelectList(await categoryQuery.Distinct().ToListAsync()),
+                Articles = articles,
+                SearchString = searchString // Passing the search string back to the view
+            };
+
+            return View(viewModel);
+        }
 
 
 

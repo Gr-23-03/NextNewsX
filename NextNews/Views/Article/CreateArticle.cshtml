@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form id="new-articles-form" asp-action="AddArticle" asp-controller="Article" method="post">
+        <form id="new-articles-form" asp-action="AddArticle" asp-controller="Article" method="post" enctype="multipart/form-data">
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -61,15 +61,19 @@
                 <span asp-validation-for="AuthorName" class="text-danger"></span>
             </div>
 
-
-
             <div class="form-group">
                 <label asp-for="Category" class="control-label"></label>
                 @*  <input asp-for="Category" class="form-control"/> *@
                 <span asp-validation-for="CategoryId" class="text-danger"></span>
                 <select asp-for="CategoryId" class="form-control" asp-items="@ViewBag.Categories as SelectList"></select>
-
             </div>
+
+            <div class="form-group">
+                <label asp-for="ImageFile" class="control-label"></label>
+                <input asp-for="ImageFile" type="file" class="form-control" />
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

@@ -1,0 +1,22 @@
+﻿@model IEnumerable<NextNews.Models.Database.Article>
+
+@{
+    ViewData["Title"] = @ViewBag.CategoryName;
+}
+
+
+<h1>@ViewBag.CategoryName</h1>
+
+<ul> 
+@foreach (var article in Model)
+{
+    
+        <li style="border: 1px solid lightgray; border-radius: 10px; margin: 0px; padding: 10px">
+        <a class="text-decoration-none text-black" asp-controller="Article" asp-action="Details" asp-route-id="@article.Id">
+            @article.HeadLine
+        </a>
+    </li>
+    
+   
+}
+</ul>
