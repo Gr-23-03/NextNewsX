@@ -11,7 +11,7 @@ namespace NextNews.Services
         public Task DeleteSubscriptionAsync(int id);
         public Task<List<SubscriptionType>> GetSubscriptionTypesAsync();
         public Task CreateSubscriptionTypesAsync(SubscriptionType subscriptionType);
-        public void CreateSubscriptionForUser(string userId, int subscriptionTypeId);
+        public string CreateSubscriptionForUser(string userId, int subscriptionTypeId);
         public Task<SubscriptionType> GetSubscriptionTypeByIdAsync(int id);
         public Task UpdateSubscriptionTypeAsync(SubscriptionType subscriptionType);
         public Task DeleteSubscriptionType(int id);

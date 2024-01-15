@@ -78,19 +78,19 @@ namespace NextNews.Services
 
 
         //Create subscription for user
-        public void CreateSubscriptionForUser(string userId, int subscriptionTypeId) 
+        public string CreateSubscriptionForUser(string userId, int subscriptionTypeId) 
         {
             var subscriptionType = _context.SubscriptionTypes.FirstOrDefault(st => st.Id == subscriptionTypeId);
             if (subscriptionType == null) 
             {
                 throw new ArgumentException("Invalid Subscription Type ID");
             }
-            //var existingSubscription = _context.Subscriptions.FirstOrDefault(x => x.UserId == userId && x.SubscriptionTypeId == subscriptionTypeId);
-            //if (existingSubscription != null) 
-            //{
+            var existingSubscription = _context.Subscriptions.FirstOrDefault(x => x.UserId == userId && x.SubscriptionTypeId == subscriptionTypeId);
+            if (existingSubscription != null)
+            {
 
-            //    throw new ArgumentException("You already using this plan");
-            //}
+                return  "You have already bought selected plan";
+            }
             var subscription = new Subscription()
             {
                 
@@ -103,7 +103,7 @@ namespace NextNews.Services
             };
             _context.Subscriptions.Add(subscription);
             _context.SaveChanges();
-           
+            return "You have Successfully Subscribed";
         }
         public async Task DeleteSubscriptionType(int id) 
         {
