@@ -8,6 +8,13 @@ html {
     }
 }
 
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus{
+box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;  
+}
+
+
+
+
 
 
 html {
@@ -19,6 +26,18 @@ body {
 
     margin-bottom: 60px;
 }
+
+
+
+.btn btn-dropdown {
+    background-color: white;
+    color:white;
+    padding: 16px;
+    font-size:16px;
+    border:none;
+
+}
+
 
 
 .dropdown {
@@ -34,8 +53,10 @@ body {
     color: white;
     padding: 12px 16px;
     text-decoration: none;
-    display:inline-block;
-
+    display:block;
+    padding: 0px;
+    margin-left:0px;
+    margin-right:0px;
    
     
 
@@ -88,25 +109,30 @@ a {
 }
 
 
+div.collapse{
+    justify-content:center;
+}
+
+
 
 h2 {
-    color: red;
+   /* color: red;
     margin-left: 60px;
-    margin-top: 20px;
+    margin-top: 20px;*/
 }
 
 h1, p, img {
-/*    margin: 20px;
+  /*  margin: 20px;
     margin-left: 60px;
-    margin-top: 20px;
-*/}
+    margin-top: 20px;*/
+}
 
 
 
 
 h1 {
-    color: red;
-    font-weight: bold;
+  /*  color: red;
+    font-weight: bold;*/
 }
 
 a {
@@ -180,11 +206,11 @@ column {
 }
 
 .latest-news-item {
-    /*display: flex;
-    flex-direction: column;*/
-    /*justify-content: center;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    /*height: 200px;*/
+    height: 100px;
     margin-bottom: 20px;
 }
 
@@ -193,7 +219,7 @@ column {
 }
 
 .latest-news-headline {
-    font-size: 20px;
+    font-size: 24px;
     font-weight: bold;
 }
 
@@ -213,3 +239,12 @@ column {
     transition: color 0.15s ease-in-out;
 
 }
+
+
+
+
+
+
+
+
+

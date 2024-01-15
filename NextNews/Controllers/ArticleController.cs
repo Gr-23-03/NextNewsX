@@ -79,6 +79,10 @@ namespace NextNews.Controllers
         {
             if (ModelState.IsValid)
             {
+                _articleService.AddArticle(article);
+                return RedirectToAction("Listarticle");
+
+
                 // Check if an image file is uploaded
                 if (article.ImageFile != null && article.ImageFile.Length > 0)
                 {
@@ -97,9 +101,9 @@ namespace NextNews.Controllers
                     article.ImageLink = "/Images/" + uniqueFileName; // Update the ImageLink property with the file path
                 }
 
-                _articleService.AddArticle(article);
+                //_articleService.AddArticle(article);
 
-                return RedirectToAction("ListArticles");
+                //return RedirectToAction("ListArticles");
             }
 
             // If there is an error, repopulate the categories
@@ -123,7 +127,7 @@ namespace NextNews.Controllers
         //details
 
         [Authorize(Roles = "Editor")]
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult>  Details (int id)
         {
             var article = await _articleService.GetArticleByIdAsync(id);
            
