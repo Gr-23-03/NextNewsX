@@ -22,5 +22,6 @@ namespace NextNews.Data
         public DbSet<SubscriptionType> SubscriptionTypes { get; set; } 
 
 
+
     }
 }

@@ -56,7 +56,11 @@ namespace NextNews
             builder.Services.AddScoped<IArticleService, ArticleService>();
             builder.Services.AddScoped<ICategoryService,CategoryService>();
             builder.Services.AddScoped<IRoleManagementService, RoleManagementService>();
+
+            builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
+
             builder.Services.AddScoped<IStatisticService, StatisticService>();
+
             builder.Services.AddScoped<SeedData>();
 
 
