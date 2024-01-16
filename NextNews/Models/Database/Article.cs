@@ -25,8 +25,12 @@ namespace NextNews.Models.Database
         public int? Likes { get; set;}
 
         //public int? Dislike { get; set; }
+        [Display(Name = "LinkImage1")]
         public string? ImageLink { get; set; }
         
+        [Display(Name = "LinkImage2 (optional)")]
+        public string? ImageLink2 { get; set; }
+
         [Display(Name = "Author:")]
         public string? AuthorName { get; set; }
 
@@ -39,7 +43,7 @@ namespace NextNews.Models.Database
 
         [NotMapped]
         [Display(Name = "Image File")]
-        public IFormFile ImageFile { get; set; }
+        public IFormFile? ImageFile { get; set; }
 
     }
 }
