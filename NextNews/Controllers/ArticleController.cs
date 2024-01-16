@@ -80,7 +80,7 @@ namespace NextNews.Controllers
             if (ModelState.IsValid)
             {
                 _articleService.AddArticle(article);
-                return RedirectToAction("Listarticle");
+                return RedirectToAction("Listarticles");
 
 
                 // Check if an image file is uploaded
@@ -99,6 +99,7 @@ namespace NextNews.Controllers
                     }
 
                     article.ImageLink = "/Images/" + uniqueFileName; // Update the ImageLink property with the file path
+                    article.ImageLink2 = "/Images/" + uniqueFileName;
                 }
 
                 //_articleService.AddArticle(article);
