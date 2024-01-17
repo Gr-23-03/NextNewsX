@@ -169,7 +169,7 @@ namespace NextNews.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Editor")] // Only authorized users can edit categories
-        public async Task<IActionResult> Edit(int id, [Bind("Id,DateStamp,LinkText,HeadLine,ContentSummary,Content,Views,Likes, ImageLink,AuthorName,CategoryId")] Article article)
+        public async Task<IActionResult> Edit(int id, Article article)
         {
             if (id != article.Id)
             {

@@ -1,7 +1,9 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿@model NextNews.Models.Database.Article
+
+@using Microsoft.AspNetCore.Identity
 @using NextNews.Models.Database
 @using NextNews.Services
-@model NextNews.Models.Database.Article
+
 
 @inject UserManager<User> _userManager
 @inject IArticleService _articleService
@@ -61,12 +63,19 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Likes)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageLink)
-        </dt>
-        <dd class = "col-sm-10">
-            <img src="@Html.DisplayFor(model => model.ImageLink)" alt="image" style="width: 100%" />
-        </dd>
+
+
+        @if (Model.ImageLink != null)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ImageLink)
+            </dt>
+            <dd class="col-sm-10">
+                <img src="@Html.DisplayFor(model => model.ImageLink)" alt="image" style="width: 100%" />
+            </dd>
+        }
+
+
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.AuthorName)
         </dt>
@@ -79,6 +88,28 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Category.Id)
         </dd>
+
+        @if (Model.ImageLink2 != null)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ImageLink2)
+            </dt>
+            <dd class="col-sm-10">
+                <img src="@Html.DisplayFor(model => model.ImageLink2)" alt="image" style="width: 100%" />
+            </dd>
+        }
+
+        @if (Model.ImageFile != null)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ImageFile)
+            </dt>
+            <dd class="col-sm-10">
+                <img src="@Html.DisplayFor(model => model.ImageFile)" alt="image" style="width: 100%" />
+        </dd>
+        }
+
+
     </dl>
 </div>
 
