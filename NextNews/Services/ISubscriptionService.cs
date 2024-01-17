@@ -15,5 +15,13 @@ namespace NextNews.Services
         public Task<SubscriptionType> GetSubscriptionTypeByIdAsync(int id);
         public Task UpdateSubscriptionTypeAsync(SubscriptionType subscriptionType);
         public Task DeleteSubscriptionType(int id);
+
+
+        //count of Subscribers type
+        public Task<int> CountBasicSubscribersAsync();
+
+
+        public Task<int> CountPremiumSubscribersAsync();
+
     }
 }

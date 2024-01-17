@@ -2,28 +2,21 @@
     ViewData["Title"] = "Admin Dashboard";
 }
 
-<h1>Admin Dashboard</h1>
+<h1 align="Center">Statistics</h1>
 
 <div class="container mt-5">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">User Statistics</h5>
-                    <canvas id="userChart" width="400" height="400"></canvas>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Article Statistics</h5>
-                    <canvas id="articleChart" width="400" height="400"></canvas>
+                  
+                    <canvas id="combinedChart" width="400" height="400"></canvas>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 @section scripts {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -31,30 +24,38 @@
         document.addEventListener('DOMContentLoaded', function () {
             var userCount = @ViewData["UserCount"];
             var articleCount = @ViewData["ArticleCount"];
+            var basicSubscriptionUsersCount = @ViewData["BasicSubscriptionUsersCount"];
+            var premiumSubscriptionUsersCount = @ViewData["PremiumSubscriptionUsersCount"];
 
-            var userChart = new Chart(document.getElementById('userChart').getContext('2d'), {
-                type: 'pie',
+            var combinedChart = new Chart(document.getElementById('combinedChart').getContext('2d'), {
+                type: 'doughnut',
                 data: {
-                    labels: ['Users'],
+                    labels: ['Users', 'Articles', 'Basic Subscription Users', 'Premium Subscription Users'],
                     datasets: [{
-                        data: [userCount],
-                        backgroundColor: ['rgba(75, 192, 192, 0.2)'],
-                        borderColor: ['rgba(75, 192, 192, 1)'],
+                        data: [userCount, articleCount, basicSubscriptionUsersCount, premiumSubscriptionUsersCount],
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.7)',
+                            'rgba(255, 99, 132, 0.7)',
+                            'rgba(255, 206, 86, 0.7)',
+                            'rgba(54, 162, 235, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(54, 162, 235, 1)'
+                        ],
                         borderWidth: 1
                     }]
-                }
-            });
-
-            var articleChart = new Chart(document.getElementById('articleChart').getContext('2d'), {
-                type: 'pie',
-                data: {
-                    labels: ['Articles'],
-                    datasets: [{
-                        data: [articleCount],
-                        backgroundColor: ['rgba(255, 99, 132, 0.2)'],
-                        borderColor: ['rgba(255, 99, 132, 1)'],
-                        borderWidth: 1
-                    }]
+                },
+                options: {
+                    responsive: false, // Set to false for non-responsive
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
                 }
             });
         });

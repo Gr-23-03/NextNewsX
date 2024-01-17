@@ -8,31 +8,43 @@ namespace NextNews.Controllers
     {
         private readonly IArticleService _articleService;
         private readonly IUserService _userService;
+        private  ISubscriptionService _subscriptionService;
+        private readonly IStatisticService _statisticService;
 
-        public StatisticsController(IArticleService articleService , IUserService userService)
+        public StatisticsController(IArticleService articleService , IUserService userService , ISubscriptionService subscriptionService,IStatisticService statisticService)
         {
             _articleService = articleService;
             _userService = userService;
+            _subscriptionService = subscriptionService;
+            _statisticService = statisticService;
         }
 
-        public IActionResult Index()
+        public async Task <IActionResult> Index()
         {
-
             // Fetching user count and article count from services
-            int userCount = _userService.GetUsers().Count();
+            int userCount =  _userService.GetUsers().Count();
             int articleCount = _articleService.GetArticles().Count();
+
+            // Fetching basic subscription users count
+            int basicSubscriptionUsersCount = await _subscriptionService.CountBasicSubscribersAsync();
+
+
+
+            int premiumSubscriptionUSersCount = await _subscriptionService.CountPremiumSubscribersAsync();
 
             // Creating a view model to pass the counts to the view
             var viewModel = new StatisticsViewModel
             {
                 UserCount = userCount,
-                ArticleCount = articleCount
+                ArticleCount = articleCount,
+                BasicSubscriptionUsersCount = basicSubscriptionUsersCount,
+                PremiumSubscriptionUsersCount = premiumSubscriptionUSersCount
             };
 
             return View(viewModel);
         }
 
-        // Other actions related to statistics can be added here
+       
     }
 
 }

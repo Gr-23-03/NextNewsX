@@ -77,9 +77,6 @@ namespace NextNews
             });
 
 
-
-
-
             var app = builder.Build();
 
 
