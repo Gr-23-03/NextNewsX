@@ -6,6 +6,8 @@ using NextNews.Data;
 using NextNews.Helper;
 using NextNews.Models.Database;
 using NextNews.Services;
+using Stripe;
+using SubscriptionService = NextNews.Services.SubscriptionService;
 
 namespace NextNews
 {
@@ -116,7 +118,7 @@ namespace NextNews
             app.UseCookiePolicy();
 
             app.UseRouting();
-
+            StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
             app.UseAuthorization();
 
             app.MapControllerRoute(
