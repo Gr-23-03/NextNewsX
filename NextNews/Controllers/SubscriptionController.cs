@@ -44,8 +44,8 @@ namespace NextNews.Controllers
                 UserId = userId,
                 SubscriptionTypeId =input.SubscriptionTypeId
             };
-            _subscriptionService.CreateSubscriptionForUser(userId, input.SubscriptionTypeId);
-
+           string resultmessage= _subscriptionService.CreateSubscriptionForUser(userId, input.SubscriptionTypeId);
+            ViewBag.Message = resultmessage;
             return View("Index","Home");
         }
 
@@ -177,6 +177,12 @@ namespace NextNews.Controllers
         { 
         await _subscriptionService.DeleteSubscriptionType(id);
             return RedirectToAction("SubscriptionTypeList");
+        }
+
+        public async Task<IActionResult> Bankcard() 
+        {
+            
+            return View();
         }
     }
 }

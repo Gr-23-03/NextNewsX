@@ -20,6 +20,7 @@ namespace NextNews.Controllers
 
         private readonly ICategoryService _categoryService;
 
+
         private readonly ApplicationDbContext _context;
         public CategoriesController(ApplicationDbContext context, ICategoryService categoryService)
         {
@@ -134,9 +135,8 @@ namespace NextNews.Controllers
 
     // search articles by category and article headline and by words
 
-        public async Task<IActionResult> Search(string searchString)
+        public async Task<IActionResult> Search(string searchString = "")
         {
-            searchString = searchString.Trim();
 
             var categoryQuery = from c in _context.Categories orderby c.Id select c.Name.ToLower();
 
@@ -144,7 +144,7 @@ namespace NextNews.Controllers
 
 
             var articles = _context.Articles.Include(article => article.Category).Where(article => (article.Category != null && article.Category.Name.ToLower() == searchString.ToLower()) ||
-            (article.HeadLine.ToLower().Contains(searchString) || article.Content.ToLower().Contains(searchString))).ToList();
+            (article.HeadLine.Contains(searchString) || article.ContentSummary.ToLower().Contains(searchString.ToLower()) || article.Content.ToLower().Contains(searchString.ToLower()))).ToList();
 
 
 

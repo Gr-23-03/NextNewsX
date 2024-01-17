@@ -1,17 +1,10 @@
-﻿@model NextNews.Models.Database.Article
-
-@{
-    ViewData["Title"] = "CreateArticle";
-}
-
-<h1>CreateArticle</h1>
+﻿@model  NextNews.Models.Database.Article
 
 <h4>Article</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form id="new-articles-form" asp-action="AddArticle" asp-controller="Article" method="post" enctype="multipart/form-data">
-
+        <form asp-action="_popularNewsPartialView">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="DateStamp" class="control-label"></label>
@@ -24,7 +17,6 @@
                 <span asp-validation-for="LinkText" class="text-danger"></span>
             </div>
             <div class="form-group">
-
                 <label asp-for="HeadLine" class="control-label"></label>
                 <input asp-for="HeadLine" class="form-control" />
                 <span asp-validation-for="HeadLine" class="text-danger"></span>
@@ -35,10 +27,9 @@
                 <span asp-validation-for="ContentSummary" class="text-danger"></span>
             </div>
             <div class="form-group">
-                @* <input id="QuillEditor" asp-for="Content" class="control-label" type="hidden"/> *@
-                <div id="quill-editor"> </div>
-                @* <input asp-for="Content" class="form-control" />
-                <span asp-validation-for="Content" class="text-danger"></span> *@
+                <label asp-for="Content" class="control-label"></label>
+                <input asp-for="Content" class="form-control" />
+                <span asp-validation-for="Content" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Views" class="control-label"></label>
@@ -56,29 +47,14 @@
                 <span asp-validation-for="ImageLink" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ImageLink2" class="control-label"></label>
-                <input asp-for="ImageLink2" class="form-control" />
-                <span asp-validation-for="ImageLink2" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="AuthorName" class="control-label"></label>
                 <input asp-for="AuthorName" class="form-control" />
                 <span asp-validation-for="AuthorName" class="text-danger"></span>
             </div>
-
             <div class="form-group">
-                <label asp-for="Category" class="control-label"></label>
-                @*  <input asp-for="Category" class="form-control"/> *@
-                <span asp-validation-for="CategoryId" class="text-danger"></span>
-                <select asp-for="CategoryId" class="form-control" asp-items="@ViewBag.Categories as SelectList"></select>
+                <label asp-for="CategoryId" class="control-label"></label>
+                <select asp-for="CategoryId" class ="form-control" asp-items="ViewBag.CategoryId"></select>
             </div>
-
-            <div class="form-group">
-                <label asp-for="ImageFile" class="control-label"></label>
-                <input asp-for="ImageFile" type="file" class="form-control" />
-                
-            </div>
-
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -90,10 +66,6 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-
-
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -22,8 +22,8 @@
         @foreach (var article in Model.Articles)
         {
             <div>
-                <h3>@article.HeadLine</h3>
-                <p>@article.Content</p>
+                <h3>@article.HeadLine</h3> <br />
+                @Html.Raw(article.Content)
             </div>
         }
     </div>
