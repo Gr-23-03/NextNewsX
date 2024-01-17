@@ -6,6 +6,9 @@
 
         int GetUserCount();
         int GetArticleCount();
+        int GetBasicSubscrptionUsers();
+
+        int GetPremiumSubscriptionUsers();
 
 
     }
