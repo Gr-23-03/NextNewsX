@@ -2,16 +2,25 @@
 @model LoginModel
 
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = "Log in to your NEXTnews account";
 }
 
-<h1>@ViewData["Title"]</h1>
+<div class="row mt-3">
+
+<div class="col-md-12" style="margin-bottom: 20px">
+    <h1 style="color: black; font-size: 40px;text-align: center; font-weight: bold;">@ViewData["Title"]</h1>
+    <h2 style="color: black; font-size: 20px;text-align: center;">
+        Dont have an acount?<a href="login-submit" id="login-submit" type="submit">Sign up.</a>
+    </h2>
+    <hr />
+</div>
+
 <div class="row">
-    <div class="col-md-4">
+        <div class="col-md-6" style="margin-top:100px">
         <section>
             <form id="account" method="post">
-                <h2>Use a local account to log in.</h2>
-                <hr />
+                @* <h2>Use a local account to log in.</h2> *@
+               @*  <hr /> *@
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                 <div class="form-floating mb-3">
                     <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
@@ -30,7 +39,7 @@
                     </label>
                 </div>
                 <div>
-                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                    <button id="login-submit" style="background-color:black" type="submit" class="w-100 btn btn-lg btn-dark">Sign in.</button>
                 </div>
                 <div>
                     <p>
@@ -46,10 +55,24 @@
             </form>
         </section>
     </div>
-    <div class="col-md-6 col-md-offset-2">
+    <div class="col-md-6">
+        @* col-md-offset-2 *@
         <section>
+
+            <img src="~/images/breaking (1).gif" style="width:85%;" />  @* position:absolute;top:40% *@
+
+
+
+        </section>
+    </div>
+
+    <div class="col-md-12" style="margin-top: 100px">
+    
+        <section>
+    </div>
             <h3>Use another service to log in.</h3>
             <hr />
+            
             @{
                 if ((Model.ExternalLogins?.Count ?? 0) == 0)
                 {
