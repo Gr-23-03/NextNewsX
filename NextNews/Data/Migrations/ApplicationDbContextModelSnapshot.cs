@@ -203,6 +203,9 @@ namespace NextNews.Data.Migrations
                     b.Property<string>("ImageLink")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImageLink2")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("Likes")
                         .HasColumnType("int");
 
@@ -230,6 +233,9 @@ namespace NextNews.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PictureUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
@@ -255,20 +261,17 @@ namespace NextNews.Data.Migrations
                     b.Property<decimal?>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int?>("SubscriptionTypeId")
+                    b.Property<int>("SubscriptionTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId1")
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("SubscriptionTypeId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Subscriptions");
                 });
@@ -369,78 +372,6 @@ namespace NextNews.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("NextNews.Models.LatestNewsViewModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ContentSummary")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DateStamp")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("HeadLine")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("LatestNewsViewModel");
-                });
-
-            modelBuilder.Entity("NextNews.ViewModels.AdminUserVM", b =>
-                {
-                    b.Property<string>("ID")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime?>("DateofBirth")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("AdminUserVM");
-                });
-
-            modelBuilder.Entity("NextNews.ViewModels.RolesVM", b =>
-                {
-                    b.Property<int>("RoleId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleId"));
-
-                    b.Property<string>("AdminUserVMID")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool>("Ischecked")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("RoleName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("RoleId");
-
-                    b.HasIndex("AdminUserVMID");
-
-                    b.ToTable("RolesVM");
-                });
-
             modelBuilder.Entity("ArticleUser", b =>
                 {
                     b.HasOne("NextNews.Models.Database.Article", null)
@@ -520,22 +451,17 @@ namespace NextNews.Data.Migrations
                 {
                     b.HasOne("NextNews.Models.Database.SubscriptionType", "SubscriptionType")
                         .WithMany("Subscriptions")
-                        .HasForeignKey("SubscriptionTypeId");
+                        .HasForeignKey("SubscriptionTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("NextNews.Models.Database.User", "User")
                         .WithMany("Subscriptions")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId");
 
                     b.Navigation("SubscriptionType");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("NextNews.ViewModels.RolesVM", b =>
-                {
-                    b.HasOne("NextNews.ViewModels.AdminUserVM", null)
-                        .WithMany("Roles")
-                        .HasForeignKey("AdminUserVMID");
                 });
 
             modelBuilder.Entity("NextNews.Models.Database.Category", b =>
@@ -551,11 +477,6 @@ namespace NextNews.Data.Migrations
             modelBuilder.Entity("NextNews.Models.Database.User", b =>
                 {
                     b.Navigation("Subscriptions");
-                });
-
-            modelBuilder.Entity("NextNews.ViewModels.AdminUserVM", b =>
-                {
-                    b.Navigation("Roles");
                 });
 #pragma warning restore 612, 618
         }

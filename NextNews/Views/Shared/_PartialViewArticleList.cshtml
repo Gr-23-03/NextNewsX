@@ -1,8 +1,8 @@
 ﻿@model IEnumerable<NextNews.Models.Database.Article>
 
-<p>
+@* <p>
     <a asp-action="Create">Create New</a>
-</p>
+</p> *@
 
 @* <table class="table">
     <thead>
@@ -87,17 +87,21 @@
     </tbody>
 </table>
  *@
-
-
+  @*  <Partial name="_ParViewArticleList" model="Model"></Partial>
+    *@
  <div class="article-list">
     @foreach (var article in Model)
     {
-       
+      
         <div class="article-item">
-            <h2>@Html.DisplayFor(modelItem => article.DateStamp)</h2>
-              <td> <img src="@article.ImageLink" style="height:150px;width:150px;" /> </td>
+
+
+          <p><i>@Html.DisplayFor(modelItem => article.DateStamp) by @Html.DisplayFor(modelItem=> article.AuthorName)</i></p>
+
             <p>@Html.DisplayFor(modelItem => article.ContentSummary)</p>
                     <p>@Html.DisplayFor(modelItem => article.HeadLine)</P>
+                   <img src="@article.ImageLink"  ImageLink style="width:100%;"/>
+                 
                     <p>@Html.DisplayFor(modelItem => article.LinkText)</p>
                     <p>@Html.Raw(article.Content)</p>
                     <p>@Html.DisplayFor(modelItem => article.Views)</p>
@@ -105,9 +109,10 @@
                     <p>@Html.DisplayFor(modelItem => article.ImageLink)</p>
                      <p>@Html.DisplayFor(modelItem => article.AuthorName)</p>
                       <p>@Html.DisplayFor(modelItem => article.Category)</p>
+                     
 
-
-            <a href="@Url.Action("Details", "Articles", new { id = article.Id })">Read More</a>
+            <a href="@Url.Action("Details", "Articles", new { id = article.Id })">Read More</a> 
+            <a asp-controller="Article"  asp-action="Details" asp-route-id ="@article.Id">Read More</a>
         </div>
         
     }

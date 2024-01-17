@@ -1,8 +1,9 @@
-﻿
+
 <nav class="navbar navbar-light bg-white">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-            <img src="~/images/NEXT.gif" style="width:30%; padding-left:30px;" asp-controller="Home" />&nbsp;&nbsp;&nbsp;
+
+          <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+            <img src="~/images/NEXT.gif" style="width:30%; padding-left:30px;"
         </a>
     </div>
 </nav>
@@ -17,9 +18,6 @@
                 <li class="nav-item">
 
                     <a class="nav-link active" aria-current="page" style="color:red; font-weight:bold" asp-controller="Home" asp-action="Index">Home</a>
-
-
-
                 </li>
 
                 <li class="nav-item dropdown">
@@ -442,6 +440,7 @@
                 </li>
                 
             </ul>
+
             <form class="d-flex">
                 <input class="form-control" type="search" placeholder="Search On NEXTnews" aria-label="Search">
                 <button class="btn btn-outline-danger" type="submit">Search</button>
@@ -449,6 +448,7 @@
             
                 <partial name="_loginPartial"> </partial>
            
+
         </div>
     </div>
 </nav>

@@ -8,6 +8,9 @@ html {
     }
 }
 
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus{
+box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;  
+}
 
 
 html {
@@ -19,6 +22,7 @@ body {
 
     margin-bottom: 60px;
 }
+
 .two-column {
     display: flex;
     justify-content: space-between;
@@ -39,6 +43,18 @@ body {
 
 
 
+
+.btn btn-dropdown {
+    background-color: white;
+    color:white;
+    padding: 16px;
+    font-size:16px;
+    border:none;
+
+}
+
+
+
 .dropdown {
     position: relative;
     display: inline-block;
@@ -53,8 +69,10 @@ body {
     color: white;
     padding: 12px 16px;
     text-decoration: none;
-    display:inline-block;
-
+    display:block;
+    padding: 0px;
+    margin-left:0px;
+    margin-right:0px;
    
     
 
@@ -103,33 +121,6 @@ body {
         font-weight: bold;
     }
 
-    a {
-        font-weight: bold;
-        color: black;
-    }
-
-
-
-    h2 {
-        color: red;
-        margin-left: 60px;
-        margin-top: 20px;
-    }
-
-    h1, p, img {
-        /*    margin: 20px;
-    margin-left: 60px;
-    margin-top: 20px;
-*/
-    }
-
-
-
-
-    h1 {
-        color: red;
-        font-weight: bold;
-    }
 
     a {
         color: aqua;
@@ -200,23 +191,27 @@ body {
         padding: 20px;
     }
 
-    .latest-news-item {
-        /*display: flex;
-    flex-direction: column;*/
-        /*justify-content: center;*/
-        align-items: center;
-        /*height: 200px;*/
-        margin-bottom: 20px;
-    }
+
+.latest-news-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    margin-bottom: 20px;
+}
+
 
     .latest-news-title {
         text-align: center;
     }
 
-    .latest-news-headline {
-        font-size: 20px;
-        font-weight: bold;
-    }
+
+.latest-news-headline {
+    font-size: 24px;
+    font-weight: bold;
+}
+
 
     .latest-news-summary {
         font-size: 16px;
@@ -233,4 +228,16 @@ body {
         text-decoration: none;
         transition: color 0.15s ease-in-out;
     }
+
+
+
+
+
+
+
+
+
+
+
+
 

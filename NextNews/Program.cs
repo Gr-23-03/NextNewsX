@@ -1,6 +1,9 @@
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using NextNews.Data;
+using NextNews.Helper;
 using NextNews.Models.Database;
 using NextNews.Services;
 
@@ -19,10 +22,10 @@ namespace NextNews
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 
-            builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
+            builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-
+            builder.Services.AddTransient<IEmailSender, EmailSender>();
 
             builder.Services.Configure<IdentityOptions>(options =>
             {
@@ -44,6 +47,8 @@ namespace NextNews
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 options.User.RequireUniqueEmail = true;
             });
+
+
             builder.Services.AddControllersWithViews();
           
             // SERVICES
@@ -51,7 +56,26 @@ namespace NextNews
             builder.Services.AddScoped<IArticleService, ArticleService>();
             builder.Services.AddScoped<ICategoryService,CategoryService>();
             builder.Services.AddScoped<IRoleManagementService, RoleManagementService>();
+
+            builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
+
+            builder.Services.AddScoped<IStatisticService, StatisticService>();
+
             builder.Services.AddScoped<SeedData>();
+
+
+
+            builder.Services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential 
+                // cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+                options.ConsentCookieValue = "true";
+
+            });
+
 
             var app = builder.Build();
 
@@ -67,14 +91,6 @@ namespace NextNews
             }
 
 
-
-
-
-
-
-
-
-
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
@@ -87,8 +103,14 @@ namespace NextNews
                 app.UseHsts();
             }
 
+      
+
+
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseCookiePolicy();
 
             app.UseRouting();
 
@@ -98,6 +120,9 @@ namespace NextNews
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
             app.MapRazorPages();
+
+          
+
 
             app.Run();
         }

@@ -38,20 +38,29 @@ namespace NextNews.Controllers
 
             var vm = new HomeIndexVM()
             {
-                MostPopularArticle = allArticles.OrderByDescending(a => a.Views).FirstOrDefault(),
-                MostPopularArticles = allArticles.OrderByDescending(a => a.Views).ToList(),
+                PopularArticle = allArticles.OrderByDescending(a => a.Views).FirstOrDefault(),
+                PopularArticles = allArticles.OrderByDescending(a => a.Views).Take(3).ToList(),
                 LatestArticle = allArticles.OrderByDescending(obj => obj.DateStamp).FirstOrDefault(),
-                LatestArticles = allArticles
-                    .OrderByDescending(obj => obj.DateStamp)
-                    .Take(5)
-                    .Select(obj => new LatestNewsViewModel()
-                    {
-                        Id = obj.Id,
-                        HeadLine = obj.HeadLine,
-                        DateStamp = obj.DateStamp,
-                        ContentSummary = obj.ContentSummary,
-                        ImageLink = obj.ImageLink,
-                    }).ToList()
+                LatestArticles = allArticles.OrderByDescending(a => a.DateStamp).Take(5).ToList(),
+
+                //PopularArticles = allArticles
+                //    .OrderByDescending(obj => obj.DateStamp)
+                //    .Take(5)
+                //    .ToList(),
+
+                //LatestArticles = allArticles
+                //    .OrderByDescending(obj => obj.DateStamp)
+                //    .Take(5)
+                //    .ToList()
+
+                    //.Select(obj => new LatestNewsViewModel()
+                    //{
+                    //    Id = obj.Id,
+                    //    HeadLine = obj.HeadLine,
+                    //    DateStamp = obj.DateStamp,
+                    //    ContentSummary = obj.ContentSummary,
+                    //    ImageLink = obj.ImageLink,
+                    //}).ToList()
             };
 
             return View(vm); 
@@ -62,6 +71,7 @@ namespace NextNews.Controllers
         {
             return View();
         }
+
 
          [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
          public IActionResult Error()

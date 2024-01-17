@@ -22,7 +22,8 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                    <a class="text-decoration-none text-black" asp-controller="CategoriesView" asp-action="ArticlesByCategories" asp-route-categoryId="@item.Id">@item.Name</a>
+                @* @Html.DisplayFor(modelItem => item.Name) *@
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

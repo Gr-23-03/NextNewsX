@@ -5,6 +5,12 @@ using NextNews.Models;
 using NextNews.Models.Database;
 using NextNews.Services;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using NextNews.ViewModels;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace NextNews.Controllers
 {
@@ -13,15 +19,17 @@ namespace NextNews.Controllers
         private readonly IArticleService _articleService;
         private readonly IUserService _userService;
         private readonly UserManager<User> _userManager;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
 
-        public ArticleController(IArticleService articleService, IUserService userService, UserManager<User> userManager)
+        public ArticleController(IArticleService articleService, IUserService userService, UserManager<User> userManager, IWebHostEnvironment webHostEnvironment)
         {
             _articleService = articleService;
-            _userService= userService;
+            _userService = userService;
             _userManager = userManager;
+            _webHostEnvironment = webHostEnvironment;
         }
-       
+
 
         public IActionResult Index()
         {
@@ -33,7 +41,7 @@ namespace NextNews.Controllers
         public ActionResult LatestArticles()
         {
             var latestArticles = _articleService.GetArticles().OrderByDescending(obj => obj.DateStamp).Take(5).ToList();
-            
+
             List<LatestNewsViewModel> vmList = new List<LatestNewsViewModel>();
 
             foreach (var item in latestArticles)
@@ -44,7 +52,7 @@ namespace NextNews.Controllers
                     HeadLine = item.HeadLine,
                     DateStamp = item.DateStamp,
                     ContentSummary = item.ContentSummary
-                   
+
                 };
 
                 vmList.Add(vm);
@@ -63,20 +71,40 @@ namespace NextNews.Controllers
             return View(articles);
         }
 
-        //Action to Add article
+        //Action to Add/Create article
 
         [HttpPost]
         [Authorize(Roles = "Editor")]
-        public IActionResult AddArticle( Article article) 
+        public IActionResult AddArticle(Article article)
         {
-
-
-
             if (ModelState.IsValid)
             {
                 _articleService.AddArticle(article);
+                return RedirectToAction("Listarticles");
 
-                return RedirectToAction("ListArticles");
+
+                // Check if an image file is uploaded
+                if (article.ImageFile != null && article.ImageFile.Length > 0)
+                {
+                    // Process the uploaded file, save it to the server, and set the ImageLink property
+                    // This is just a basic example, you might want to implement more robust file handling
+                    // For simplicity, I'm assuming you have an Images folder in your wwwroot directory
+                    var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "Images");
+                    var uniqueFileName = Guid.NewGuid().ToString() + "_" + article.ImageFile.FileName;
+                    var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        article.ImageFile.CopyTo(fileStream);
+                    }
+
+                    article.ImageLink = "/Images/" + uniqueFileName; // Update the ImageLink property with the file path
+                    article.ImageLink2 = "/Images/" + uniqueFileName;
+                }
+
+                //_articleService.AddArticle(article);
+
+                //return RedirectToAction("ListArticles");
             }
 
             // If there is an error, repopulate the categories
@@ -100,10 +128,10 @@ namespace NextNews.Controllers
         //details
 
         [Authorize(Roles = "Editor")]
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult>  Details (int id)
         {
             var article = await _articleService.GetArticleByIdAsync(id);
-
+           
             if (article == null)
             {
                 return NotFound();
@@ -111,9 +139,19 @@ namespace NextNews.Controllers
 
             _articleService.IncreamentViews(article);
 
+            //// Check if the current user has liked the article
+            //var userId = _userManager.GetUserId(User);
+            //var userHasLiked = article.UsersLiked.Any(u => u.Id == userId);
+
+            //// Create a view model
+            //var viewModel = new ArticleDetailsViewModel
+            //{
+            //    Article = article,
+            //    IsLikedByUser = userHasLiked
+            //};
             return View(article);
         }
-         
+
 
         [Authorize(Roles = "Editor")]
         public async Task<IActionResult> Edit(int id)
@@ -177,11 +215,9 @@ namespace NextNews.Controllers
             var userId = _userManager.GetUserId(User)!;
             _articleService.AddLikes(id, userId);
 
-            return LocalRedirect(returnUrl);
+            return Json(new { success = true, message = "Action performed successfully" });
 
-        }
-
-       
+        }     
        
     }
 }
