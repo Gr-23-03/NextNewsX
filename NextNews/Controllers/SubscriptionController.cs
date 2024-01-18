@@ -4,8 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using NextNews.Models.Database;
 using NextNews.Services;
-using System.Drawing.Printing;
 
+using System.Drawing.Printing;
+using Stripe.Checkout;
+using Stripe;
+using Subscription = NextNews.Models.Database.Subscription;
+using Microsoft.EntityFrameworkCore;
 namespace NextNews.Controllers
 {
     public class SubscriptionController : Controller
@@ -34,20 +38,108 @@ namespace NextNews.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult CreateUserSubscription(Subscription input) 
+        public async Task<IActionResult> CreateUserSubscription(Subscription input) 
         {
-
             var userId = _userManager.GetUserId(User);
-           
-            var subscription = new Subscription
-            {
-                UserId = userId,
-                SubscriptionTypeId =input.SubscriptionTypeId
-            };
-           string resultmessage= _subscriptionService.CreateSubscriptionForUser(userId, input.SubscriptionTypeId);
-            ViewBag.Message = resultmessage;
-            return View("Index","Home");
+            // Check if the user already has this subscription
+            string resultMessage = _subscriptionService.CheckExistingSubscription(userId, input.SubscriptionTypeId);
+            if (resultMessage != "Eligible for subscription") 
+            { 
+            ViewBag.Message = resultMessage;
+                return View ("Index", "Home");
+            }
+            // Redirect to Stripe for payment
+            return await StripeCheckout(userId, input.SubscriptionTypeId);
         }
+        private async Task<IActionResult> StripeCheckout(string userId, int subscriptionTypeId)
+        {
+            // Retrieve subscription type details
+            
+            var subscriptionType = _subscriptionService.GetSubscriptionType(subscriptionTypeId);
+            // Create Stripe Checkout session
+
+            var domain = "https://localhost:44349/";
+            var options = new SessionCreateOptions
+            {
+                PaymentMethodTypes = new List<string> { "card" },
+                LineItems = new List<SessionLineItemOptions>
+        {
+            new SessionLineItemOptions
+            {
+                PriceData = new SessionLineItemPriceDataOptions
+                {
+                    UnitAmount = (long)(subscriptionType.Price * 100), // Price in cents
+                    Currency = "usd",
+                    ProductData = new SessionLineItemPriceDataProductDataOptions
+                    {
+                        Name = subscriptionType.Name,
+                    },
+                },
+                Quantity = 1,
+            },
+        },
+                Metadata = new Dictionary<string, string>
+                {
+                    {"UserId", userId},
+                    {"SubscriptionTypeId", subscriptionTypeId.ToString()}
+                },
+                Mode = "payment",
+                //CustomerEmail= "",
+                SuccessUrl=domain+$"Subscription/CompleteSubscription",
+                CancelUrl = "https://yourdomain.com/subscription/cancel"
+            };
+
+            var service = new SessionService();
+            Session session = await service.CreateAsync(options);
+
+            TempData["Session"] = session.Id;
+            Response.Headers.Add("Location", session.Url);
+            return new StatusCodeResult(303);
+            //return Redirect(session.Url);
+        }
+
+       
+        public IActionResult CompleteSubscription()
+        {
+            
+            var service = new SessionService();
+            Session session = service.Get(TempData["Session"].ToString());
+           
+            if (session.PaymentStatus == "paid") 
+            {
+                var userId = session.Metadata["UserId"];
+                var subscriptionTypeId = int.Parse(session.Metadata["SubscriptionTypeId"]);
+                _subscriptionService.CompleteSubscription(userId, subscriptionTypeId);
+                return View("Success");
+            }
+            return View("Register");
+
+           
+        }
+        public IActionResult Success() 
+        
+        {
+            
+         return View();
+        }
+
+
+        //[HttpPost]
+        //public IActionResult CreateUserSubscription(Subscription input) 
+        //{
+
+        //    var userId = _userManager.GetUserId(User);
+
+        //    var subscription = new Subscription
+        //    {
+        //        UserId = userId,
+        //        SubscriptionTypeId =input.SubscriptionTypeId
+        //    };
+        //   string resultmessage= _subscriptionService.CreateSubscriptionForUser(userId, input.SubscriptionTypeId);
+        //    ViewBag.Message = resultmessage;
+        //    return View("Index","Home");
+
+        //}
 
         public async Task<IActionResult> ListSubscription()
         {
@@ -179,10 +271,7 @@ namespace NextNews.Controllers
             return RedirectToAction("SubscriptionTypeList");
         }
 
-        public async Task<IActionResult> Bankcard() 
-        {
-            
-            return View();
-        }
+       
+       
     }
 }
