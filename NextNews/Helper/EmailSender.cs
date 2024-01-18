@@ -33,7 +33,7 @@ namespace NextNews.Helper
 
             //We will say we are sending HTML. But there are options for plaintext etc.
 
-            message.Body = new TextPart(TextFormat.Html) { Text = htmlMessage };
+            message.Body = new TextPart(TextFormat.Html) { Text = htmlMessage};
 
             //Be careful that the SmtpClient class is the one from Mailkit not the framework!
 
