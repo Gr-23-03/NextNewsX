@@ -86,6 +86,7 @@ namespace NextNews.Services
             await _context.SaveChangesAsync();
         }
 
+
         //Delete
         public async Task DeleteSubscriptionType(int id)
         {
@@ -144,23 +145,35 @@ namespace NextNews.Services
             }
             var subscription = new Subscription()
             {
+
                 UserId = userId,
                 SubscriptionTypeId = subscriptionTypeId,
                 Price = subscriptionType.Price,
                 Created = DateTime.Now,
                 Expired = DateTime.Now.AddMonths(1),
                 PaymentComplete = "Yes" // Indicating payment is complete
-            };
-
-            _context.Subscriptions.Add(subscription);
-            _context.SaveChanges();
-        }
+                };
+                _context.Subscriptions.Add(subscription);
+                _context.SaveChanges();
+                }
+        
        
 
+        public async Task<int> CountBasicSubscribersAsync()
+        {
+            return await _context.Subscriptions
+                .Where(subscription => subscription.SubscriptionType.Name == "Basic")
+                .CountAsync();
+        }
 
+        public async Task<int> CountPremiumSubscribersAsync()
+        {
+            return await _context.Subscriptions
+                .Where(subscription => subscription.SubscriptionType.Name == "Premium")
+                .CountAsync();
+        }
 
 
     }
-
 }
 

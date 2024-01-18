@@ -18,5 +18,13 @@ namespace NextNews.Services
         public string CheckExistingSubscription(string userId, int subscriptionTypeId);
         public void CompleteSubscription(string userId, int subscriptionTypeId);
         public Task DeleteSubscriptionType(int id);
+
+
+        //count of Subscribers type
+        public Task<int> CountBasicSubscribersAsync();
+
+
+        public Task<int> CountPremiumSubscribersAsync();
+
     }
 }

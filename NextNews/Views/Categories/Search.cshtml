@@ -6,7 +6,7 @@
     ViewData["Title"] = "Search";
 }
 
-<h1>Search</h1>
+@* <h1>Search</h1> *@
 
 
 <form asp-action="Search" asp-controller="Categories" method="get" class="d-flex">
@@ -22,8 +22,8 @@
         @foreach (var article in Model.Articles)
         {
             <div>
-                <h3>@article.HeadLine</h3>
-                <p>@article.Content</p>
+                <h3>@article.HeadLine</h3> <br />
+                @Html.Raw(article.Content)
             </div>
         }
     </div>

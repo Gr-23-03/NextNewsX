@@ -135,9 +135,6 @@ namespace NextNews.Services
 
         }
 
-
-
-
         public void GetUserForLike() 
         {
             _context.Users.ToList();
