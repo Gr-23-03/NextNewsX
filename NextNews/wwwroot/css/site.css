@@ -170,6 +170,7 @@ column {
 
 
 /*Latest News*/
+/*Breaking News*/
 .news-carousel {
     width: 80%;
     margin: 0 auto;
@@ -180,11 +181,11 @@ column {
 }
 
 .latest-news-item {
-    /*display: flex;
-    flex-direction: column;*/
-    /*justify-content: center;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    /*height: 200px;*/
+    height: 100px;
     margin-bottom: 20px;
 }
 
@@ -199,7 +200,7 @@ column {
 
 .latest-news-summary {
     font-size: 16px;
-    line-height: 1.5;
+    line-height: 1.5; 
 }
 
 .latest-news-date {
