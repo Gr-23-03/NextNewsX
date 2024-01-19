@@ -1,9 +1,15 @@
-﻿using MailKit;
+﻿using Azure.Core;
+using MailKit;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+
 using NextNews.Data;
 using NextNews.Models.Database;
+using Org.BouncyCastle.Bcpg;
+using Stripe;
+using Stripe.Checkout;
+using Subscription = NextNews.Models.Database.Subscription;
 
 namespace NextNews.Services
 {
@@ -49,7 +55,12 @@ namespace NextNews.Services
                 await _context.SaveChangesAsync();
             }
         }
+        //
 
+        public SubscriptionType GetSubscriptionType(int subscriptionTypeId)
+        {
+            return _context.SubscriptionTypes.FirstOrDefault(st => st.Id == subscriptionTypeId);
+        }
         //Get Subscription Types
         public async Task<List<SubscriptionType>> GetSubscriptionTypesAsync()
         {
@@ -76,41 +87,7 @@ namespace NextNews.Services
         }
 
 
-
-        //Create subscription for user
-
-        
-
-        public string CreateSubscriptionForUser(string userId, int subscriptionTypeId) 
-
-        {
-            var subscriptionType = _context.SubscriptionTypes.FirstOrDefault(st => st.Id == subscriptionTypeId);
-            if (subscriptionType == null)
-            {
-                throw new ArgumentException("Invalid Subscription Type ID");
-            }
-            var existingSubscription = _context.Subscriptions.FirstOrDefault(x => x.UserId == userId && x.SubscriptionTypeId == subscriptionTypeId);
-            if (existingSubscription != null)
-            {
-
-                return  "You have already bought selected plan";
-            }
-            var subscription = new Subscription()
-            {
-
-                UserId = userId,
-                SubscriptionTypeId = subscriptionTypeId,
-                Price = subscriptionType.Price,
-                Created = DateTime.Now,
-                Expired = DateTime.Now.AddMonths(1),
-                PaymentComplete = "No"
-            };
-            _context.Subscriptions.Add(subscription);
-            _context.SaveChanges();
-            return "You have Successfully Subscribed";
-        }
-        
-        
+        //Delete
         public async Task DeleteSubscriptionType(int id)
         {
             var subscriptionType = await _context.SubscriptionTypes.FindAsync(id);
@@ -121,7 +98,65 @@ namespace NextNews.Services
             }
         }
 
+        //Create subscription for user
+        //public string CreateSubscriptionForUser(string userId, int subscriptionTypeId)
+        //{
+        //    var subscriptionType = _context.SubscriptionTypes.FirstOrDefault(st => st.Id == subscriptionTypeId);
+        //    if (subscriptionType == null)
+        //    {
+        //        throw new ArgumentException("Invalid Subscription Type ID");
+        //    }
+        //    var existingSubscription = _context.Subscriptions.FirstOrDefault(x => x.UserId == userId && x.SubscriptionTypeId == subscriptionTypeId);
+        //    if (existingSubscription != null)
+        //    {
 
+        //        return "You have already bought selected plan";
+        //    }
+        //    var subscription = new Subscription()
+        //    {
+
+        //        UserId = userId,
+        //        SubscriptionTypeId = subscriptionTypeId,
+        //        Price = subscriptionType.Price,
+        //        Created = DateTime.Now,
+        //        Expired = DateTime.Now.AddMonths(1),
+        //        PaymentComplete = "No"
+        //    };
+        //    _context.Subscriptions.Add(subscription);
+        //    _context.SaveChanges();
+        //    return "You have Successfully Subscribed";
+        //}
+
+        public string CheckExistingSubscription(string userId, int subscriptionTypeId) 
+        {
+            var existingSubscription = _context.Subscriptions.FirstOrDefault(x => x.UserId == userId && x.SubscriptionTypeId == subscriptionTypeId);
+            if (existingSubscription != null)
+            {
+                return "You have already bought selected plan";
+            }
+            return "Eligible for subscription";
+        }
+        public void CompleteSubscription(string userId, int subscriptionTypeId)
+        {
+            var subscriptionType = _context.SubscriptionTypes.FirstOrDefault(st => st.Id == subscriptionTypeId);
+            if (subscriptionType == null)
+            {
+                throw new ArgumentException("Invalid Subscription Type ID");
+            }
+            var subscription = new Subscription()
+            {
+
+                UserId = userId,
+                SubscriptionTypeId = subscriptionTypeId,
+                Price = subscriptionType.Price,
+                Created = DateTime.Now,
+                Expired = DateTime.Now.AddMonths(1),
+                PaymentComplete = "Yes" // Indicating payment is complete
+                };
+                _context.Subscriptions.Add(subscription);
+                _context.SaveChanges();
+                }
+        
        
 
         public async Task<int> CountBasicSubscribersAsync()
@@ -130,8 +165,6 @@ namespace NextNews.Services
                 .Where(subscription => subscription.SubscriptionType.Name == "Basic")
                 .CountAsync();
         }
-
-       
 
         public async Task<int> CountPremiumSubscribersAsync()
         {
@@ -143,3 +176,4 @@ namespace NextNews.Services
 
     }
 }
+
