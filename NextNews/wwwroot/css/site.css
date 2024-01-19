@@ -8,6 +8,9 @@ html {
     }
 }
 
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus{
+box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;  
+}
 
 
 html {
@@ -20,6 +23,37 @@ body {
     margin-bottom: 60px;
 }
 
+.two-column {
+    display: flex;
+    justify-content: space-between;
+}
+
+    .two-column > div {
+        flex: 1;
+        margin-right: 300px; /* Adjust the right margin to control the space between columns */
+    }
+
+    .two-column p {
+        margin-bottom: 200px; /* Add space below paragraphs for better readability */
+    }
+
+.column-break {
+    flex-basis: 200px; /* Adjust the space between columns */
+}
+
+
+
+
+.btn btn-dropdown {
+    background-color: white;
+    color:white;
+    padding: 16px;
+    font-size:16px;
+    border:none;
+
+}
+
+
 
 .dropdown {
     position: relative;
@@ -30,12 +64,15 @@ body {
     color: red;
 }
 
+
 .dropdown-menu a {
     color: white;
     padding: 12px 16px;
     text-decoration: none;
-    display:inline-block;
-
+    display:block;
+    padding: 0px;
+    margin-left:0px;
+    margin-right:0px;
    
     
 
@@ -57,128 +94,103 @@ body {
 }
 
 
-.dropdown-menu { /* From here design the dropdown*/
-    padding-left: 225px;
-    padding-top: 45px;
-    display: none;
-    position: absolute;
-    background-color: #3b3f42;
-    min-width: 800px;
-    min-height: 400px;
-    margin-left: -298px;
-    padding-right: 868px;
-    /*box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);*/
-    color: white !important;
+@media (min-width: 768px) {
+    .dropdown-menu { /* From here design the dropdown*/
+        /*padding-left: 225px;*/
+        padding-top: 45px;
+        display: none;
+        position: absolute;
+        background-color: #3b3f42;
+        min-width: 800px;
+        min-height: 400px;
+        /*margin-left: -298px;*/
+        /*padding-right: 868px;*/
+        /*box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);*/
+        color: white !important;
+    }
 }
- .dropdown-menu .dropdown-item {
-        
-    font-weight: bold;
-    font-size: 16px; /* Adjust the font size as needed */
+
+        .dropdown-menu .dropdown-item {
+            font-weight: bold;
+            font-size: 16px; /* Adjust the font size as needed */
+        }
+
+    /* Apply styles to the main dropdown links */
+    .nav-item.dropdown .nav-link.dropdown {
+        color: black;
+        font-weight: bold;
     }
 
-/* Apply styles to the main dropdown links */
-.nav-item.dropdown .nav-link.dropdown {
-    color: black;
-    font-weight: bold;
-}
 
-a {
-    font-weight: bold;
-    color: black;
-}
+    a {
+        color: black;
+        text-decoration: none;
+    }
 
+    column {
+        display: inline-block;
+    }
 
+    .picture {
+        width: 200px;
+        height: 100px;
+    }
 
-h2 {
-    color: red;
-    margin-left: 60px;
-    margin-top: 20px;
-}
+    .col-6 {
+        border-spacing: 1px;
+    }
 
-h1, p, img {
-/*    margin: 20px;
-    margin-left: 60px;
-    margin-top: 20px;
-*/}
+    .picture-row {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-right: 20px;
+        padding-right: 30px;
+    }
 
+    .picture-container {
+        width: 30%;
+        margin-bottom: 30px;
+        position: relative;
+        padding-top: 40px;
+        margin-right: 120px;
+    }
 
+    .picture {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
 
-
-h1 {
-    color: red;
-    font-weight: bold;
-}
-
-a {
-    color: aqua;
-    text-decoration: none;
-}
-
-column {
-    display: inline-block;
-}
-
-.picture {
-    width: 200px;
-    height: 100px;
-}
-
-.col-6 {
-    border-spacing: 1px;
-}
-
-.picture-row {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin-right: 20px;
-    padding-right: 30px;
-}
-
-.picture-container {
-    width: 30%;
-    margin-bottom: 30px;
-    position: relative;
-    padding-top: 40px;
-    margin-right: 120px;
-}
-
-.picture {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-
-.div.text-container {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 70%;
-    background-color: #3b3f42;
-    padding-top: -5px;
-    text-align: right;
-    margin-right: 0px;
-  margin-bottom: 10px;
-}
+    .div.text-container {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 70%;
+        background-color: #3b3f42;
+        padding-top: -5px;
+        text-align: right;
+        margin-right: 0px;
+        margin-bottom: 10px;
+    }
 
 
-.img-on-HomeIndex{
-    margin: 15px;
-    border-radius: 10px;
+    .img-on-HomeIndex {
+        margin: 15px;
+        border-radius: 10px;
+    }
 
-}
 
+    /*Latest News*/
+    .news-carousel {
+        width: 80%;
+        margin: 0 auto;
+    }
 
-/*Latest News*/
-/*Breaking News*/
-.news-carousel {
-    width: 80%;
-    margin: 0 auto;
-}
+    #newsCarousel {
+        padding: 20px;
+    }
 
-#newsCarousel {
-    padding: 20px;
-}
 
 .latest-news-item {
     display: flex;
@@ -189,28 +201,59 @@ column {
     margin-bottom: 20px;
 }
 
-.latest-news-title {
-    text-align: center;
-}
+
+    .latest-news-title {
+        text-align: center;
+    }
+
 
 .latest-news-headline {
-    font-size: 20px;
+    font-size: 24px;
     font-weight: bold;
 }
+
+
+    .latest-news-summary {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
+    .latest-news-date {
+        font-size: 12px;
+        color: #999;
+    }
+
+    .latest-news-link {
+        color: var(--bs-body-color);
+        text-decoration: none;
+        transition: color 0.15s ease-in-out;
+    }
+
+
+/*Latest News*/
+/*Breaking News*/
+.news-carousel {
+    width: 80%;
+    margin: 0 auto;
+}
+
+
+
+.latest-news-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    margin-bottom: 20px;
+}
+
 
 .latest-news-summary {
     font-size: 16px;
     line-height: 1.5; 
 }
 
-.latest-news-date {
-    font-size: 12px;
-    color: #999;
-}
 
-.latest-news-link {
-    color: var(--bs-body-color);
-    text-decoration: none;
-    transition: color 0.15s ease-in-out;
 
-}
+

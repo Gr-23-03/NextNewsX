@@ -20,6 +20,7 @@ namespace NextNews.Controllers
 
         private readonly ICategoryService _categoryService;
 
+
         private readonly ApplicationDbContext _context;
         public CategoriesController(ApplicationDbContext context, ICategoryService categoryService)
         {
@@ -132,27 +133,38 @@ namespace NextNews.Controllers
 
 
 
-    // search articles by category and article headline and by words
+        // search articles by category and article headline and by words
 
-        public async Task<IActionResult> Search(string searchString)
+        public async Task<IActionResult> Search(string searchString, int page)
         {
-            searchString = searchString.Trim();
+            if (string.IsNullOrEmpty(searchString))
+            {
+                searchString = "";    // If searchSting is null then we create a empty string
+            }
+            else
+            {
+                searchString = searchString.Trim().ToLower();   //  Take away space on the beginning and end of searchString.
+            }                                                   
 
-            var categoryQuery = from c in _context.Categories orderby c.Id select c.Name.ToLower();
 
 
+
+            var categoryQuery = from c in _context.Categories 
+                                orderby c.Id
+                                select c.Name.ToLower();
 
 
             var articles = _context.Articles.Include(article => article.Category).Where(article => (article.Category != null && article.Category.Name.ToLower() == searchString.ToLower()) ||
-            (article.HeadLine.ToLower().Contains(searchString) || article.Content.ToLower().Contains(searchString))).ToList();
+            (article.HeadLine.Contains(searchString) || article.ContentSummary.ToLower().Contains(searchString.ToLower()) || article.Content.ToLower().Contains(searchString.ToLower()))).ToList();
 
 
 
-            // Additional filtering based on the search string
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                articles = articles.Where(a => a.HeadLine.Contains(searchString) || a.Content.Contains(searchString)).OrderByDescending(article => article.DateStamp).ToList();
-            }
+
+
+
+
+
+
 
             var viewModel = new CategoryViewModel
             {
@@ -161,6 +173,7 @@ namespace NextNews.Controllers
                 SearchString = searchString // Passing the search string back to the view
             };
 
+    
             return View(viewModel);
         }
 
@@ -168,3 +181,13 @@ namespace NextNews.Controllers
 
     }
 }
+
+
+
+
+
+
+
+
+
+

@@ -47,9 +47,10 @@ namespace NextNews.Controllers
 
             var vm = new HomeIndexVM()
             {
-                MostPopularArticle = allArticles.OrderByDescending(a => a.Views).FirstOrDefault(),
-                MostPopularArticles = allArticles.OrderByDescending(a => a.Views).ToList(),
+                PopularArticle = allArticles.OrderByDescending(a => a.Views).FirstOrDefault(),
+                PopularArticles = allArticles.OrderByDescending(a => a.Views).Take(3).ToList(),
                 LatestArticle = allArticles.OrderByDescending(obj => obj.DateStamp).FirstOrDefault(),
+
                 LatestArticles = allArticles
                     .OrderByDescending(obj => obj.DateStamp)
                     .Take(5)

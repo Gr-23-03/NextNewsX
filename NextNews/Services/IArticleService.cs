@@ -18,5 +18,6 @@ namespace NextNews.Services
         public void AddLikes(int id, string userId );
         public void IncreamentViews(Article article);
         IEnumerable<Article> GetArticlesByCategory(int categoryId);
+        public Task<string> UploadImage(IFormFile file);
     }
 }

@@ -1,7 +1,9 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿@model NextNews.Models.Database.Article
+
+@using Microsoft.AspNetCore.Identity
 @using NextNews.Models.Database
 @using NextNews.Services
-@model NextNews.Models.Database.Article
+
 
 @inject UserManager<User> _userManager
 @inject IArticleService _articleService
@@ -13,72 +15,105 @@
 
 }
 
-<h1>Details</h1>
 
+<h1 style="margin:10px" >@Model.HeadLine</h1>
+<i>@Model.DateStamp <br />
+   By @Model.AuthorName
+
+    @if (Model.ImageLink != null)
+    {
+        @* <dt class="col-sm-2">
+    @Html.DisplayNameFor(model => model.ImageLink)
+    </dt> *@
+        <dd class="col-sm-10">
+            <img src="@Html.DisplayFor(model => model.ImageLink)" alt="image" style="width: 100%" />
+        </dd>
+    }
+</i>
 <div>
-    <h4>Article</h4>
+   
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        @* <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.DateStamp)
-        </dt>
-        <dd class = "col-sm-10">
+        </dt> *@
+       @*  <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.DateStamp)
-        </dd>
-        <dt class = "col-sm-2">
+        </dd> *@
+       @*  <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.LinkText)
-        </dt>
+        </dt> *@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.LinkText)
         </dd>
-        <dt class = "col-sm-2">
+        @* <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.HeadLine)
-        </dt>
-        <dd class = "col-sm-10">
+        </dt> *@
+       @*  <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.HeadLine)
-        </dd>
-        <dt class = "col-sm-2">
+        </dd> *@
+        @* <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.ContentSummary)
-        </dt>
+        </dt> *@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.ContentSummary)
         </dd>
-        <dt class = "col-sm-2">
+       @*  <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Content)
-        </dt>
+        </dt> *@
         <dd class = "col-sm-10">
             @Html.Raw(Model.Content)
         </dd>
-        <dt class = "col-sm-2">
+       @*  <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Views)
-        </dt>
-        <dd class = "col-sm-10">
+        </dt> *@
+       @*  <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Views)
-        </dd>
-        <dt class = "col-sm-2">
+        </dd> *@
+        @* <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Likes)
-        </dt>
-        <dd class = "col-sm-10">
+        </dt> *@
+      @*   <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Likes)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageLink)
-        </dt>
-        <dd class = "col-sm-10">
-            <img src="@Html.DisplayFor(model => model.ImageLink)" alt="image" style="width: 100%" />
-        </dd>
+        </dd> *@
+
+
+
+
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.AuthorName)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.AuthorName)
         </dd>
-        <dt class = "col-sm-2">
+       @*  <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Category)
-        </dt>
+        </dt> *@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Category.Id)
         </dd>
+
+        @if (Model.ImageLink2 != null)
+        {
+            @* <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ImageLink2)
+            </dt> *@
+            <dd class="col-sm-10">
+                <img src="@Html.DisplayFor(model => model.ImageLink2)" alt="image" style="width: 100%" />
+            </dd>
+        }
+
+        @if (Model.ImageFile != null)
+        {
+           @*  <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ImageFile)
+            </dt> *@
+            <dd class="col-sm-10">
+                <img src="@Html.DisplayFor(model => model.ImageFile)" alt="image" style="width: 100%" />
+        </dd>
+        }
+
+
     </dl>
 </div>
 

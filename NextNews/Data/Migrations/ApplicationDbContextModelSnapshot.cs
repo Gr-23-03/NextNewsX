@@ -203,6 +203,9 @@ namespace NextNews.Data.Migrations
                     b.Property<string>("ImageLink")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImageLink2")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("Likes")
                         .HasColumnType("int");
 

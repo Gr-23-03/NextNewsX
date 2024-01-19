@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.CodeAnalysis.CSharp;
 
 namespace NextNews.Controllers
 {
@@ -75,10 +76,21 @@ namespace NextNews.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Editor")]
+
+        
         public IActionResult AddArticle(Article article)
         {
             if (ModelState.IsValid)
             {
+              
+                 article.ImageLink = _articleService.UploadImage(article.ImageFile).Result;
+                
+                _articleService.AddArticle(article);
+
+                //article.ImageLink = _articleService.UploadImage(article.ImageFile).Result;
+                return RedirectToAction("Listarticles");
+
+
                 // Check if an image file is uploaded
                 if (article.ImageFile != null && article.ImageFile.Length > 0)
                 {
@@ -95,11 +107,12 @@ namespace NextNews.Controllers
                     }
 
                     article.ImageLink = "/Images/" + uniqueFileName; // Update the ImageLink property with the file path
+                    article.ImageLink2 = "/Images/" + uniqueFileName;
                 }
 
-                _articleService.AddArticle(article);
+                //_articleService.AddArticle(article);
 
-                return RedirectToAction("ListArticles");
+                //return RedirectToAction("ListArticles");
             }
 
             // If there is an error, repopulate the categories
@@ -123,7 +136,7 @@ namespace NextNews.Controllers
         //details
 
         [Authorize(Roles = "Editor")]
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult>  Details (int id)
         {
             var article = await _articleService.GetArticleByIdAsync(id);
            
@@ -164,7 +177,7 @@ namespace NextNews.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Editor")] // Only authorized users can edit categories
-        public async Task<IActionResult> Edit(int id, [Bind("Id,DateStamp,LinkText,HeadLine,ContentSummary,Content,Views,Likes, ImageLink,AuthorName,CategoryId")] Article article)
+        public async Task<IActionResult> Edit(int id, Article article)
         {
             if (id != article.Id)
             {

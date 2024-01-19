@@ -1,34 +1,15 @@
-﻿
+
 <nav class="navbar navbar-light bg-white">
     <div class="container-fluid">
-
-        <a class="navbar-brand" asp-controller="Home" asp-action="Index">
-            <img src="~/images/NEXT.gif" style="height: 130px" />&nbsp;&nbsp;&nbsp;
-
-
+         <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+            <img src="~/images/NEXT.gif" style="width:30%; padding-left:30px;" />
         </a>
     </div>
 </nav>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        @*  <img src="~/images/NEXT.gif" style="height: 130px" />&nbsp;&nbsp;&nbsp; *@
-        <a class="" href="#"></a>
-        <a class="navbar-brand" href="#"></a>
-        <a class="navbar-brand" href="#"></a>
-        <a class="navbar-brand" href="#"></a>
-        <a class="navbar-brand" href="#"></a>
-        <a class="navbar-brand" href="#"></a>
-        <a class="navbar-brand" href="#"></a>
-        <a class="navbar-brand" href="#"></a>
-        <a class="navbar-brand" href="#"></a>
-        <a class="navbar-brand" href="#"></a>
-        <a class="navbar-brand" href="#"></a>
-        <a class="navbar-brand" href="#"></a>
-        <a class="navbar-brand" href="#"></a>
-        <a class="navbar-brand" href="#"></a>
-        <a class="navbar-brand" href="#"></a>
-
-
+    <div class="container">
+       
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -36,10 +17,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
 
-                <li class="nav-item dropdown"> 
-                   
                     <a class="nav-link active" aria-current="page" style="color:red; font-weight:bold" asp-controller="Home" asp-action="Index">Home</a>
-
                 </li>
 
                 <li class="nav-item dropdown">
@@ -48,108 +26,429 @@
                         Local
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" style="color:red; font-weight:bold;font-size:50px" href="#">Local</a></li>
-                       
-                        <li><a class="dropdown-item" href="#">ALL</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Local News headlin is written here</a></li>
+                        <li>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12 col-md-4">
+                                        <a style="color:red; font-weight:bold;font-size:50px" href="#">Local</a>
+                                        <div class="d-flex flex-column">
+                                            <a href="#">ALL</a>
+                                            <a href="#">Link 2</a>
+                                        </div>
+                                    </div>
+                                    <div class="row col-12 col-md-8">
+                                        <div class="picture-row">
+                                            <div class="picture-container">
+                                                <img src="http://placehold.it/400x300" alt="Picture 1" class="picture">
+                                                <div class="text-container">
+                                                    <p>Text for Picture 1</p>
+                                                </div>
+                                            </div>
 
+                                            <div class="picture-container">
+                                                <img src="http://placehold.it/400x300" alt="Picture 2" class="picture">
+                                                <div class="text-container">
+                                                    <p>Text for Picture 2</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="picture-container">
+                                                <img src="http://placehold.it/400x300" alt="Picture 3" class="picture">
+                                                <div class="text-container">
+                                                    <p>Text for Picture 3</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="picture-container">
+                                                <img src="http://placehold.it/400x300" alt="Picture 4" class="picture">
+                                                <div class="text-container">
+                                                    <p>Text for Picture 4</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown" href="#" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
-                       
+
                         Sweden
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" style="color:red; font-weight:bold;font-size:50px" href="#">Sweden</a></li>
-                        <li><a class="dropdown-item" href="#">ALL</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Local News headlin is written here</a></li>
+                      
+                        <li>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12 col-md-4">
+                                        <a style="color:red; font-weight:bold;font-size:50px" href="#">Sweden</a>
+                                        <div class="d-flex flex-column">
+                                            <a href="#">ALL</a>
+                                            <a href="#">Link 2</a>
+                                        </div>
+                                    </div>
+                                    <div class="row col-12 col-md-8">
+                                        <div class="picture-row">
+                                            <div class="picture-container">
+                                                <img src="http://placehold.it/400x300" alt="Picture 1" class="picture">
+                                                <div class="text-container">
+                                                    <p>Text for Picture 1</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="picture-container">
+                                                <img src="http://placehold.it/400x300" alt="Picture 2" class="picture">
+                                                <div class="text-container">
+                                                    <p>Text for Picture 2</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="picture-container">
+                                                <img src="http://placehold.it/400x300" alt="Picture 3" class="picture">
+                                                <div class="text-container">
+                                                    <p>Text for Picture 3</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="picture-container">
+                                                <img src="http://placehold.it/400x300" alt="Picture 4" class="picture">
+                                                <div class="text-container">
+                                                    <p>Text for Picture 4</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown" href="#" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
-                        
+
                         World
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" style="color:red; font-weight:bold;font-size:50px" href="#">World</a></li>
-                        <li><a class="dropdown-item" href="#">ALL</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Regional</a></li>
-                        <li><a class="dropdown-item" href="#">International</a></li>
+                        <li>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12 col-md-4">
+                                        <a style="color:red; font-weight:bold;font-size:50px" href="#">World</a>
+                                        <div class="d-flex flex-column">
+                                            <a href="#">ALL</a>
+                                            <a href="#">Link 2</a>
+                                        </div>
+                                    </div>
+                                    <div class="row col-12 col-md-8">
+                                        <div class="picture-row">
+                                            <div class="picture-container">
+                                                <img src="http://placehold.it/400x300" alt="Picture 1" class="picture">
+                                                <div class="text-container">
+                                                    <p>Text for Picture 1</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="picture-container">
+                                                <img src="http://placehold.it/400x300" alt="Picture 2" class="picture">
+                                                <div class="text-container">
+                                                    <p>Text for Picture 2</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="picture-container">
+                                                <img src="http://placehold.it/400x300" alt="Picture 3" class="picture">
+                                                <div class="text-container">
+                                                    <p>Text for Picture 3</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="picture-container">
+                                                <img src="http://placehold.it/400x300" alt="Picture 4" class="picture">
+                                                <div class="text-container">
+                                                    <p>Text for Picture 4</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown" href="#" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
-                        
+
                         Economy
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" style="color:red; font-weight:bold;font-size:50px" href="#">Economy</a></li>
-                        <li><a class="dropdown-item" href="#">ALL</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12 col-md-4">
+                                        <a style="color:red; font-weight:bold;font-size:50px" href="#">Economy</a>
+                                        <div class="d-flex flex-column">
+                                            <a href="#">ALL</a>
+                                            <a href="#">Link 2</a>
+                                        </div>
+                                    </div>
+                                    <div class="row col-12 col-md-8">
+                                        <div class="picture-row">
+                                            <div class="picture-container">
+                                                <img src="http://placehold.it/400x300" alt="Picture 1" class="picture">
+                                                <div class="text-container">
+                                                    <p>Text for Picture 1</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="picture-container">
+                                                <img src="http://placehold.it/400x300" alt="Picture 2" class="picture">
+                                                <div class="text-container">
+                                                    <p>Text for Picture 2</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="picture-container">
+                                                <img src="http://placehold.it/400x300" alt="Picture 3" class="picture">
+                                                <div class="text-container">
+                                                    <p>Text for Picture 3</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="picture-container">
+                                                <img src="http://placehold.it/400x300" alt="Picture 4" class="picture">
+                                                <div class="text-container">
+                                                    <p>Text for Picture 4</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown" href="#" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
-                       
+
 
                         Sport
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" style="color:red; font-weight:bold;font-size:50px" href="#">Sport</a></li>
-                        <li><a class="dropdown-item" href="#">ALL</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12 col-md-4">
+                                        <a style="color:red; font-weight:bold;font-size:50px" href="#">Sport</a>
+                                        <div class="d-flex flex-column">
+                                            <a href="#">ALL</a>
+                                            <a href="#">Link 2</a>
+                                        </div>
+                                    </div>
+                                    <div class="row col-12 col-md-8">
+                                        <div class="picture-row">
+                                            <div class="picture-container">
+                                                <img src="http://placehold.it/400x300" alt="Picture 1" class="picture">
+                                                <div class="text-container">
+                                                    <p>Text for Picture 1</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="picture-container">
+                                                <img src="http://placehold.it/400x300" alt="Picture 2" class="picture">
+                                                <div class="text-container">
+                                                    <p>Text for Picture 2</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="picture-container">
+                                                <img src="http://placehold.it/400x300" alt="Picture 3" class="picture">
+                                                <div class="text-container">
+                                                    <p>Text for Picture 3</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="picture-container">
+                                                <img src="http://placehold.it/400x300" alt="Picture 4" class="picture">
+                                                <div class="text-container">
+                                                    <p>Text for Picture 4</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown" href="#" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
-                        
+
                         Art & Culture
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" style="color:red; font-weight:bold;font-size:50px" href="#"> Art & Culture </a></li>
-                        <li><a class="dropdown-item" href="#">ALL</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12 col-md-4">
+                                        <a style="color:red; font-weight:bold;font-size:50px" href="#">Art & culture</a>
+                                        <div class="d-flex flex-column">
+                                            <a href="#">ALL</a>
+                                            <a href="#">Link 2</a>
+                                        </div>
+                                    </div>
+                                    <div class="row col-12 col-md-8">
+                                        <div class="picture-row">
+                                            <div class="picture-container">
+                                                <img src="http://placehold.it/400x300" alt="Picture 1" class="picture">
+                                                <div class="text-container">
+                                                    <p>Text for Picture 1</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="picture-container">
+                                                <img src="http://placehold.it/400x300" alt="Picture 2" class="picture">
+                                                <div class="text-container">
+                                                    <p>Text for Picture 2</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="picture-container">
+                                                <img src="http://placehold.it/400x300" alt="Picture 3" class="picture">
+                                                <div class="text-container">
+                                                    <p>Text for Picture 3</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="picture-container">
+                                                <img src="http://placehold.it/400x300" alt="Picture 4" class="picture">
+                                                <div class="text-container">
+                                                    <p>Text for Picture 4</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown" href="#" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
-                        
+
                         Health
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" style="color:red; font-weight:bold;font-size:50px" href="#">Health</a></li>
-                        <li><a class="dropdown-item" href="#">ALL</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12 col-md-4">
+                                        <a style="color:red; font-weight:bold;font-size:50px" href="#">Health</a>
+                                        <div class="d-flex flex-column">
+                                            <a href="#">ALL</a>
+                                            <a href="#">Link 2</a>
+                                        </div>
+                                    </div>
+                                    <div class="row col-12 col-md-8">
+                                        <div class="picture-row">
+                                            <div class="picture-container">
+                                                <img src="http://placehold.it/400x300" alt="Picture 1" class="picture">
+                                                <div class="text-container">
+                                                    <p>Text for Picture 1</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="picture-container">
+                                                <img src="http://placehold.it/400x300" alt="Picture 2" class="picture">
+                                                <div class="text-container">
+                                                    <p>Text for Picture 2</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="picture-container">
+                                                <img src="http://placehold.it/400x300" alt="Picture 3" class="picture">
+                                                <div class="text-container">
+                                                    <p>Text for Picture 3</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="picture-container">
+                                                <img src="http://placehold.it/400x300" alt="Picture 4" class="picture">
+                                                <div class="text-container">
+                                                    <p>Text for Picture 4</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown" href="#" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
-                       
+
                         Weather
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" style="color:red; font-weight:bold;font-size:50px" href="#">Weather</a></li>
-                        <li><a class="dropdown-item" href="#">ALL</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12 col-md-4">
+                                        <a style="color:red; font-weight:bold;font-size:50px" href="#">Weather</a>
+                                        <div class="d-flex flex-column">
+                                            <a href="#">ALL</a>
+                                            <a href="#">Link 2</a>
+                                        </div>
+                                    </div>
+                                    <div class="row col-12 col-md-8">
+                                        <div class="picture-row">
+                                            <div class="picture-container">
+                                                <img src="http://placehold.it/400x300" alt="Picture 1" class="picture">
+                                                <div class="text-container">
+                                                    <p>Text for Picture 1</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="picture-container">
+                                                <img src="http://placehold.it/400x300" alt="Picture 2" class="picture">
+                                                <div class="text-container">
+                                                    <p>Text for Picture 2</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="picture-container">
+                                                <img src="http://placehold.it/400x300" alt="Picture 3" class="picture">
+                                                <div class="text-container">
+                                                    <p>Text for Picture 3</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="picture-container">
+                                                <img src="http://placehold.it/400x300" alt="Picture 4" class="picture">
+                                                <div class="text-container">
+                                                    <p>Text for Picture 4</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <partial name="_loginPartial"> </partial>
-                </li>
+                
             </ul>
-            <form asp-controller="Categories" asp-action="Search" class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" name="searchString" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+
+            <form class="d-flex" asp-controller="Categories" asp-action="Search">
+                <input name="searchString" class="form-control" type="search" placeholder="Search On NEXTnews" aria-label="Search">
+                <button class="btn btn-outline-danger" type="submit">Search</button>
+            </form> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            
+                <partial name="_loginPartial"> </partial>
+           
+
         </div>
     </div>
 </nav>

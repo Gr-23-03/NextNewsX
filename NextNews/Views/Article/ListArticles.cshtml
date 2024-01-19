@@ -9,7 +9,7 @@
 <h1>ListArticles</h1>
 
 <p>
-    <a asp-action="CreateArticle" >Create New</a>
+    <a asp-action="CreateArticle">Create New</a>
 </p>
 
 
@@ -77,6 +77,8 @@
     <header>
         <h1>@ViewData["Title"]</h1>
     </header>
+    @* <Partial name="_ParViewArticleList" model="Model"></Partial> *@
+    @*  <Partial name="_ParViewArticleList" model="Model"></Partial> *@
     <table>
         <thead>
             <tr>
@@ -87,7 +89,7 @@
                 <th>Content</th>
                 <th>Date Stamp</th>
                 <th>Link Text</th>
-                <th>Image Link</th>
+                <th>Images</th>
                 <th>Category ID</th>
                 <th>Actions</th>
             </tr>
@@ -100,24 +102,44 @@
                     <td>@article.Id</td>
                     <td>@article.AuthorName</td>
                     <td>@article.HeadLine</td>
+
                     <td>@article.ContentSummary</td>
                     <td>@Html.Raw(article.Content)</td>
                     <td>@article.DateStamp</td>
                     <td>@article.LinkText</td>
-                    <td> <img src="@article.ImageLink" style="height:150px;width:150px;" /> </td>
+                    <td>
+                        @if (@article.ImageLink != null)
+                        {
+                            <img src="@article.ImageLink" style="height:150px;width:150px;"./>
+                            
+                        }
+                        &nbsp;&nbsp;&nbsp;
+
+                        @if (@article.ImageLink2 != null )
+                        {
+                            <img src="@article.ImageLink2" style="height:150px;width:150px;" />
+                        }
+
+
+                    </td>
                     <td>@article.CategoryId</td>
                     <td>
-                       
+                        <a href="@Url.Action("Details","Articles",new{id=article.Id})">Read More</a>
                         <a asp-action="Edit" asp-controller="Article" asp-route-id="@article.Id">Edit</a> |
                         <a asp-action="Delete" asp-controller="Article" asp-route-id="@article.Id">Delete</a>
                         <a asp-action="Details" asp-controller="Article" asp-route-id="@article.Id">Details</a>
                     </td>
                 </tr>
+
             }
 
         </tbody>
     </table>
+    <p>
+        <a asp-action="CreateArticle">Create New</a>
+    </p>
 </body>
+
 </html>
 
 

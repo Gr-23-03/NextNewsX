@@ -1,18 +1,24 @@
-﻿using MailKit;
+﻿using Azure.Core;
+using MailKit;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+
 using NextNews.Data;
 using NextNews.Models.Database;
+using Org.BouncyCastle.Bcpg;
+using Stripe;
+using Stripe.Checkout;
+using Subscription = NextNews.Models.Database.Subscription;
 
 namespace NextNews.Services
 {
-    public class SubscriptionService :ISubscriptionService
+    public class SubscriptionService : ISubscriptionService
     {
         private readonly ApplicationDbContext _context;
-        public SubscriptionService(ApplicationDbContext context) 
+        public SubscriptionService(ApplicationDbContext context)
         {
-           _context = context;
+            _context = context;
         }
 
         public async Task<List<Subscription>> GetSubscriptionsAsync()
@@ -49,16 +55,21 @@ namespace NextNews.Services
                 await _context.SaveChangesAsync();
             }
         }
+        //
 
-        //Get Subscription Types
-        public async Task<List<SubscriptionType>> GetSubscriptionTypesAsync() 
+        public SubscriptionType GetSubscriptionType(int subscriptionTypeId)
         {
-        return await _context.SubscriptionTypes.ToListAsync();
+            return _context.SubscriptionTypes.FirstOrDefault(st => st.Id == subscriptionTypeId);
+        }
+        //Get Subscription Types
+        public async Task<List<SubscriptionType>> GetSubscriptionTypesAsync()
+        {
+            return await _context.SubscriptionTypes.ToListAsync();
         }
         //Create Subscription Types
-        public async Task CreateSubscriptionTypesAsync(SubscriptionType subscriptionType) 
-        { 
-        _context.SubscriptionTypes.Add(subscriptionType);
+        public async Task CreateSubscriptionTypesAsync(SubscriptionType subscriptionType)
+        {
+            _context.SubscriptionTypes.Add(subscriptionType);
             await _context.SaveChangesAsync();
         }
         //Details SubscriptionType 
@@ -76,43 +87,93 @@ namespace NextNews.Services
         }
 
 
-
-        //Create subscription for user
-        public string CreateSubscriptionForUser(string userId, int subscriptionTypeId) 
-        {
-            var subscriptionType = _context.SubscriptionTypes.FirstOrDefault(st => st.Id == subscriptionTypeId);
-            if (subscriptionType == null) 
-            {
-                throw new ArgumentException("Invalid Subscription Type ID");
-            }
-            var existingSubscription = _context.Subscriptions.FirstOrDefault(x => x.UserId == userId && x.SubscriptionTypeId == subscriptionTypeId);
-            if (existingSubscription != null)
-            {
-
-                return  "You have already bought selected plan";
-            }
-            var subscription = new Subscription()
-            {
-                
-                UserId = userId,
-                SubscriptionTypeId = subscriptionTypeId,
-                Price=subscriptionType.Price,
-                Created=DateTime.Now,
-                Expired=DateTime.Now.AddMonths(1),
-                PaymentComplete= "No"
-            };
-            _context.Subscriptions.Add(subscription);
-            _context.SaveChanges();
-            return "You have Successfully Subscribed";
-        }
-        public async Task DeleteSubscriptionType(int id) 
+        //Delete
+        public async Task DeleteSubscriptionType(int id)
         {
             var subscriptionType = await _context.SubscriptionTypes.FindAsync(id);
-            if (subscriptionType != null) 
-            { 
-             _context.SubscriptionTypes.Remove(subscriptionType);
+            if (subscriptionType != null)
+            {
+                _context.SubscriptionTypes.Remove(subscriptionType);
                 await _context.SaveChangesAsync();
             }
         }
+
+        //Create subscription for user
+        //public string CreateSubscriptionForUser(string userId, int subscriptionTypeId)
+        //{
+        //    var subscriptionType = _context.SubscriptionTypes.FirstOrDefault(st => st.Id == subscriptionTypeId);
+        //    if (subscriptionType == null)
+        //    {
+        //        throw new ArgumentException("Invalid Subscription Type ID");
+        //    }
+        //    var existingSubscription = _context.Subscriptions.FirstOrDefault(x => x.UserId == userId && x.SubscriptionTypeId == subscriptionTypeId);
+        //    if (existingSubscription != null)
+        //    {
+
+        //        return "You have already bought selected plan";
+        //    }
+        //    var subscription = new Subscription()
+        //    {
+
+        //        UserId = userId,
+        //        SubscriptionTypeId = subscriptionTypeId,
+        //        Price = subscriptionType.Price,
+        //        Created = DateTime.Now,
+        //        Expired = DateTime.Now.AddMonths(1),
+        //        PaymentComplete = "No"
+        //    };
+        //    _context.Subscriptions.Add(subscription);
+        //    _context.SaveChanges();
+        //    return "You have Successfully Subscribed";
+        //}
+
+        public string CheckExistingSubscription(string userId, int subscriptionTypeId) 
+        {
+            var existingSubscription = _context.Subscriptions.FirstOrDefault(x => x.UserId == userId && x.SubscriptionTypeId == subscriptionTypeId);
+            if (existingSubscription != null)
+            {
+                return "You have already bought selected plan";
+            }
+            return "Eligible for subscription";
+        }
+        public void CompleteSubscription(string userId, int subscriptionTypeId)
+        {
+            var subscriptionType = _context.SubscriptionTypes.FirstOrDefault(st => st.Id == subscriptionTypeId);
+            if (subscriptionType == null)
+            {
+                throw new ArgumentException("Invalid Subscription Type ID");
+            }
+            var subscription = new Subscription()
+            {
+
+                UserId = userId,
+                SubscriptionTypeId = subscriptionTypeId,
+                Price = subscriptionType.Price,
+                Created = DateTime.Now,
+                Expired = DateTime.Now.AddMonths(1),
+                PaymentComplete = "Yes" // Indicating payment is complete
+                };
+                _context.Subscriptions.Add(subscription);
+                _context.SaveChanges();
+                }
+        
+       
+
+        public async Task<int> CountBasicSubscribersAsync()
+        {
+            return await _context.Subscriptions
+                .Where(subscription => subscription.SubscriptionType.Name == "Basic")
+                .CountAsync();
+        }
+
+        public async Task<int> CountPremiumSubscribersAsync()
+        {
+            return await _context.Subscriptions
+                .Where(subscription => subscription.SubscriptionType.Name == "Premium")
+                .CountAsync();
+        }
+
+
     }
 }
+

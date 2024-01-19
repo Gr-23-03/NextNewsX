@@ -25,15 +25,20 @@ namespace NextNews.Models.Database
         public int? Likes { get; set;}
 
         //public int? Dislike { get; set; }
+        [Display(Name = "LinkImage1")]
         public string? ImageLink { get; set; }
         
+        [Display(Name = "LinkImage2 (optional)")]
+        public string? ImageLink2 { get; set; }
+
         [Display(Name = "Author:")]
         public string? AuthorName { get; set; }
 
+        [ForeignKey("CategoryId")]
         public int? CategoryId {  get; set; }
 
-        [ForeignKey("CategoryId")]
-        public Category? Category { get; set; }
+        
+        public virtual Category? Category { get; set; }
         public ICollection<User>? UsersLiked { get; set; }
 
         [NotMapped]
