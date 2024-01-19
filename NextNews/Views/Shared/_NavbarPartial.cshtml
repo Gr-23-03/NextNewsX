@@ -3,7 +3,7 @@
     <div class="container-fluid">
 
           <a class="navbar-brand" asp-controller="Home" asp-action="Index">
-            <img src="~/images/NEXT.gif" style="width:30%; padding-left:30px;"
+            <img src="~/images/NEXT.gif" style="width:30%; padding-left:30px;" />
         </a>
     </div>
 </nav>
@@ -441,8 +441,8 @@
                 
             </ul>
 
-            <form class="d-flex">
-                <input class="form-control" type="search" placeholder="Search On NEXTnews" aria-label="Search">
+            <form class="d-flex" asp-controller="Categories" asp-action="Search">
+                <input name="searchString" class="form-control" type="search" placeholder="Search On NEXTnews" aria-label="Search">
                 <button class="btn btn-outline-danger" type="submit">Search</button>
             </form> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             
