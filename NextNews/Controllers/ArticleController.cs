@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.CodeAnalysis.CSharp;
 
 namespace NextNews.Controllers
 {
@@ -75,11 +76,18 @@ namespace NextNews.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Editor")]
+
+        
         public IActionResult AddArticle(Article article)
         {
             if (ModelState.IsValid)
             {
+              
+                 article.ImageLink = _articleService.UploadImage(article.ImageFile).Result;
+                
                 _articleService.AddArticle(article);
+
+                //article.ImageLink = _articleService.UploadImage(article.ImageFile).Result;
                 return RedirectToAction("Listarticles");
 
 
