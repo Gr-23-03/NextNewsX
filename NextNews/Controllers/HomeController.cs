@@ -35,22 +35,22 @@ namespace NextNews.Controllers
 
 
         /* Most popular articles
-           Latest articles */
+           Latest articles 
+        SpecificArticles */
         public IActionResult Index()
         {
             List<Article> allArticles = _articleService.GetArticles().ToList();
             List<Category> allCategories = _categoryService.GetCategories().ToList();
 
             int sportId = allCategories.Where(a => a.Name == "Sport").FirstOrDefault().Id;
-            int worldId = allCategories.Where(a => a.Name == "Sport").FirstOrDefault().Id;
+            int worldId = allCategories.Where(a => a.Name == "World").FirstOrDefault().Id;
 
 
             var vm = new HomeIndexVM()
             {
-                PopularArticle = allArticles.OrderByDescending(a => a.Views).FirstOrDefault(),
-                PopularArticles = allArticles.OrderByDescending(a => a.Views).Take(3).ToList(),
+                MostPopularArticle = allArticles.OrderByDescending(a => a.Views).FirstOrDefault(),
+                MostPopularArticles = allArticles.OrderByDescending(a => a.Views).Take(3).ToList(),
                 LatestArticle = allArticles.OrderByDescending(obj => obj.DateStamp).FirstOrDefault(),
-
                 LatestArticles = allArticles
                     .OrderByDescending(obj => obj.DateStamp)
                     .Take(5)
@@ -68,9 +68,6 @@ namespace NextNews.Controllers
             };
 
 
-
-
-
             //// Set a specific article by its ID
             //var specificArticleId = 5 /* specify the desired article ID */;
             //vm.SpecificArticle = allArticles.FirstOrDefault(article => article.Id == specificArticleId);
@@ -78,7 +75,6 @@ namespace NextNews.Controllers
             // Set the specific articles by their IDs
             var specificArticleIds = new List<int> { 11, 17, 25, 13, 15, 7, 12, 8, 16, 22, 18, 6, 24, 34 }; // Example IDs
             vm.SpecificArticles = allArticles.Where(article => specificArticleIds.Contains(article.Id)).ToList();
-
 
 
 

@@ -201,10 +201,9 @@ body {
     margin-bottom: 20px;
 }
 
-
-    .latest-news-title {
-        text-align: center;
-    }
+.latest-news-title {
+    text-align: center;
+}
 
 
 .latest-news-headline {
@@ -249,11 +248,11 @@ body {
 }
 
 
-.latest-news-summary {
+/*.latest-news-summary {
     font-size: 16px;
     line-height: 1.5; 
 }
-
+*/
 
 
 
