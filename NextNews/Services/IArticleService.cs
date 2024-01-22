@@ -1,5 +1,6 @@
 ﻿using NextNews.Models;
 using NextNews.Models.Database;
+using NextNews.ViewModels;
 using System.Collections.Generic;
 
 namespace NextNews.Services
@@ -16,7 +17,7 @@ namespace NextNews.Services
 
 
         public void AddLikes(int id, string userId );
-        public void IncreamentViews(Article article);
+        public void IncreamentViews(ArticleDetailsViewModel article);
         IEnumerable<Article> GetArticlesByCategory(int categoryId);
         public Task<string> UploadImage(IFormFile file);
     }

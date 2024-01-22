@@ -1,3 +1,4 @@
+
 html {
     font-size: 14px;
 }
@@ -230,10 +231,16 @@ body {
     }
 
 
+/*.ql-size-small {
+    font-size: 1em;*/ /* or any other size */
+/*}*/
+/*.ql-size-large {
+    font-size: 1.5em;  or any other size 
+}*/
 
-
-
-
+/*.ql-size-huge {
+    font-size: 2em;*/ /* or any other size */
+/*}*/
 
 
 

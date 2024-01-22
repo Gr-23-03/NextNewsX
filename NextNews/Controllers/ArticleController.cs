@@ -62,7 +62,6 @@ namespace NextNews.Controllers
             return View(vmList);
         }
 
-
         //Action for list of article
 
         public IActionResult ListArticles()
@@ -138,26 +137,29 @@ namespace NextNews.Controllers
         [Authorize(Roles = "Editor")]
         public async Task<IActionResult>  Details (int id)
         {
-            var article = await _articleService.GetArticleByIdAsync(id);
-           
-            if (article == null)
+            List<Article> allArticles = _articleService.GetArticles().ToList();
+
+            var vm = new ArticleDetailsViewModel()
             {
-                return NotFound();
-            }
+                Article = allArticles.FirstOrDefault(a => a.Id == id),
+                LatestArticles = allArticles.Where(a=>a.Id !=id)
+                .OrderByDescending(a => a.DateStamp).Take(3).ToList(),
+            };
+            _articleService.IncreamentViews(vm);
+            return View(vm);
 
-            _articleService.IncreamentViews(article);
+            //var article = await _articleService.GetArticleByIdAsync(id);
 
-            //// Check if the current user has liked the article
-            //var userId = _userManager.GetUserId(User);
-            //var userHasLiked = article.UsersLiked.Any(u => u.Id == userId);
-
-            //// Create a view model
-            //var viewModel = new ArticleDetailsViewModel
+            //if (article == null)
             //{
-            //    Article = article,
-            //    IsLikedByUser = userHasLiked
-            //};
-            return View(article);
+            //    return NotFound();
+            //}
+
+
+           
+
+
+            //return View(article);
         }
 
 

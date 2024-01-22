@@ -43,7 +43,7 @@ namespace NextNews.Models.Database
 
         [NotMapped]
         [Display(Name = "Image File")]
-        public IFormFile ImageFile { get; set; }
+        public IFormFile? ImageFile { get; set; }
 
     }
 }
