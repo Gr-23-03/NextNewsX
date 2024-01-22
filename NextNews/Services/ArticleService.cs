@@ -9,6 +9,7 @@ using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Collections.Generic;
 using Azure.Storage.Blobs;
+using NextNews.ViewModels;
 
 
 
@@ -96,15 +97,15 @@ namespace NextNews.Services
         }
 
         
-        public void IncreamentViews(Article article)
+        public void IncreamentViews(ArticleDetailsViewModel article)
         {
-            if (article.Views is null)
+            if (article.Article.Views is null)
             {
-                article.Views = 1;
+                article.Article.Views = 1;
             }
             else
             {
-                article.Views++;
+                article.Article.Views++;
             }
             _context.SaveChanges();
 
