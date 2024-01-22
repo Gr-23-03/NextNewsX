@@ -202,10 +202,9 @@ body {
     margin-bottom: 20px;
 }
 
-
-    .latest-news-title {
-        text-align: center;
-    }
+.latest-news-title {
+    text-align: center;
+}
 
 
 .latest-news-headline {
@@ -230,21 +229,30 @@ body {
         transition: color 0.15s ease-in-out;
     }
 
-
-/*.ql-size-small {
-    font-size: 1em;*/ /* or any other size */
-/*}*/
-/*.ql-size-large {
-    font-size: 1.5em;  or any other size 
-}*/
-
-/*.ql-size-huge {
-    font-size: 2em;*/ /* or any other size */
-/*}*/
+/*Latest News*/
+/*Breaking News*/
+.news-carousel {
+    width: 80%;
+    margin: 0 auto;
+}
 
 
 
+.latest-news-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    margin-bottom: 20px;
+}
 
+
+/*.latest-news-summary {
+    font-size: 16px;
+    line-height: 1.5; 
+}
+*/
 
 
 
