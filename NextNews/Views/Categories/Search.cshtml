@@ -10,25 +10,59 @@
 
 
 <form asp-action="Search" asp-controller="Categories" method="get" class="d-flex">
-    <input class="form-control me-2" type="search" placeholder="Search" name="searchString" aria-label="Search">
-    <button class="btn btn-outline-success" type="submit">Search</button>
+    <input class="form-control" type="search" placeholder="Search" name="searchString" aria-label="Search">
+    <button class="btn btn-outline-success" type="submit" style="margin-left: 10px">Search</button>
 </form>
 
 <!-- Display the list of articles -->
 @if (Model.Articles != null && Model.Articles.Any())
 {
     <div>
-        <h2>Search Results</h2>
+        <h2 class="mt-3">Search Results (@Model.Articles.Count)</h2>
         @foreach (var article in Model.Articles)
         {
             <div>
                 <h3>@article.HeadLine</h3> <br />
                 @Html.Raw(article.Content)
+
+
+
+
             </div>
+
+
+
+
+            <ul class="pagination pagination-sm">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+
+
+
+
         }
     </div>
 }
 else
 {
-    <p>No articles found.</p>
+    <div class="p-4">
+    <p><i><b>No articles found.</b></i></p>
+    </div>
 }
+
+
+
+
+
+
+@* <!-- Content of news articles -->
+<div id="news-articles">
+    <!-- News articles go here -->
+</div>
+
+<!-- Pagination -->
+ *@

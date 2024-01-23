@@ -2,6 +2,14 @@
 
 @{
     ViewData["Title"] = "ListArticles";
+    Pager pager = new Pager();
+    int pageNo = 0;
+
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
 }
 
 
@@ -9,7 +17,7 @@
 <h1>ListArticles</h1>
 
 <p>
-    <a asp-action="CreateArticle" >Create New</a>
+    <a asp-action="CreateArticle">Create New</a>
 </p>
 
 
@@ -78,7 +86,7 @@
         <h1>@ViewData["Title"]</h1>
     </header>
     @* <Partial name="_ParViewArticleList" model="Model"></Partial> *@
-   @*  <Partial name="_ParViewArticleList" model="Model"></Partial> *@
+    @*  <Partial name="_ParViewArticleList" model="Model"></Partial> *@
     <table>
         <thead>
             <tr>
@@ -89,7 +97,7 @@
                 <th>Content</th>
                 <th>Date Stamp</th>
                 <th>Link Text</th>
-                <th>Image Link</th>
+                <th>Images</th>
                 <th>Category ID</th>
                 <th>Actions</th>
             </tr>
@@ -102,25 +110,76 @@
                     <td>@article.Id</td>
                     <td>@article.AuthorName</td>
                     <td>@article.HeadLine</td>
-                   
+
                     <td>@article.ContentSummary</td>
                     <td>@Html.Raw(article.Content)</td>
                     <td>@article.DateStamp</td>
                     <td>@article.LinkText</td>
-                    <td> <img src="@article.ImageLink" ImageLinks style="height:150px;width:150px;" /> </td>
+                    <td>
+                        @if (@article.ImageLink != null)
+                        {
+                            <img src="@article.ImageLink" style="height:150px;width:150px;"./>
+                            
+                        }
+                        &nbsp;&nbsp;&nbsp;
+
+                        @if (@article.ImageLink2 != null )
+                        {
+                            <img src="@article.ImageLink2" style="height:150px;width:150px;" />
+                        }
+
+
+                    </td>
                     <td>@article.CategoryId</td>
                     <td>
-                       <a href="@Url.Action("Details","Articles",new{id=article.Id})">Read More</a>
+                        <a href="@Url.Action("Details","Articles",new{id=article.Id})">Read More</a>
                         <a asp-action="Edit" asp-controller="Article" asp-route-id="@article.Id">Edit</a> |
                         <a asp-action="Delete" asp-controller="Article" asp-route-id="@article.Id">Delete</a>
                         <a asp-action="Details" asp-controller="Article" asp-route-id="@article.Id">Details</a>
                     </td>
                 </tr>
-                
+
             }
 
         </tbody>
     </table>
+    <div class="container">
+        @if (pager.TotalPages > 0)
+        {
+            <ul class="pagination justify-content-end">
+
+                @if (pager.CurrentPage > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Article" asp-action="ListArticles" asp-route-pg="1">First</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Article" asp-action="ListArticles" asp-route-pg="@(pager.CurrentPage -1)"> Previous </a>
+                    </li>
+                }
+
+                @for (var pge = pager.StartPage; pge <= pager.Endpage; pge++)
+                {
+                    <li class="page-item @(pge==pager.CurrentPage ? "active":"")">
+                        <a class="page-link" asp-controller="Article" asp-action="ListArticles" asp-route-pg="@pge">@pge</a>
+                    </li>
+                }
+                @if (pager.CurrentPage < pager.TotalPages)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Article" asp-action="ListArticles" asp-route-pg="@(pager.CurrentPage + 1)">Next</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Article" asp-action="ListArticles" asp-route-pg="@(pager.TotalPages)">Last</a>
+                    </li>
+
+                }
+            </ul>
+
+        }
+
+
+    </div>
     <p>
         <a asp-action="CreateArticle">Create New</a>
     </p>
@@ -131,8 +190,8 @@
 
 
 
- 
- 
+
+
 
 
 
