@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Home Page";
 
-   
+
 }
 
 @* <div class="text-center">
@@ -18,14 +18,60 @@
     @* vänstra kolumnen *@
 
     <div class="col-6" style="border: 1px solid gray">
-        <img class="img-on-HomeIndex" src="@Model.MostPopularArticle.ImageLink" alt="Article Image" style="width:100%">
-        <h5>@Model.MostPopularArticle.HeadLine</h5>
-        @* <h1>@Model.MostPopularArticle.ContentSummary</h1> *@
-        <p class="latestMostPopular-news-date">Published on @Model.MostPopularArticle.DateStamp?.ToString("M") @Model.MostPopularArticle.DateStamp?.ToString("t")</p>
-  
+
+        <div>
+            <a asp-action="Details" asp-controller="Article" asp-route-id="@Model.MostPopularArticle.Id">
+                <img class="img-on-HomeIndex" src="@Model.MostPopularArticle.ImageLink" alt="Article Image" style="width:100%">
+                <h2>@Model.MostPopularArticle.LinkText</h2>
+                <h4>@Model.MostPopularArticle.ContentSummary</h4>
+            </a>
+            <p class="MostPopular-news-date">Published on @Model.MostPopularArticle.DateStamp?.ToString("M") @Model.MostPopularArticle.DateStamp?.ToString("t")</p>
+        </div>
+
         <h2 style="color: black">News</h2>
 
-        @if (Model.SpecificArticles?.Count >= 13)
+        @if (Model.SpecificArticles?.Count >= 14)
+        {
+            var firstspecificArticle = Model.SpecificArticles.FirstOrDefault(a => a.Id == 14);
+            var secondSpecificArticle = Model.SpecificArticles.FirstOrDefault(a => a.Id == 5);
+
+            <div class="row">
+                <div class="col-6">
+                    <!-- Display details for the first specific article -->
+                    <div class="article-image">
+                        <img class="img-on-HomeIndex" src="@firstspecificArticle.ImageLink" alt="Article Image" style="width:100%">
+                    </div>
+                    <div class="article-news-headline">
+                        <a asp-action="Details" asp-controller="Article" asp-route-id="@firstspecificArticle.Id" class="article-news-link">
+                            @firstspecificArticle.HeadLine
+                        </a>
+                    </div>
+                    <div class="article-news-item mb-3">
+                    </div>
+                    <p class="article-news-summary">@firstspecificArticle.ContentSummary</p>
+                    <p class="article-news-date">Published on @firstspecificArticle.DateStamp?.ToString("M") @firstspecificArticle.DateStamp?.ToString("t")</p>
+                </div>
+
+                <div class="col-6">
+                    <!-- Display details for the second specific article -->
+                    <div class="article-image">
+                        <img class="img-on-HomeIndex" src="@secondSpecificArticle.ImageLink" alt="Article Image" style="width:100%">
+                    </div>
+                    <div class="-news-headline">
+                        <a asp-action="Details" asp-controller="Article" asp-route-id="@secondSpecificArticle.Id" class="article-news-link">
+                            @secondSpecificArticle.HeadLine
+                        </a>
+                    </div>
+                    <div class="article-news-item mb-3">
+                    </div>
+                    <p class="article-news-summary">@secondSpecificArticle.ContentSummary</p>
+                    <p class="article-news-date">Published on @secondSpecificArticle.DateStamp?.ToString("M") @secondSpecificArticle.DateStamp?.ToString("t")</p>
+                </div>
+
+            </div>
+        }
+
+        @if (Model.SpecificArticles?.Count >= 14)
         {
             var firstspecificArticle = Model.SpecificArticles.FirstOrDefault(a => a.Id == 11);
             var secondSpecificArticle = Model.SpecificArticles.FirstOrDefault(a => a.Id == 17);
@@ -82,7 +128,7 @@
             </div>
         }
 
-        @if (Model.SpecificArticles?.Count >= 13)
+        @if (Model.SpecificArticles?.Count >= 14)
         {
             var firstSpecificArticle = Model.SpecificArticles.FirstOrDefault(a => a.Id == 13);
             var secondSpecificArticle = Model.SpecificArticles.FirstOrDefault(a => a.Id == 15);
@@ -139,17 +185,60 @@
             </div>
         }
 
-    </div> 
+
+        @if (Model.SpecificArticles?.Count >= 14)
+        {
+            var firstspecificArticle = Model.SpecificArticles.FirstOrDefault(a => a.Id == 45);
+            var secondSpecificArticle = Model.SpecificArticles.FirstOrDefault(a => a.Id == 40);
+
+            <div class="row">
+                <div class="col-6">
+                    <!-- Display details for the first specific article -->
+                    <div class="article-image">
+                        <img class="img-on-HomeIndex" src="@firstspecificArticle.ImageLink" alt="Article Image" style="width:100%">
+                    </div>
+                    <div class="article-news-headline">
+                        <a asp-action="Details" asp-controller="Article" asp-route-id="@firstspecificArticle.Id" class="article-news-link">
+                            @firstspecificArticle.HeadLine
+                        </a>
+                    </div>
+                    <div class="article-news-item mb-3">
+                    </div>
+                    <p class="article-news-summary">@firstspecificArticle.ContentSummary</p>
+                    <p class="article-news-date">Published on @firstspecificArticle.DateStamp?.ToString("M") @firstspecificArticle.DateStamp?.ToString("t")</p>
+                </div>
+
+                <div class="col-6">
+                    <!-- Display details for the second specific article -->
+                    <div class="article-image">
+                        <img class="img-on-HomeIndex" src="@secondSpecificArticle.ImageLink" alt="Article Image" style="width:100%">
+                    </div>
+                    <div class="-news-headline">
+                        <a asp-action="Details" asp-controller="Article" asp-route-id="@secondSpecificArticle.Id" class="article-news-link">
+                            @secondSpecificArticle.HeadLine
+                        </a>
+                    </div>
+                    <div class="article-news-item mb-3">
+                    </div>
+                    <p class="article-news-summary">@secondSpecificArticle.ContentSummary</p>
+                    <p class="article-news-date">Published on @secondSpecificArticle.DateStamp?.ToString("M") @secondSpecificArticle.DateStamp?.ToString("t")</p>
+                </div>
+
+            </div>
+        }
+
+
+    </div>
 
 
 
 
-   @*  <div class="col-9" style="border: 1px solid gray; border-radius:25px; padding:50px"> *@
-        @* <img src="@Url News.ImageLink" alt="Article Image" style="width:100%" . /> *@
-        @*  <img class="img-on-HomeIndex"   *@
-      @*   < h1>@Model.PopularArticle.HeadLine</h1>
-        <h5>@Model.PopularArticle.ContentSummary</h5>   *@
-       @*  <partial name="_PartialViewArticleList" model="Model.MostPopularArticles"></partial> *@
+    @*  <div class="col-9" style="border: 1px solid gray; border-radius:25px; padding:50px"> *@
+    @* <img src="@Url News.ImageLink" alt="Article Image" style="width:100%" . /> *@
+    @*  <img class="img-on-HomeIndex"   *@
+    @*   < h1>@Model.PopularArticle.HeadLine</h1>
+    <h5>@Model.PopularArticle.ContentSummary</h5>   *@
+    @*  <partial name="_PartialViewArticleList" model="Model.MostPopularArticles"></partial> *@
     @* </div>  *@
 
     @*  högra kolumnen *@
@@ -175,34 +264,103 @@
             </div>
         }
     </div>
-    
+
 
     @* Advertisement column *@
-        <div class="col-2">
+
+    <div class="col-3" style="border:6px" padding:"3px">
+
+
+        @* Advertisement column *@
+
+        <div class="advertisement-column">
+            <p>Advertisement</p>
+            <!-- Add your advertisement content here -->
+        </div>
 
 
 
+        <h2 style="color: black">Health</h2>
 
-   
-        <h2 style="color: black">Advertisement</h2>
+        @if (Model.SpecificArticles?.Count >= 14)
+        {
+            var firstspecificArticle = Model.SpecificArticles.FirstOrDefault(a => a.Id == 46);
 
-        
-        
+            <div class="row">
+                <div class="col-12">
+                    <!-- Display details for the first specific article -->
+                    <div class="article-image">
+                        <img class="img-on-HomeIndex" src="@firstspecificArticle.ImageLink" alt="Article Image" style="width:100%">
+                    </div>
+                    <div class="article-news-headline">
+                        <a asp-action="Details" asp-controller="Article" asp-route-id="@firstspecificArticle.Id" class="article-news-link">
+                            @firstspecificArticle.HeadLine
+                        </a>
+                    </div>
+                    <div class="article-news-item mb-3">
+                    </div>
+                    <p class="article-news-summary">@firstspecificArticle.ContentSummary</p>
+                    <p class="article-news-date">Published on @firstspecificArticle.DateStamp?.ToString("M") @firstspecificArticle.DateStamp?.ToString("t")</p>
+                </div>
+
+
+            </div>
+        }
+
+
+        @* Advertisement column *@
+
+        <div class="advertisement-column">
+            <p>Advertisement</p>
+            <!-- Add your advertisement content here -->
+        </div>
+
+
+
+        @if (Model.SpecificArticles?.Count >= 14)
+        {
+            var firstspecificArticle = Model.SpecificArticles.FirstOrDefault(a => a.Id == 22);
+
+            <div class="row">
+                <div class="col-12">
+                    <!-- Display details for the first specific article -->
+                    <div class="article-image">
+                        <img class="img-on-HomeIndex" src="@firstspecificArticle.ImageLink" alt="Article Image" style="width:100%">
+                    </div>
+                    <div class="article-news-headline">
+                        <a asp-action="Details" asp-controller="Article" asp-route-id="@firstspecificArticle.Id" class="article-news-link">
+                            @firstspecificArticle.HeadLine
+                        </a>
+                    </div>
+                    <div class="article-news-item mb-3">
+                    </div>
+                    <p class="article-news-summary">@firstspecificArticle.ContentSummary</p>
+                    <p class="article-news-date">Published on @firstspecificArticle.DateStamp?.ToString("M") @firstspecificArticle.DateStamp?.ToString("t")</p>
+                </div>
+
+
+            </div>
+        }
+
+
 
 
 
 
     </div>
+
+
 </div>
 
 
+@* Different Categories *@
 <div class="row">
 
     <!-- Left column for CategoryArticles -->
     <div class="col-6" style="border: 1px solid gray">
 
         <h2 style="color: black">Sports News</h2>
-       @*  @foreach (var categoryArticle in Model.CategoryArticles)
+        @*  @foreach (var categoryArticle in Model.CategoryArticles)
         { *@
 
         @if (Model.ArticlesByCategorySport.Any())
@@ -223,14 +381,14 @@
             <p class="sports-news-date">Published on @firstArticle.DateStamp?.ToString("M") @firstArticle.DateStamp?.ToString("t")</p>
         }
 
-       @*  } *@
+        @*  } *@
     </div>
 
 
     <!-- Right column for CategoryArticles -->
     <div class="col-6">
         <h2 style="color: black">More in Sports</h2>
-       @*  @foreach (var categoryArticle in Model.CategoryArticles)
+        @*  @foreach (var categoryArticle in Model.CategoryArticles)
         { *@
 
 

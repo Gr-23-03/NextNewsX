@@ -73,7 +73,7 @@ namespace NextNews.Controllers
             //vm.SpecificArticle = allArticles.FirstOrDefault(article => article.Id == specificArticleId);
 
             // Set the specific articles by their IDs
-            var specificArticleIds = new List<int> { 11, 17, 25, 13, 15, 7, 12, 8, 16, 22, 18, 6, 24, 34 }; // Example IDs
+            var specificArticleIds = new List<int> {14, 5, 11, 17, 25, 13, 15, 7, 12, 8, 16, 22, 18, 6, 24, 14, 43, 34, 35, 46, 22, 45, 40}; // Example IDs
             vm.SpecificArticles = allArticles.Where(article => specificArticleIds.Contains(article.Id)).ToList();
 
 
