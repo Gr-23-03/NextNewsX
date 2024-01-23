@@ -151,7 +151,7 @@ namespace NextNews.Services
                 Price = subscriptionType.Price,
                 Created = DateTime.Now,
                 Expired = DateTime.Now.AddMonths(1),
-                PaymentComplete = "Yes" // Indicating payment is complete
+                PaymentComplete = true // Indicating payment is complete
                 };
                 _context.Subscriptions.Add(subscription);
                 _context.SaveChanges();
