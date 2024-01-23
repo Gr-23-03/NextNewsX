@@ -16,7 +16,7 @@ namespace NextNews.Models.Database
 
         public DateTime? Expired { get; set;}
 
-        public string? PaymentComplete { get; set;}
+        public bool? PaymentComplete { get; set;}
 
         public string? UserId { get; set;}
 

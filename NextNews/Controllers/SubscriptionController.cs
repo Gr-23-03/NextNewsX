@@ -115,7 +115,7 @@ namespace NextNews.Controllers
                 _subscriptionService.CompleteSubscription(userId, subscriptionTypeId);
 
                 string htmlTemplate = System.IO.File.ReadAllText("C:\\Users\\zain\\source\\repos\\NextNews\\NextNews\\Views\\Shared\\EmailTemplate.cshtml");
-                string personalizedContent = $"Dear user, your subscription for {subscriptionTypeId} is now active.";
+                string personalizedContent = $"Welcome to your NextNews account. You can use your account to sign into the NextNews website and use special features. Subscriptions to the suite of NextNews newsletters can also be managed using your account. The NextNews takes your data privacy seriously. To learn more, read our privacy policy and account FAQs.All the best, Regards NextNews";
                 string htmlMessage = htmlTemplate.Replace("{{main_content}}", personalizedContent);
                 _emailSender.SendEmailAsync(userEmail, "NextNews Subscription", htmlMessage);
                 return View("Success");
