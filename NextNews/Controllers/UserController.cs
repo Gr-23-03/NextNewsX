@@ -10,10 +10,12 @@ namespace NextNews.Controllers
     public class UserController : Controller
     {
         private readonly IUserService _userService;
-    
-        public UserController(IUserService userService)
+        private readonly UserManager<User> _userManager;
+
+        public UserController(IUserService userService , UserManager<User> userManager)
         {
             _userService = userService;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> Index(string username)
@@ -44,79 +46,18 @@ namespace NextNews.Controllers
             return View(users);
         }
 
+        public async Task<IActionResult> Details(string id)
+        {
+            var user = await _userService.GetUserByIdAsync(id);
 
-        /*
-
-                [Authorize(Roles = "Admin")]
-                public async Task<IActionResult> EditUser(string id)
-                {
-                    try
-                    {
-                        var editUser = await _userService.GetUserByIdAsync(id);
-
-                        if (editUser == null)
-                        {
-                            return NotFound();
-                        }
-
-                        return View("editUser", editUser);
-                    }
-                    catch (Exception ex)
-                    {
-                        return View("Error");
-                    }
-                }
-
-                //[Authorize(Roles = "Admin")]
-                //[HttpPost]
-                //public async Task<IActionResult> EditUser(User user)
-                //{
-                //    try
-                //    {
-                //        user.NormalizedEmail = user.Email.ToUpper();
-                //        user.UserName = user.Email.ToUpper();
-                //        user.NormalizedUserName = user.UserName.ToUpper();
+            if (user == null)
+            {
+                return NotFound();
+            }
 
 
-                //        if (ModelState.IsValid)
-                //        {
-                //            await _userService.UpdateUserAsync(user);
-                //            return RedirectToAction("ManageUsers");
-                //        }
-                //        else
-                //        {
-                //            return View("edituser", user);
-                //        }
-                //    }
-                //    catch (Exception ex)
-                //    {
-
-                //        return View("Error");
-                //    }
-                //}
-
-
-
-                [HttpPost]
-
-                [Authorize(Roles = "Admin")] // Only authorized users can edit categories
-                public async Task<IActionResult> Edit(string id, [Bind("Id,FirstName,LastName,DateofBirth,PhoneNumber,Email")] User user)
-                {
-                    if (id != user.Id)
-                    {
-                        return NotFound();
-                    }
-
-                    if (ModelState.IsValid)
-                    {
-                        await _userService.UpdateUserAsync(user);
-                        return RedirectToAction(nameof(ManageUsers));
-                    }
-
-                    return View(user);
-                }
-                */
-
+            return View(user);
+        }
 
 
 
@@ -143,25 +84,15 @@ namespace NextNews.Controllers
             {
                 return BadRequest();
             }
-
+            if (!ModelState.IsValid)
+            {
+                // Model state is not valid, return the view with validation errors
+                return View("Edit", user);
+            }
             await _userService.UpdateUserAsync(user);
+            
             return RedirectToAction("ManageUsers");
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -198,8 +129,53 @@ namespace NextNews.Controllers
 
 
 
+        //Assign role to user by Admin
 
-      
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public async Task<IActionResult> AssignRole(string userId, string role)
+        {
+            var user = await _userService.GetUserByIdAsync(userId);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            if (!string.IsNullOrEmpty(role))
+            {
+                // Check if the user is already in the specified role
+                var isInRole = await _userManager.IsInRoleAsync(user, role);
+
+                if (!isInRole)
+                {
+                    // Assign the role to the user
+                    await _userManager.AddToRoleAsync(user, role);
+                }
+            }
+
+            return RedirectToAction("Details", new { id = userId });
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+        [Authorize(Roles = "User")]
+        public IActionResult UserDashboard()
+        {
+            return View();
+        }
+
+
 
 
 

@@ -1,5 +1,6 @@
-﻿@{
-    ViewData["Title"] = "Dashboard";
+﻿
+@{
+    ViewData["Title"] = "EditorDashboard";
 }
 
 <style>
@@ -56,8 +57,21 @@
 
     <ul class="navbar">
         <li><a href="/">Home</a></li>
-        <li><a asp-controller="Admin" asp-action="Index">Statistics</a></li>  
-        <li><a asp-controller="User" asp-action="ManageUsers">List of Users</a></li>
-        <li><a asp-controller="Role" asp-action="Index">Roles</a></li>
+
+        <li><a asp-controller="Categories" asp-action="Index">Category List</a></li>
+        <li><a asp-controller="Article" asp-action="ListArticles">Articles List</a></li>
+        <li><a asp-controller="Subscription" asp-action="ListSubscription">Subscription List</a></li>
+        <li><a asp-controller="Statistics" asp-action="Index">Statistics</a></li>
     </ul>
 </div>
+
+
+
+@* 
+<div>
+
+    <div>
+        @await Html.PartialAsync("_RoleBasedPartial")
+    </div>
+
+</div> *@

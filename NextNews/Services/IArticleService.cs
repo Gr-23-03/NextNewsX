@@ -14,7 +14,7 @@ namespace NextNews.Services
         public Task DeleteArticleAsync(int id);
         public List<Category> GetCategories();
 
-
+        Task<string> UploadImage(IFormFile file);   //azure storage
         public void AddLikes(int id, string userId );
         public void IncreamentViews(Article article);
         IEnumerable<Article> GetArticlesByCategory(int categoryId);

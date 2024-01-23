@@ -50,7 +50,8 @@ namespace NextNews
 
 
             builder.Services.AddControllersWithViews();
-          
+
+
             // SERVICES
             builder.Services.AddScoped<IUserService,UserService>();
             builder.Services.AddScoped<IArticleService, ArticleService>();
@@ -63,7 +64,8 @@ namespace NextNews
 
             builder.Services.AddScoped<SeedData>();
 
-
+            
+         
 
             builder.Services.Configure<CookiePolicyOptions>(options =>
             {
@@ -75,6 +77,24 @@ namespace NextNews
                 options.ConsentCookieValue = "true";
 
             });
+
+
+
+
+            // Configure role-based policies
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
+                options.AddPolicy("Editor", policy => policy.RequireRole("Editor"));
+                options.AddPolicy("User", policy => policy.RequireRole("User"));
+                
+            });
+
+
+
+
+
+
 
 
             var app = builder.Build();
@@ -113,6 +133,9 @@ namespace NextNews
             app.UseCookiePolicy();
 
             app.UseRouting();
+
+            app.UseAuthentication(); // to enable authentication
+
 
             app.UseAuthorization();
 

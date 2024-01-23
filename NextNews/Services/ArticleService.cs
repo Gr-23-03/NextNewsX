@@ -8,6 +8,7 @@ using SQLitePCL;
 using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Collections.Generic;
+using Azure.Storage.Blobs;
 
 
 
@@ -16,11 +17,31 @@ namespace NextNews.Services
     public class ArticleService : IArticleService
     {
         private readonly ApplicationDbContext _context;
+        private readonly IConfiguration _configuration;
 
-        public ArticleService(ApplicationDbContext context)
+        private readonly BlobServiceClient _blobServiceClient; 
+
+        public ArticleService(ApplicationDbContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
+            _blobServiceClient = new BlobServiceClient(_configuration["AzureWebJobStorage"]);
+          
         }
+
+        public async Task<string> UploadImage(IFormFile file)
+        {
+            BlobContainerClient containerClient = _blobServiceClient.GetBlobContainerClient("nextnews");
+            BlobClient blobClient = containerClient.GetBlobClient(file.FileName);
+
+            await using(var stream = file.OpenReadStream()) 
+            {
+                blobClient.Upload(stream);
+            }
+
+            return blobClient.Uri.AbsoluteUri;
+        }
+
 
         public List<Article> GetArticles()
         {
