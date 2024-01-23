@@ -5,6 +5,9 @@ namespace NextNews.ViewModels
     public class ArticleDetailsViewModel
     {
         public Article Article { get; set; }
-        public bool IsLikedByUser { get; set; }
+      
+        public List<Article>? LatestArticles { get; set; }
+
+    
     }
 }

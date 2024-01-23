@@ -9,6 +9,8 @@ using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Collections.Generic;
 using Azure.Storage.Blobs;
+using NextNews.ViewModels;
+
 
 
 
@@ -18,13 +20,32 @@ namespace NextNews.Services
     {
         private readonly ApplicationDbContext _context;
         private readonly IConfiguration _configuration;
+
+
         private readonly BlobServiceClient _blobServiceClient;
+
         public ArticleService(ApplicationDbContext context, IConfiguration configuration)
         {
             _context = context;
             _configuration = configuration;
+
+          
             _blobServiceClient = new BlobServiceClient(_configuration["AzureWebJobsStorage"]);
         }
+
+        public async Task<string> UploadImage(IFormFile file)
+        {
+            BlobContainerClient containerClient = _blobServiceClient.GetBlobContainerClient("nextnews");
+            BlobClient blobClient = containerClient.GetBlobClient(file.FileName);
+
+            await using(var stream = file.OpenReadStream()) 
+            {
+                blobClient.Upload(stream);
+            }
+
+            return blobClient.Uri.AbsoluteUri;
+        }
+
 
         public List<Article> GetArticles()
         {
@@ -96,15 +117,15 @@ namespace NextNews.Services
         }
 
         
-        public void IncreamentViews(Article article)
+        public void IncreamentViews(ArticleDetailsViewModel article)
         {
-            if (article.Views is null)
+            if (article.Article.Views is null)
             {
-                article.Views = 1;
+                article.Article.Views = 1;
             }
             else
             {
-                article.Views++;
+                article.Article.Views++;
             }
             _context.SaveChanges();
 

@@ -1,5 +1,6 @@
 ﻿using NextNews.Models;
 using NextNews.Models.Database;
+using NextNews.ViewModels;
 using System.Collections.Generic;
 
 namespace NextNews.Services
@@ -14,9 +15,9 @@ namespace NextNews.Services
         public Task DeleteArticleAsync(int id);
         public List<Category> GetCategories();
 
-
+        Task<string> UploadImage(IFormFile file);   //azure storage
         public void AddLikes(int id, string userId );
-        public void IncreamentViews(Article article);
+        public void IncreamentViews(ArticleDetailsViewModel article);
         IEnumerable<Article> GetArticlesByCategory(int categoryId);
         public Task<string> UploadImage(IFormFile file);
     }

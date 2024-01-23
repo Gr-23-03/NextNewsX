@@ -7,6 +7,8 @@ using Stripe.Checkout;
 using Subscription = NextNews.Models.Database.Subscription;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using System.Security.Claims;
+using Azure.Core;
+
 namespace NextNews.Controllers
 {
     public class SubscriptionController : Controller
@@ -111,7 +113,11 @@ namespace NextNews.Controllers
                 var userId = session.Metadata["UserId"];
                 var subscriptionTypeId = int.Parse(session.Metadata["SubscriptionTypeId"]);
                 _subscriptionService.CompleteSubscription(userId, subscriptionTypeId);
-                _emailSender.SendEmailAsync(userEmail, "NextNews Subscription", "Your subscription is now active.");
+
+                string htmlTemplate = System.IO.File.ReadAllText("C:\\Users\\zain\\source\\repos\\NextNews\\NextNews\\Views\\Shared\\EmailTemplate.cshtml");
+                string personalizedContent = $"Dear user, your subscription for {subscriptionTypeId} is now active.";
+                string htmlMessage = htmlTemplate.Replace("{{main_content}}", personalizedContent);
+                _emailSender.SendEmailAsync(userEmail, "NextNews Subscription", htmlMessage);
                 return View("Success");
             }
             return View("Register");

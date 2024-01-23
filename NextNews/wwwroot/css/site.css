@@ -1,3 +1,4 @@
+
 html {
     font-size: 14px;
 }
@@ -227,25 +228,6 @@ body {
 }
 
 
-
-
-
-/*Advertisement column*/
-
-/*.advertisement-column {
-    border: 1px solid #ccc;*/ /* Border color */
-    /*background-color: #f5f5f5;*/ /* Faint-colored background */
-    /*padding: 10px;*/ /* Adjust padding as needed */
-    /*text-align: center;*/ /* Center text */
-    /*height: 800px;*/ /* Set the height as needed */
-/*}
-
-    .advertisement-column p {
-        margin: 0;*/ /* Remove default margin for the paragraph */
-        /*font-weight: bold;*/ /* Make the text bold */
-    /*}*/
-
-
 @keyframes flash {
     0% {
         opacity: 1;
@@ -268,6 +250,7 @@ body {
     height: 800px;
     animation: flash 2s infinite; /* Adjust animation duration as needed */
 }
+
 
     .advertisement-column p {
         margin: 0;
