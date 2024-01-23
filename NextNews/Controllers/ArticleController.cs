@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.CodeAnalysis.CSharp;
+using Pager = NextNews.Models.Pager;
 
 namespace NextNews.Controllers
 {
@@ -34,6 +35,7 @@ namespace NextNews.Controllers
 
         public IActionResult Index()
         {
+
             return RedirectToAction(nameof(ListArticles));
         }
 
@@ -64,11 +66,20 @@ namespace NextNews.Controllers
 
         //Action for list of article
 
-        public IActionResult ListArticles()
+        public IActionResult ListArticles(int pg=1)
         {
             var articles = _articleService.GetArticles();
-
-            return View(articles);
+           
+            const int pageSize = 3;
+            if (pg < 1)
+                pg = 1;
+            int recsCount = articles.Count;
+            var pager = new Pager(recsCount, pg, pageSize);
+            int recSkip = (pg - 1) * pageSize;
+            var data = articles.Skip(recSkip).Take(pager.PageSize).ToList();
+            this.ViewBag.Pager = pager;
+            return View(data);
+            //return View(articles);
         }
 
         //Action to Add/Create article
