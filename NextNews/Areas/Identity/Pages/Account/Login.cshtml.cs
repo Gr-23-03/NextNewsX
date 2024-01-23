@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using NextNews.Models.Database;
+using Org.BouncyCastle.Utilities;
 
 namespace NextNews.Areas.Identity.Pages.Account
 {
@@ -114,6 +115,26 @@ namespace NextNews.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    if (User.IsInRole("Admin"))          //  Extra for Admin role
+                    {
+                        _logger.LogInformation("User logged in.");
+                        return RedirectToAction("Dashboard", "Admin");
+                    }
+
+                    if(User.IsInRole("Editor"))
+                     {
+                        _logger.LogInformation("User logged in.");
+                        return RedirectToAction("EditorDashboard", "Article");
+
+                    }
+
+                    if (!User.IsInRole("Admin") || !User.IsInRole("Editor"))
+                    {
+                        _logger.LogInformation("User logged in.");
+                        return RedirectToAction("UserDashboard", "User");
+
+                    }
+
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }

@@ -41,7 +41,7 @@ namespace NextNews.Models.Database
         public virtual Category? Category { get; set; }
         public ICollection<User>? UsersLiked { get; set; }
 
-        [NotMapped]
+        [NotMapped]   // not to saved in the table
         [Display(Name = "Image File")]
         public IFormFile? ImageFile { get; set; }
 

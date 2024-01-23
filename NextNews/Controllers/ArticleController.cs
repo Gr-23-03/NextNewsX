@@ -16,6 +16,9 @@ using Pager = NextNews.Models.Pager;
 
 namespace NextNews.Controllers
 {
+
+    // For Admin-specific actions
+    [Authorize(Policy = "Editor")]
     public class ArticleController : Controller
     {
         private readonly IArticleService _articleService;
@@ -92,13 +95,20 @@ namespace NextNews.Controllers
         {
             if (ModelState.IsValid)
             {
-              
+   
                  article.ImageLink = _articleService.UploadImage(article.ImageFile).Result;
                 
+
                 _articleService.AddArticle(article);
 
                 //article.ImageLink = _articleService.UploadImage(article.ImageFile).Result;
                 return RedirectToAction("Listarticles");
+
+                //azure image upload
+               
+               // _articleService.UploadImage(article.ImageFile);
+
+
 
 
                 // Check if an image file is uploaded
@@ -238,7 +248,17 @@ namespace NextNews.Controllers
 
             return Json(new { success = true, message = "Action performed successfully" });
 
-        }     
-       
+        }
+
+
+        [Authorize(Roles = "Editor")]
+        public IActionResult EditorDashboard()
+        {
+            return View();
+        }
+
+
+
+
     }
 }
