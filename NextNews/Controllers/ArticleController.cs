@@ -135,7 +135,7 @@ namespace NextNews.Controllers
 
         //details
 
-        [Authorize(Roles = "Editor")]
+        //[Authorize(Roles = "Editor")]
         public async Task<IActionResult>  Details (int id)
         {
             var article = await _articleService.GetArticleByIdAsync(id);
