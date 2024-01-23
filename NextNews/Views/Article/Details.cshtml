@@ -27,7 +27,8 @@
     <div class="col-sm-9" style="padding:3px;">
        
         <br />
-        <img src="@Model.Article.ImageLink" />   <br />  <br /> <br />
+        <img src="@Model.Article.ImageLink" style="width:100%;" />   <br />  <br /> 
+        <strong>@Model.Article.ContentSummary</strong>  <br /> <br /> 
         @Html.Raw(Model.Article.Content)
     </div>
     <div class="col-3" style="border:6px;" padding:"3px" >
