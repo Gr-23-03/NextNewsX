@@ -1,8 +1,9 @@
-﻿@model NextNews.Models.Database.Article
+﻿@model NextNews.ViewModels.ArticleDetailsViewModel
 
 @using Microsoft.AspNetCore.Identity
 @using NextNews.Models.Database
 @using NextNews.Services
+
 
 
 @inject UserManager<User> _userManager
@@ -15,113 +16,55 @@
 
 }
 
-<h1>Details</h1>
 
-<div>
-    <h4>Article</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateStamp)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateStamp)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LinkText)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LinkText)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.HeadLine)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.HeadLine)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ContentSummary)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ContentSummary)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.Raw(Model.Content)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Views)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Views)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Likes)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Likes)
-        </dd>
+<h1>@Model.Article.HeadLine</h1>
+<i>
+    @Model.Article.DateStamp   <br />
+    @Model.Article.AuthorName
+</i>
 
+<div class="row">
+    <div class="col-sm-9" style="padding:3px;">
+       
+        <br />
+        <img src="@Model.Article.ImageLink" style="width:100%;" />   <br />  <br /> 
+        <strong>@Model.Article.ContentSummary</strong>  <br /> <br /> 
+        @Html.Raw(Model.Article.Content)
+    </div>
+    <div class="col-3" style="border:6px;" padding:"3px" >
 
-        @if (Model.ImageLink != null)
+        <h2 style="color: black">Latest News</h2>
+        @foreach (var news in Model.LatestArticles)
         {
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.ImageLink)
-            </dt>
-            <dd class="col-sm-10">
-                <img src="@Html.DisplayFor(model => model.ImageLink)" alt="image" style="width: 100%" />
-            </dd>
+            <div>
+
+                <div class="article-imageLink">
+                    <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article ImageLink" style="width:100%">
+                </div>
+
+                <div class="latest-news-headline">
+                    <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
+                        @news.HeadLine
+                    </a>
+                </div>
+
+                <div class="latest-news-item mb-4">
+                </div>
+                <p class="latest-news-summary">@news.ContentSummary</p>
+                <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
+            </div>
+
         }
+    </div>
 
-
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AuthorName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AuthorName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Category.Id)
-        </dd>
-
-        @if (Model.ImageLink2 != null)
-        {
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.ImageLink2)
-            </dt>
-            <dd class="col-sm-10">
-                <img src="@Html.DisplayFor(model => model.ImageLink2)" alt="image" style="width: 100%" />
-            </dd>
-        }
-
-        @if (Model.ImageFile != null)
-        {
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.ImageFile)
-            </dt>
-            <dd class="col-sm-10">
-                <img src="@Html.DisplayFor(model => model.ImageFile)" alt="image" style="width: 100%" />
-        </dd>
-        }
-
-
-    </dl>
 </div>
-
 
 
 <div>
     
 
-    <a class="btn btn-success" id="likeButton" data-id="@Model.Id" asp-action="Likes" asp-controller="Article" >Like</a>
-   
-
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> 
+    <a class="btn btn-success" id="likeButton" data-id="@Model.Article.Id" asp-action="Likes" asp-controller="Article" >Like</a>
+    <a asp-action="Edit" asp-route-id="@Model?.Article.Id">Edit</a> 
     <a asp-action="Index">Back to List</a>
 </div>
 

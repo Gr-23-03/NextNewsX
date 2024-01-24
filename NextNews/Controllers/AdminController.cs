@@ -10,6 +10,8 @@ using NextNews.ViewModels;
 
 namespace NextNews.Controllers
 {
+    // For Admin-specific actions
+    [Authorize(Policy = "Admin")]
     public class AdminController : Controller
     {
 
@@ -27,19 +29,6 @@ namespace NextNews.Controllers
             _subscriptionService= subscriptionService;
             
         }
-
-
-     
-
-
-
-
-
-
-
-
-
-
 
 
         [Authorize(Roles = "Admin")]
@@ -63,9 +52,6 @@ namespace NextNews.Controllers
 
             return View();
         }
-
-
-
 
 
         // This is for creating dynamic role wihout seeding

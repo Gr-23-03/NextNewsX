@@ -2,6 +2,14 @@
 
 @{
     ViewData["Title"] = "ListArticles";
+    Pager pager = new Pager();
+    int pageNo = 0;
+
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
 }
 
 
@@ -135,6 +143,7 @@
 
         </tbody>
     </table>
+  <partial name="_PagginationPartialView" model="@pager"></partial>
     <p>
         <a asp-action="CreateArticle">Create New</a>
     </p>

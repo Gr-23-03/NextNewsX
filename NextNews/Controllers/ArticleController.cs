@@ -11,9 +11,14 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.CodeAnalysis.CSharp;
+using Pager = NextNews.Models.Pager;
 
 namespace NextNews.Controllers
 {
+
+    // For Admin-specific actions
+    [Authorize(Policy = "Editor")]
     public class ArticleController : Controller
     {
         private readonly IArticleService _articleService;
@@ -33,6 +38,7 @@ namespace NextNews.Controllers
 
         public IActionResult Index()
         {
+
             return RedirectToAction(nameof(ListArticles));
         }
 
@@ -61,26 +67,48 @@ namespace NextNews.Controllers
             return View(vmList);
         }
 
-
         //Action for list of article
 
-        public IActionResult ListArticles()
+        public IActionResult ListArticles(int pg=1)
         {
             var articles = _articleService.GetArticles();
-
-            return View(articles);
+           
+            const int pageSize = 3;
+            if (pg < 1)
+                pg = 1;
+            int recsCount = articles.Count;
+            var pager = new Pager(recsCount, pg, pageSize);
+            int recSkip = (pg - 1) * pageSize;
+            var data = articles.Skip(recSkip).Take(pager.PageSize).ToList();
+            this.ViewBag.Pager = pager;
+            return View(data);
+            //return View(articles);
         }
 
         //Action to Add/Create article
 
         [HttpPost]
         [Authorize(Roles = "Editor")]
+
+        
         public IActionResult AddArticle(Article article)
         {
             if (ModelState.IsValid)
             {
+   
+                 article.ImageLink = _articleService.UploadImage(article.ImageFile).Result;
+                
+
                 _articleService.AddArticle(article);
+
+                //article.ImageLink = _articleService.UploadImage(article.ImageFile).Result;
                 return RedirectToAction("Listarticles");
+
+                //azure image upload
+               
+               // _articleService.UploadImage(article.ImageFile);
+
+
 
 
                 // Check if an image file is uploaded
@@ -127,29 +155,32 @@ namespace NextNews.Controllers
 
         //details
 
-        [Authorize(Roles = "Editor")]
+        //[Authorize(Roles = "Editor")]
         public async Task<IActionResult>  Details (int id)
         {
-            var article = await _articleService.GetArticleByIdAsync(id);
-           
-            if (article == null)
+            List<Article> allArticles = _articleService.GetArticles().ToList();
+
+            var vm = new ArticleDetailsViewModel()
             {
-                return NotFound();
-            }
+                Article = allArticles.FirstOrDefault(a => a.Id == id),
+                LatestArticles = allArticles.Where(a=>a.Id !=id)
+                .OrderByDescending(a => a.DateStamp).Take(3).ToList(),
+            };
+            _articleService.IncreamentViews(vm);
+            return View(vm);
 
-            _articleService.IncreamentViews(article);
+            //var article = await _articleService.GetArticleByIdAsync(id);
 
-            //// Check if the current user has liked the article
-            //var userId = _userManager.GetUserId(User);
-            //var userHasLiked = article.UsersLiked.Any(u => u.Id == userId);
-
-            //// Create a view model
-            //var viewModel = new ArticleDetailsViewModel
+            //if (article == null)
             //{
-            //    Article = article,
-            //    IsLikedByUser = userHasLiked
-            //};
-            return View(article);
+            //    return NotFound();
+            //}
+
+
+           
+
+
+            //return View(article);
         }
 
 
@@ -217,7 +248,17 @@ namespace NextNews.Controllers
 
             return Json(new { success = true, message = "Action performed successfully" });
 
-        }     
-       
+        }
+
+
+        [Authorize(Roles = "Editor")]
+        public IActionResult EditorDashboard()
+        {
+            return View();
+        }
+
+
+
+
     }
 }

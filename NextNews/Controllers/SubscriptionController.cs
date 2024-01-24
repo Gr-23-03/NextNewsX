@@ -1,15 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using NextNews.Models.Database;
 using NextNews.Services;
-
-using System.Drawing.Printing;
 using Stripe.Checkout;
-using Stripe;
 using Subscription = NextNews.Models.Database.Subscription;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using System.Security.Claims;
+using Azure.Core;
+
 namespace NextNews.Controllers
 {
     public class SubscriptionController : Controller
@@ -17,11 +16,13 @@ namespace NextNews.Controllers
         private readonly ISubscriptionService _subscriptionService;
         private readonly IUserService _userService;
         private readonly UserManager<User> _userManager;
-        public SubscriptionController(ISubscriptionService subscriptionService, IUserService userService, UserManager<User> userManager)
+        private readonly IEmailSender _emailSender;
+        public SubscriptionController(ISubscriptionService subscriptionService, IUserService userService, UserManager<User> userManager, IEmailSender emailSender)
         {
             _subscriptionService = subscriptionService;
             _userService = userService;
             _userManager = userManager;
+            _emailSender = emailSender;
         }
 
         public IActionResult Index()
@@ -56,6 +57,7 @@ namespace NextNews.Controllers
             // Retrieve subscription type details
             
             var subscriptionType = _subscriptionService.GetSubscriptionType(subscriptionTypeId);
+            var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
             // Create Stripe Checkout session
 
             var domain = "https://localhost:44349/";
@@ -84,8 +86,8 @@ namespace NextNews.Controllers
                     {"SubscriptionTypeId", subscriptionTypeId.ToString()}
                 },
                 Mode = "payment",
-                //CustomerEmail= "",
-                SuccessUrl=domain+$"Subscription/CompleteSubscription",
+                CustomerEmail = userEmail,
+                SuccessUrl =domain+$"Subscription/CompleteSubscription",
                 CancelUrl = "https://yourdomain.com/subscription/cancel"
             };
 
@@ -101,15 +103,21 @@ namespace NextNews.Controllers
        
         public IActionResult CompleteSubscription()
         {
-            
+            var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
             var service = new SessionService();
             Session session = service.Get(TempData["Session"].ToString());
            
             if (session.PaymentStatus == "paid") 
-            {
+            {   
+               
                 var userId = session.Metadata["UserId"];
                 var subscriptionTypeId = int.Parse(session.Metadata["SubscriptionTypeId"]);
                 _subscriptionService.CompleteSubscription(userId, subscriptionTypeId);
+
+                string htmlTemplate = System.IO.File.ReadAllText("C:\\Users\\zain\\source\\repos\\NextNews\\NextNews\\Views\\Shared\\EmailTemplate.cshtml");
+                string personalizedContent = $"Welcome to your NextNews account. You can use your account to sign into the NextNews website and use special features. Subscriptions to the suite of NextNews newsletters can also be managed using your account. The NextNews takes your data privacy seriously. To learn more, read our privacy policy and account FAQs.All the best, Regards NextNews";
+                string htmlMessage = htmlTemplate.Replace("{{main_content}}", personalizedContent);
+                _emailSender.SendEmailAsync(userEmail, "NextNews Subscription", htmlMessage);
                 return View("Success");
             }
             return View("Register");
