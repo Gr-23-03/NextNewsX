@@ -90,25 +90,18 @@ namespace NextNews.Controllers
         [HttpPost]
         [Authorize(Roles = "Editor")]
 
-        
+
         public IActionResult AddArticle(Article article)
         {
             if (ModelState.IsValid)
             {
-   
-                 article.ImageLink = _articleService.UploadImage(article.ImageFile).Result;
-                
+
+                article.ImageLink = _articleService.UploadImage(article.ImageFile).Result;
 
                 _articleService.AddArticle(article);
 
                 //article.ImageLink = _articleService.UploadImage(article.ImageFile).Result;
                 return RedirectToAction("Listarticles");
-
-                //azure image upload
-               
-               // _articleService.UploadImage(article.ImageFile);
-
-
 
 
                 // Check if an image file is uploaded

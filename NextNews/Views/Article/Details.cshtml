@@ -17,6 +17,7 @@
 }
 
 
+
 <h1>@Model.Article.HeadLine</h1>
 <i>
     @Model.Article.DateStamp   <br />
@@ -29,7 +30,8 @@
         <br />
         <img src="@Model.Article.ImageLink" style="width:100%;" />   <br />  <br /> 
         <strong>@Model.Article.ContentSummary</strong>  <br /> <br /> 
-        @Html.Raw(Model.Article.Content)
+        <div>@Html.Raw(Model.Article.Content)</div>
+        
     </div>
     <div class="col-3" style="border:6px;" padding:"3px" >
 
