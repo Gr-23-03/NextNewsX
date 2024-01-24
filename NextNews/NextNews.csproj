@@ -25,7 +25,6 @@
 
   <ItemGroup>
     <Folder Include="Images\Subscription\" />
-    <Folder Include="wwwroot\Images\NewFolder\" />
     <Folder Include="wwwroot\images\Subscription\" />
   </ItemGroup>
 

@@ -3,7 +3,7 @@
     <div class="container-fluid">
 
           <a class="navbar-brand" asp-controller="Home" asp-action="Index">
-            <img src="~/images/NEXT.gif" style="width:30%; padding-left:30px;" />
+            <img src="~/images/NEXT.gif" style="width:30%; padding-left:30px;">
         </a>
     </div>
 </nav>
@@ -17,7 +17,8 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
 
-                    <a class="nav-link active" aria-current="page" style="color:red; font-weight:bold" asp-controller="Home" asp-action="Index">Home</a>
+                    <a class="nav-link active" aria-current="page" style="color:black; font-weight:bold" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'" asp-controller="Home" asp-action="Index">Home
+                    </a>
                 </li>
 
                 <li class="nav-item dropdown">
@@ -440,6 +441,32 @@
                 </li>
                 
             </ul>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown" href="#" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
+
+                    More
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12 col-md-4">
+                                    <a style="color:red; font-weight:bold;font-size:50px" href="#">More</a>
+                                    <div class="d-flex flex-column">
+                                        <a href="#">ALL</a>
+                                        <a href="#">Link 2</a>
+                                    </div>
+                                </div>
+                               
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+
+            </ul>
+
 
             <form class="d-flex">
                 <input class="form-control" type="search" placeholder="Search On NEXTnews" aria-label="Search">

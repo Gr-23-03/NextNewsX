@@ -2,10 +2,11 @@ html {
     font-size: 14px;
 }
 
-@media (min-width: 768px) {
+@media screen and (max-width: 600px) {
     html {
         font-size: 16px;
     }
+    
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus{
@@ -123,7 +124,7 @@ body {
 
 
     a {
-        color: black;
+        color:black;
         text-decoration: none;
     }
 
@@ -148,13 +149,16 @@ body {
         padding-right: 30px;
     }
 
-    .picture-container {
-        width: 30%;
-        margin-bottom: 30px;
-        position: relative;
-        padding-top: 40px;
-        margin-right: 120px;
-    }
+.picture-container {
+    width: 35%;
+    margin-bottom: 30px;
+    position: relative;
+    padding-top: 40px;
+    margin-right: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
 
     .picture {
         max-width: 100%;
@@ -162,30 +166,31 @@ body {
         display: block;
     }
 
-    .div.text-container {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 70%;
-        background-color: #3b3f42;
-        padding-top: -5px;
-        text-align: right;
-        margin-right: 0px;
-        margin-bottom: 10px;
-    }
+.text-container {
+   
+   
+    width: 70%;
+    background-color: #3b3f42;
+    padding-top: -5px;
+    text-align: right;
+    margin-right: 0px;
+    margin-bottom: 10px;
+    padding-left: 20px;
+    text-align
+}
 
 
     .img-on-HomeIndex {
         margin: 15px;
         border-radius: 10px;
-    }
+}
 
 
-    /*Latest News*/
-    .news-carousel {
-        width: 80%;
-        margin: 0 auto;
-    }
+/*Latest News*/
+.news-carousel {
+    width: 80%;
+    margin: 0 auto;
+}
 
     #newsCarousel {
         padding: 20px;
