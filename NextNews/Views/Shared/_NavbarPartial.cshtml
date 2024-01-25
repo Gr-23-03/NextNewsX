@@ -6,6 +6,7 @@
             <img src="~/images/NEXT.gif" style="width:30%; padding-left:30px;" />
 
         </a>
+      
     </div>
 </nav>
 
@@ -39,39 +40,12 @@
                                             <a href="#">Link 2</a>
                                         </div>
                                     </div>
-                                    <div class="row col-12 col-md-8">
-                                        <div class="picture-row">
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 1" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 1</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 2" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 2</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 3" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 3</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 4" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 4</p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="col-12 col-md-8">
+                                        @await Component.InvokeAsync("NavbarLocalArticles")
+                                    </div>
                                     </div>
                                 </div>
-                            </div>
+                           
                         </li>
                     </ul>
                 </li>
@@ -92,36 +66,10 @@
                                             <a href="#">Link 2</a>
                                         </div>
                                     </div>
-                                    <div class="row col-12 col-md-8">
-                                        <div class="picture-row">
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 1" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 1</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 2" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 2</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 3" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 3</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 4" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 4</p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="col-12 col-md-8">
+                                       
+                                            @await Component.InvokeAsync("NavbarSwedenArticles")  
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -144,36 +92,10 @@
                                             <a href="#">Link 2</a>
                                         </div>
                                     </div>
-                                    <div class="row col-12 col-md-8">
-                                        <div class="picture-row">
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 1" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 1</p>
-                                                </div>
-                                            </div>
+                                    <div class="col-12 col-md-8">
 
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 2" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 2</p>
-                                                </div>
-                                            </div>
+                                        @await Component.InvokeAsync("NavbarWorldArticles")  
 
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 3" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 3</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 4" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 4</p>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -183,49 +105,21 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown" href="#" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
 
-                        Economy
+                        Business
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
                             <div class="container">
                                 <div class="row">
                                     <div class="col-12 col-md-4">
-                                        <a style="color:red; font-weight:bold;font-size:50px" href="#">Economy</a>
+                                        <a style="color:red; font-weight:bold;font-size:50px" href="#">Business</a>
                                         <div class="d-flex flex-column">
                                             <a href="#">ALL</a>
                                             <a href="#">Link 2</a>
                                         </div>
                                     </div>
-                                    <div class="row col-12 col-md-8">
-                                        <div class="picture-row">
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 1" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 1</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 2" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 2</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 3" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 3</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 4" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 4</p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="col-12 col-md-8">
+                                     @await Component.InvokeAsync("NavbarBusinessArticles")
                                     </div>
                                 </div>
                             </div>
@@ -249,36 +143,8 @@
                                             <a href="#">Link 2</a>
                                         </div>
                                     </div>
-                                    <div class="row col-12 col-md-8">
-                                        <div class="picture-row">
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 1" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 1</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 2" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 2</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 3" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 3</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 4" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 4</p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="col-12 col-md-8">
+                                        @await Component.InvokeAsync("NavbarSportArticles")
                                     </div>
                                 </div>
                             </div>
@@ -301,36 +167,32 @@
                                             <a href="#">Link 2</a>
                                         </div>
                                     </div>
-                                    <div class="row col-12 col-md-8">
-                                        <div class="picture-row">
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 1" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 1</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 2" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 2</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 3" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 3</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 4" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 4</p>
-                                                </div>
-                                            </div>
+                                    <div class=" col-12 col-md-8">
+                                        @await Component.InvokeAsync("NavbarArtArticles")
                                         </div>
+                                    </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown" href="#" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
+
+                        Entertainment
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12 col-md-4">
+                                        <a style="color:red; font-weight:bold;font-size:50px" href="#">Entertainment</a>
+                                        <div class="d-flex flex-column">
+                                            <a href="#">ALL</a>
+                                            <a href="#">Link 2</a>
+                                        </div>
+                                    </div>
+                                    <div class=" col-12 col-md-8">
+                                        @await Component.InvokeAsync("NavbarEntertainmentArticles")
                                     </div>
                                 </div>
                             </div>
@@ -353,36 +215,8 @@
                                             <a href="#">Link 2</a>
                                         </div>
                                     </div>
-                                    <div class="row col-12 col-md-8">
-                                        <div class="picture-row">
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 1" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 1</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 2" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 2</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 3" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 3</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 4" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 4</p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="col-12 col-md-8">
+                                        @await Component.InvokeAsync("NavbarHealthArticles")
                                     </div>
                                 </div>
                             </div>
@@ -443,31 +277,7 @@
                 </li>
                 
             </ul>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown" href="#" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
-
-                    More
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-12 col-md-4">
-                                    <a style="color:red; font-weight:bold;font-size:50px" href="#">More</a>
-                                    <div class="d-flex flex-column">
-                                        <a href="#">ALL</a>
-                                        <a href="#">Link 2</a>
-                                    </div>
-                                </div>
-                               
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </li>
-
-            </ul>
+           
 
 
             <form class="d-flex" asp-controller="Categories" asp-action="Search">

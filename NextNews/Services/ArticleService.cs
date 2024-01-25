@@ -33,23 +33,24 @@ namespace NextNews.Services
             _blobServiceClient = new BlobServiceClient(_configuration["AzureWebJobsStorage"]);
         }
 
-        public async Task<string> UploadImage(IFormFile file)
-        {
-            BlobContainerClient containerClient = _blobServiceClient.GetBlobContainerClient("nextnews");
-            BlobClient blobClient = containerClient.GetBlobClient(file.FileName);
+        //public async Task<string> UploadImage(IFormFile file)
+        //{
+        //    BlobContainerClient containerClient = _blobServiceClient.GetBlobContainerClient("nextnews");
+        //    BlobClient blobClient = containerClient.GetBlobClient(file.FileName);
 
-            await using(var stream = file.OpenReadStream()) 
-            {
-                blobClient.Upload(stream);
-            }
+        //    await using(var stream = file.OpenReadStream()) 
+        //    {
+        //        blobClient.Upload(stream);
+        //    }
 
-            return blobClient.Uri.AbsoluteUri;
-        }
+        //    return blobClient.Uri.AbsoluteUri;
+        //}
 
 
         public List<Article> GetArticles()
         {
-            return _context.Articles.Include(x => x.UsersLiked).ToList();
+            var objList = _context.Articles.Include(x => x.UsersLiked).ToList();
+            return objList;
         }
         
         public void AddArticle(Article article)

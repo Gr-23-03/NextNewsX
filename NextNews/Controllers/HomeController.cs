@@ -39,6 +39,7 @@ namespace NextNews.Controllers
         SpecificArticles */
         public IActionResult Index()
         {
+
             List<Article> allArticles = _articleService.GetArticles().ToList();
             List<Category> allCategories = _categoryService.GetCategories().ToList();
 
