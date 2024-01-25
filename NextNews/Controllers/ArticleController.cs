@@ -17,8 +17,8 @@ using Pager = NextNews.Models.Pager;
 namespace NextNews.Controllers
 {
 
-    // For Admin-specific actions
-    [Authorize(Policy = "Editor")]
+    // For Editor-specific actions
+    //[Authorize(Policy = "Editor")]
     public class ArticleController : Controller
     {
         private readonly IArticleService _articleService;

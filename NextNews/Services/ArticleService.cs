@@ -33,9 +33,11 @@ namespace NextNews.Services
             _blobServiceClient = new BlobServiceClient(_configuration["AzureWebJobsStorage"]);
         }
 
+
         public List<Article> GetArticles()
         {
-            return _context.Articles.Include(x => x.UsersLiked).ToList();
+            var objList = _context.Articles.Include(x => x.UsersLiked).ToList();
+            return objList;
         }
         
         public void AddArticle(Article article)
