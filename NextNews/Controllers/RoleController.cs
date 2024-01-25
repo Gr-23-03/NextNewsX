@@ -7,8 +7,8 @@ using NextNews.Services;
 namespace NextNews.Controllers
 {
 
-    // For Admin-specific actions
-    [Authorize(Policy = "Admin")]
+    //// For Admin-specific actions
+    //[Authorize(Policy = "Admin")]
     public class RoleController : Controller
     {
         RoleManager<IdentityRole> _roleManager;
