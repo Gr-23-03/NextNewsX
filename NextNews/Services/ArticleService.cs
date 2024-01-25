@@ -49,7 +49,8 @@ namespace NextNews.Services
 
         public List<Article> GetArticles()
         {
-            return _context.Articles.Include(x => x.UsersLiked).ToList();
+            var objList = _context.Articles.Include(x => x.UsersLiked).ToList();
+            return objList;
         }
         
         public void AddArticle(Article article)
