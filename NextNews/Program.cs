@@ -22,7 +22,9 @@ namespace NextNews
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
+            builder.Services.AddHttpClient("business", config=>
+            { config.BaseAddress = new(builder.Configuration["MyStockAPIAddress"]); 
+            });
 
             builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
@@ -59,6 +61,7 @@ namespace NextNews
             builder.Services.AddScoped<IArticleService, ArticleService>();
             builder.Services.AddScoped<ICategoryService,CategoryService>();
             builder.Services.AddScoped<IRoleManagementService, RoleManagementService>();
+            builder.Services.AddScoped<IStockService, StockService>();
 
             builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
 
