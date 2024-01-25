@@ -54,6 +54,16 @@ namespace NextNews
             builder.Services.AddControllersWithViews();
 
 
+
+
+            builder.Services.AddHttpClient("forecast", config =>
+            {
+                config.BaseAddress = new Uri(builder.Configuration["MyWeatherAPIAddress"]);
+            });
+
+
+
+
             // SERVICES
             builder.Services.AddScoped<IUserService,UserService>();
             builder.Services.AddScoped<IArticleService, ArticleService>();
@@ -63,6 +73,8 @@ namespace NextNews
             builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
 
             builder.Services.AddScoped<IStatisticService, StatisticService>();
+
+            builder.Services.AddScoped<IWheatherService, WeatherService>();
 
             builder.Services.AddScoped<SeedData>();
 

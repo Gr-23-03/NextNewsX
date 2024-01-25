@@ -37,7 +37,7 @@ namespace NextNews.Controllers
         }
 
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Editor")]
         public IActionResult ManageUsers()
         {
             // Getting a list of users from the service
@@ -132,7 +132,7 @@ namespace NextNews.Controllers
         //Assign role to user by Admin
 
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Editor")]
         [HttpPost]
         public async Task<IActionResult> AssignRole(string userId, string role)
         {
