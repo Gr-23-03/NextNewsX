@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NextNews.Services;
 using NextNews.ViewModels;
 
@@ -19,6 +20,8 @@ namespace NextNews.Controllers
             _statisticService = statisticService;
         }
 
+
+        [Authorize(Roles = "Admin, Editor")]
         public async Task <IActionResult> Index()
         {
             // Fetching user count and article count from services

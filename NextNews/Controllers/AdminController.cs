@@ -10,8 +10,8 @@ using NextNews.ViewModels;
 
 namespace NextNews.Controllers
 {
-    // For Admin-specific actions
-    [Authorize(Policy = "Admin")]
+    //// For Admin-specific actions
+    //[Authorize(Policy = "Admin")]
     public class AdminController : Controller
     {
 
@@ -31,7 +31,7 @@ namespace NextNews.Controllers
         }
 
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Editor")]
         public async Task <IActionResult> Index()
         {
             // Fetching user count and article count from services
@@ -101,7 +101,7 @@ namespace NextNews.Controllers
 
     */
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Editor")]
         public IActionResult Dashboard()
         {
             return View();
