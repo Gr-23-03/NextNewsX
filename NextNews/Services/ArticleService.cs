@@ -104,20 +104,30 @@ namespace NextNews.Services
 
         }
 
-        
-        public void IncreamentViews(ArticleDetailsViewModel article)
+
+
+        public void IncreamentViews(ArticleDetailsViewModel vm)
         {
-            if (article.Article.Views is null)
+            if (vm.Article.Views is null)
             {
-                article.Article.Views = 1;
+                vm.Article.Views = 1;
             }
             else
             {
-                article.Article.Views++;
+                vm.Article.Views++;
+
             }
             _context.SaveChanges();
 
         }
+
+
+
+
+
+
+
+
         public IEnumerable<Article> GetArticlesByCategory(int categoryId)
         {
             return _context.Articles.Where(a => a.CategoryId == categoryId).ToList();

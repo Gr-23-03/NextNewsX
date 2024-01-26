@@ -15,6 +15,8 @@ namespace NextNews.Services
 
         Category GetCategoryById(int id);
 
+
+
         Task UpdateCategoryAsync(Category category);
         Task DeleteCategoryAsync(int id);
 
