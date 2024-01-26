@@ -22,7 +22,9 @@ namespace NextNews
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
+            builder.Services.AddHttpClient("business", config=>
+            { config.BaseAddress = new(builder.Configuration["MyStockAPIAddress"]); 
+            });
 
             builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
@@ -52,20 +54,35 @@ namespace NextNews
 
 
             builder.Services.AddControllersWithViews();
-          
+
+
+
+
+            builder.Services.AddHttpClient("forecast", config =>
+            {
+                config.BaseAddress = new Uri(builder.Configuration["MyWeatherAPIAddress"]);
+            });
+
+
+
+
             // SERVICES
             builder.Services.AddScoped<IUserService,UserService>();
             builder.Services.AddScoped<IArticleService, ArticleService>();
             builder.Services.AddScoped<ICategoryService,CategoryService>();
             builder.Services.AddScoped<IRoleManagementService, RoleManagementService>();
+            builder.Services.AddScoped<IStockService, StockService>();
 
             builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
 
             builder.Services.AddScoped<IStatisticService, StatisticService>();
 
+            builder.Services.AddScoped<IWheatherService, WeatherService>();
+
             builder.Services.AddScoped<SeedData>();
 
-
+            
+         
 
             builder.Services.Configure<CookiePolicyOptions>(options =>
             {
@@ -77,6 +94,24 @@ namespace NextNews
                 options.ConsentCookieValue = "true";
 
             });
+
+
+
+
+            // Configure role-based policies
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
+                options.AddPolicy("Editor", policy => policy.RequireRole("Editor"));
+                options.AddPolicy("User", policy => policy.RequireRole("User"));
+                
+            });
+
+
+
+
+
+
 
 
             var app = builder.Build();
@@ -115,7 +150,14 @@ namespace NextNews
             app.UseCookiePolicy();
 
             app.UseRouting();
+
+
+            app.UseAuthentication(); // to enable authentication
+
+
+
             StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
+
             app.UseAuthorization();
 
             app.MapControllerRoute(

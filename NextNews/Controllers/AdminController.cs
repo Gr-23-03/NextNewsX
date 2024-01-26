@@ -10,6 +10,8 @@ using NextNews.ViewModels;
 
 namespace NextNews.Controllers
 {
+    //// For Admin-specific actions
+    //[Authorize(Policy = "Admin")]
     public class AdminController : Controller
     {
 
@@ -29,20 +31,7 @@ namespace NextNews.Controllers
         }
 
 
-     
-
-
-
-
-
-
-
-
-
-
-
-
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Editor")]
         public async Task <IActionResult> Index()
         {
             // Fetching user count and article count from services
@@ -63,9 +52,6 @@ namespace NextNews.Controllers
 
             return View();
         }
-
-
-
 
 
         // This is for creating dynamic role wihout seeding
@@ -115,7 +101,7 @@ namespace NextNews.Controllers
 
     */
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Editor")]
         public IActionResult Dashboard()
         {
             return View();

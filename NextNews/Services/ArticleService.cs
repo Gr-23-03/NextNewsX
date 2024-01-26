@@ -13,23 +13,31 @@ using NextNews.ViewModels;
 
 
 
+
 namespace NextNews.Services
 {
     public class ArticleService : IArticleService
     {
         private readonly ApplicationDbContext _context;
         private readonly IConfiguration _configuration;
+
+
         private readonly BlobServiceClient _blobServiceClient;
+
         public ArticleService(ApplicationDbContext context, IConfiguration configuration)
         {
             _context = context;
             _configuration = configuration;
+
+          
             _blobServiceClient = new BlobServiceClient(_configuration["AzureWebJobsStorage"]);
         }
 
+
         public List<Article> GetArticles()
         {
-            return _context.Articles.Include(x => x.UsersLiked).ToList();
+            var objList = _context.Articles.Include(x => x.UsersLiked).ToList();
+            return objList;
         }
         
         public void AddArticle(Article article)

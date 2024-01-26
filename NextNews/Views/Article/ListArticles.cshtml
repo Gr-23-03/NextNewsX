@@ -51,28 +51,8 @@
 
 
             <h6>Category Id :  @cat.Name </h6>
-            @*    <h6>Category Name: @item.Category Name </h6> *@
-            @*     <h6>Category Name: @item @Category Name</h6> *@
-
-            @*  <h4>@item.Id</h4>  *@
-            @*    <h6>@Html.Raw(item.Content)</h6> *@
             <h6> AuthorName :  @item.AuthorName </h6>
             <h6> Release Date :   @item.DateStamp</h6>
-
-            @*   <h6>Actions</h6>  *@
-            @*   <h3>Images</h3>  *@
-            @*             @if (item.ImageLink != null)
-        {
-        <img src="@item.ImageLink" style="height:150px;width:150px;" . />
-
-        }
-        &nbsp;&nbsp;&nbsp;
-
-        @if (item.ImageLink2 != null)
-        {
-        <img src="@item.ImageLink2" style="height:150px;width:150px;" />
-        }
-        *@
 
             <br />
 
@@ -84,39 +64,13 @@
             <a asp-action="Edit" asp-controller="Article" asp-route-id="@item.Id" class="btn btn-outline-info" style="wavy">Edit</a>
             <a asp-action="Delete" asp-controller="Article" asp-route-id="@item.Id" class="btn btn-outline-info" style="wavy">Delete</a>
 
-
-
-
-            @*  <a href="@Url.Action("Details", "Articles", new { id = item.Id })">Read More</a>
-        <a asp-controller="Article" asp-action="Details" asp-route-id="@item.Id">Read More</a> *@
-
-
-
-
-
-
         </div>
     }
 
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      
+  <partial name="_PagginationPartialView" model="@pager"></partial>
 
 
 
