@@ -1,12 +1,16 @@
 
 <nav class="navbar navbar-light bg-white">
+   
     <div class="container-fluid">
 
          <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+
             <img src="~/images/NEXT.gif" style="width:30%; padding-left:30px;" />
 
         </a>
-       
+     
+        @await Component.InvokeAsync("BusinessApi")
+
     </div>
 </nav>
 
