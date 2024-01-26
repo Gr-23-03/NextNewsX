@@ -146,9 +146,10 @@ namespace NextNews.Controllers
         //details
 
         [Authorize(Roles = "Editor")]
-        public async Task<IActionResult>  Details (int id)
+        public async Task<IActionResult> Details(int id)
         {
             List<Article> allArticles = _articleService.GetArticles().ToList();
+            var temp = allArticles.FirstOrDefault(a => a.Id == id);
 
             var vm = new ArticleDetailsViewModel()
             {

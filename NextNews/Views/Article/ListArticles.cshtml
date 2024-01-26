@@ -1,5 +1,11 @@
 ﻿@model IEnumerable<NextNews.Models.Database.Article>
 
+@using NextNews.Services
+
+@inject ICategoryService _categoryService;
+
+
+
 @{
     ViewData["Title"] = "ListArticles";
     Pager pager = new Pager();
@@ -20,172 +26,99 @@
     <a asp-action="CreateArticle">Create New</a>
 </p>
 
+<div class="row">
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"]</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
+    @*   ****  LOOP WITH LIST OF ARTICLES   ****   *@
 
-        header {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 1rem;
-        }
 
-        h1 {
-            margin-top: 0;
-        }
+    @foreach (var item in Model)
+    {
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            background-color: white;
-        }
+        <div class="col-4 p-4" style="border:1px solid gray">
 
-        th, td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: left;
-        }
+            @*  <img src="@item.ImageLink" style="width: 100%"  /> *@
+            <br />
+            <a asp-action="Details" asp-route-id="@item.Id">
+                <img src="@item.ImageLink" @item.LinkText style="width: 100%" />
+            </a>
 
-        th {
-            background-color: #333;
-            color: white;
-            font-weight: bold;
-        }
+            <h3>@item.LinkText</h3>
+            <p><i>@item.ContentSummary</i></p>
 
-        td {
-            background-color: #fff;
-        }
-
-            td a {
-                color: #007bff;
-                text-decoration: none;
+            @{
+                var cat = _categoryService.GetCategoryById(item.Id);
             }
 
-                td a:hover {
-                    text-decoration: underline;
-                }
-    </style>
-</head>
 
+            <h6>Category Id :  @cat.Name </h6>
+            @*    <h6>Category Name: @item.Category Name </h6> *@
+            @*     <h6>Category Name: @item @Category Name</h6> *@
 
-<body>
-    <header>
-        <h1>@ViewData["Title"]</h1>
-    </header>
-    @* <Partial name="_ParViewArticleList" model="Model"></Partial> *@
-    @*  <Partial name="_ParViewArticleList" model="Model"></Partial> *@
-    <table>
-        <thead>
-            <tr>
-                <th>Article ID</th>
-                <th>Author Name</th>
-                <th>Headline</th>
-                <th>Content Summary</th>
-                <th>Content</th>
-                <th>Date Stamp</th>
-                <th>Link Text</th>
-                <th>Images</th>
-                <th>Category ID</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
+            @*  <h4>@item.Id</h4>  *@
+            @*    <h6>@Html.Raw(item.Content)</h6> *@
+            <h6> AuthorName :  @item.AuthorName </h6>
+            <h6> Release Date :   @item.DateStamp</h6>
 
-            @foreach (var article in Model)
-            {
-                <tr>
-                    <td>@article.Id</td>
-                    <td>@article.AuthorName</td>
-                    <td>@article.HeadLine</td>
-
-                    <td>@article.ContentSummary</td>
-                    <td>@Html.Raw(article.Content)</td>
-                    <td>@article.DateStamp</td>
-                    <td>@article.LinkText</td>
-                    <td>
-                        @if (@article.ImageLink != null)
-                        {
-                            <img src="@article.ImageLink" style="height:150px;width:150px;"./>
-                            
-                        }
-                        &nbsp;&nbsp;&nbsp;
-
-                        @if (@article.ImageLink2 != null )
-                        {
-                            <img src="@article.ImageLink2" style="height:150px;width:150px;" />
-                        }
-
-
-                    </td>
-                    <td>@article.CategoryId</td>
-                    <td>
-                        <a href="@Url.Action("Details","Articles",new{id=article.Id})">Read More</a>
-                        <a asp-action="Edit" asp-controller="Article" asp-route-id="@article.Id">Edit</a> |
-                        <a asp-action="Delete" asp-controller="Article" asp-route-id="@article.Id">Delete</a>
-                        <a asp-action="Details" asp-controller="Article" asp-route-id="@article.Id">Details</a>
-                    </td>
-                </tr>
-
-            }
-
-        </tbody>
-    </table>
-    <div class="container">
-        @if (pager.TotalPages > 0)
+            @*   <h6>Actions</h6>  *@
+            @*   <h3>Images</h3>  *@
+            @*             @if (item.ImageLink != null)
         {
-            <ul class="pagination justify-content-end">
-
-                @if (pager.CurrentPage > 1)
-                {
-                    <li class="page-item">
-                        <a class="page-link" asp-controller="Article" asp-action="ListArticles" asp-route-pg="1">First</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" asp-controller="Article" asp-action="ListArticles" asp-route-pg="@(pager.CurrentPage -1)"> Previous </a>
-                    </li>
-                }
-
-                @for (var pge = pager.StartPage; pge <= pager.Endpage; pge++)
-                {
-                    <li class="page-item @(pge==pager.CurrentPage ? "active":"")">
-                        <a class="page-link" asp-controller="Article" asp-action="ListArticles" asp-route-pg="@pge">@pge</a>
-                    </li>
-                }
-                @if (pager.CurrentPage < pager.TotalPages)
-                {
-                    <li class="page-item">
-                        <a class="page-link" asp-controller="Article" asp-action="ListArticles" asp-route-pg="@(pager.CurrentPage + 1)">Next</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" asp-controller="Article" asp-action="ListArticles" asp-route-pg="@(pager.TotalPages)">Last</a>
-                    </li>
-
-                }
-            </ul>
+        <img src="@item.ImageLink" style="height:150px;width:150px;" . />
 
         }
+        &nbsp;&nbsp;&nbsp;
+
+        @if (item.ImageLink2 != null)
+        {
+        <img src="@item.ImageLink2" style="height:150px;width:150px;" />
+        }
+        *@
+
+            <br />
 
 
-    </div>
-    <p>
-        <a asp-action="CreateArticle">Create New</a>
-    </p>
-</body>
 
-</html>
+
+
+            <a asp-action="Details" asp-controller="Article" asp-route-id="@item.Id" class="btn btn-outline-info" style="wavy">Read More </a>
+            <a asp-action="Edit" asp-controller="Article" asp-route-id="@item.Id" class="btn btn-outline-info" style="wavy">Edit</a>
+            <a asp-action="Delete" asp-controller="Article" asp-route-id="@item.Id" class="btn btn-outline-info" style="wavy">Delete</a>
+
+
+
+
+            @*  <a href="@Url.Action("Details", "Articles", new { id = item.Id })">Read More</a>
+        <a asp-controller="Article" asp-action="Details" asp-route-id="@item.Id">Read More</a> *@
+
+
+
+
+
+
+        </div>
+    }
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
