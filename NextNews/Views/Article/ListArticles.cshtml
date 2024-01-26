@@ -46,12 +46,12 @@
             <p><i>@item.ContentSummary</i></p>
 
             @{
-                var cat = _categoryService.GetCategoryById(item.Id);
+                var cat = _categoryService.GetCategoryById(item.CategoryId ?? 0);
             }
 
 
-            <h6>Category Id :  @cat.Name </h6>
-            <h6> AuthorName :  @item.AuthorName </h6>
+            <h6>Category Name :  @cat?.Name</h6>
+            <h6> Author Name :  @item.AuthorName </h6>
             <h6> Release Date :   @item.DateStamp</h6>
 
             <br />

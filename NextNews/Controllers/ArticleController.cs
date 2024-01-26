@@ -73,7 +73,7 @@ namespace NextNews.Controllers
         {
             var articles = _articleService.GetArticles();
            
-            const int pageSize = 3;
+            const int pageSize = 9;
             if (pg < 1)
                 pg = 1;
             int recsCount = articles.Count;
