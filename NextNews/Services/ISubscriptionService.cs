@@ -1,4 +1,5 @@
-﻿using NextNews.Models.Database;
+﻿using Microsoft.EntityFrameworkCore;
+using NextNews.Models.Database;
 
 namespace NextNews.Services
 {
@@ -18,13 +19,15 @@ namespace NextNews.Services
         public string CheckExistingSubscription(string userId, int subscriptionTypeId);
         public void CompleteSubscription(string userId, int subscriptionTypeId);
         public Task DeleteSubscriptionType(int id);
-
+        public Task<List<Subscription>> GetUserSubscriptionsAsync(string userId);
 
         //count of Subscribers type
         public Task<int> CountBasicSubscribersAsync();
 
 
         public Task<int> CountPremiumSubscribersAsync();
+
+        public void UpgradeSubscription(string userId, int newSubscriptionTypeId);
 
     }
 }

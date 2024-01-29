@@ -26,6 +26,10 @@ namespace NextNews.Services
             return await _context.Subscriptions.ToListAsync();
         }
 
+        public async Task<List<Subscription>> GetUserSubscriptionsAsync(string userId)
+        {
+            return await _context.Subscriptions.Where(s => s.UserId == userId).ToListAsync();
+        }
         //create 
         public async Task CreateSubscriptionAsync(Subscription subscription)
         {
@@ -37,6 +41,8 @@ namespace NextNews.Services
         {
             return await _context.Subscriptions.FindAsync(id);
         }
+        
+
         //Update subscription
         public async Task UpdateSubscriptionAsync(Subscription subscription)
         {
@@ -127,7 +133,7 @@ namespace NextNews.Services
         //    return "You have Successfully Subscribed";
         //}
 
-        public string CheckExistingSubscription(string userId, int subscriptionTypeId) 
+        public string CheckExistingSubscription(string userId, int subscriptionTypeId)
         {
             var existingSubscription = _context.Subscriptions.FirstOrDefault(x => x.UserId == userId && x.SubscriptionTypeId == subscriptionTypeId);
             if (existingSubscription != null)
@@ -151,13 +157,14 @@ namespace NextNews.Services
                 Price = subscriptionType.Price,
                 Created = DateTime.Now,
                 Expired = DateTime.Now.AddMonths(1),
-                PaymentComplete = true // Indicating payment is complete
-                };
-                _context.Subscriptions.Add(subscription);
-                _context.SaveChanges();
-                }
-        
-       
+                PaymentComplete = true, // Indicating payment is complete
+                IsActive = true
+            };
+            _context.Subscriptions.Add(subscription);
+            _context.SaveChanges();
+        }
+
+
 
         public async Task<int> CountBasicSubscribersAsync()
         {
@@ -171,6 +178,32 @@ namespace NextNews.Services
             return await _context.Subscriptions
                 .Where(subscription => subscription.SubscriptionType.Name == "Premium")
                 .CountAsync();
+        }
+
+        ////Here starts method to change subscription 
+        public void UpgradeSubscription(string userId, int newSubscriptionTypeId)
+        {
+            // Retrieve the current active subscription
+            var currentSubscription = _context.Subscriptions
+                                              .FirstOrDefault(s => s.UserId == userId && s.IsActive);
+
+            if (currentSubscription == null)
+            {
+                throw new ArgumentException("No active subscription found for the user.");
+            }
+
+            // Retrieve the new subscription type
+            var newSubscriptionType = _context.SubscriptionTypes
+                                              .FirstOrDefault(st => st.Id == newSubscriptionTypeId);
+
+            if (newSubscriptionType == null)
+            {
+                throw new ArgumentException("Invalid new Subscription Type ID");
+            }
+
+            // Deactivate the current subscription
+            currentSubscription.IsActive = false;
+            _context.SaveChanges();
         }
 
 

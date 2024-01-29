@@ -2,6 +2,8 @@
 
 @{
     ViewData["Title"] = "Details";
+    var isBasicPlan = Model.SubscriptionTypeId == 1;
+    var isPremiumPlan = Model.SubscriptionTypeId == 2;
 }
 
 <h1>Details</h1>
@@ -40,9 +42,45 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.UserId)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IsActive)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IsActive)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SubscriptionType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SubscriptionType.Name) <!-- Assuming SubscriptionType has a Name property -->
+        </dd>
     </dl>
 </div>
 <div>
+    <div>
+        <!-- Check if the user is on the basic plan and can upgrade -->
+        @if (Model.IsActive)
+        {
+            <div>
+                <!-- Upgrade option if the user is on the basic plan -->
+                @if (isBasicPlan)
+                {
+                    <a asp-action="ChangeSubscription" asp-route-newSubscriptionTypeId="2" class="btn btn-primary">Upgrade to Premium</a>
+                }
+
+                <!-- Downgrade option if the user is on the premium plan -->
+                @if (isPremiumPlan)
+                {
+                    <a asp-action="ChangeSubscription" asp-route-newSubscriptionTypeId="1" class="btn btn-secondary">Downgrade to Basic</a>
+                }
+            </div>
+        }
+        else
+        {
+            <p>Your subscription is currently inactive.</p>
+        }
+
+
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

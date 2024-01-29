@@ -8,6 +8,10 @@ using Subscription = NextNews.Models.Database.Subscription;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using System.Security.Claims;
 using Azure.Core;
+using NextNews.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Stripe;
+using NextNews.Data.Migrations;
 
 namespace NextNews.Controllers
 {
@@ -39,15 +43,15 @@ namespace NextNews.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> CreateUserSubscription(Subscription input) 
+        public async Task<IActionResult> CreateUserSubscription(Subscription input)
         {
             var userId = _userManager.GetUserId(User);
             // Check if the user already has this subscription
             string resultMessage = _subscriptionService.CheckExistingSubscription(userId, input.SubscriptionTypeId);
-            if (resultMessage != "Eligible for subscription") 
-            { 
-            ViewBag.Message = resultMessage;
-                return View ("Index", "Home");
+            if (resultMessage != "Eligible for subscription")
+            {
+                ViewBag.Message = resultMessage;
+                return View("Index", "Home");
             }
             // Redirect to Stripe for payment
             return await StripeCheckout(userId, input.SubscriptionTypeId);
@@ -100,16 +104,16 @@ namespace NextNews.Controllers
             //return Redirect(session.Url);
         }
 
-       
+
         public IActionResult CompleteSubscription()
         {
             var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
             var service = new SessionService();
             Session session = service.Get(TempData["Session"].ToString());
-           
-            if (session.PaymentStatus == "paid") 
-            {   
-               
+
+            if (session.PaymentStatus == "paid")
+            {
+
                 var userId = session.Metadata["UserId"];
                 var subscriptionTypeId = int.Parse(session.Metadata["SubscriptionTypeId"]);
                 _subscriptionService.CompleteSubscription(userId, subscriptionTypeId);
@@ -122,7 +126,7 @@ namespace NextNews.Controllers
             }
             return View("Register");
 
-           
+
         }
         public IActionResult Success() 
         
@@ -131,7 +135,7 @@ namespace NextNews.Controllers
          return View();
         }
 
-
+        //This is not for use 
         //[HttpPost]
         //public IActionResult CreateUserSubscription(Subscription input) 
         //{
@@ -279,7 +283,42 @@ namespace NextNews.Controllers
             return RedirectToAction("SubscriptionTypeList");
         }
 
+        //here start changing subscription
+
        
-       
+        public async Task<IActionResult> ChangeSubscription(int newSubscriptionTypeId)
+        {
+            var userId = _userManager.GetUserId(User);
+            _subscriptionService.UpgradeSubscription(userId, newSubscriptionTypeId);
+
+            // Redirect to a confirmation page or display a success message
+           
+            return await StripeCheckout(userId, newSubscriptionTypeId);
+        }
+
+        public async Task<IActionResult> SubscriptionHistory() 
+        {
+            var userId = _userManager.GetUserId(User); // Assuming you are using ASP.NET Core Identity
+            var subscriptions = await _subscriptionService.GetUserSubscriptionsAsync(userId);
+            List<SubscriptionHistoryViewModel> vmList = new List<SubscriptionHistoryViewModel>();
+            foreach (var item in subscriptions) 
+            {
+                var vm = new SubscriptionHistoryViewModel()
+                {
+                    SubscriptionId= item.SubscriptionTypeId,
+                  
+                    Created =item.Created,
+                    Expired = item.Expired,
+                    Price = item.Price,
+                    IsActive = item.IsActive,
+
+                };
+                vmList.Add(vm);
+            }
+            return View(vmList);
+        }
+
+
+
     }
 }

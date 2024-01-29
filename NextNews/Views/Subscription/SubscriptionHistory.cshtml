@@ -1,0 +1,38 @@
+﻿@model List<NextNews.ViewModels.SubscriptionHistoryViewModel>
+
+@{
+    ViewData["Title"] = "Subscription History";
+}
+
+<h2>Subscription History</h2>
+
+@if (Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Subscription ID</th>
+                <th>Created</th>
+                <th>Expired</th>
+                <th>Price</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var subscription in Model)
+            {
+                <tr>
+                    <td>@subscription.SubscriptionId</td>
+                    <td>@subscription.Created</td>
+                    <td>@(subscription.Expired.HasValue ? subscription.Expired.Value.ToString("d") : "N/A")</td>
+                    <td>@subscription.Price</td> <!-- Assuming currency format -->
+                    <td>@(subscription.IsActive ? "Active" : "Inactive")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No subscription history available.</p>
+}

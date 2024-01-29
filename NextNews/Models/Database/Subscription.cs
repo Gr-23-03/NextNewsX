@@ -22,6 +22,7 @@ namespace NextNews.Models.Database
 
         //Foreign Key
         public virtual User? User { get; set; }
+        public bool IsActive{get; set;}
     
     }
 }
