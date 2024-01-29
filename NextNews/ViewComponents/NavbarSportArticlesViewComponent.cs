@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NextNews.Services;
+using NextNews.ViewModels;
 
 namespace NextNews.ViewComponents
 {
@@ -21,11 +22,24 @@ namespace NextNews.ViewComponents
 
             var categoryId = _categoryService.GetCategories().Where(c => c.Name == "Sport").FirstOrDefault().Id;
 
-            var objList = _articleService.GetArticles().Where(a => a.CategoryId == categoryId).OrderByDescending(a => a.DateStamp).Take(4).ToList();
+            var allArticles = _articleService.GetArticles();
+            var objListInBoxes = allArticles.Where(a => a.CategoryId == categoryId).OrderByDescending(a => a.DateStamp).Take(4).ToList();
+            var objListInList = allArticles.Where(a => a.CategoryId == categoryId).OrderByDescending(a => a.DateStamp).Take(10).ToList();
 
-            return View(objList);
+            NavbarCategoryVM vm = new NavbarCategoryVM()
+            {
+                ArticlesInBoxes = objListInBoxes,
+                ArticlesInList = objListInList,
+                CategoryName = "Sport",
+            };
+
+
+
+            return View(vm);
         }
 
 
     }
 }
+
+
