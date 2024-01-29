@@ -30,25 +30,12 @@
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown" href="#" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
-
                         Local
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-12 col-md-4">
-                                        <a style="color:red; font-weight:bold;font-size:50px" href="#">Local</a>
-                                        <div class="d-flex flex-column">
-                                            <a href="#">ALL</a>
-                                            <a href="#">Link 2</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-8">
-                                        @await Component.InvokeAsync("NavbarLocalArticles")
-                                    </div>
-                                  </div>
-                            </div>
+                            @await Component.InvokeAsync("NavbarLocalArticles")
+                           
                         </li>  
                     </ul>
                 </li>
@@ -58,24 +45,8 @@
                         Sweden
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      
                         <li>
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-12 col-md-4">
-                                        <a style="color:red; font-weight:bold;font-size:50px" href="#">Sweden</a>
-                                        <div class="d-flex flex-column">
-                                            <a href="#">ALL</a>
-                                            <a href="#">Link 2</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-8">
-                                       
-                                            @await Component.InvokeAsync("NavbarSwedenArticles")  
-                                        
-                                    </div>
-                                </div>
-                            </div>
+                           @await Component.InvokeAsync("NavbarSwedenArticles")
                         </li>
                     </ul>
                 </li>
@@ -86,22 +57,8 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-12 col-md-4">
-                                        <a style="color:red; font-weight:bold;font-size:50px" href="#">World</a>
-                                        <div class="d-flex flex-column">
-                                            <a href="#">ALL</a>
-                                            <a href="#">Link 2</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-8">
+                            @await Component.InvokeAsync("NavbarWorldArticles")
 
-                                        @await Component.InvokeAsync("NavbarWorldArticles")  
-
-                                    </div>
-                                </div>
-                            </div>
                         </li>
                     </ul>
                 </li>
@@ -112,20 +69,8 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-12 col-md-4">
-                                        <a style="color:red; font-weight:bold;font-size:50px" href="#">Business</a>
-                                        <div class="d-flex flex-column">
-                                            <a href="#">ALL</a>
-                                            <a href="#">Link 2</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-8">
-                                     @await Component.InvokeAsync("NavbarBusinessArticles")
-                                    </div>
-                                </div>
-                            </div>
+                            @await Component.InvokeAsync("NavbarBusinessArticles")
+
                         </li>
                     </ul>
                 </li>
@@ -137,20 +82,8 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-12 col-md-4">
-                                        <a style="color:red; font-weight:bold;font-size:50px" href="#">Sport</a>
-                                        <div class="d-flex flex-column">
-                                            <a href="#">ALL</a>
-                                            <a href="#">Link 2</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-8">
-                                        @await Component.InvokeAsync("NavbarSportArticles")
-                                    </div>
-                                </div>
-                            </div>
+                            @await Component.InvokeAsync("NavbarSportArticles")
+
                         </li>
                     </ul>
                 </li>
@@ -161,20 +94,8 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-12 col-md-4">
-                                        <a style="color:red; font-weight:bold;font-size:50px" href="#">Art & culture</a>
-                                        <div class="d-flex flex-column">
-                                            <a href="#">ALL</a>
-                                            <a href="#">Link 2</a>
-                                        </div>
-                                    </div>
-                                    <div class=" col-12 col-md-8">
-                                        @await Component.InvokeAsync("NavbarArtArticles")
-                                        </div>
-                                    </div>
-                            </div>
+                            @await Component.InvokeAsync("NavbarArtArticles")
+
                         </li>
                     </ul>
                 </li>
@@ -185,20 +106,8 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-12 col-md-4">
-                                        <a style="color:red; font-weight:bold;font-size:50px" href="#">Entertainment</a>
-                                        <div class="d-flex flex-column">
-                                            <a href="#">ALL</a>
-                                            <a href="#">Link 2</a>
-                                        </div>
-                                    </div>
-                                    <div class=" col-12 col-md-8">
-                                        @await Component.InvokeAsync("NavbarEntertainmentArticles")
-                                    </div>
-                                </div>
-                            </div>
+                            @await Component.InvokeAsync("NavbarEntertainmentArticles")
+
                         </li>
                     </ul>
                 </li>
@@ -209,23 +118,12 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-12 col-md-4">
-                                        <a style="color:red; font-weight:bold;font-size:50px" href="#">Health</a>
-                                        <div class="d-flex flex-column">
-                                            <a href="#">ALL</a>
-                                            <a href="#">Link 2</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-8">
-                                        @await Component.InvokeAsync("NavbarHealthArticles")
-                                    </div>
-                                </div>
-                            </div>
+                            @await Component.InvokeAsync("NavbarHealthArticles")
+
                         </li>
                     </ul>
                 </li>
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown" href="#" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
 
