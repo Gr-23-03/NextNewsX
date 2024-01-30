@@ -135,23 +135,7 @@ namespace NextNews.Controllers
          return View();
         }
 
-        //This is not for use 
-        //[HttpPost]
-        //public IActionResult CreateUserSubscription(Subscription input) 
-        //{
-
-        //    var userId = _userManager.GetUserId(User);
-
-        //    var subscription = new Subscription
-        //    {
-        //        UserId = userId,
-        //        SubscriptionTypeId =input.SubscriptionTypeId
-        //    };
-        //   string resultmessage= _subscriptionService.CreateSubscriptionForUser(userId, input.SubscriptionTypeId);
-        //    ViewBag.Message = resultmessage;
-        //    return View("Index","Home");
-
-        //}
+     
 
         public async Task<IActionResult> ListSubscription()
         {
