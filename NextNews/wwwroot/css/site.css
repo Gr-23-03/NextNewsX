@@ -256,7 +256,7 @@ body {
     padding: 10px;
     text-align: center;
     height: 800px;
-    animation: flash 2s infinite; /* Adjust animation duration as needed */
+    /*animation: flash 2s infinite; *//* Adjust animation duration as needed */
 }
 
 
