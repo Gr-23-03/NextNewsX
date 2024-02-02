@@ -145,6 +145,17 @@ namespace NextNews.Services
                 return blobClient.Uri.AbsoluteUri;
         }
 
+        public void CheckExpiredSubs() 
+        { 
+        var expiredSubscription = _context.Subscriptions.Where(s=> s.Expired < DateTime.Now ).ToList();
+            foreach (var item in expiredSubscription)  
+            {
+                item.IsActive = false;
+                _context.Update(item);
+            }
+            _context.SaveChanges() ;
+        }
+     
     }
 }
 

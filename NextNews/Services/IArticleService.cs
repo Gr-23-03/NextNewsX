@@ -19,5 +19,7 @@ namespace NextNews.Services
         public void IncreamentViews(ArticleDetailsViewModel article);
         IEnumerable<Article> GetArticlesByCategory(int categoryId);
         public Task<string> UploadImage(IFormFile file);
+        public void CheckExpiredSubs();
+
     }
 }

@@ -26,7 +26,9 @@ namespace NextNews.Services
 
         public List<User> GetUsers()
         {
-            return _context.Users.ToList();
+            var users = _context.Users.ToList();
+            return users;
+            //return _context.Users.ToList();
         }
 
 
