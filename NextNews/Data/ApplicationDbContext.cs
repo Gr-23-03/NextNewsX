@@ -11,8 +11,7 @@ namespace NextNews.Data
     {
         public readonly IConfiguration _configuration;
 
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 
             
@@ -22,8 +21,6 @@ namespace NextNews.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<SubscriptionType> SubscriptionTypes { get; set; }
-
-       
 
     }
 }
