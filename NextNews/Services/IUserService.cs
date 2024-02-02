@@ -12,6 +12,8 @@ namespace NextNews.Services
 
         Task<User> GetUserByIdAsync(string id);
 
+        User GetUserById(string userId);
+
         Task<bool> CreateUserAsync(User user);
 
         Task<bool> UpdateUserAsync(User user);

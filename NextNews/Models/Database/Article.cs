@@ -14,6 +14,7 @@ namespace NextNews.Models.Database
         public DateTime? DateStamp { get; set; }
 
         public string? LinkText { get; set; }
+
         public string? HeadLine { get; set; }
         
         public string? ContentSummary { get; set; }
