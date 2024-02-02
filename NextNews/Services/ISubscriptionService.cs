@@ -1,11 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NextNews.Models.Database;
+using NextNews.ViewModels;
 
 namespace NextNews.Services
 {
     public interface ISubscriptionService
     {
-        public Task<List<Subscription>> GetSubscriptionsAsync();
+        public List<Subscription> GetSubscriptionsAsync();
+        //public Task<List<Subscription>> GetSubscriptionsAsync();
         public Task CreateSubscriptionAsync(Subscription subscription);
         public Task<Subscription> GetSubscriptionByIdAsync(int id);
         public Task UpdateSubscriptionAsync(Subscription subscription);
@@ -28,6 +30,8 @@ namespace NextNews.Services
         public Task<int> CountPremiumSubscribersAsync();
 
         public void UpgradeSubscription(string userId, int newSubscriptionTypeId);
+        //public List<Subscription> SubscriberExpiredSoon();
+        public List<SubscriptionWithUserEmailVM> SubscriberExpiredSoon();
 
     }
 }

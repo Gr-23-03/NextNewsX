@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 using NextNews.Data;
 using NextNews.Models.Database;
+using NextNews.ViewModels;
 using Org.BouncyCastle.Bcpg;
 using Stripe;
 using Stripe.Checkout;
@@ -21,9 +22,10 @@ namespace NextNews.Services
             _context = context;
         }
 
-        public async Task<List<Subscription>> GetSubscriptionsAsync()
+        public List<Subscription> GetSubscriptionsAsync()
         {
-            return await _context.Subscriptions.ToListAsync();
+            var subscriberList= _context.Subscriptions.ToList();
+            return subscriberList;
         }
 
         public async Task<List<Subscription>> GetUserSubscriptionsAsync(string userId)
@@ -206,7 +208,28 @@ namespace NextNews.Services
             _context.SaveChanges();
         }
 
+        //public List<Subscription> SubscriberExpiredSoon()
+        //{
+        //    var currentDate = DateTime.Now;
+        //    var upcomingExpireDate = currentDate.AddDays(5);
+        //    var soonExpirySubscription = _context.Subscriptions.Where(
+        //        s => s.Expired > currentDate && s.Expired <= upcomingExpireDate).ToList();
+        //    return soonExpirySubscription;
+        //}
+        public List<SubscriptionWithUserEmailVM> SubscriberExpiredSoon()
+        {
+            var currentDate = DateTime.Now;
+            var upcomingExpireDate = currentDate.AddDays(5);
+            var soonExpirySubscription = _context.Subscriptions
+                .Where(s => s.Expired > currentDate && s.Expired <= upcomingExpireDate)
+                .Join(_context.Users,
+                    subscription => subscription.UserId,
+            user => user.Id,
+                    (subscription, user) => new SubscriptionWithUserEmailVM { UserEmail = user.Email, Subscription = subscription })
+                .ToList();
 
+            return soonExpirySubscription;
+        }
     }
 }
 

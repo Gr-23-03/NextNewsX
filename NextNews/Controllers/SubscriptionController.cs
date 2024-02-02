@@ -137,9 +137,9 @@ namespace NextNews.Controllers
 
      
 
-        public async Task<IActionResult> ListSubscription()
+        public IActionResult ListSubscription()
         {
-            var subscription = await _subscriptionService.GetSubscriptionsAsync();
+            var subscription =  _subscriptionService.GetSubscriptionsAsync();
             return View(subscription);
         }
 
