@@ -78,6 +78,7 @@ namespace NextNews
             builder.Services.AddScoped<IStatisticService, StatisticService>();
 
             builder.Services.AddScoped<IWheatherService, WeatherService>();
+            builder.Services.AddScoped<INewsLetterService, NewsLetterService>();
 
             builder.Services.AddScoped<SeedData>();
 

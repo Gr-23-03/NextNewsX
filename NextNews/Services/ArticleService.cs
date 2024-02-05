@@ -10,6 +10,8 @@ using System.Linq;
 using System.Collections.Generic;
 using Azure.Storage.Blobs;
 using NextNews.ViewModels;
+using Microsoft.AspNetCore.Http.HttpResults;
+using System.Text.RegularExpressions;
 
 
 
@@ -29,7 +31,7 @@ namespace NextNews.Services
             _context = context;
             _configuration = configuration;
 
-          
+
             _blobServiceClient = new BlobServiceClient(_configuration["AzureWebJobsStorage"]);
         }
 
@@ -39,7 +41,7 @@ namespace NextNews.Services
             var objList = _context.Articles.Include(x => x.UsersLiked).ToList();
             return objList;
         }
-        
+
         public void AddArticle(Article article)
         {
             _context.Articles.Add(article);
@@ -80,7 +82,7 @@ namespace NextNews.Services
             return _context.Categories.ToList();
         }
 
-   
+
         //Add no. of likes
         public void AddLikes(int articleId, string userId)
         {
@@ -133,29 +135,72 @@ namespace NextNews.Services
             return _context.Articles.Where(a => a.CategoryId == categoryId).ToList();
         }
 
-        public async Task<string> UploadImage(IFormFile file) 
+        public async Task<string> UploadImage(IFormFile file)
         {
             BlobContainerClient containerClient = _blobServiceClient
             .GetBlobContainerClient("articleimage");
             BlobClient blobClient = containerClient.GetBlobClient(file.FileName);
-            await using (var stream = file.OpenReadStream()) 
-            { 
-            blobClient.Upload(stream);
+            await using (var stream = file.OpenReadStream())
+            {
+                blobClient.Upload(stream);
             }
-                return blobClient.Uri.AbsoluteUri;
+            return blobClient.Uri.AbsoluteUri;
         }
 
-        public void CheckExpiredSubs() 
-        { 
-        var expiredSubscription = _context.Subscriptions.Where(s=> s.Expired < DateTime.Now ).ToList();
-            foreach (var item in expiredSubscription)  
+        public void CheckExpiredSubs()
+        {
+            var expiredSubscription = _context.Subscriptions.Where(s => s.Expired < DateTime.Now).ToList();
+            foreach (var item in expiredSubscription)
             {
                 item.IsActive = false;
                 _context.Update(item);
             }
-            _context.SaveChanges() ;
+            _context.SaveChanges();
         }
-     
+        public async Task<List<LatestNewsViewModel>> LatestArticles()
+        {
+            var latestArticles = _context.Articles.OrderByDescending(obj => obj.DateStamp).Take(4).ToList();
+
+            List<LatestNewsViewModel> vmList = new List<LatestNewsViewModel>();
+
+            foreach (var item in latestArticles)
+            {
+                var vm = new LatestNewsViewModel()
+                {
+                    Id = item.Id,
+                    HeadLine = item.HeadLine,
+                    ImageLink = GetSmallImageLink(item.ImageLink),
+                    ContentSummary = item.ContentSummary,
+                    DateStamp = item.DateStamp,
+                    ArticleUrl = GetDetailArticle(item.Id)
+
+                };
+
+                vmList.Add(vm);
+            }
+
+            return vmList;
+        }
+        private string GetSmallImageLink(string originalLink)
+        {
+            if (string.IsNullOrEmpty(originalLink))
+            {
+                return originalLink;
+            }
+
+            var baseSmallImageUrl = "https://nextnews.blob.core.windows.net/sample-images-sm/";
+            var fileName = originalLink.Split('/').Last();
+
+            return baseSmallImageUrl + fileName;
+        }
+        public string GetDetailArticle(int id)
+        {
+            
+            return $"https://nextnews.azurewebsites.net/Article/Details/{id}";
+        }
+
+
+
     }
 }
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NextNews.Models.Database;
 using NextNews.Services;
 
 namespace NextNews.ViewComponents
@@ -15,11 +16,21 @@ namespace NextNews.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
+            try
+            {
 
-
-            var api = await _stockService.GetStockHttpClient("us");
-
-            return View(api);
+                var api = await _stockService.GetStockHttpClient("us");
+                if (api == null)
+                {
+                    return View("Default", new Stock { ErrorMessage = "No data available" });
+                }
+                return View("Default", api);
+              
+            }
+            catch (HttpRequestException ex) 
+            {
+                return View("Default", new Stock { ErrorMessage = "Error fetching stock data." });
+            }
         }
 
 
