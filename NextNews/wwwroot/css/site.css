@@ -30,14 +30,14 @@ body {
     justify-content: space-between;
 }
 
-    .two-column > div {
-        flex: 1;
-        margin-right: 300px; /* Adjust the right margin to control the space between columns */
-    }
+.two-column > div {
+    flex: 1;
+    margin-right: 300px; /* Adjust the right margin to control the space between columns */
+}
 
-    .two-column p {
-        margin-bottom: 200px; /* Add space below paragraphs for better readability */
-    }
+.two-column p {
+    margin-bottom: 200px; /* Add space below paragraphs for better readability */
+}
 
 .column-break {
     flex-basis: 200px; /* Adjust the space between columns */
@@ -52,10 +52,7 @@ body {
     padding: 16px;
     font-size:16px;
     border:none;
-
 }
-
-
 
 .dropdown {
     position: relative;
@@ -75,17 +72,13 @@ body {
     padding: 0px;
     margin-left:0px;
     margin-right:0px;
-   
-    
-
 }
 
-    .dropdown-menu a:hover {
-        background-color: #3b3f42;
-        text-decoration: underline;
-        color: red;
-
-    }
+.dropdown-menu a:hover {
+    background-color: #3b3f42;
+    text-decoration: underline;
+    color: red;
+}
 
 .dropdown:hover .dropdown-menu {
     display: block;
@@ -112,6 +105,74 @@ body {
     }
 }
 
+
+.dropdown-menu .dropdown-item {
+    font-weight: bold;
+    font-size: 16px; /* Adjust the font size as needed */
+}
+
+/* Apply styles to the main dropdown links */
+.nav-item.dropdown .nav-link.dropdown {
+    color: black;
+    font-weight: bold;
+}
+
+ a {
+     color: black;
+     text-decoration: none;
+ }
+
+ column {
+    display: inline-block;
+ }
+
+ .picture {
+    width: 200px;
+    height: 100px;
+ }
+
+ .col-6 {
+     border-spacing: 1px;
+ }
+
+ .picture-row {
+     display: flex;
+     justify-content: space-between;
+     flex-wrap: wrap;
+     margin-right: 20px;
+     padding-right: 30px;
+ }
+
+ .picture-container {
+     width: 30%;
+     margin-bottom: 30px;
+     position: relative;
+     padding-top: 40px;
+     margin-right: 120px;
+ }
+
+ .picture {
+    max-width: 100%;
+    height: auto;
+    display: block;
+ }
+
+.div.text-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 70%;
+    background-color: #3b3f42;
+    padding-top: -5px;
+    text-align: right;
+    margin-right: 0px;
+    margin-bottom: 10px;
+}
+
+.img-on-HomeIndex {
+    margin-top: 10px;
+    border-radius: 10px;
+  
         .dropdown-menu .dropdown-item {
             font-weight: bold;
             font-size: 16px; /* Adjust the font size as needed */
@@ -195,9 +256,11 @@ body {
     .img-on-HomeIndex {
         margin: 15px;
         border-radius: 10px;
+
 }
 
 
+/*Breaking News*/
 /*Latest News*/
 .news-carousel {
     width: 80%;
@@ -247,6 +310,24 @@ body {
 }
 
 
+/*Top Stories*/
+.top-stories-column {
+    border: 1px solid #ccc;
+    background-color: #ffffcc;
+    padding: 10px;
+    text-align: center;
+    height: 400px;
+    /*animation: flash 2s infinite;*/ /* Adjust animation duration as needed */
+}
+
+.top-stories p {
+    margin: 0;
+    font-weight: bold;
+}
+
+
+/* Advertisement Column*/
+
 @keyframes flash {
     0% {
         opacity: 1;
@@ -269,6 +350,92 @@ body {
     height: 800px;
     /*animation: flash 2s infinite; *//* Adjust animation duration as needed */
 }
+
+.advertisement-column p {
+     margin: 0;
+     font-weight: bold;
+}
+
+
+
+/*Editor's Choice*/
+
+.editors-choice-news-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    margin-bottom: 20px;
+}
+
+.editors-choice-news-title {
+    text-align: center;
+}
+
+.editors-choice-news-headline {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.editors-choice-news-summary {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.editors-choice-news-date {
+    font-size: 12px;
+    color: #999;
+}
+
+.editors-choice-news-link {
+    color: var(--bs-body-color);
+    text-decoration: none;
+    transition: color 0.15s ease-in-out;
+}
+
+
+
+
+
+
+
+/*TOP*/
+.article-container {
+    position: relative;
+    width: 100%;
+    max-width: 700px; /* Adjust as needed */
+    margin: 0 auto;
+}
+
+.article-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 10px; /* Adjust as needed */
+    box-sizing: border-box;
+}
+
+.top-story-label {
+    background-color: rgba(255, 255, 255, 0.7); /* Faint white background */
+    padding: 5px; /* Adjust as needed */
+    color: #333; /* Text color */
+    font-weight: bold;
+}
+
+
+
 
 
     .advertisement-column p {
@@ -355,3 +522,4 @@ body {
 .ticker-wrap:hover .ticker {
     animation-play-state: paused;
 }
+

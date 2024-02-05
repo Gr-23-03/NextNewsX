@@ -21,6 +21,8 @@ namespace NextNews.Models.Database
 
         public string? Content { get; set; }
 
+        public bool IsEditorsChoice { get; set; } = false;
+
         public int? Views { get; set; }
 
         public int? Likes { get; set;}

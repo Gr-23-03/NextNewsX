@@ -19,12 +19,12 @@
             <input type="hidden" asp-for="Likes" />
             <input type="hidden" asp-for="Views" />
 
-            <div class="form-group">
+@*             <div class="form-group">
                 <label asp-for="DateStamp" class="control-label"></label>
                 <input asp-for="DateStamp" class="form-control" />
                 <span asp-validation-for="DateStamp" class="text-danger"></span>
             </div>
-
+ *@
             <div class="form-group">
                 <label asp-for="LinkText" class="control-label"></label>
                 <input asp-for="LinkText" class="form-control" />
@@ -50,18 +50,19 @@
                 </div>
            </div>
 
-            <div class="form-group">
+@*             <div class="form-group">
                 <label asp-for="Views" class="control-label"></label>
                 <input asp-for="Views" class="form-control" />
                 <span asp-validation-for="Views" class="text-danger"></span>
             </div>
-
-            <div class="form-group">
+ *@
+@*             <div class="form-group">
                 <label asp-for="Likes" class="control-label"></label>
                 <input asp-for="Likes" class="form-control" />
                 <span asp-validation-for="Likes" class="text-danger"></span>
             </div>
 
+ *@    
             <div class="form-group">
                 <label asp-for="ImageLink" class="control-label"></label>
                 <input asp-for="ImageLink" class="form-control" />
@@ -89,6 +90,11 @@
             <div class="form-group">
                 <label asp-for="ImageFile" class="control-label"></label>
                 <input asp-for="ImageFile" type="file" class="form-control" />
+            </div>
+
+            <div class="form-group form-check form-switch">
+                Editors Choice
+                <input type="checkbox" asp-for="IsEditorsChoice" class="form-check-input" role="switch" />
             </div>
 
             <div class="form-group">

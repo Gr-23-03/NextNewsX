@@ -10,8 +10,14 @@ using System.Linq;
 using System.Collections.Generic;
 using Azure.Storage.Blobs;
 using NextNews.ViewModels;
+
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+
+
 using Microsoft.AspNetCore.Http.HttpResults;
 using System.Text.RegularExpressions;
+
 
 
 
@@ -26,6 +32,9 @@ namespace NextNews.Services
 
         private readonly BlobServiceClient _blobServiceClient;
 
+
+
+
         public ArticleService(ApplicationDbContext context, IConfiguration configuration)
         {
             _context = context;
@@ -34,6 +43,8 @@ namespace NextNews.Services
 
             _blobServiceClient = new BlobServiceClient(_configuration["AzureWebJobsStorage"]);
         }
+
+
 
 
         public List<Article> GetArticles()
@@ -93,6 +104,7 @@ namespace NextNews.Services
             if (article.UsersLiked.Any(x => x.Id == userId))
             {
                 article.UsersLiked = article.UsersLiked.Where(x => x.Id != userId).ToList();
+                article.Likes = article.Likes + 1;
             }
             else
             {
@@ -100,6 +112,7 @@ namespace NextNews.Services
                 if (user is null) return;
 
                 article.UsersLiked.Add(user);
+                article.Likes = article.Likes - 1;
             }
 
             _context.SaveChanges();
@@ -108,7 +121,7 @@ namespace NextNews.Services
 
 
 
-        public void IncreamentViews(ArticleDetailsViewModel vm)
+        public void IncreamentViews(ArticleDetailsViewModel article)
         {
             if (vm.Article.Views is null)
             {
@@ -147,6 +160,44 @@ namespace NextNews.Services
             return blobClient.Uri.AbsoluteUri;
         }
 
+
+
+
+
+
+
+
+        // Example data source (replace this with your actual data retrieval logic)
+        //private List<Article> _allArticles = new List<Article>();
+
+        public List<Article> GetEditorsChoiceArticles()
+        {
+            var objList = _context.Articles.Where(a => a.IsEditorsChoice == true).ToList();
+
+            return objList;
+        }
+
+
+
+        public void addOrRemoveEditorsChoice(string addOrRemove, int articleId)
+        {
+            Article obj = _context.Articles.Find(articleId);
+
+
+            if(addOrRemove == "add")
+            {
+                obj.IsEditorsChoice = true;
+                _context.Update(obj);
+                _context.SaveChanges();
+            }
+            else if(addOrRemove == "remove")
+            {
+                obj.IsEditorsChoice = false;
+                _context.Update(obj);
+                _context.SaveChanges();
+            }
+            
+
         public void CheckExpiredSubs()
         {
             var expiredSubscription = _context.Subscriptions.Where(s => s.Expired < DateTime.Now).ToList();
@@ -180,6 +231,7 @@ namespace NextNews.Services
             }
 
             return vmList;
+
         }
         private string GetSmallImageLink(string originalLink)
         {
@@ -201,6 +253,14 @@ namespace NextNews.Services
 
 
 
+
+
+
+
     }
+
+
+
 }
+
 
