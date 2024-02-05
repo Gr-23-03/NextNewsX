@@ -3,10 +3,11 @@ html {
     font-size: 14px;
 }
 
-@media (min-width: 768px) {
+@media screen and (max-width: 600px) {
     html {
         font-size: 16px;
     }
+    
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus{
@@ -104,6 +105,7 @@ body {
     }
 }
 
+
 .dropdown-menu .dropdown-item {
     font-weight: bold;
     font-size: 16px; /* Adjust the font size as needed */
@@ -170,6 +172,91 @@ body {
 .img-on-HomeIndex {
     margin-top: 10px;
     border-radius: 10px;
+  
+        .dropdown-menu .dropdown-item {
+            font-weight: bold;
+            font-size: 16px; /* Adjust the font size as needed */
+        }
+
+    /* Apply styles to the main dropdown links */
+    .nav-item.dropdown .nav-link.dropdown {
+        color: black;
+        font-weight: bold;
+    }
+
+
+    a {
+        color:black;
+        text-decoration: none;
+    }
+
+    column {
+        display: inline-block;
+    }
+
+    .picture {
+        width: 200px;
+        height: 100px;
+    }
+
+    .col-6 {
+        border-spacing: 1px;
+    }
+
+    .picture-row {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-right: 20px;
+        padding-right: 30px;
+    }
+
+.picture-container {
+    width: 35%;
+    margin-bottom: 30px;
+    position: relative;
+    padding-top: 40px;
+    margin-right: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+.picture:hover {
+    box-shadow: 0 0 5px 5px rgba(255, 0, 0, 0.5);
+}
+    .picture {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+
+.text-container {
+   
+   
+    width: 70%;
+    background-color: #3b3f42;
+    /*padding-top: 5px;*/
+    text-align:center;
+    justify-content:center;
+    align-items:center;
+    padding-left: 10px;
+    
+}
+.text-container:hover {
+    text-decoration: underline;
+    color: red;
+}
+    .publish-date {
+    color: white;
+    background-color: #3b3f42;
+    text-decoration: none;
+    font-size: 10px;
+
+}
+    .img-on-HomeIndex {
+        margin: 15px;
+        border-radius: 10px;
+
 }
 
 
@@ -179,11 +266,14 @@ body {
     width: 80%;
     margin: 0 auto;
 }
+
  
 #newsCarousel {
     padding: 20px;
+
 }
  
+
 .latest-news-item {
     display: flex;
     flex-direction: column;
@@ -258,7 +348,7 @@ body {
     padding: 10px;
     text-align: center;
     height: 800px;
-    animation: flash 2s infinite; /* Adjust animation duration as needed */
+    /*animation: flash 2s infinite; *//* Adjust animation duration as needed */
 }
 
 .advertisement-column p {
@@ -346,4 +436,90 @@ body {
 
 
 
+
+
+    .advertisement-column p {
+        margin: 0;
+        font-weight: bold;
+    }
+/*.ql-size-large {
+    font-size: 1.5em;  
+}*/
+.stock-ticker {
+    overflow: hidden;
+    background-color: #f0f0f0; /* Gray background for the ticker area */
+}
+
+.ticker-wrap {
+    width: 100%;
+    overflow: hidden;
+    padding-top: 20px;
+    padding-bottom:5px;
+    /* Increase top and bottom padding */
+ 
+}
+
+.ticker {
+    display: flex;
+    white-space: nowrap;
+    animation: ticker 30s linear infinite;
+}
+
+
+@keyframes ticker {
+    0% {
+        transform: translate3d(100%, 0, 0);
+    }
+
+    100% {
+        transform: translate3d(-100%, 0, 0);
+    }
+}
+
+.ticker__item {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 15px;
+    margin: 0 10px; /* Keeps space between items */
+    position: relative;
+    background-color: #f0f0f0; /* Gray background for individual tabs */
+    border: 1px solid #ddd; /* Light gray border */
+    border-radius: 4px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+}
+
+.corner-indicator {
+    width: 10px;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-top-left-radius: 4px; /* Match the border radius */
+    border-bottom-left-radius: 4px; /* Match the border radius */
+}
+
+    .corner-indicator.positive {
+        background-color: #4CAF50; /* Green */
+    }
+
+    .corner-indicator.negative {
+        background-color: #F44336; /* Red */
+    }
+
+.stock-name {
+    margin-left: 15px; /* Make space for the corner indicator */
+}
+
+.stock-change.positive {
+    color: #4CAF50; /* Green text */
+}
+
+.stock-change.negative {
+    color: #F44336; /* Red text */
+}
+
+/* Hover effect */
+.ticker-wrap:hover .ticker {
+    animation-play-state: paused;
+}
 

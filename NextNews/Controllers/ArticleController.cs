@@ -18,8 +18,8 @@ using Microsoft.AspNetCore.Routing;
 namespace NextNews.Controllers
 {
 
-    // For Admin-specific actions
-    [Authorize(Policy = "Editor")]
+    // For Editor-specific actions
+    //[Authorize(Policy = "Editor")]
     public class ArticleController : Controller
     {
         private readonly IArticleService _articleService;
@@ -74,7 +74,7 @@ namespace NextNews.Controllers
         {
             var articles = _articleService.GetArticles();
            
-            const int pageSize = 3;
+            const int pageSize = 9;
             if (pg < 1)
                 pg = 1;
             int recsCount = articles.Count;
@@ -91,27 +91,20 @@ namespace NextNews.Controllers
         [HttpPost]
         [Authorize(Roles = "Editor")]
 
-        
+
         public IActionResult AddArticle(Article article)
         {
             article.DateStamp = DateTime.Now;
 
             if (ModelState.IsValid)
             {
-   
-                 article.ImageLink = _articleService.UploadImage(article.ImageFile).Result;
-                
+
+                article.ImageLink = _articleService.UploadImage(article.ImageFile).Result;
 
                 _articleService.AddArticle(article);
 
                 //article.ImageLink = _articleService.UploadImage(article.ImageFile).Result;
                 return RedirectToAction("Listarticles");
-
-                //azure image upload
-               
-               // _articleService.UploadImage(article.ImageFile);
-
-
 
 
                 // Check if an image file is uploaded
@@ -159,9 +152,10 @@ namespace NextNews.Controllers
         //details
 
         //[Authorize(Roles = "Editor")]
-        public async Task<IActionResult>  Details (int id)
+        public async Task<IActionResult> Details(int id)
         {
             List<Article> allArticles = _articleService.GetArticles().ToList();
+            var temp = allArticles.FirstOrDefault(a => a.Id == id);
 
             var vm = new ArticleDetailsViewModel()
             {

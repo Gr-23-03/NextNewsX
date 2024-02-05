@@ -26,7 +26,9 @@ namespace NextNews.Services
 
         public List<User> GetUsers()
         {
-            return _context.Users.ToList();
+            var users = _context.Users.ToList();
+            return users;
+            //return _context.Users.ToList();
         }
 
 
@@ -45,6 +47,13 @@ namespace NextNews.Services
         }
 
 
+        public User GetUserById(string userId)
+        {
+            User usr = _context.Users.FirstOrDefault(u => u.Id == userId);
+            return usr;
+        }
+
+
 
         public async Task<bool> CreateUserAsync(User user)
         {
@@ -53,11 +62,12 @@ namespace NextNews.Services
                 // Map User to your data model (assuming User is your data model)
                 var userModel = new User
                 {
+                    UserName = user.UserName,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     DateofBirth = user.DateofBirth,
-                   
-                  
+                    Email = user.Email,
+                    PhoneNumber = user.PhoneNumber,
                 };
          
                 _context.Users.Add(userModel);

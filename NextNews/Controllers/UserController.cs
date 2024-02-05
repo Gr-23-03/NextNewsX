@@ -12,7 +12,7 @@ namespace NextNews.Controllers
         private readonly IUserService _userService;
         private readonly UserManager<User> _userManager;
 
-        public UserController(IUserService userService , UserManager<User> userManager)
+        public UserController(IUserService userService, UserManager<User> userManager)
         {
             _userService = userService;
             _userManager = userManager;
@@ -37,7 +37,7 @@ namespace NextNews.Controllers
         }
 
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Editor")]
         public IActionResult ManageUsers()
         {
             // Getting a list of users from the service
@@ -90,7 +90,7 @@ namespace NextNews.Controllers
                 return View("Edit", user);
             }
             await _userService.UpdateUserAsync(user);
-            
+
             return RedirectToAction("ManageUsers");
         }
 
@@ -117,13 +117,13 @@ namespace NextNews.Controllers
         {
             await _userService.DeleteUserAsync(id);
             return RedirectToAction(nameof(ManageUsers));
-           
+
         }
 
         [Authorize(Roles = "Admin")]
         public IActionResult DeleteConfirmed()
         {
-            
+
             return View();
         }
 
@@ -132,7 +132,7 @@ namespace NextNews.Controllers
         //Assign role to user by Admin
 
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Editor")]
         [HttpPost]
         public async Task<IActionResult> AssignRole(string userId, string role)
         {
@@ -160,10 +160,21 @@ namespace NextNews.Controllers
 
 
 
+        [Authorize(Roles = "User")]
+        public IActionResult UserDashboard()
+        {
+            return View();
+        }
 
 
 
+        public IActionResult MyPages()
+        {
+            string userId = _userManager.GetUserId(HttpContext.User) ?? "";
+            User user = _userService.GetUserById(userId);
 
+            return View(user);
+        }
 
 
 

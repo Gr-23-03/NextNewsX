@@ -244,6 +244,32 @@ namespace NextNews.Data.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("NextNews.Models.Database.NewsLetterSubscriber", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("DateofBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("NewsLetterSubscribers");
+                });
+
             modelBuilder.Entity("NextNews.Models.Database.Subscription", b =>
                 {
                     b.Property<int>("Id")
@@ -257,6 +283,9 @@ namespace NextNews.Data.Migrations
 
                     b.Property<DateTime?>("Expired")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<bool?>("PaymentComplete")
                         .HasColumnType("bit");

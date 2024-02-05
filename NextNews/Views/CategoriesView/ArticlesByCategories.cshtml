@@ -2,21 +2,33 @@
 
 @{
     ViewData["Title"] = @ViewBag.CategoryName;
+    var backgroundImageUrl = @ViewBag.BackgroundImageUrl;
+
+    var textcolor = "text-white";
+
+    if (@ViewBag.CategoryName == "Sweden" || @ViewBag.CategoryName == "Business")    // light background on picture
+    {
+        textcolor = "text-black";
+    }
+
+    var colortext = "text-black";
+    if (@ViewBag.CategoryName == "Sport" /* || @ViewBag.CategoryName == "Art & Culture" */ || @ViewBag.CategoryName == "World" || @ViewBag.CategoryName == "Weather" /* || @ViewBag.CategoryName == "Health" */)
+    {
+        colortext= "text-white";
+    }
 }
 
-
-<h1>@ViewBag.CategoryName</h1>
+<div style="background-image: url('@backgroundImageUrl');min-height: 1100px; box-shadow: 25px 25px 25px gray; background-color: rgba(255, 255, 255, 0.5);">
+<h1 class="@colortext">@ViewBag.CategoryName</h1>
 
 <ul> 
 @foreach (var article in Model)
 {
-    
-        <li style="border: 1px solid lightgray; border-radius: 10px; margin: 0px; padding: 10px">
-        <a class="text-decoration-none text-black" asp-controller="Article" asp-action="Details" asp-route-id="@article.Id">
+    <ul style="border: 10px solid transparent; border-radius: 10px; margin: 10px; padding: 5px; background-color: rgba(51, 51, 51, 0.3);">
+        <a class="text-decoration-none @textcolor" asp-controller="Article" asp-action="Details" asp-route-id="@article.Id" style="font-size: 20px; font-weight: bold;">
             @article.HeadLine
         </a>
-    </li>
-    
-   
+    </ul>  
 }
 </ul>
+</div>

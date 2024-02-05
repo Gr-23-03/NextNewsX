@@ -12,16 +12,16 @@ namespace NextNews.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IUserService _userService;
         private readonly IArticleService _articleService;
-
+        private readonly IStockService _stockService;
         private readonly ICategoryService _categoryService;
-
+        
         public HomeController(ILogger<HomeController> logger ,IUserService userService, 
-            IArticleService articleService, ICategoryService categoryService)
+            IArticleService articleService, ICategoryService categoryService, IStockService stockService)
         {
             _logger = logger;
             _userService = userService;
             _articleService = articleService;
-
+            _stockService = stockService;
             _categoryService = categoryService;
         }
 
@@ -39,6 +39,7 @@ namespace NextNews.Controllers
            Articles by categories */
         public IActionResult Index()
         {
+
             List<Article> allArticles = _articleService.GetArticles().ToList();
             List<Category> allCategories = _categoryService.GetCategories().ToList();
 
@@ -132,7 +133,11 @@ namespace NextNews.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
          }
 
-
+        //public async Task<IActionResult> StockReport()
+        //{
+        //    var stockReport = await _stockService.GetStockHttpClient("us");
+        //    return View(stockReport);
+        //}
 
     }
 }

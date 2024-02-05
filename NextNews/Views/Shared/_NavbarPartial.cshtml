@@ -1,13 +1,21 @@
 
 <nav class="navbar navbar-light bg-white">
+   
     <div class="container-fluid">
+
          <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+
+
             <img src="~/images/NEXT.gif" style="width:30%; padding-left:30px;" />
+
         </a>
+        @await Component.InvokeAsync("BusinessApi")
+   
+
     </div>
 </nav>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
     <div class="container">
        
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,59 +25,19 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
 
-                    <a class="nav-link active" aria-current="page" style="color:red; font-weight:bold" asp-controller="Home" asp-action="Index">Home</a>
+                    <a class="nav-link active" aria-current="page" style="color:black; font-weight:bold" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'" asp-controller="Home" asp-action="Index">Home
+                    </a>
                 </li>
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown" href="#" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
-
                         Local
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-12 col-md-4">
-                                        <a style="color:red; font-weight:bold;font-size:50px" href="#">Local</a>
-                                        <div class="d-flex flex-column">
-                                            <a href="#">ALL</a>
-                                            <a href="#">Link 2</a>
-                                        </div>
-                                    </div>
-                                    <div class="row col-12 col-md-8">
-                                        <div class="picture-row">
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 1" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 1</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 2" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 2</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 3" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 3</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 4" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 4</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
+                            @await Component.InvokeAsync("NavbarLocalArticles")
+                           
+                        </li>  
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -78,50 +46,8 @@
                         Sweden
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      
                         <li>
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-12 col-md-4">
-                                        <a style="color:red; font-weight:bold;font-size:50px" href="#">Sweden</a>
-                                        <div class="d-flex flex-column">
-                                            <a href="#">ALL</a>
-                                            <a href="#">Link 2</a>
-                                        </div>
-                                    </div>
-                                    <div class="row col-12 col-md-8">
-                                        <div class="picture-row">
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 1" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 1</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 2" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 2</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 3" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 3</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 4" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 4</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                           @await Component.InvokeAsync("NavbarSwedenArticles")
                         </li>
                     </ul>
                 </li>
@@ -132,100 +58,20 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-12 col-md-4">
-                                        <a style="color:red; font-weight:bold;font-size:50px" href="#">World</a>
-                                        <div class="d-flex flex-column">
-                                            <a href="#">ALL</a>
-                                            <a href="#">Link 2</a>
-                                        </div>
-                                    </div>
-                                    <div class="row col-12 col-md-8">
-                                        <div class="picture-row">
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 1" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 1</p>
-                                                </div>
-                                            </div>
+                            @await Component.InvokeAsync("NavbarWorldArticles")
 
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 2" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 2</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 3" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 3</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 4" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 4</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown" href="#" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
 
-                        Economy
+                        Business
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-12 col-md-4">
-                                        <a style="color:red; font-weight:bold;font-size:50px" href="#">Economy</a>
-                                        <div class="d-flex flex-column">
-                                            <a href="#">ALL</a>
-                                            <a href="#">Link 2</a>
-                                        </div>
-                                    </div>
-                                    <div class="row col-12 col-md-8">
-                                        <div class="picture-row">
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 1" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 1</p>
-                                                </div>
-                                            </div>
+                            @await Component.InvokeAsync("NavbarBusinessArticles")
 
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 2" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 2</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 3" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 3</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 4" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 4</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </li>
                     </ul>
                 </li>
@@ -237,48 +83,8 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-12 col-md-4">
-                                        <a style="color:red; font-weight:bold;font-size:50px" href="#">Sport</a>
-                                        <div class="d-flex flex-column">
-                                            <a href="#">ALL</a>
-                                            <a href="#">Link 2</a>
-                                        </div>
-                                    </div>
-                                    <div class="row col-12 col-md-8">
-                                        <div class="picture-row">
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 1" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 1</p>
-                                                </div>
-                                            </div>
+                            @await Component.InvokeAsync("NavbarSportArticles")
 
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 2" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 2</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 3" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 3</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 4" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 4</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </li>
                     </ul>
                 </li>
@@ -289,48 +95,20 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-12 col-md-4">
-                                        <a style="color:red; font-weight:bold;font-size:50px" href="#">Art & culture</a>
-                                        <div class="d-flex flex-column">
-                                            <a href="#">ALL</a>
-                                            <a href="#">Link 2</a>
-                                        </div>
-                                    </div>
-                                    <div class="row col-12 col-md-8">
-                                        <div class="picture-row">
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 1" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 1</p>
-                                                </div>
-                                            </div>
+                            @await Component.InvokeAsync("NavbarArtArticles")
 
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 2" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 2</p>
-                                                </div>
-                                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown" href="#" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
 
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 3" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 3</p>
-                                                </div>
-                                            </div>
+                        Entertainment
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li>
+                            @await Component.InvokeAsync("NavbarEntertainmentArticles")
 
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 4" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 4</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </li>
                     </ul>
                 </li>
@@ -341,51 +119,12 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-12 col-md-4">
-                                        <a style="color:red; font-weight:bold;font-size:50px" href="#">Health</a>
-                                        <div class="d-flex flex-column">
-                                            <a href="#">ALL</a>
-                                            <a href="#">Link 2</a>
-                                        </div>
-                                    </div>
-                                    <div class="row col-12 col-md-8">
-                                        <div class="picture-row">
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 1" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 1</p>
-                                                </div>
-                                            </div>
+                            @await Component.InvokeAsync("NavbarHealthArticles")
 
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 2" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 2</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 3" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 3</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="picture-container">
-                                                <img src="http://placehold.it/400x300" alt="Picture 4" class="picture">
-                                                <div class="text-container">
-                                                    <p>Text for Picture 4</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </li>
                     </ul>
                 </li>
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown" href="#" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
 
@@ -440,9 +179,11 @@
                 </li>
                 
             </ul>
+           
+
 
             <form class="d-flex" asp-controller="Categories" asp-action="Search">
-                <input name="searchString" class="form-control" type="search" placeholder="Search On NEXTnews" aria-label="Search">
+                <input name="searchString" class="form-control" type="search" placeholder="Search On NEXTnews" aria-label="Search" style="width: 100px">
                 <button class="btn btn-outline-danger" type="submit">Search</button>
             </form> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             

@@ -10,8 +10,13 @@ using System.Linq;
 using System.Collections.Generic;
 using Azure.Storage.Blobs;
 using NextNews.ViewModels;
+
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+
+
+using Microsoft.AspNetCore.Http.HttpResults;
+using System.Text.RegularExpressions;
 
 
 
@@ -36,8 +41,6 @@ namespace NextNews.Services
             _configuration = configuration;
 
 
-
-
             _blobServiceClient = new BlobServiceClient(_configuration["AzureWebJobsStorage"]);
         }
 
@@ -46,7 +49,8 @@ namespace NextNews.Services
 
         public List<Article> GetArticles()
         {
-            return _context.Articles.Include(x => x.UsersLiked).ToList();
+            var objList = _context.Articles.Include(x => x.UsersLiked).ToList();
+            return objList;
         }
 
         public void AddArticle(Article article)
@@ -116,19 +120,29 @@ namespace NextNews.Services
         }
 
 
+
         public void IncreamentViews(ArticleDetailsViewModel article)
         {
-            if (article.Article.Views is null)
+            if (vm.Article.Views is null)
             {
-                article.Article.Views = 1;
+                vm.Article.Views = 1;
             }
             else
             {
-                article.Article.Views++;
+                vm.Article.Views++;
+
             }
             _context.SaveChanges();
 
         }
+
+
+
+
+
+
+
+
         public IEnumerable<Article> GetArticlesByCategory(int categoryId)
         {
             return _context.Articles.Where(a => a.CategoryId == categoryId).ToList();
@@ -145,6 +159,7 @@ namespace NextNews.Services
             }
             return blobClient.Uri.AbsoluteUri;
         }
+
 
 
 
@@ -182,7 +197,61 @@ namespace NextNews.Services
                 _context.SaveChanges();
             }
             
+
+        public void CheckExpiredSubs()
+        {
+            var expiredSubscription = _context.Subscriptions.Where(s => s.Expired < DateTime.Now).ToList();
+            foreach (var item in expiredSubscription)
+            {
+                item.IsActive = false;
+                _context.Update(item);
+            }
+            _context.SaveChanges();
         }
+        public async Task<List<LatestNewsViewModel>> LatestArticles()
+        {
+            var latestArticles = _context.Articles.OrderByDescending(obj => obj.DateStamp).Take(4).ToList();
+
+            List<LatestNewsViewModel> vmList = new List<LatestNewsViewModel>();
+
+            foreach (var item in latestArticles)
+            {
+                var vm = new LatestNewsViewModel()
+                {
+                    Id = item.Id,
+                    HeadLine = item.HeadLine,
+                    ImageLink = GetSmallImageLink(item.ImageLink),
+                    ContentSummary = item.ContentSummary,
+                    DateStamp = item.DateStamp,
+                    ArticleUrl = GetDetailArticle(item.Id)
+
+                };
+
+                vmList.Add(vm);
+            }
+
+            return vmList;
+
+        }
+        private string GetSmallImageLink(string originalLink)
+        {
+            if (string.IsNullOrEmpty(originalLink))
+            {
+                return originalLink;
+            }
+
+            var baseSmallImageUrl = "https://nextnews.blob.core.windows.net/sample-images-sm/";
+            var fileName = originalLink.Split('/').Last();
+
+            return baseSmallImageUrl + fileName;
+        }
+        public string GetDetailArticle(int id)
+        {
+            
+            return $"https://nextnews.azurewebsites.net/Article/Details/{id}";
+        }
+
+
 
 
 
