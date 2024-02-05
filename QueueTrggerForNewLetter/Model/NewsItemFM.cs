@@ -1,6 +1,12 @@
-﻿namespace NextNews.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace QueueTrggerForNewLetter.Model
 {
-    public class LatestNewsViewModel
+    public class NewsItemFM
     {
         public int Id { get; set; }
         public string? HeadLine { get; set; }

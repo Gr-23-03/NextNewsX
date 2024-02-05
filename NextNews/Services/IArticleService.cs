@@ -20,6 +20,7 @@ namespace NextNews.Services
         IEnumerable<Article> GetArticlesByCategory(int categoryId);
         public Task<string> UploadImage(IFormFile file);
         public void CheckExpiredSubs();
+        public Task<List<LatestNewsViewModel>> LatestArticles();
 
     }
 }
