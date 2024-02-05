@@ -169,7 +169,7 @@ namespace NextNews.Controllers
 
 
 
-        [Authorize(Roles = "User")]
+        //[Authorize(Roles = "User")]
         public IActionResult UserDashboard()
         {
             return View();

@@ -10,6 +10,9 @@ using System.Linq;
 using System.Collections.Generic;
 using Azure.Storage.Blobs;
 using NextNews.ViewModels;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+
 
 
 
@@ -24,34 +27,28 @@ namespace NextNews.Services
 
         private readonly BlobServiceClient _blobServiceClient;
 
+
+
+
         public ArticleService(ApplicationDbContext context, IConfiguration configuration)
         {
             _context = context;
             _configuration = configuration;
 
-          
+
+
+
             _blobServiceClient = new BlobServiceClient(_configuration["AzureWebJobsStorage"]);
         }
 
-        public async Task<string> UploadImage(IFormFile file)
-        {
-            BlobContainerClient containerClient = _blobServiceClient.GetBlobContainerClient("nextnews");
-            BlobClient blobClient = containerClient.GetBlobClient(file.FileName);
 
-            await using(var stream = file.OpenReadStream()) 
-            {
-                blobClient.Upload(stream);
-            }
-
-            return blobClient.Uri.AbsoluteUri;
-        }
 
 
         public List<Article> GetArticles()
         {
             return _context.Articles.Include(x => x.UsersLiked).ToList();
         }
-        
+
         public void AddArticle(Article article)
         {
             _context.Articles.Add(article);
@@ -92,7 +89,7 @@ namespace NextNews.Services
             return _context.Categories.ToList();
         }
 
-   
+
         //Add no. of likes
         public void AddLikes(int articleId, string userId)
         {
@@ -103,6 +100,7 @@ namespace NextNews.Services
             if (article.UsersLiked.Any(x => x.Id == userId))
             {
                 article.UsersLiked = article.UsersLiked.Where(x => x.Id != userId).ToList();
+                article.Likes = article.Likes + 1;
             }
             else
             {
@@ -110,13 +108,14 @@ namespace NextNews.Services
                 if (user is null) return;
 
                 article.UsersLiked.Add(user);
+                article.Likes = article.Likes - 1;
             }
 
             _context.SaveChanges();
 
         }
 
-        
+
         public void IncreamentViews(ArticleDetailsViewModel article)
         {
             if (article.Article.Views is null)
@@ -135,18 +134,64 @@ namespace NextNews.Services
             return _context.Articles.Where(a => a.CategoryId == categoryId).ToList();
         }
 
-        public async Task<string> UploadImage(IFormFile file) 
+        public async Task<string> UploadImage(IFormFile file)
         {
             BlobContainerClient containerClient = _blobServiceClient
             .GetBlobContainerClient("articleimage");
             BlobClient blobClient = containerClient.GetBlobClient(file.FileName);
-            await using (var stream = file.OpenReadStream()) 
-            { 
-            blobClient.Upload(stream);
+            await using (var stream = file.OpenReadStream())
+            {
+                blobClient.Upload(stream);
             }
-                return blobClient.Uri.AbsoluteUri;
+            return blobClient.Uri.AbsoluteUri;
         }
 
+
+
+
+
+
+
+        // Example data source (replace this with your actual data retrieval logic)
+        //private List<Article> _allArticles = new List<Article>();
+
+        public List<Article> GetEditorsChoiceArticles()
+        {
+            var objList = _context.Articles.Where(a => a.IsEditorsChoice == true).ToList();
+
+            return objList;
+        }
+
+
+
+        public void addOrRemoveEditorsChoice(string addOrRemove, int articleId)
+        {
+            Article obj = _context.Articles.Find(articleId);
+
+
+            if(addOrRemove == "add")
+            {
+                obj.IsEditorsChoice = true;
+                _context.Update(obj);
+                _context.SaveChanges();
+            }
+            else if(addOrRemove == "remove")
+            {
+                obj.IsEditorsChoice = false;
+                _context.Update(obj);
+                _context.SaveChanges();
+            }
+            
+        }
+
+
+
+
+
     }
+
+
+
 }
+
 

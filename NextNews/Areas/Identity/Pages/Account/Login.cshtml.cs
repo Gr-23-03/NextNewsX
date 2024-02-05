@@ -125,14 +125,12 @@ namespace NextNews.Areas.Identity.Pages.Account
                      {
                         _logger.LogInformation("User logged in.");
                         return RedirectToAction("EditorDashboard", "Article");
-
                     }
 
                     if (!User.IsInRole("Admin") || !User.IsInRole("Editor"))
                     {
                         _logger.LogInformation("User logged in.");
                         return RedirectToAction("UserDashboard", "User");
-
                     }
 
                     _logger.LogInformation("User logged in.");

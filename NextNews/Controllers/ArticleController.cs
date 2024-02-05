@@ -13,6 +13,7 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.CodeAnalysis.CSharp;
 using Pager = NextNews.Models.Pager;
+using Microsoft.AspNetCore.Routing;
 
 namespace NextNews.Controllers
 {
@@ -93,6 +94,8 @@ namespace NextNews.Controllers
         
         public IActionResult AddArticle(Article article)
         {
+            article.DateStamp = DateTime.Now;
+
             if (ModelState.IsValid)
             {
    
@@ -256,6 +259,37 @@ namespace NextNews.Controllers
         {
             return View();
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // EditorsChoiceArticles
+
+        public IActionResult EditorsChoice()
+        {
+            List<Article> editorsChoiceArticles = _articleService.GetArticles();
+            return View(editorsChoiceArticles);
+        }
+
+        
+        public IActionResult SaveEditorsChoice(string addOrRemove, int articleId)
+        {
+                _articleService.addOrRemoveEditorsChoice(addOrRemove, articleId);
+
+            return RedirectToAction("EditorsChoice");
+        }
+
+
+
 
 
 
