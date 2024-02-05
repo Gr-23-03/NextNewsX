@@ -67,21 +67,22 @@ namespace NextNews.Models.Database
             var user = await _userManager.FindByNameAsync(userName);
             if (user == null)
             {
-                user = new User
+                var seedUser = new User
                 {
-                    UserName = userName,
-                    FirstName = firstName,
-                    LastName = lastName,
-                    Email = email,
-                    DateofBirth = dateOfBirth
-                };
+                UserName = userName,
+                FirstName = firstName,
+                LastName = lastName,
+                Email = email,
+                DateofBirth = dateOfBirth,
+                
+            };
 
-                var result = await _userManager.CreateAsync(user, password);
+                var result = await _userManager.CreateAsync(seedUser, password);
           
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(user, roleName);
-                    _logger.LogInformation($"User {user.UserName} created successfully.");
+                    await _userManager.AddToRoleAsync(seedUser, roleName);
+                    _logger.LogInformation($"User {seedUser.UserName} created successfully.");
                 }
                 else
                 {
