@@ -123,24 +123,18 @@ namespace NextNews.Services
 
         public void IncreamentViews(ArticleDetailsViewModel article)
         {
-            if (vm.Article.Views is null)
+            if (article.Article.Views is null)
             {
-                vm.Article.Views = 1;
+                article.Article.Views = 1;
             }
             else
             {
-                vm.Article.Views++;
+                article.Article.Views++;
 
             }
             _context.SaveChanges();
 
         }
-
-
-
-
-
-
 
 
         public IEnumerable<Article> GetArticlesByCategory(int categoryId)
@@ -161,12 +155,6 @@ namespace NextNews.Services
         }
 
 
-
-
-
-
-
-
         // Example data source (replace this with your actual data retrieval logic)
         //private List<Article> _allArticles = new List<Article>();
 
@@ -184,19 +172,19 @@ namespace NextNews.Services
             Article obj = _context.Articles.Find(articleId);
 
 
-            if(addOrRemove == "add")
+            if (addOrRemove == "add")
             {
                 obj.IsEditorsChoice = true;
                 _context.Update(obj);
                 _context.SaveChanges();
             }
-            else if(addOrRemove == "remove")
+            else if (addOrRemove == "remove")
             {
                 obj.IsEditorsChoice = false;
                 _context.Update(obj);
                 _context.SaveChanges();
             }
-            
+        }
 
         public void CheckExpiredSubs()
         {
@@ -245,9 +233,9 @@ namespace NextNews.Services
 
             return baseSmallImageUrl + fileName;
         }
-        public string GetDetailArticle(int id)
+        private string GetDetailArticle(int id)
         {
-            
+
             return $"https://nextnews.azurewebsites.net/Article/Details/{id}";
         }
 
@@ -262,5 +250,6 @@ namespace NextNews.Services
 
 
 }
+
 
 
