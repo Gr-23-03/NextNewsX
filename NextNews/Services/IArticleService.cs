@@ -27,7 +27,6 @@ namespace NextNews.Services
 
         public void CheckExpiredSubs();
         public Task<List<LatestNewsViewModel>> LatestArticles();
-
-
+      
     }
 }
