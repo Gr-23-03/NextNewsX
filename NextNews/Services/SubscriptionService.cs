@@ -137,7 +137,7 @@ namespace NextNews.Services
 
         public string CheckExistingSubscription(string userId, int subscriptionTypeId)
         {
-            var existingSubscription = _context.Subscriptions.FirstOrDefault(x => x.UserId == userId && x.SubscriptionTypeId == subscriptionTypeId);
+            var existingSubscription = _context.Subscriptions.FirstOrDefault(x => x.UserId == userId && x.SubscriptionTypeId == subscriptionTypeId && x.IsActive==true);
             if (existingSubscription != null)
             {
                 return "You have already bought selected plan";
