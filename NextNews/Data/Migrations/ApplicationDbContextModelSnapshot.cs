@@ -182,6 +182,9 @@ namespace NextNews.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("Archive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("AuthorName")
                         .HasColumnType("nvarchar(max)");
 
@@ -205,6 +208,9 @@ namespace NextNews.Data.Migrations
 
                     b.Property<string>("ImageLink2")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsEditorsChoice")
+                        .HasColumnType("bit");
 
                     b.Property<int?>("Likes")
                         .HasColumnType("int");
@@ -241,6 +247,32 @@ namespace NextNews.Data.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("NextNews.Models.Database.NewsLetterSubscriber", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("DateofBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("NewsLetterSubscribers");
+                });
+
             modelBuilder.Entity("NextNews.Models.Database.Subscription", b =>
                 {
                     b.Property<int>("Id")
@@ -254,6 +286,9 @@ namespace NextNews.Data.Migrations
 
                     b.Property<DateTime?>("Expired")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<bool?>("PaymentComplete")
                         .HasColumnType("bit");

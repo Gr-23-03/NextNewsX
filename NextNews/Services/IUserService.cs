@@ -25,6 +25,8 @@ namespace NextNews.Services
         Task DeleteUserAsync(string id);
 
 
+        
+
 
         List<Subscription> GetUsersSubscriptions(string userId);
 

@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <Folder Include="Images\Subscription\" />
+    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="wwwroot\images\Subscription\" />
   </ItemGroup>
 

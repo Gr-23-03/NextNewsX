@@ -6,6 +6,7 @@ namespace NextNews.Models.Database
     public class Stock
     {
         public List<Top10Item> top10 { get; set; }
+        public string ErrorMessage { get; set; }
     }
 
     public class Top10Item

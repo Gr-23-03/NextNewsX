@@ -21,6 +21,8 @@ namespace NextNews.Models.Database
 
         public string? Content { get; set; }
 
+        public bool IsEditorsChoice { get; set; } = false;
+
         public int? Views { get; set; }
 
         public int? Likes { get; set;}
@@ -45,6 +47,7 @@ namespace NextNews.Models.Database
         [NotMapped]   // not to saved in the table
         [Display(Name = "Image File")]
         public IFormFile? ImageFile { get; set; }
+        public bool Archive { get; set; }
 
     }
 }

@@ -36,21 +36,31 @@ namespace NextNews.Controllers
 
         /* Most popular articles
            Latest articles 
-        SpecificArticles */
+           Articles by categories */
         public IActionResult Index()
         {
 
             List<Article> allArticles = _articleService.GetArticles().ToList();
             List<Category> allCategories = _categoryService.GetCategories().ToList();
 
+
+            int swedenId = allCategories.Where(a => a.Name == "Sweden").FirstOrDefault().Id;
+            int localId = allCategories.Where(a => a.Name == "Local").FirstOrDefault().Id;
+            int businessId = allCategories.Where(a => a.Name == "Business").FirstOrDefault().Id;
             int sportId = allCategories.Where(a => a.Name == "Sport").FirstOrDefault().Id;
             int worldId = allCategories.Where(a => a.Name == "World").FirstOrDefault().Id;
+            int healthId = allCategories.Where(a => a.Name == "Health").FirstOrDefault().Id;
+            int artAndCultureId = allCategories.Where(a => a.Name == "Art & Culture").FirstOrDefault().Id;
+            int weatherId = allCategories.Where(a => a.Name == "Weather").FirstOrDefault().Id;
+
 
 
             var vm = new HomeIndexVM()
             {
-                MostPopularArticle = allArticles.OrderByDescending(a => a.Views).FirstOrDefault(),
-                MostPopularArticles = allArticles.OrderByDescending(a => a.Views).Take(3).ToList(),
+                TopStoryArticle = allArticles.OrderByDescending(a => a.Views).FirstOrDefault(),
+                TopStoryArticles = allArticles.OrderByDescending(a => a.Views).Take(5).ToList(),
+                MostPopularArticle = allArticles.OrderByDescending(a => a.Likes).FirstOrDefault(),
+                MostPopularArticles = allArticles.OrderByDescending(a => a.Likes).Take(5).ToList(),
                 LatestArticle = allArticles.OrderByDescending(obj => obj.DateStamp).FirstOrDefault(),
                 LatestArticles = allArticles
                     .OrderByDescending(obj => obj.DateStamp)
@@ -64,20 +74,48 @@ namespace NextNews.Controllers
                         ImageLink = obj.ImageLink,
                     }).ToList(),
                 AllCategories = allCategories,
+                ArticlesByCategorySweden = allArticles.Where(a => a.CategoryId == swedenId).OrderByDescending(a => a.DateStamp).Take(3).ToList(),
+                ArticlesByCategoryLocal = allArticles.Where(a => a.CategoryId == localId).OrderByDescending(a => a.DateStamp).Take(3).ToList(),
+                ArticlesByCategoryBusiness = allArticles.Where(a => a.CategoryId == businessId).OrderByDescending(a => a.DateStamp).Take(3).ToList(),
                 ArticlesByCategorySport = allArticles.Where(a => a.CategoryId == sportId).OrderByDescending(a => a.DateStamp).Take(5).ToList(),
                 ArticlesByCategoryWorld = allArticles.Where(a => a.CategoryId == worldId).OrderByDescending(a => a.DateStamp).Take(5).ToList(),
+                ArticlesByCategoryHealth = allArticles.Where(a => a.CategoryId == healthId).OrderByDescending(a => a.DateStamp).Take(5).ToList(),
+                ArticlesByCategoryWeather = allArticles.Where(a => a.CategoryId == weatherId).OrderByDescending(a => a.DateStamp).Take(4).ToList(),
+                ArticlesByCategoryArtAndCulture = allArticles.Where(a => a.CategoryId == artAndCultureId).OrderByDescending(a => a.DateStamp).Take(4).ToList(),
+
+                
+
+
+                EditorsChoiceArticles = allArticles.Where(a => a.IsEditorsChoice == true).OrderByDescending(a => a.DateStamp).Take(5).ToList(),
+
+                //EditorsChoiceArticlesA = allArticles
+                //                        .Where(a => a.IsEditorsChoice == true)
+                //                        .OrderByDescending(a => a.DateStamp)
+                //                        .Take(2)  // Take the first two articles
+                //                        .ToList(),
+
+                //EditorsChoiceArticlesB = allArticles
+                //                        .Where(a => a.IsEditorsChoice == true)
+                //                        .OrderByDescending(a => a.DateStamp)
+                //                        .Skip(2)  // Skip the first two articles
+                //                        .Take(3)  // Take the next three articles
+                //                        .ToList(),
+
+                //EditorsChoiceArticlesC = allArticles
+                //                        .Where(a => a.IsEditorsChoice == true)
+                //                        .OrderByDescending(a => a.DateStamp)
+                //                        .Skip(5)  // Skip the first five articles
+                //                        .Take(3)  // Take the next three articles
+                //                        .ToList(),
+
+                //EditorsChoiceArticlesD = allArticles
+                //                        .Where(a => a.IsEditorsChoice == true)
+                //                        .OrderByDescending(a => a.DateStamp)
+                //                        .Skip(8)  // Skip the first 8 articles
+                //                        .Take(2)  // Take the next two articles
+                //                        .ToList(),
+
             };
-
-
-            //// Set a specific article by its ID
-            //var specificArticleId = 5 /* specify the desired article ID */;
-            //vm.SpecificArticle = allArticles.FirstOrDefault(article => article.Id == specificArticleId);
-
-            // Set the specific articles by their IDs
-            var specificArticleIds = new List<int> {14, 5, 11, 17, 25, 13, 15, 7, 12, 8, 16, 22, 18, 6, 24, 14, 43, 34, 35, 46, 22, 45, 40}; // Example IDs
-            vm.SpecificArticles = allArticles.Where(article => specificArticleIds.Contains(article.Id)).ToList();
-
-
 
             return View(vm); 
         }

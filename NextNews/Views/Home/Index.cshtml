@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "Home Page";
 
-
 }
 
 @* <div class="text-center">
@@ -19,230 +18,303 @@
 
     <div class="col-6" style="border: 1px solid gray">
 
-        <div>
+        @* <div>
             <a asp-action="Details" asp-controller="Article" asp-route-id="@Model.MostPopularArticle.Id">
                 <img class="img-on-HomeIndex" src="@Model.MostPopularArticle.ImageLink" alt="Article Image" style="width:100%">
                 <h2>@Model.MostPopularArticle.LinkText</h2>
                 <h4>@Model.MostPopularArticle.ContentSummary</h4>
             </a>
             <p class="MostPopular-news-date">Published on @Model.MostPopularArticle.DateStamp?.ToString("M") @Model.MostPopularArticle.DateStamp?.ToString("t")</p>
+        </div> *@
+
+
+
+        <div class="article-container">
+            <a asp-action="Details" asp-controller="Article" asp-route-id="@Model.TopStoryArticle.Id">
+            
+
+            <div class="overlay">
+                <span class="top-story-label">Top Story</span>
+            </div>
+            <img class="img-on-HomeIndex" src="@Model.TopStoryArticle.ImageLink" alt="Article Image" style="width:100%">
+                <h2>@Model.TopStoryArticle.LinkText</h2>
+                <h4>@Model.TopStoryArticle.ContentSummary</h4>
+            </a>
+            <p class="MostPopular-news-date">Published on @Model.TopStoryArticle.DateStamp?.ToString("M") @Model.TopStoryArticle.DateStamp?.ToString("t")</p>
+
         </div>
 
-        <h2 style="color: black">News</h2>
 
-        @if (Model.SpecificArticles?.Count >= 14)
-        {
-            var firstspecificArticle = Model.SpecificArticles.FirstOrDefault(a => a.Id == 14);
-            var secondSpecificArticle = Model.SpecificArticles.FirstOrDefault(a => a.Id == 5);
+        @* Top Stories Column *@
+        <div class="More top-stories-column">
 
-            <div class="row">
-                <div class="col-6">
-                    <!-- Display details for the first specific article -->
-                    <div class="article-image">
-                        <img class="img-on-HomeIndex" src="@firstspecificArticle.ImageLink" alt="Article Image" style="width:100%">
+            @* <h2>More Top Stories</h2> *@
+            <ul>
+                @foreach (var news in Model.TopStoryArticles.Skip(1))
+
+                {
+                    <li>
+                        @* <a asp-action="Details" asp-controller="Article" asp-route-id="@story.Id" class="more-top-story-link">
+                    @story.HeadLine
+                    </a> *@
+                        <div class="latest-news-headline">
+                        <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
+                            @news.HeadLine
+                        </a>
+                        </div>
+
+                    </li>
+                }
+            </ul>
+        </div>
+
+       
+        <h2 style="color: black">Sweden</h2>
+
+        <div class="col-12">
+
+            @if (Model.ArticlesByCategorySweden.Any())
+            {
+                var firstArticle = Model.ArticlesByCategorySweden.First();
+
+                <div>
+                    <img class="img-on-HomeIndex" src="@firstArticle.ImageLink" alt="Article Image" style="width:100%">
+                </div>
+                <div class="latest-news-headline">
+                    <a asp-action="Details" asp-controller="Article" asp-route-id="@firstArticle.Id" class="sports-news-link">
+                        @firstArticle.HeadLine
+                    </a>
+                </div>
+                <div class="sweden-news-item mb-3">
+                </div>
+                <p class="latest-news-summary">@firstArticle.ContentSummary</p>
+                <p class="latest-news-date">Published on @firstArticle.DateStamp?.ToString("M") @firstArticle.DateStamp?.ToString("t")</p>
+            }
+
+        </div>
+
+        <div class="row" style="display: flex; flex-wrap: nowrap; overflow-x: auto;">
+
+            @foreach (var categoryArticle in Model.ArticlesByCategorySweden.Skip(1))
+            {
+                <div class="col-6" style="flex: 0 0 auto;">
+
+                    <div class="article-imageLink">
+                        <img class="img-on-HomeIndex" src="@categoryArticle.ImageLink" alt="Article ImageLink" style="width:100%">
                     </div>
-                    <div class="article-news-headline">
-                        <a asp-action="Details" asp-controller="Article" asp-route-id="@firstspecificArticle.Id" class="article-news-link">
-                            @firstspecificArticle.HeadLine
+
+                    <div class="latest-news-headline">
+                        <a asp-action="Details" asp-controller="Article" asp-route-id="@categoryArticle.Id" class="latest-news-link">
+                            @categoryArticle.HeadLine
                         </a>
                     </div>
-                    <div class="article-news-item mb-3">
-                    </div>
-                    <p class="article-news-summary">@firstspecificArticle.ContentSummary</p>
-                    <p class="article-news-date">Published on @firstspecificArticle.DateStamp?.ToString("M") @firstspecificArticle.DateStamp?.ToString("t")</p>
+                    <p class="latest-news-summary">@categoryArticle.ContentSummary</p>
+                    <p class="latest-news-date">Published on @categoryArticle.DateStamp?.ToString("M") @categoryArticle.DateStamp?.ToString("t")</p>
                 </div>
+            }
 
-                <div class="col-6">
-                    <!-- Display details for the second specific article -->
-                    <div class="article-image">
-                        <img class="img-on-HomeIndex" src="@secondSpecificArticle.ImageLink" alt="Article Image" style="width:100%">
+        </div>
+
+        <h2 style="color: black">Local</h2>
+
+        <div class="col-12">
+
+            @if (Model.ArticlesByCategoryLocal.Any())
+            {
+                var firstArticle = Model.ArticlesByCategoryLocal.First();
+
+                <div>
+                    <img class="img-on-HomeIndex" src="@firstArticle.ImageLink" alt="Article Image" style="width:100%">
+                </div>
+                <div class="latest-news-headline">
+                    <a asp-action="Details" asp-controller="Article" asp-route-id="@firstArticle.Id" class="sports-news-link">
+                        @firstArticle.HeadLine
+                    </a>
+                </div>
+                <div class="local-news-item mb-3">
+                </div>
+                <p class="latest-news-summary">@firstArticle.ContentSummary</p>
+                <p class="latest-news-date">Published on @firstArticle.DateStamp?.ToString("M") @firstArticle.DateStamp?.ToString("t")</p>
+            }
+
+        </div>
+
+        <div class="row" style="display: flex; flex-wrap: nowrap; overflow-x: auto;">
+
+            @foreach (var categoryArticle in Model.ArticlesByCategoryLocal.Skip(1))
+            {
+                <div class="col-6" style="flex: 0 0 auto;">
+
+                    <div class="article-imageLink">
+                        <img class="img-on-HomeIndex" src="@categoryArticle.ImageLink" alt="Article ImageLink" style="width:100%">
                     </div>
-                    <div class="-news-headline">
-                        <a asp-action="Details" asp-controller="Article" asp-route-id="@secondSpecificArticle.Id" class="article-news-link">
-                            @secondSpecificArticle.HeadLine
+
+                    <div class="latest-news-headline">
+                        <a asp-action="Details" asp-controller="Article" asp-route-id="@categoryArticle.Id" class="latest-news-link">
+                            @categoryArticle.HeadLine
                         </a>
                     </div>
-                    <div class="article-news-item mb-3">
-                    </div>
-                    <p class="article-news-summary">@secondSpecificArticle.ContentSummary</p>
-                    <p class="article-news-date">Published on @secondSpecificArticle.DateStamp?.ToString("M") @secondSpecificArticle.DateStamp?.ToString("t")</p>
+                    <p class="latest-news-summary">@categoryArticle.ContentSummary</p>
+                    <p class="latest-news-date">Published on @categoryArticle.DateStamp?.ToString("M") @categoryArticle.DateStamp?.ToString("t")</p>
                 </div>
+            }
 
-            </div>
-        }
+        </div>
 
-        @if (Model.SpecificArticles?.Count >= 14)
-        {
-            var firstspecificArticle = Model.SpecificArticles.FirstOrDefault(a => a.Id == 11);
-            var secondSpecificArticle = Model.SpecificArticles.FirstOrDefault(a => a.Id == 17);
-            var thirdSpecificArticle = Model.SpecificArticles.FirstOrDefault(a => a.Id == 25);
+        <h2 style="color: black">World</h2>
 
-            <div class="row">
-                <div class="col-4">
-                    <!-- Display details for the first specific article -->
-                    <div class="article-image">
-                        <img class="img-on-HomeIndex" src="@firstspecificArticle.ImageLink" alt="Article Image" style="width:100%">
+        <div class="col-12">
+
+            @if (Model.ArticlesByCategoryWorld.Any())
+            {
+                var firstArticle = Model.ArticlesByCategoryWorld.First();
+
+                <div>
+                    <img class="img-on-HomeIndex" src="@firstArticle.ImageLink" alt="Article Image" style="width:100%">
+                </div>
+                <div class="latest-news-headline">
+                    <a asp-action="Details" asp-controller="Article" asp-route-id="@firstArticle.Id" class="sports-news-link">
+                        @firstArticle.HeadLine
+                    </a>
+                </div>
+                <div class="world-news-item mb-3">
+                </div>
+                <p class="latest-news-summary">@firstArticle.ContentSummary</p>
+                <p class="latest-news-date">Published on @firstArticle.DateStamp?.ToString("M") @firstArticle.DateStamp?.ToString("t")</p>
+            }
+
+        </div>
+
+        <div class="row" style="display: flex; flex-wrap: nowrap; overflow-x: auto;">
+
+            @foreach (var categoryArticle in Model.ArticlesByCategoryWorld.Skip(1))
+            {
+                <div class="col-6" style="flex: 0 0 auto;">
+
+                    <div class="article-imageLink">
+                        <img class="img-on-HomeIndex" src="@categoryArticle.ImageLink" alt="Article ImageLink" style="width:100%">
                     </div>
-                    <div class="article-news-headline">
-                        <a asp-action="Details" asp-controller="Article" asp-route-id="@firstspecificArticle.Id" class="article-news-link">
-                            @firstspecificArticle.HeadLine
+
+                    <div class="latest-news-headline">
+                        <a asp-action="Details" asp-controller="Article" asp-route-id="@categoryArticle.Id" class="latest-news-link">
+                            @categoryArticle.HeadLine
                         </a>
                     </div>
-                    <div class="article-news-item mb-3">
-                    </div>
-                    <p class="article-news-summary">@firstspecificArticle.ContentSummary</p>
-                    <p class="article-news-date">Published on @firstspecificArticle.DateStamp?.ToString("M") @firstspecificArticle.DateStamp?.ToString("t")</p>
+                    <p class="latest-news-summary">@categoryArticle.ContentSummary</p>
+                    <p class="latest-news-date">Published on @categoryArticle.DateStamp?.ToString("M") @categoryArticle.DateStamp?.ToString("t")</p>
                 </div>
+            }
 
-                <div class="col-4">
-                    <!-- Display details for the second specific article -->
-                    <div class="article-image">
-                        <img class="img-on-HomeIndex" src="@secondSpecificArticle.ImageLink" alt="Article Image" style="width:100%">
+        </div>
+
+
+        <h2 style="color: black">Business</h2>
+
+        <div class="col-12">
+
+            @if (Model.ArticlesByCategoryBusiness.Any())
+            {
+                var firstArticle = Model.ArticlesByCategoryBusiness.First();
+
+                <div>
+                    <img class="img-on-HomeIndex" src="@firstArticle.ImageLink" alt="Article Image" style="width:100%">
+                </div>
+                <div class="latest-news-headline">
+                    <a asp-action="Details" asp-controller="Article" asp-route-id="@firstArticle.Id" class="sports-news-link">
+                        @firstArticle.HeadLine
+                    </a>
+                </div>
+                <div class="Business-news-item mb-3">
+                </div>
+                <p class="latest-news-summary">@firstArticle.ContentSummary</p>
+                <p class="latest-news-date">Published on @firstArticle.DateStamp?.ToString("M") @firstArticle.DateStamp?.ToString("t")</p>
+            }
+
+        </div>
+
+        <div class="row" style="display: flex; flex-wrap: nowrap; overflow-x: auto;">
+
+            @foreach (var categoryArticle in Model.ArticlesByCategoryBusiness.Skip(1))
+            {
+                <div class="col-6" style="flex: 0 0 auto;">
+
+                    <div class="article-imageLink">
+                        <img class="img-on-HomeIndex" src="@categoryArticle.ImageLink" alt="Article ImageLink" style="width:100%">
                     </div>
-                    <div class="-news-headline">
-                        <a asp-action="Details" asp-controller="Article" asp-route-id="@secondSpecificArticle.Id" class="article-news-link">
-                            @secondSpecificArticle.HeadLine
+
+                    <div class="latest-news-headline">
+                        <a asp-action="Details" asp-controller="Article" asp-route-id="@categoryArticle.Id" class="latest-news-link">
+                            @categoryArticle.HeadLine
                         </a>
                     </div>
-                    <div class="article-news-item mb-3">
-                    </div>
-                    <p class="article-news-summary">@secondSpecificArticle.ContentSummary</p>
-                    <p class="article-news-date">Published on @secondSpecificArticle.DateStamp?.ToString("M") @secondSpecificArticle.DateStamp?.ToString("t")</p>
+                    <p class="latest-news-summary">@categoryArticle.ContentSummary</p>
+                    <p class="latest-news-date">Published on @categoryArticle.DateStamp?.ToString("M") @categoryArticle.DateStamp?.ToString("t")</p>
                 </div>
+            }
 
-                <div class="col-4">
-                    <!-- Display details for the third specific article -->
-                    <div class="article-image">
-                        <img class="img-on-HomeIndex" src="@thirdSpecificArticle.ImageLink" alt="Article Image" style="width:100%">
+        </div>
+
+
+
+
+        <h2 style="color: black">Sport</h2>
+
+        <div class="col-12">
+
+            @if (Model.ArticlesByCategorySport.Any())
+            {
+                var firstArticle = Model.ArticlesByCategorySport.First();
+
+                <div>
+                    <img class="img-on-HomeIndex" src="@firstArticle.ImageLink" alt="Article Image" style="width:100%">
+                </div>
+                <div class="latest-news-headline">
+                    <a asp-action="Details" asp-controller="Article" asp-route-id="@firstArticle.Id" class="sports-news-link">
+                        @firstArticle.HeadLine
+                    </a>
+                </div>
+                <div class="sport-news-item mb-3">
+                </div>
+                <p class="latest-news-summary">@firstArticle.ContentSummary</p>
+                <p class="latest-news-date">Published on @firstArticle.DateStamp?.ToString("M") @firstArticle.DateStamp?.ToString("t")</p>
+            }
+
+        </div>
+
+        <div class="row" style="display: flex; flex-wrap: nowrap; overflow-x: auto;">
+
+            @foreach (var categoryArticle in Model.ArticlesByCategorySport.Skip(1))
+            {
+                <div class="col-6" style="flex: 0 0 auto;">
+
+                    <div class="article-imageLink">
+                        <img class="img-on-HomeIndex" src="@categoryArticle.ImageLink" alt="Article ImageLink" style="width:100%">
                     </div>
-                    <div class="article-news-headline">
-                        <a asp-action="Details" asp-controller="Article" asp-route-id="@thirdSpecificArticle.Id" class="article-news-link">
-                            @thirdSpecificArticle.HeadLine
+
+                    <div class="latest-news-headline">
+                        <a asp-action="Details" asp-controller="Article" asp-route-id="@categoryArticle.Id" class="latest-news-link">
+                            @categoryArticle.HeadLine
                         </a>
                     </div>
-                    <div class="article-news-item mb-3">
-                    </div>
-                    <p class="article-news-summary">@thirdSpecificArticle.ContentSummary</p>
-                    <p class="article-news-date">Published on @thirdSpecificArticle.DateStamp?.ToString("M") @thirdSpecificArticle.DateStamp?.ToString("t")</p>
+                    <p class="latest-news-summary">@categoryArticle.ContentSummary</p>
+                    <p class="latest-news-date">Published on @categoryArticle.DateStamp?.ToString("M") @categoryArticle.DateStamp?.ToString("t")</p>
                 </div>
-            </div>
-        }
+            }
 
-        @if (Model.SpecificArticles?.Count >= 14)
-        {
-            var firstSpecificArticle = Model.SpecificArticles.FirstOrDefault(a => a.Id == 13);
-            var secondSpecificArticle = Model.SpecificArticles.FirstOrDefault(a => a.Id == 15);
-            var thirdSpecificArticle = Model.SpecificArticles.FirstOrDefault(a => a.Id == 7);
+        </div>
 
-            <div class="row">
-                <div class="col-4">
-                    <!-- Display details for the first specific article -->
-                    <div class="article-image">
-                        <img class="img-on-HomeIndex" src="@firstSpecificArticle.ImageLink" alt="Article Image" style="width:100%">
-                    </div>
-                    <div class="article-news-headline">
-                        <a asp-action="Details" asp-controller="Article" asp-route-id="@firstSpecificArticle.Id" class="article-news-link">
-                            @firstSpecificArticle.HeadLine
-                        </a>
-                    </div>
-                    <div class="article-news-item mb-3">
-                    </div>
-                    <p class="article-news-summary">@firstSpecificArticle.ContentSummary</p>
-                    <p class="article-news-date">Published on @firstSpecificArticle.DateStamp?.ToString("M") @firstSpecificArticle.DateStamp?.ToString("t")</p>
-                </div>
-
-                <div class="col-4">
-                    <!-- Display details for the second specific article -->
-                    <div class="article-image">
-                        <img class="img-on-HomeIndex" src="@secondSpecificArticle.ImageLink" alt="Article Image" style="width:100%">
-                    </div>
-                    <div class="second-news-headline">
-                        <a asp-action="Details" asp-controller="Article" asp-route-id="@secondSpecificArticle.Id" class="article-news-link">
-                            @secondSpecificArticle.HeadLine
-                        </a>
-                    </div>
-                    <div class="article-news-item mb-3">
-                    </div>
-                    <p class="article-news-summary">@secondSpecificArticle.ContentSummary</p>
-                    <p class="article-news-date">Published on @secondSpecificArticle.DateStamp?.ToString("M") @secondSpecificArticle.DateStamp?.ToString("t")</p>
-                </div>
-
-                <div class="col-4">
-                    <!-- Display details for the third specific article -->
-                    <div class="article-image">
-                        <img class="img-on-HomeIndex" src="@thirdSpecificArticle.ImageLink" alt="Article Image" style="width:100%">
-                    </div>
-                    <div class="article-news-headline">
-                        <a asp-action="Details" asp-controller="Article" asp-route-id="@thirdSpecificArticle.Id" class="article-news-link">
-                            @thirdSpecificArticle.HeadLine
-                        </a>
-                    </div>
-                    <div class="article-news-item mb-3">
-                    </div>
-                    <p class="article-news-summary">@thirdSpecificArticle.ContentSummary</p>
-                    <p class="article-news-date">Published on @thirdSpecificArticle.DateStamp?.ToString("M") @thirdSpecificArticle.DateStamp?.ToString("t")</p>
-                </div>
-            </div>
-        }
-
-
-        @if (Model.SpecificArticles?.Count >= 14)
-        {
-            var firstspecificArticle = Model.SpecificArticles.FirstOrDefault(a => a.Id == 45);
-            var secondSpecificArticle = Model.SpecificArticles.FirstOrDefault(a => a.Id == 40);
-
-            <div class="row">
-                <div class="col-6">
-                    <!-- Display details for the first specific article -->
-                    <div class="article-image">
-                        <img class="img-on-HomeIndex" src="@firstspecificArticle.ImageLink" alt="Article Image" style="width:100%">
-                    </div>
-                    <div class="article-news-headline">
-                        <a asp-action="Details" asp-controller="Article" asp-route-id="@firstspecificArticle.Id" class="article-news-link">
-                            @firstspecificArticle.HeadLine
-                        </a>
-                    </div>
-                    <div class="article-news-item mb-3">
-                    </div>
-                    <p class="article-news-summary">@firstspecificArticle.ContentSummary</p>
-                    <p class="article-news-date">Published on @firstspecificArticle.DateStamp?.ToString("M") @firstspecificArticle.DateStamp?.ToString("t")</p>
-                </div>
-
-                <div class="col-6">
-                    <!-- Display details for the second specific article -->
-                    <div class="article-image">
-                        <img class="img-on-HomeIndex" src="@secondSpecificArticle.ImageLink" alt="Article Image" style="width:100%">
-                    </div>
-                    <div class="-news-headline">
-                        <a asp-action="Details" asp-controller="Article" asp-route-id="@secondSpecificArticle.Id" class="article-news-link">
-                            @secondSpecificArticle.HeadLine
-                        </a>
-                    </div>
-                    <div class="article-news-item mb-3">
-                    </div>
-                    <p class="article-news-summary">@secondSpecificArticle.ContentSummary</p>
-                    <p class="article-news-date">Published on @secondSpecificArticle.DateStamp?.ToString("M") @secondSpecificArticle.DateStamp?.ToString("t")</p>
-                </div>
-
-            </div>
-        }
-
+       
 
     </div>
 
 
 
 
-    @*  <div class="col-9" style="border: 1px solid gray; border-radius:25px; padding:50px"> *@
-    @* <img src="@Url News.ImageLink" alt="Article Image" style="width:100%" . /> *@
-    @*  <img class="img-on-HomeIndex"   *@
-    @*   < h1>@Model.PopularArticle.HeadLine</h1>
-    <h5>@Model.PopularArticle.ContentSummary</h5>   *@
-    @*  <partial name="_PartialViewArticleList" model="Model.MostPopularArticles"></partial> *@
-    @* </div>  *@
-
     @*  högra kolumnen *@
-    <div class="col-3" style="border:6px" padding:"3px">
+
+    <div class="col-6">
+        <div class="row">
+    <div class="col-6" style="border:6px" padding:"3px">
 
         <h2 style="color: black">Latest News</h2>
 
@@ -263,123 +335,323 @@
                 <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
             </div>
         }
+            
+        @* <div class="col-3" style="border: 1px solid #f0f0f0; background-color: #ffffcc; padding: 5px;">
+            <h2 style="border-bottom: 1px solid #f0f0f0; padding-bottom: 5px;">More Top Stories</h2>
+            <ul> *@
+               @*  @foreach (var story in Model.MoreTopStories) *@
+
+
+               @* Top Stories Column *@
+        <div class="More top-stories-column">
+
+            <h2>More Top Stories</h2>
+            <ul>
+                @foreach (var news in Model.TopStoryArticles)
+                
+                {
+                    <li>
+                        @* <a asp-action="Details" asp-controller="Article" asp-route-id="@story.Id" class="more-top-story-link">
+                            @story.HeadLine
+                        </a> *@
+                    <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
+                        @news.HeadLine
+                    </a>
+                    </li>
+                }
+            </ul>
+        </div>
+      
+
     </div>
 
 
-    @* Advertisement column *@
+    <div class="col-6" style="border:6px" padding:"3px">
 
-    <div class="col-3" style="border:6px" padding:"3px">
+        <h2 style="color: black">Most Popular News</h2>
 
+        <div id="articleCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                @foreach (var article in Model.MostPopularArticles)
+                {
+                    <div class="carousel-item @(article == Model.MostPopularArticles.First() ? "active" : "")">
+                        <a asp-action="Details" asp-controller="Article" asp-route-id="@article.Id">
+                            <img class="img-on-HomeIndex" src="@article.ImageLink" alt="Article Image" style="width:100%">
+                            <h2>@article.LinkText</h2>
+                            <h4>@article.ContentSummary</h4>
+                            <p class="MostPopular-news-date">Published on @article.DateStamp?.ToString("M") @article.DateStamp?.ToString("t")</p>
+                        </a>
+                    </div>
+                }
+            </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#articleCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#articleCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+          
 
         @* Advertisement column *@
 
         <div class="advertisement-column">
-            <p>Advertisement</p>
+
+            <p>Ad</p>
+
             <!-- Add your advertisement content here -->
-            <a href="https://www.lexicon.se/"><img src="https://www.lexicon.se/Static/images/logo-lexicon_2x.gif" width="300px" height="60px"/></a>
-
-
-                
-            <a href="https://www.lexicon.se/"><img src="https://motalajobb.se/wp-content/uploads/sites/8/2023/10/Lexicon.jpg" width="300px" height="230px"/></a>
-            <a href="https://www.lexicon.se/"><img src="~/images/lexicon reklm.jpg" width="300px" height="470px"/></a>
-           @*  <a href="https://www.lexicon.se/"><img src="https://www.lexicon.se/link/6c8fbd81c2554c9190539e9e88fcf758.aspx" width="300px" height="210px"/></a> *@
-
+            <a href="https://www.lexicon.se/"><img src="https://www.lexicon.se/Static/images/logo-lexicon_2x.gif" width="306px" height="50px"/></a>
+            <a href="https://www.lexicon.se/"><img src="https://motalajobb.se/wp-content/uploads/sites/8/2023/10/Lexicon.jpg" width="306px" height="190px"/></a>
+            <a href="https://www.lexicon.se/"><img src="~/images/lexicon reklm.jpg" width="306px" height="346px"/></a>
+           <a href="https://www.lexicon.se/"><img src="https://www.lexicon.se/link/6c8fbd81c2554c9190539e9e88fcf758.aspx" width="306px" height="190px"/></a>
 
         </div>
 
 
+    </div>
 
-        <h2 style="color: black">Health</h2>
 
-        @if (Model.SpecificArticles?.Count >= 14)
-        {
-            var firstspecificArticle = Model.SpecificArticles.FirstOrDefault(a => a.Id == 46);
 
-            <div class="row">
-                <div class="col-12">
-                    <!-- Display details for the first specific article -->
-                    <div class="article-image">
-                        <img class="img-on-HomeIndex" src="@firstspecificArticle.ImageLink" alt="Article Image" style="width:100%">
+            <h2 style="color: black">Editor's Choice</h2>
+
+            <div class="col-12">
+
+                @if (Model.EditorsChoiceArticles.Any())
+                {
+                    var firstArticle = Model.EditorsChoiceArticles.First();
+
+                    <div>
+                        <img class="img-on-HomeIndex" src="@firstArticle.ImageLink" alt="Article Image" style="width:100%">
                     </div>
-                    <div class="article-news-headline">
-                        <a asp-action="Details" asp-controller="Article" asp-route-id="@firstspecificArticle.Id" class="article-news-link">
-                            @firstspecificArticle.HeadLine
+                    <div class="latest-news-headline">
+                        <a asp-action="Details" asp-controller="Article" asp-route-id="@firstArticle.Id" class="sports-news-link">
+                            @firstArticle.HeadLine
                         </a>
                     </div>
-                    <div class="article-news-item mb-3">
+                    <div class="Business-news-item mb-3">
                     </div>
-                    <p class="article-news-summary">@firstspecificArticle.ContentSummary</p>
-                    <p class="article-news-date">Published on @firstspecificArticle.DateStamp?.ToString("M") @firstspecificArticle.DateStamp?.ToString("t")</p>
+                    <p class="latest-news-summary">@firstArticle.ContentSummary</p>
+                    <p class="latest-news-date">Published on @firstArticle.DateStamp?.ToString("M") @firstArticle.DateStamp?.ToString("t")</p>
+                }
+
+            </div>
+
+            <div class="row" style="display: flex; flex-wrap: nowrap; overflow-x: auto;">
+
+                @foreach (var categoryArticle in Model.EditorsChoiceArticles.Skip(1))
+                {
+                    <div class="col-6" style="flex: 0 0 auto;">
+
+                        <div class="article-imageLink">
+                            <img class="img-on-HomeIndex" src="@categoryArticle.ImageLink" alt="Article ImageLink" style="width:100%">
+                        </div>
+
+                        <div class="latest-news-headline">
+                            <a asp-action="Details" asp-controller="Article" asp-route-id="@categoryArticle.Id" class="latest-news-link">
+                                @categoryArticle.HeadLine
+                            </a>
+                        </div>
+                        <p class="latest-news-summary">@categoryArticle.ContentSummary</p>
+                        <p class="latest-news-date">Published on @categoryArticle.DateStamp?.ToString("M") @categoryArticle.DateStamp?.ToString("t")</p>
+                    </div>
+                }
+
+            </div>
+
+
+
+            <div class="row">
+                
+                  <div class="col-6">
+                    <!-- Your content for the first column goes here -->
+                    <h2 style="color: black">Latest Business News</h2>
+
+                    @foreach (var categoryArticle in Model.ArticlesByCategoryBusiness)
+                    {
+                        <div>
+                            <div class="latest-news-headline">
+                                <li>
+                                <a asp-action="Details" asp-controller="Article" asp-route-id="@categoryArticle.Id" class="sports-news-link">
+                                    @categoryArticle.HeadLine
+                                </a>
+                                </li>
+                            </div>
+                            <div class="business-news-item mb-3">
+                            </div>
+                           @*  <p class="latest-news-summary">@categoryArticle.ContentSummary</p> *@
+                            <!-- Include other properties as needed -->
+                        </div>
+                    }
+
+
                 </div>
 
 
+
+                @* Advertisement column *@
+
+                  <div class="col-6">
+                     
+                        <div class="advertisement-column">
+
+                            <p>Ad</p>
+
+                            <!-- Add your advertisement content here -->
+                            <a href="https://www.lexicon.se/"><img src="https://www.lexicon.se/link/1c207bb2aa544a77849bab48fa52fb82.aspx" width="300px" height="225px"></img></a>
+                            <a href="https://www.tesla.com/sv_se"> <h3>Tesla </h3><img src="https://i.pinimg.com/originals/ed/6c/f0/ed6cf0b9b48c336020037c310ac37f56.jpg" width="300px" height="225px"></img></a>
+                            <a href="https://www.samsung.com/se/"><img src="https://webset.b-cdn.net/wp-content/uploads/2024/01/Samsung-Galaxy-S24-3.jpg" width="300px" height="225px"></img></a>
+
+                        </div>
+
+                  </div>
+
+
+            </div>
+
+
+            
+
+           
+
+
+            <h2 style="color: black">More in Sport</h2>
+
+        <!-- Skip the first article -->
+        @foreach (var categoryArticle in Model.ArticlesByCategorySport.Skip(1))
+        {
+            <div>
+                <div class="latest-news-headline">
+                    <a asp-action="Details" asp-controller="Article" asp-route-id="@categoryArticle.Id" class="sports-news-link">
+                        @categoryArticle.HeadLine
+                    </a>
+                </div>
+                <div class="sports-news-item mb-3">
+                </div>
+                <p class="latest-news-summary">@categoryArticle.ContentSummary</p>
+                <!-- Include other properties as needed -->
             </div>
         }
+   
+</div>
+
+</div>
 
 
-        @* Advertisement column *@
 
-        <div class="advertisement-column">
-            <p>Advertisement</p>
-            <!-- Add your advertisement content here -->
-            <a href="https://www.lexicon.se/"><img src="https://www.lexicon.se/link/1c207bb2aa544a77849bab48fa52fb82.aspx" width="300px" height="225px"></img></a>
-            <a href="https://www.tesla.com/sv_se"> <h3>Tesla </h3><img src="https://i.pinimg.com/originals/ed/6c/f0/ed6cf0b9b48c336020037c310ac37f56.jpg" width="300px" height="225px"></img></a>
-            <a href="https://www.samsung.com/se/"><img  src="https://webset.b-cdn.net/wp-content/uploads/2024/01/Samsung-Galaxy-S24-3.jpg" width="300px" height="225px"></img></a>
-          
-            
-        </div>
+      
+    
+
+
+    <div class="form-group mb-3">
+    </div>
+
+
+    <h2 style="color: black">Weather</h2>
+
+    <div class="row">
+        @foreach (var news in Model.ArticlesByCategoryWeather)
+        {
+            <div class="col-3">
+                @* @item.HeadLine *@
+                @* </div> *@
+                @*  <div> *@
+
+                <div class="article-imageLink">
+                    <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article ImageLink" style="width:100%">
+                </div>
+
+                <div class="latest-news-headline">
+                    <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
+                        @news.HeadLine
+                    </a>
+                </div>
+                <p class="latest-news-summary">@news.ContentSummary</p>
+                <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
+            </div>
+
+        }
+    </div>
+
+
+    <h2 style="color: black">Art & Culture</h2>
+
+    <div class="row">
+
+        @foreach (var news in Model.ArticlesByCategoryArtAndCulture)
+        {
+            <div class="col-3">
+                @* @item.HeadLine *@
+                @* </div> *@
+                @*  <div> *@
+
+                <div class="article-imageLink">
+                    <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article ImageLink" style="width:100%">
+                </div>
+
+                <div class="latest-news-headline">
+                    <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
+                        @news.HeadLine
+                    </a>
+                </div>
+                <p class="latest-news-summary">@news.ContentSummary</p>
+                <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
+            </div>
+
+        }
+    </div>
     
 
 
 
 
-        @if (Model.SpecificArticles?.Count >= 14)
-        {
-            var firstspecificArticle = Model.SpecificArticles.FirstOrDefault(a => a.Id == 22);
-
-            <div class="row">
-                <div class="col-12">
-                    <!-- Display details for the first specific article -->
-                    <div class="article-image">
-                        <img class="img-on-HomeIndex" src="@firstspecificArticle.ImageLink" alt="Article Image" style="width:100%">
-                    </div>
-                    <div class="article-news-headline">
-                        <a asp-action="Details" asp-controller="Article" asp-route-id="@firstspecificArticle.Id" class="article-news-link">
-                            @firstspecificArticle.HeadLine
-                        </a>
-                    </div>
-                    <div class="article-news-item mb-3">
-                    </div>
-                    <p class="article-news-summary">@firstspecificArticle.ContentSummary</p>
-                    <p class="article-news-date">Published on @firstspecificArticle.DateStamp?.ToString("M") @firstspecificArticle.DateStamp?.ToString("t")</p>
-                </div>
-
-
-            </div>
-        }
-
-
-
-
-
-
-    </div>
-
 
 </div>
 
 
+@* View Component for Editors choice *@
+
+@* @await Component.InvokeAsync("EditorsChoice") *@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @* Different Categories *@
-<div class="row">
+@* <div class="row">
 
     <!-- Left column for CategoryArticles -->
     <div class="col-6" style="border: 1px solid gray">
 
-        <h2 style="color: black">Sports News</h2>
+        <h2 style="color: black">Sports News</h2> *@
         @*  @foreach (var categoryArticle in Model.CategoryArticles)
         { *@
 
-        @if (Model.ArticlesByCategorySport.Any())
+       @*  @if (Model.ArticlesByCategorySport.Any())
         {
             var firstArticle = Model.ArticlesByCategorySport.First();
 
@@ -393,159 +665,33 @@
             </div>
             <div class="sports-news-item mb-3">
             </div>
-            <p class="sports-news-summary">@firstArticle.ContentSummary</p>
-            <p class="sports-news-date">Published on @firstArticle.DateStamp?.ToString("M") @firstArticle.DateStamp?.ToString("t")</p>
-        }
+            <p class="latest-news-summary">@firstArticle.ContentSummary</p>
+            <p class="latest-news-date">Published on @firstArticle.DateStamp?.ToString("M") @firstArticle.DateStamp?.ToString("t")</p>
+        } *@
 
         @*  } *@
-    </div>
+    @* </div> *@
 
 
     <!-- Right column for CategoryArticles -->
-    <div class="col-6">
-        <h2 style="color: black">More in Sports</h2>
+    @* <div class="col-6">
+        <h2 style="color: black">More in Sports</h2> *@
         @*  @foreach (var categoryArticle in Model.CategoryArticles)
         { *@
 
 
-        <!-- Skip the first article -->
-        @foreach (var categoryArticle in Model.ArticlesByCategorySport.Skip(1))
-        {
-            <div>
-                <div class="sports-news-headline">
-                    <a asp-action="Details" asp-controller="Article" asp-route-id="@categoryArticle.Id" class="sports-news-link">
-                        @categoryArticle.HeadLine
-                    </a>
-                </div>
-                <div class="sports-news-item mb-3">
-                </div>
-                <p class="sports-news-summary">@categoryArticle.ContentSummary</p>
-                <!-- Include other properties as needed -->
-            </div>
-        }
-
-
-        @* } *@
-    </div>
-</div>
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-@* Div for categories. *@
-@* <div>
-    <h2>Sports News</h2>
-
-    @foreach (var article in Model.CategoryArticles)
-    {
-        <div>
-            <h3>@article.HeadLine</h3>
-            <p>@article.ContentSummary</p>
-
-            <!-- Add other properties as needed -->
-        </div>
-    }
-</div> *@
-
-@* <div>
-        <h2>Sports News</h2>
-
-        @foreach (var article in Model.CategoryArticles)
-        {
-            <div>
-                <img src="@article.ImageLink" alt="Article Image" style="max-width: 100%">
-
-                <h2>@article.HeadLine</h2>
-                <p>@article.ContentSummary</p>
-
-                <p>@article.DateStamp?.ToString("M") @article.DateStamp?.ToString("t")</p>
-
-            <!-- Add other properties as needed -->
-            </div>
-        }
-    </div>
-
-</div>*@
-
-
-
-@* Specific article by Id in Home Controller Index Action *@
-@*  @if (Model.SpecificArticle != null)
-        {
-            <div class="col-4">
-                <div class="article-image">
-                    <img class="img-on-HomeIndex" src="@Model.SpecificArticle.ImageLink" alt="Article Image" style="width:100%">
-                </div>
-                <div class="latest-news-headline">
-                    <a asp-action="Details" asp-controller="Article" asp-route-id="@Model.SpecificArticle.Id" class="latest-news-link">
-                        @Model.SpecificArticle.HeadLine
-                    </a>
-                </div>
-                <div class="latest-news-item mb-3">
-                </div>
-                <p class="latest-news-summary">@Model.SpecificArticle.ContentSummary</p>
-                <p class="latest-news-date">Published on @Model.SpecificArticle.DateStamp?.ToString("M") @Model.SpecificArticle.DateStamp?.ToString("t")</p>
-            </div>
-        }
-        *@
-
-
-@* Specific article by Id in the list in Home Controller Index Action *@.
-@*  @if (Model.SpecificArticles?.Any() == true)
-        {
-            foreach (var specificArticle in Model.SpecificArticles)
-            {
-                <div class="col-4">
-                    <div class="article-image">
-                        <img class="img-on-HomeIndex" src="@specificArticle.ImageLink" alt="Article Image" style="width:100%">
-                    </div>
-                    <div class="latest-news-headline">
-                        <a asp-action="Details" asp-controller="Article" asp-route-id="@specificArticle.Id" class="latest-news-link">
-                            @specificArticle.HeadLine
-                        </a>
-                    </div>
-                    <div class="latest-news-item mb-3">
-                    </div>
-                    <p class="latest-news-summary">@specificArticle.ContentSummary</p>
-                    <p class="latest-news-date">Published on @specificArticle.DateStamp?.ToString("M") @specificArticle.DateStamp?.ToString("t")</p>
-                </div>
-            }
-        } *@
-
-
-
-
-@* The First Code for the View *@
-@*
- <div class="row">
-     vänstra kolumnen
-    <div class="col-9" style="border: 1px solid gray">
-        <img class="img-on-HomeIndex" src="@Model.MostPopularArticle.ImageLink" alt="Article Image" style="width:100%">
-        <h1>@Model.MostPopularArticle.HeadLine</h1>
-        <h5>@Model.MostPopularArticle.ContentSummary</h5>
-    </div>
-
-     högra kolumnen
-    <div class="col-3">
-
-        <h2 style="color: black">Latest News</h2>
-        @foreach (var news in Model.LatestArticles)
+        @* @foreach (var news in Model.ArticlesByCategorySport.Skip(1))
         {
             <div>
 
-                <div class="article-image">
-                    <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article Image" style="width:100%">
+                <div class="article-imageLink">
+                    <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article ImageLink" style="width:100%">
                 </div>
 
                 <div class="latest-news-headline">
@@ -553,15 +699,313 @@
                         @news.HeadLine
                     </a>
                 </div>
-
-                <div class="latest-news-item mb-4">
-                </div>
                 <p class="latest-news-summary">@news.ContentSummary</p>
                 <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
             </div>
+        } *@
 
-        }
-    </div>
+
+
+        <!-- Skip the first article -->
+       @*  @foreach (var categoryArticle in Model.ArticlesByCategorySport.Skip(1))
+        {
+            <div>
+                <div class="latest-news-headline">
+                    <a asp-action="Details" asp-controller="Article" asp-route-id="@categoryArticle.Id" class="sports-news-link">
+                        @categoryArticle.HeadLine
+                    </a>
+                </div>
+                <div class="sports-news-item mb-3">
+                </div>
+                <p class="latest-news-summary">@categoryArticle.ContentSummary</p>
+                <!-- Include other properties as needed -->
+            </div>
+        } *@
+
+
+        @* } *@
+    @* </div>
 </div>
 
- *@
+
+
+<div class ="form-group mb-3">
+
+</div> *@
+
+
+
+@* <div class="row">    
+    @foreach (var news in Model.EditorsChoiceArticles)
+    {
+         <div class="col-3" style="border: 1px solid gray; border-radius: 15px; padding: 15px"> *@
+            @* @item.HeadLine *@
+       @* </div> *@
+       @*  <div> *@
+
+           @*  <div class="article-imageLink">
+                <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article ImageLink" style="width:100%">
+            </div>
+
+            <div class="editors-choice-news-headline">
+                <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
+                    @news.HeadLine
+                </a>
+            </div>
+            <p class="editors-choice-news-summary">@news.ContentSummary</p>
+            <p class="editors-choice-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
+        </div>
+        
+
+
+
+    }
+</div> *@
+
+
+
+
+@* <div class="row">
+    @foreach (var news in Model.EditorsChoiceArticles)
+    {
+        <div class="col-3">
+            
+
+            <div class="article-imageLink">
+                <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article ImageLink" style="width:100%">
+            </div>
+
+            <div class="editors-choice-news-headline">
+                <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
+                    @news.HeadLine
+                </a>
+            </div>
+            <p class="editors-choice-news-summary">@news.ContentSummary</p>
+            <p class="editors-choice-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
+        </div>
+
+    }
+</div> *@
+
+
+
+
+
+@* View Component for Editors choice *@
+
+@* @await Component.InvokeAsync("EditorsChoice") *@
+
+
+
+
+
+
+
+
+
+    @*
+<div class="row">
+    <!-- Left Column -->
+    <div class="col-3" style="border: 1px solid gray">
+        <div>
+            <a asp-action="Details" asp-controller="Article" asp-route-id="@Model.MostPopularArticle.Id">
+                <img class="img-on-HomeIndex" src="@Model.MostPopularArticle.ImageLink" alt="Article Image" style="width:100%">
+                <h2>@Model.MostPopularArticle.LinkText</h2>
+                <h4>@Model.MostPopularArticle.ContentSummary</h4>
+            </a>
+            <p class="MostPopular-news-date">Published on @Model.MostPopularArticle.DateStamp?.ToString("M") @Model.MostPopularArticle.DateStamp?.ToString("t")</p>
+        </div>
+    </div>
+
+     <!-- Right Column -->
+    <div class="col-6">
+        <div class="row">
+            <!-- Two Columns in the Beginning -->
+            <div class="col-6">
+                <!-- Your content for the first column goes here -->
+                <h2 style="color: black">Column 1</h2>
+                <p>Content for the first column</p>
+            </div>
+            <div class="col-6">
+                <!-- Your content for the second column goes here -->
+                <h2 style="color: black">Column 2</h2>
+                <p>Content for the second column</p>
+            </div>
+        </div>
+
+        <!-- More in Sports -->
+        <h2 style="color: black">More in Sports</h2>
+
+        <!-- Skip the first article -->
+        @foreach (var categoryArticle in Model.ArticlesByCategorySport.Skip(1))
+        {
+            <div>
+                <div class="latest-news-headline">
+                    <a asp-action="Details" asp-controller="Article" asp-route-id="@categoryArticle.Id" class="sports-news-link">
+                        @categoryArticle.HeadLine
+                    </a>
+                </div>
+                <div class="sports-news-item mb-3">
+                    <!-- Additional content for sports news item -->
+                </div>
+                <p class="latest-news-summary">@categoryArticle.ContentSummary</p>
+            </div>
+        }
+    </div>
+</div>*@
+ 
+
+
+
+
+
+
+
+@* <h2 style="color: black">News</h2>
+
+        <div class="row">
+
+            @foreach (var news in Model.EditorsChoiceArticlesA)
+            {
+                <div class="col-6">
+
+                    <div class="article-imageLink">
+                        <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article ImageLink" style="width:100%">
+                    </div>
+
+                    <div class="editors-choice-news-headline">
+                        <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
+                            @news.HeadLine
+                        </a>
+                    </div>
+                    <p class="editors-choice-news-summary">@news.ContentSummary</p>
+                    <p class="editors-choice-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
+
+                </div>
+            }
+
+        </div> *@
+
+@* <div class="row">
+
+            @foreach (var news in Model.EditorsChoiceArticlesB)
+            {
+                <div class="col-4">
+
+                    <div class="article-imageLink">
+                        <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article ImageLink" style="width:100%">
+                    </div>
+
+                    <div class="editors-choice-news-headline">
+                        <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
+                            @news.HeadLine
+                        </a>
+                    </div>
+                    <p class="editors-choice-news-summary">@news.ContentSummary</p>
+                    <p class="editors-choice-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
+
+                </div>
+
+            }
+
+        </div> *@
+
+@* <div class="row">
+
+           @foreach (var news in Model.EditorsChoiceArticlesC)
+           {
+
+                <div class="col-4">
+
+                    <div class="article-imageLink">
+                        <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article ImageLink" style="width:100%">
+                    </div>
+
+                    <div class="editors-choice-news-headline">
+                        <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
+                            @news.HeadLine
+                        </a>
+                    </div>
+                    <p class="editors-choice-news-summary">@news.ContentSummary</p>
+                    <p class="editors-choice-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
+
+                </div>
+
+           }
+
+        </div> *@
+
+@* <div class="row">
+
+            @foreach (var news in Model.EditorsChoiceArticlesD)
+            {
+                <div class="col-6">
+
+                    <div class="article-imageLink">
+                        <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article ImageLink" style="width:100%">
+                    </div>
+
+                    <div class="editors-choice-news-headline">
+                        <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
+                            @news.HeadLine
+                        </a>
+                    </div>
+                    <p class="editors-choice-news-summary">@news.ContentSummary</p>
+                    <p class="editors-choice-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
+
+                </div>
+
+            }
+
+        </div> *@
+
+@*  <div class="col-9" style="border: 1px solid gray; border-radius:25px; padding:50px">
+     <img src="@Url News.ImageLink" alt="Article Image" style="width:100%" . />
+     <img class="img-on-HomeIndex"
+     < h1>@Model.PopularArticle.HeadLine</h1>
+    <h5>@Model.PopularArticle.ContentSummary</h5>
+     <partial name="_PartialViewArticleList" model="Model.MostPopularArticles"></partial>
+    </div>  *@
+
+
+
+
+@* <h2 style="color: black">Health</h2>
+
+
+        @if (Model.ArticlesByCategoryHealth.Any())
+        {
+            var firstArticle = Model.ArticlesByCategoryHealth.First();
+
+            <div>
+                <img class="img-on-HomeIndex" src="@firstArticle.ImageLink" alt="Article Image" style="width:100%">
+            </div>
+            <div class="latest-news-headline">
+                <a asp-action="Details" asp-controller="Article" asp-route-id="@firstArticle.Id" class="world-news-link">
+                    @firstArticle.HeadLine
+                </a>
+            </div>
+            <div class="health-news-item mb-3">
+            </div>
+            <p class="latest-news-summary">@firstArticle.ContentSummary</p>
+            <p class="latest-news-date">Published on @firstArticle.DateStamp?.ToString("M") @firstArticle.DateStamp?.ToString("t")</p>
+        } *@
+
+@* @foreach (var categoryArticle in Model.ArticlesByCategoryHealth.Skip(1))
+        {
+            <div>
+                <div>
+                    <img class="img-on-HomeIndex" src="@categoryArticle.ImageLink" alt="Article Image" style="width:100%">
+                </div>
+                <div class="latest-news-headline">
+                    <a asp-action="Details" asp-controller="Article" asp-route-id="@categoryArticle.Id" class="health-news-link">
+                        @categoryArticle.HeadLine
+                    </a>
+                </div>
+                <div class="health-news-item mb-3">
+                </div>
+                <p class="latest-news-summary">@categoryArticle.ContentSummary</p>
+                <p class="latest-news-date">Published on @categoryArticle.DateStamp?.ToString("M") @categoryArticle.DateStamp?.ToString("t")</p>
+
+            </div>
+        } *@
