@@ -1,4 +1,4 @@
-﻿@model NextNews.Models.Database.User
+﻿@model NextNews.ViewModels.UserVM
 
 
 
@@ -8,12 +8,77 @@
 <h4><strong>User Profile</strong></h4>
 
 <div style="border: 2px dotted gray; border-radius: 25px; margin: 25px; padding: 25px; box-shadow: 10px 10px 25px gray">
-    <p><strong>Username:</strong> @Model.UserName</p>
-    <p><strong>First Name:</strong> @Model.FirstName</p>
-    <p><strong>Last Name:</strong> @Model.LastName</p>
-    <p><strong>Date of Birth:</strong> @Model.DateofBirth</p>
-    <p><strong>Email:</strong> @Model.Email</p>
+    <p><strong>Username:</strong> @Model.User.UserName</p>
+    <p><strong>First Name:</strong> @Model.User.FirstName</p>
+    <p><strong>Last Name:</strong> @Model.User.LastName</p>
+    <p><strong>Date of Birth:</strong> @Model.User.DateofBirth</p>
+    <p><strong>Email:</strong> @Model.User.Email</p>
 </div>
 
+
+
+
+
+<style>
+    .table-container {
+        margin-top: 20px;
+    }
+
+        .table-container table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .table-container th, .table-container td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table-container th {
+            background-color: #f2f2f2;
+        }
+</style>
+<div style="margin:20px; padding: 20px; border: 2px solid gray; border-radius: 15px">
+    <h4>SubscriptionHistory:</h4>
+
+    @if (Model.MySubscriptions.Count > 0)
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>Created</th>
+                    <th>
+                    <th>Price</th>
+                    </th>
+                    <th>
+                    <th>Expired</th>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.MySubscriptions)
+                {
+                    <tr>
+                        <td>@item.Created</td>
+                        <td>
+                        <td> @item.Price </td>
+                        </td>
+                        <td>
+                        <td> @item.Expired </td>
+                        </td>
+                        <br />
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No subscriptions yet!</p>
+    }
+
+
+</div>
 
 

@@ -150,5 +150,14 @@ namespace NextNews.Services
             _context.Users.ToList();
         }
 
+
+        public List<Subscription> GetUsersSubscriptions(string userId)
+        {
+           var objList = _context.Subscriptions.Where(s => s.UserId == userId).OrderByDescending(s => s.Created).ToList();
+
+            return objList;
+        }
+
+
     }
 }

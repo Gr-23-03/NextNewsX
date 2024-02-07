@@ -295,7 +295,6 @@ namespace NextNews.Controllers
                     Expired = item.Expired,
                     Price = item.Price,
                     IsActive = item.IsActive,
-
                 };
                 vmList.Add(vm);
             }

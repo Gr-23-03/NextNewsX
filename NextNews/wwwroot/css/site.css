@@ -64,13 +64,14 @@ body {
 
 .nav-item:hover {
     color: red;
+   
 }
 
 
 .dropdown-menu a {
     color: white;
     padding: 12px 16px;
-    text-decoration: none;
+    text-decoration: wavy;
     display:block;
     padding: 0px;
     margin-left:0px;
@@ -109,18 +110,21 @@ body {
         /*padding-right: 868px;*/
         /*box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);*/
         color: white !important;
+       
     }
 }
 
-        .dropdown-menu .dropdown-item {
-            font-weight: bold;
-            font-size: 16px; /* Adjust the font size as needed */
-        }
+.dropdown-menu .dropdown-item {
+    font-weight: bold;
+    font-size: 16px; /* Adjust the font size as needed */
+   
+}
 
     /* Apply styles to the main dropdown links */
     .nav-item.dropdown .nav-link.dropdown {
         color: black;
         font-weight: bold;
+       
     }
 
 
