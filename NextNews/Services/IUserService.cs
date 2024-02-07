@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NextNews.Models.Database;
+using NextNews.ViewModels;
 
 namespace NextNews.Services
 {
@@ -21,11 +22,13 @@ namespace NextNews.Services
        
         //Task GetUserByIdAsync(string id);
 
-        public Task DeleteUserAsync(string id);
+        Task DeleteUserAsync(string id);
 
 
         
 
+
+        List<Subscription> GetUsersSubscriptions(string userId);
 
 
 
