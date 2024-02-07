@@ -44,6 +44,30 @@
 
         </div>
 
+
+        @* Top Stories Column *@
+        <div class="More top-stories-column">
+
+            @* <h2>More Top Stories</h2> *@
+            <ul>
+                @foreach (var news in Model.TopStoryArticles.Skip(1))
+
+                {
+                    <li>
+                        @* <a asp-action="Details" asp-controller="Article" asp-route-id="@story.Id" class="more-top-story-link">
+                    @story.HeadLine
+                    </a> *@
+                        <div class="latest-news-headline">
+                        <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
+                            @news.HeadLine
+                        </a>
+                        </div>
+
+                    </li>
+                }
+            </ul>
+        </div>
+
        
         <h2 style="color: black">Sweden</h2>
 
@@ -372,38 +396,20 @@
         </div>
           
 
-
-
-        @* Advertisement column *@
-
-       @*  <div class="advertisement-column">
-            <p>Advertisement</p>
-            <!-- Add your advertisement content here -->
-        </div> *@
-
-
-
-
-
-
-
         @* Advertisement column *@
 
         <div class="advertisement-column">
-            <p>Advertisement</p>
+
+            <p>Ad</p>
+
             <!-- Add your advertisement content here -->
-            <a href="https://www.lexicon.se/"><img src="https://www.lexicon.se/Static/images/logo-lexicon_2x.gif" width="300px" height="60px"/></a>
-
-
-                
-            <a href="https://www.lexicon.se/"><img src="https://motalajobb.se/wp-content/uploads/sites/8/2023/10/Lexicon.jpg" width="300px" height="230px"/></a>
-            <a href="https://www.lexicon.se/"><img src="~/images/lexicon reklm.jpg" width="300px" height="470px"/></a>
-           @*  <a href="https://www.lexicon.se/"><img src="https://www.lexicon.se/link/6c8fbd81c2554c9190539e9e88fcf758.aspx" width="300px" height="210px"/></a> *@
-
+            <a href="https://www.lexicon.se/"><img src="https://www.lexicon.se/Static/images/logo-lexicon_2x.gif" width="306px" height="50px"/></a>
+            <a href="https://www.lexicon.se/"><img src="https://motalajobb.se/wp-content/uploads/sites/8/2023/10/Lexicon.jpg" width="306px" height="190px"/></a>
+            <a href="https://www.lexicon.se/"><img src="~/images/lexicon reklm.jpg" width="306px" height="346px"/></a>
+           <a href="https://www.lexicon.se/"><img src="https://www.lexicon.se/link/6c8fbd81c2554c9190539e9e88fcf758.aspx" width="306px" height="190px"/></a>
 
         </div>
 
-        
 
     </div>
 
@@ -463,7 +469,6 @@
                     <!-- Your content for the first column goes here -->
                     <h2 style="color: black">Latest Business News</h2>
 
-
                     @foreach (var categoryArticle in Model.ArticlesByCategoryBusiness)
                     {
                         <div>
@@ -489,13 +494,21 @@
                 @* Advertisement column *@
 
                   <div class="col-6">
-                      <div class="advertisement-column">
+                     
+                        <div class="advertisement-column">
 
-                        <p>Advertisement</p>
+                            <p>Ad</p>
 
-                      </div>
+                            <!-- Add your advertisement content here -->
+                            <a href="https://www.lexicon.se/"><img src="https://www.lexicon.se/link/1c207bb2aa544a77849bab48fa52fb82.aspx" width="300px" height="225px"></img></a>
+                            <a href="https://www.tesla.com/sv_se"> <h3>Tesla </h3><img src="https://i.pinimg.com/originals/ed/6c/f0/ed6cf0b9b48c336020037c310ac37f56.jpg" width="300px" height="225px"></img></a>
+                            <a href="https://www.samsung.com/se/"><img src="https://webset.b-cdn.net/wp-content/uploads/2024/01/Samsung-Galaxy-S24-3.jpg" width="300px" height="225px"></img></a>
+
+                        </div>
 
                   </div>
+
+
             </div>
 
 
@@ -528,15 +541,7 @@
 
 
 
-        <div class="advertisement-column">
-            <p>Advertisement</p>
-            <!-- Add your advertisement content here -->
-            <a href="https://www.lexicon.se/"><img src="https://www.lexicon.se/link/1c207bb2aa544a77849bab48fa52fb82.aspx" width="300px" height="225px"></img></a>
-            <a href="https://www.tesla.com/sv_se"> <h3>Tesla </h3><img src="https://i.pinimg.com/originals/ed/6c/f0/ed6cf0b9b48c336020037c310ac37f56.jpg" width="300px" height="225px"></img></a>
-            <a href="https://www.samsung.com/se/"><img  src="https://webset.b-cdn.net/wp-content/uploads/2024/01/Samsung-Galaxy-S24-3.jpg" width="300px" height="225px"></img></a>
-          
-            
-        </div>
+      
     
 
 
