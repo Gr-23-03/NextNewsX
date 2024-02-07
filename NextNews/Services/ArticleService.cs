@@ -49,7 +49,7 @@ namespace NextNews.Services
 
         public List<Article> GetArticles()
         {
-            var objList = _context.Articles.Include(x => x.UsersLiked).ToList();
+            var objList = _context.Articles.Include(x => x.UsersLiked).Where(x=>x.Archive==false).ToList();
             return objList;
         }
 
@@ -239,7 +239,25 @@ namespace NextNews.Services
             return $"https://nextnews.azurewebsites.net/Article/Details/{id}";
         }
 
+        public void ArticlesToArchive() 
+        {
+            var cutOffdate = DateTime.Now.AddDays(-30);
+            var articlesToArchive = _context.Articles.Where(a=>a.DateStamp<cutOffdate && !a.Archive).ToList();
+            foreach (var item in articlesToArchive)
+            {
+                item.Archive = true;
+                _context.Update(item);
+            }
+            
+            _context.SaveChanges();
+           
+        }
 
+        public List<Article> GetArticlesAndArchiveArticles()
+        {
+            var objList = _context.Articles.Include(x => x.UsersLiked).ToList();
+            return objList;
+        }
 
 
 

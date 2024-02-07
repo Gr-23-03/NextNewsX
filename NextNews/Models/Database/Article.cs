@@ -47,6 +47,7 @@ namespace NextNews.Models.Database
         [NotMapped]   // not to saved in the table
         [Display(Name = "Image File")]
         public IFormFile? ImageFile { get; set; }
+        public bool Archive { get; set; }
 
     }
 }

@@ -72,7 +72,7 @@ namespace NextNews.Controllers
 
         public IActionResult ListArticles(int pg=1)
         {
-            var articles = _articleService.GetArticles();
+            var articles = _articleService.GetArticlesAndArchiveArticles();
            
             const int pageSize = 9;
             if (pg < 1)
@@ -154,7 +154,7 @@ namespace NextNews.Controllers
         //[Authorize(Roles = "Editor")]
         public async Task<IActionResult> Details(int id)
         {
-            List<Article> allArticles = _articleService.GetArticles().ToList();
+            List<Article> allArticles = _articleService.GetArticlesAndArchiveArticles().ToList();
             var temp = allArticles.FirstOrDefault(a => a.Id == id);
 
             var vm = new ArticleDetailsViewModel()
