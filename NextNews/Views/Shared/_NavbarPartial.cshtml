@@ -21,7 +21,7 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div transition-delay: 1s class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
 
@@ -29,8 +29,8 @@
                     </a>
                 </li>
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown" href="#" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
+                <li class="nav-item dropdown transition-delay: 200s">
+                    <a class="nav-link dropdown.transition-delay: 1000s" asp-controller="CategoriesView" asp-action="ArticlesByCategories" asp-route-id="categoryid=4" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="true" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
                         Local
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -41,7 +41,7 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown" href="#" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
+                    <a class="nav-link dropdown" asp-controller="CategoriesView" asp-action="Sweden" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
 
                         Sweden
                     </a>
@@ -193,9 +193,3 @@
         </div>
     </div>
 </nav>
-
-
-
-
-
-
