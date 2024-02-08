@@ -138,6 +138,10 @@ namespace NextNews.Controllers
         //    var stockReport = await _stockService.GetStockHttpClient("us");
         //    return View(stockReport);
         //}
+        public ActionResult AboutUs()
+        {
+            return View();
 
-    }
+        }
 }
+    }

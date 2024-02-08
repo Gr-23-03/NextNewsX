@@ -182,9 +182,6 @@ namespace NextNews.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("Archive")
-                        .HasColumnType("bit");
-
                     b.Property<string>("AuthorName")
                         .HasColumnType("nvarchar(max)");
 
@@ -208,9 +205,6 @@ namespace NextNews.Data.Migrations
 
                     b.Property<string>("ImageLink2")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsEditorsChoice")
-                        .HasColumnType("bit");
 
                     b.Property<int?>("Likes")
                         .HasColumnType("int");
@@ -247,7 +241,7 @@ namespace NextNews.Data.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("NextNews.Models.Database.NewsLetterSubscriber", b =>
+            modelBuilder.Entity("NextNews.Models.Database.ContactFormMessage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -255,22 +249,28 @@ namespace NextNews.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("DateofBirth")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("Message")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LastName")
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("NewsLetterSubscribers");
+                    b.ToTable("ContactFormMessages");
                 });
 
             modelBuilder.Entity("NextNews.Models.Database.Subscription", b =>
