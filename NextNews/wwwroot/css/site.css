@@ -176,6 +176,7 @@ column {
     text-align:center;
     justify-content:center;
     align-items:center;
+
     padding-left: 10px;
 }
 
@@ -206,14 +207,14 @@ column {
 
 
 
-/*Latest News*/
+/* Breaking News, Top story, Latest News, Popular News */
 .news-carousel {
     width: 80%;
     margin: 0 auto;
 }
 
 #newsCarousel {
-   margin-top:-20px;
+    padding: 20px;
 
 }
 

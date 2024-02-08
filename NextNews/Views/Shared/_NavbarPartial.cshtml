@@ -50,13 +50,16 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <ul class="navbar-nav me-auto mb-2 mb-lg-1 ">
+
+
             <img src="~/images/nextnews.img/nextnews (5).jpg" style="width:12%;"/>
             
-            
-           
                  
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                
+
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" style="color:black; font-weight:bold" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'" asp-controller="Home" asp-action="Index">Home
                     </a>
@@ -187,11 +190,10 @@
 
         </div>
     </div>
-
 </nav>
+
+
  @await Component.InvokeAsync("BusinessApi")
-
-
 
 
 
