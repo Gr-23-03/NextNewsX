@@ -52,6 +52,7 @@ namespace NextNews.Controllers
             int healthId = allCategories.Where(a => a.Name == "Health").FirstOrDefault().Id;
             int artAndCultureId = allCategories.Where(a => a.Name == "Art & Culture").FirstOrDefault().Id;
             int weatherId = allCategories.Where(a => a.Name == "Weather").FirstOrDefault().Id;
+            int entertainmentId = allCategories.Where(a => a.Name == "Entertainment").FirstOrDefault().Id;
 
 
 
@@ -76,17 +77,14 @@ namespace NextNews.Controllers
                 AllCategories = allCategories,
                 ArticlesByCategorySweden = allArticles.Where(a => a.CategoryId == swedenId).OrderByDescending(a => a.DateStamp).Take(3).ToList(),
                 ArticlesByCategoryLocal = allArticles.Where(a => a.CategoryId == localId).OrderByDescending(a => a.DateStamp).Take(3).ToList(),
-                ArticlesByCategoryBusiness = allArticles.Where(a => a.CategoryId == businessId).OrderByDescending(a => a.DateStamp).Take(3).ToList(),
-                ArticlesByCategorySport = allArticles.Where(a => a.CategoryId == sportId).OrderByDescending(a => a.DateStamp).Take(5).ToList(),
-                ArticlesByCategoryWorld = allArticles.Where(a => a.CategoryId == worldId).OrderByDescending(a => a.DateStamp).Take(5).ToList(),
-                ArticlesByCategoryHealth = allArticles.Where(a => a.CategoryId == healthId).OrderByDescending(a => a.DateStamp).Take(5).ToList(),
+                ArticlesByCategoryWorld = allArticles.Where(a => a.CategoryId == worldId).OrderByDescending(a => a.DateStamp).Take(3).ToList(),
+                ArticlesByCategoryBusiness = allArticles.Where(a => a.CategoryId == businessId).OrderByDescending(a => a.DateStamp).Take(4).ToList(),
+                ArticlesByCategorySport = allArticles.Where(a => a.CategoryId == sportId).OrderByDescending(a => a.DateStamp).Take(4).ToList(),
+                ArticlesByCategoryHealth = allArticles.Where(a => a.CategoryId == healthId).OrderByDescending(a => a.DateStamp).Take(4).ToList(),
                 ArticlesByCategoryWeather = allArticles.Where(a => a.CategoryId == weatherId).OrderByDescending(a => a.DateStamp).Take(4).ToList(),
                 ArticlesByCategoryArtAndCulture = allArticles.Where(a => a.CategoryId == artAndCultureId).OrderByDescending(a => a.DateStamp).Take(4).ToList(),
-
-                
-
-
-                EditorsChoiceArticles = allArticles.Where(a => a.IsEditorsChoice == true).OrderByDescending(a => a.DateStamp).Take(5).ToList(),
+                ArticlesByCategoryEntertainment = allArticles.Where(a => a.CategoryId == entertainmentId).OrderByDescending(a => a.DateStamp).Take(4).ToList(),
+                EditorsChoiceArticles = allArticles.Where(a => a.IsEditorsChoice == true).OrderByDescending(a => a.DateStamp).Take(4).ToList(),
 
                 //EditorsChoiceArticlesA = allArticles
                 //                        .Where(a => a.IsEditorsChoice == true)
