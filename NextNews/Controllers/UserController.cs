@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NextNews.Models.Database;
 using NextNews.Services;
+using NextNews.ViewModels;
 
 namespace NextNews.Controllers
 {
@@ -173,7 +174,13 @@ namespace NextNews.Controllers
             string userId = _userManager.GetUserId(HttpContext.User) ?? "";
             User user = _userService.GetUserById(userId);
 
-            return View(user);
+            var vm = new UserVM { 
+            User = user, 
+            MySubscriptions = _userService.GetUsersSubscriptions(userId),
+            };
+
+
+            return View(vm);
         }
 
 
