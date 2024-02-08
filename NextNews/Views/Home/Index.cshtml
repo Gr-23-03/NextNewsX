@@ -16,7 +16,7 @@
 <div class="row">
     @* vänstra kolumnen *@
 
-    <div class="col-6" style="border: 1px solid gray">
+    <div class="col-6" @* style="border: 1px solid gray" *@>
 
         @* <div>
             <a asp-action="Details" asp-controller="Article" asp-route-id="@Model.MostPopularArticle.Id">
@@ -44,20 +44,23 @@
 
         </div>
 
+        <div class="form-group mb-3">
+        </div>
 
-        @* Top Stories Column *@
-        <div class="More top-stories-column">
 
-            @* <h2>More Top Stories</h2> *@
+      @*   @* Top Stories Column *@
+        @* <div class="More top-stories-column">
+
+            <h2>More Top Stories</h2>
             <ul>
                 @foreach (var news in Model.TopStoryArticles.Skip(1))
 
                 {
-                    <li>
+                    <li> *@
                         @* <a asp-action="Details" asp-controller="Article" asp-route-id="@story.Id" class="more-top-story-link">
                     @story.HeadLine
                     </a> *@
-                        <div class="latest-news-headline">
+                       @*  <div class="latest-news-headline">
                         <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
                             @news.HeadLine
                         </a>
@@ -66,7 +69,7 @@
                     </li>
                 }
             </ul>
-        </div>
+        </div>  *@
 
        
         <h2 style="color: black">Sweden</h2>
@@ -115,7 +118,11 @@
 
         </div>
 
-        <h2 style="color: black">Local</h2>
+
+       
+
+
+       @*  <h2 style="color: black">Local</h2>
 
         <div class="col-12">
 
@@ -159,7 +166,13 @@
                 </div>
             }
 
+        </div> *@
+
+
+        <div class="form-group mb-3">
         </div>
+
+
 
         <h2 style="color: black">World</h2>
 
@@ -208,7 +221,12 @@
         </div>
 
 
-        <h2 style="color: black">Business</h2>
+        <div class="form-group mb-3">
+        </div>
+
+
+
+        @* <h2 style="color: black">Business</h2>
 
         <div class="col-12">
 
@@ -230,9 +248,9 @@
                 <p class="latest-news-date">Published on @firstArticle.DateStamp?.ToString("M") @firstArticle.DateStamp?.ToString("t")</p>
             }
 
-        </div>
+        </div> *@
 
-        <div class="row" style="display: flex; flex-wrap: nowrap; overflow-x: auto;">
+       @*  <div class="row" style="display: flex; flex-wrap: nowrap; overflow-x: auto;">
 
             @foreach (var categoryArticle in Model.ArticlesByCategoryBusiness.Skip(1))
             {
@@ -252,12 +270,12 @@
                 </div>
             }
 
-        </div>
+        </div> *@
 
 
 
 
-        <h2 style="color: black">Sport</h2>
+        @* <h2 style="color: black">Sport</h2>
 
         <div class="col-12">
 
@@ -279,9 +297,9 @@
                 <p class="latest-news-date">Published on @firstArticle.DateStamp?.ToString("M") @firstArticle.DateStamp?.ToString("t")</p>
             }
 
-        </div>
+        </div> *@
 
-        <div class="row" style="display: flex; flex-wrap: nowrap; overflow-x: auto;">
+       @*  <div class="row" style="display: flex; flex-wrap: nowrap; overflow-x: auto;">
 
             @foreach (var categoryArticle in Model.ArticlesByCategorySport.Skip(1))
             {
@@ -301,14 +319,14 @@
                 </div>
             }
 
-        </div>
+        </div> *@
 
        
 
     </div>
 
 
-
+    
 
     @*  högra kolumnen *@
 
@@ -343,30 +361,103 @@
 
 
                @* Top Stories Column *@
-        <div class="More top-stories-column">
+        @* <div class="More top-stories-column">
 
             <h2>More Top Stories</h2>
             <ul>
                 @foreach (var news in Model.TopStoryArticles)
                 
                 {
-                    <li>
+                    <li> *@
                         @* <a asp-action="Details" asp-controller="Article" asp-route-id="@story.Id" class="more-top-story-link">
                             @story.HeadLine
                         </a> *@
-                    <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
+                  @*   <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
                         @news.HeadLine
                     </a>
                     </li>
                 }
             </ul>
-        </div>
-      
+        </div> *@
+
+
+                <div class="form-group mb-3">
+                </div>
+
+
+              
+                       @*  <h2 style="color: black">Latest Business News</h2>
+
+                        @foreach (var categoryArticle in Model.ArticlesByCategoryBusiness)
+                        {
+                            <div>
+                                <div class="latest-news-headline">
+                                    <li>
+                                        <a asp-action="Details" asp-controller="Article" asp-route-id="@categoryArticle.Id" class="sports-news-link">
+                                            @categoryArticle.HeadLine
+                                        </a>
+                                    </li>
+                                </div>
+                                <div class="business-news-item mb-3">
+                                </div>
+                            </div>
+                        } *@
+               @*  <h2 style="color: black">Latest Business News</h2>
+
+                @foreach (var categoryArticle in Model.ArticlesByCategoryBusiness)
+                {
+                    <div>
+                        <div class="latest-news-headline">
+                            <li>
+                                <a asp-action="Details" asp-controller="Article" asp-route-id="@categoryArticle.Id" class="latest-news-link" style="text-decoration: underline; font-size: 16px;">
+                                    @categoryArticle.HeadLine
+                                </a>
+                            </li>
+                        </div>
+                        <div class="business-news-item mb-3">
+                        </div>
+                    </div>
+                } *@
+
+
+
+
+                <div class="business-news-item mb-3">
+                </div>
+
+
+
+                @* <div style="background-color: lightgrey; padding: 10px;"> *@
+                    <h2 style="color: black/* ; font-size: 16px; */">Latest Business News</h2>
+                <div style="background-color: lightgrey; padding: 10px;">
+
+                    @foreach (var categoryArticle in Model.ArticlesByCategoryBusiness)
+                    {
+                        <div style="background-color: white; padding: 5px; margin-top: 10px;">
+                            <div class="latest-news-headline">
+                                @* <li> *@
+                                    <a asp-action="Details" asp-controller="Article" asp-route-id="@categoryArticle.Id" class="latest-news-link" style="text-decoration: underline; font-size: 17px">
+                                        @categoryArticle.HeadLine
+                                    </a>
+                               @*  </li> *@
+                            </div>
+                            <div class="business-news-item mb-3">
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                  
+
+
+
 
     </div>
 
 
-    <div class="col-6" style="border:6px" padding:"3px">
+           
+
+    <div class="col-6" @* style="border:6px" padding:"3px" *@>
 
         <h2 style="color: black">Most Popular News</h2>
 
@@ -375,11 +466,13 @@
                 @foreach (var article in Model.MostPopularArticles)
                 {
                     <div class="carousel-item @(article == Model.MostPopularArticles.First() ? "active" : "")">
-                        <a asp-action="Details" asp-controller="Article" asp-route-id="@article.Id">
+                        <a asp-action="Details" asp-controller="Article" asp-route-id="@article.Id" class="latest-news-link">
                             <img class="img-on-HomeIndex" src="@article.ImageLink" alt="Article Image" style="width:100%">
-                            <h2>@article.LinkText</h2>
-                            <h4>@article.ContentSummary</h4>
-                            <p class="MostPopular-news-date">Published on @article.DateStamp?.ToString("M") @article.DateStamp?.ToString("t")</p>
+                            @* <h4>@article.LinkText</h4> *@
+                            @* <h5>@article.ContentSummary</h5> *@
+                            <p class="latest-news-headline">@article.HeadLine</p>
+                            <p class="latest-news-summary">@article.ContentSummary</p>
+                            <p class="latest-news-date">Published on @article.DateStamp?.ToString("M") @article.DateStamp?.ToString("t")</p>
                         </a>
                     </div>
                 }
@@ -411,11 +504,66 @@
         </div>
 
 
+         <div class="form-group mb-3">
+
+         </div>
+
+
+         @* Weather column *@
+
+         <div class="weather-column">
+
+             <p>Weather</p>
+
+             <!-- Add your weather content here -->
+
+
+
+
+
+
+
+
+
+
+         </div>
+
+
+          <div class="form-group mb-3">
+          </div>
+
+
+
+                @* Advertisement column *@
+
+               @*  <div class="col-6"> *@
+
+                    <div class="advertisement-column">
+
+                        <p>Ad</p>
+
+                        <!-- Add your advertisement content here -->
+                        <a href="https://www.lexicon.se/"><img src="https://www.lexicon.se/link/1c207bb2aa544a77849bab48fa52fb82.aspx" width="300px" height="225px"></img></a>
+                        <a href="https://www.tesla.com/sv_se"> <h3>Tesla </h3><img src="https://i.pinimg.com/originals/ed/6c/f0/ed6cf0b9b48c336020037c310ac37f56.jpg" width="300px" height="225px"></img></a>
+                        <a href="https://www.samsung.com/se/"><img src="https://webset.b-cdn.net/wp-content/uploads/2024/01/Samsung-Galaxy-S24-3.jpg" width="300px" height="225px"></img></a>
+
+                    </div>
+
+                @* </div> *@ 
+          
+
+
     </div>
 
+           
+
+           
 
 
-            <h2 style="color: black">Editor's Choice</h2>
+
+
+
+           @*  <h2 style="color: black">Editor's Choice</h2>
 
             <div class="col-12">
 
@@ -437,9 +585,9 @@
                     <p class="latest-news-date">Published on @firstArticle.DateStamp?.ToString("M") @firstArticle.DateStamp?.ToString("t")</p>
                 }
 
-            </div>
+            </div> *@
 
-            <div class="row" style="display: flex; flex-wrap: nowrap; overflow-x: auto;">
+           @*  <div class="row" style="display: flex; flex-wrap: nowrap; overflow-x: auto;">
 
                 @foreach (var categoryArticle in Model.EditorsChoiceArticles.Skip(1))
                 {
@@ -459,11 +607,19 @@
                     </div>
                 }
 
+            </div> *@
+
+
+
+
+
+
+
+            <div class="form-group mb-3">
             </div>
 
 
-
-            <div class="row">
+           @*  <div class="row">
                 
                   <div class="col-6">
                     <!-- Your content for the first column goes here -->
@@ -481,8 +637,7 @@
                             </div>
                             <div class="business-news-item mb-3">
                             </div>
-                           @*  <p class="latest-news-summary">@categoryArticle.ContentSummary</p> *@
-                            <!-- Include other properties as needed -->
+                          
                         </div>
                     }
 
@@ -490,33 +645,14 @@
                 </div>
 
 
-
-                @* Advertisement column *@
-
-                  <div class="col-6">
-                     
-                        <div class="advertisement-column">
-
-                            <p>Ad</p>
-
-                            <!-- Add your advertisement content here -->
-                            <a href="https://www.lexicon.se/"><img src="https://www.lexicon.se/link/1c207bb2aa544a77849bab48fa52fb82.aspx" width="300px" height="225px"></img></a>
-                            <a href="https://www.tesla.com/sv_se"> <h3>Tesla </h3><img src="https://i.pinimg.com/originals/ed/6c/f0/ed6cf0b9b48c336020037c310ac37f56.jpg" width="300px" height="225px"></img></a>
-                            <a href="https://www.samsung.com/se/"><img src="https://webset.b-cdn.net/wp-content/uploads/2024/01/Samsung-Galaxy-S24-3.jpg" width="300px" height="225px"></img></a>
-
-                        </div>
-
-                  </div>
-
-
-            </div>
+            </div> *@
 
 
             
 
            
 
-
+@* 
             <h2 style="color: black">More in Sport</h2>
 
         <!-- Skip the first article -->
@@ -533,7 +669,7 @@
                 <p class="latest-news-summary">@categoryArticle.ContentSummary</p>
                 <!-- Include other properties as needed -->
             </div>
-        }
+        } *@
    
 </div>
 
@@ -541,8 +677,74 @@
 
 
 
-      
+    <div class="form-group mb-3">
+    </div>
+
+
+    <h2 style="color: black">Editor's Choice</h2>
+
+    <div class="row">
+        @foreach (var news in Model.EditorsChoiceArticles)
+        {
+            <div class="col-3">
+                @* @item.HeadLine *@
+                @* </div> *@
+                @*  <div> *@
+
+                <div class="article-imageLink">
+                    <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article ImageLink" style="width:100%">
+                </div>
+
+                <div class="latest-news-headline">
+                    <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
+                        @news.HeadLine
+                    </a>
+                </div>
+                <p class="latest-news-summary">@news.ContentSummary</p>
+                <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
+            </div>
+
+        }
+    </div>
+
+
+
+
+   
     
+
+
+
+    <div class="form-group mb-3">
+    </div>
+
+
+    <h2 style="color: black">Bussiness</h2>
+
+    <div class="row">
+        @foreach (var news in Model.ArticlesByCategoryBusiness)
+        {
+            <div class="col-3">
+                @* @item.HeadLine *@
+                @* </div> *@
+                @*  <div> *@
+
+                <div class="article-imageLink">
+                    <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article ImageLink" style="width:100%">
+                </div>
+
+                <div class="latest-news-headline">
+                    <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
+                        @news.HeadLine
+                    </a>
+                </div>
+                <p class="latest-news-summary">@news.ContentSummary</p>
+                <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
+            </div>
+
+        }
+    </div>
+
 
 
     <div class="form-group mb-3">
@@ -574,6 +776,109 @@
 
         }
     </div>
+
+
+    <div class="form-group mb-3">
+    </div>
+
+
+    <h2 style="color: black">Health</h2>
+
+    <div class="row">
+        @foreach (var news in Model.ArticlesByCategoryHealth)
+        {
+            <div class="col-3">
+                @* @item.HeadLine *@
+                @* </div> *@
+                @*  <div> *@
+
+                <div class="article-imageLink">
+                    <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article ImageLink" style="width:100%">
+                </div>
+
+                <div class="latest-news-headline">
+                    <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
+                        @news.HeadLine
+                    </a>
+                </div>
+                <p class="latest-news-summary">@news.ContentSummary</p>
+                <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
+            </div>
+
+        }
+    </div>
+
+
+    <div class="form-group mb-3">
+    </div>
+
+
+    <h2 style="color: black">Sport</h2>
+
+    <div class="row">
+        @foreach (var news in Model.ArticlesByCategorySport)
+        {
+            <div class="col-3">
+                @* @item.HeadLine *@
+                @* </div> *@
+                @*  <div> *@
+
+                <div class="article-imageLink">
+                    <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article ImageLink" style="width:100%">
+                </div>
+
+                <div class="latest-news-headline">
+                    <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
+                        @news.HeadLine
+                    </a>
+                </div>
+                <p class="latest-news-summary">@news.ContentSummary</p>
+                <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
+            </div>
+
+        }
+    </div>
+
+    <div class="form-group mb-3">
+    </div>
+
+
+    
+
+
+    <h2 style="color: black">Entertainment</h2>
+
+    <div class="row">
+        @foreach (var news in Model.ArticlesByCategoryEntertainment)
+        {
+            <div class="col-3">
+                @* @item.HeadLine *@
+                @* </div> *@
+                @*  <div> *@
+
+                <div class="article-imageLink">
+                    <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article ImageLink" style="width:100%">
+                </div>
+
+                <div class="latest-news-headline">
+                    <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
+                        @news.HeadLine
+                    </a>
+                </div>
+                <p class="latest-news-summary">@news.ContentSummary</p>
+                <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
+            </div>
+
+        }
+    </div>
+
+
+
+
+    <div class="form-group mb-3">
+    </div>
+
+
 
 
     <h2 style="color: black">Art & Culture</h2>
