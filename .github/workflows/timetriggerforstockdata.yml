@@ -9,7 +9,7 @@ env:
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 8.0.x
   WORKING_DIRECTORY: AzureFunctionStockTable
-  DOTNET_CORE_VERSION_INPROC: 6.0.x
+  #DOTNET_CORE_VERSION_INPROC: 6.0.x
 jobs:
   build:
     runs-on: windows-latest
@@ -47,5 +47,5 @@ jobs:
       uses: Azure/functions-action@v1
       with:
         app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
-        publish-profile: ${{ secrets.timetriggerforstockdata_A318 }}
+        publish-profile: ${{ secrets.timetriggerforstockdata_427F }}
         package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
