@@ -1,0 +1,290 @@
+﻿@{
+    ViewBag.Title = "About Us";
+}
+
+<h2 style="font-weight:bold;padding-top:20px;padding-left:10px">About Us</h2>
+
+<p class="paragraph-spacing">Nextnews is Sweden's First 24-Hours News, Current Affairs, Business, Regional & World news.</p>
+<p class="paragraph-spacing">
+    Whether it's breaking the news, providing in-depth reports or inspiring discussion among Sweden's political leaders, NEXTnews has <br />
+    captured the attention of a nation who wants fast, credible and reliable information as it happens, on the ground. Sweden's first 24-hour news <br />
+    and current affairs channel serves Sweden's growing appetite for the most up to date news, both domestic and international, across broadcast, online <br />
+    and social media platforms.
+</p>
+<p class="paragraph-spacing">
+    In Sweden, NEXTnews often breaks stories that lead regional and international headlines. More importantly, it is reaching Swedes in remote areas as well as <br />
+    connecting those in the global diaspora. Boasting the largest newsroom in the country, NEXTnews' 100 plus news professionals lead the development of Sweden's media <br />
+    industry, which was nonexistent less than a decade ago. Salim is the current Director of NEXTnews.
+</p>
+<p class="paragraph-spacing">NEXTnews broadcasts in English and Swedish, and is available via the internet and social media. Its website, www.nextnews.se, is one of the most popular news sites in Sweden.</p>
+<p class="paragraph-spacing">
+    NEXTnews <br />
+    Street # Västra Svedengatan 10, 582 73 <br />
+    Linköping,Sweden.<br />
+    Phone <strong>+46- 013-21 01 90</strong>
+</p>
+@* 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Currency Exchange Rates with Flags</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+    <style>
+        /* Some basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .flag-icon {
+            width: 25px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Live Currency Exchange Rates with Flags</h1>
+        <table id="exchange-table">
+            <thead>
+                <tr>
+                    <th>Country</th>
+                    <th>Currency</th>
+                    <th>Rate (SEK)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Exchange rates will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Function to fetch exchange rates from ExchangeRatesAPI
+        async function fetchExchangeRates() {
+            try {
+                const response = await fetch('https://api.exchangerate-api.com/v4/latest/SEK');
+                const data = await response.json();
+                return data.rates;
+            } catch (error) {
+                console.error('Error fetching exchange rates:', error);
+            }
+        }
+
+        // Function to render exchange rates in table
+        async function renderExchangeRates() {
+            const rates = await fetchExchangeRates();
+            const tableBody = document.querySelector('#exchange-table tbody');
+            tableBody.innerHTML = '';
+            for (const currency in rates) {
+                const rate = rates[currency];
+                const country = currency.substring(0, 2).toLowerCase();
+                const row = `<tr>
+                            <td><span class="flag-icon flag-icon-${country}"></span>${currency}</td>
+                            <td>${currency}</td>
+                            <td>${rate.toFixed(2)}</td>
+                          </tr>`;
+                tableBody.insertAdjacentHTML('beforeend', row);
+            }
+        }
+
+        // Call the renderExchangeRates function initially
+        renderExchangeRates();
+
+        // Refresh exchange rates every 10 seconds
+        setInterval(renderExchangeRates, 10000);
+    </script>
+</body>
+</html> *@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Currency Exchange Rates in Marquee</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+    <style>
+        /* Some basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .flag-icon {
+            width: 25px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Live Currency Exchange Rates</h1>
+        <marquee behavior="scroll" direction="up" scrollamount="1" height="100">
+            <table id="exchange-table">
+                <thead>
+                    <tr>
+                        <th>Country</th>
+                        @* <th>Currency</th> *@
+                        <th>Rate (SEK)</th>
+                    </tr>
+                </thead>
+                <tbody id="exchange-body">
+                    <!-- Exchange rates will be dynamically added here -->
+                </tbody>
+            </table>
+        </marquee>
+    </div>
+
+    <script>
+        // Function to fetch exchange rates from ExchangeRatesAPI
+        async function fetchExchangeRates() {
+            try {
+                const response = await fetch('https://api.exchangerate-api.com/v4/latest/SEK');
+                const data = await response.json();
+                return data.rates;
+            } catch (error) {
+                console.error('Error fetching exchange rates:', error);
+            }
+        }
+
+        // Function to render exchange rates in marquee
+        async function renderExchangeRates() {
+            const rates = await fetchExchangeRates();
+            const tableBody = document.querySelector('#exchange-body');
+            tableBody.innerHTML = '';
+            for (const currency in rates) {
+                const rate = rates[currency];
+                const country = currency.substring(0, 2).toLowerCase();
+                const row = `<tr>
+                            <td><span class="flag-icon flag-icon-${country}"></span>${currency}</td>
+                            <td>${currency}</td>
+                            <td>${rate.toFixed(2)}</td>
+                          </tr>`;
+                tableBody.insertAdjacentHTML('beforeend', row);
+            }
+        }
+
+        // Call the renderExchangeRates function initially
+        renderExchangeRates();
+
+        // Refresh exchange rates every 10 seconds
+        setInterval(renderExchangeRates, 10000);
+    </script>
+</body>
+</html>
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top 10 Cities Weather Forecast in Sweden</title>
+    <style>
+        .city {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Top 10 Cities Weather Forecast in Sweden</h1>
+
+    <div id="weather-container"></div>
+
+    <script>
+        const apiKey = '99d8cf0b4cbf4ea49ba142553240802'; // Replace 'YOUR_API_KEY' with your OpenWeather API key
+
+        // List of top 10 cities in Sweden
+        const topCities = [
+            "Stockholm",
+            "Gothenburg",
+            "Malmö",
+            "Uppsala",
+            "Västerås",
+            "Örebro",
+            "Linköping",
+            "Helsingborg",
+            "Jönköping",
+            "Norrköping"
+        ];
+
+        const weatherContainer = document.getElementById('weather-container');
+
+        // Fetch weather data for each city
+        topCities.forEach(city => {
+            fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city},SE&appid=${apiKey}&units=metric`)
+                .then(response => response.json())
+                .then(data => {
+                    const weather = data.weather[0].main;
+                    const temperature = data.main.temp;
+                    const cityElement = document.createElement('div');
+                    cityElement.classList.add('city');
+                    cityElement.innerHTML = `<h2>${city}</h2><p>Weather: ${weather}</p><p>Temperature: ${temperature}°C</p>`;
+                    weatherContainer.appendChild(cityElement);
+                })
+                .catch(error => {
+                    console.error('Error fetching weather data:', error);
+                    const cityElement = document.createElement('div');
+                    cityElement.classList.add('city');
+                    cityElement.textContent = `Error fetching weather data for ${city}`;
+                    weatherContainer.appendChild(cityElement);
+                });
+        });
+    </script>
+
+</body>
+</html>
