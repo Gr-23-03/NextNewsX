@@ -2,7 +2,7 @@ name: Build and deploy .NET Core application to Function App timetriggerforstock
 on:
   push:
     branches:
-    - Zain/Azuretables
+    - Development
 env:
   AZURE_FUNCTIONAPP_NAME: timetriggerforstockdata
   AZURE_FUNCTIONAPP_PACKAGE_PATH: AzureFunctionStockTable\published
