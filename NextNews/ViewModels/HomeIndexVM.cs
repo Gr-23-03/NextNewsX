@@ -28,6 +28,8 @@ namespace NextNews.ViewModels
         public List<Article>? ArticlesByCategoryHealth { get; set; }
         public List<Article>? ArticlesByCategoryWeather { get; set; }
         public List<Article>? ArticlesByCategoryArtAndCulture { get; set; }
+        public List<Article>? ArticlesByCategoryEntertainment { get; set; }
+
 
 
         //public Article? SpecificArticle { get; set; }
