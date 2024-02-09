@@ -70,10 +70,32 @@ namespace NextNews.Controllers
 
         //Action for list of article
 
-        public IActionResult ListArticles(int pg=1)
+        public IActionResult ListArticles(int categoryId, string latestOrMostPopular, string editorsChoice, int pg = 1)
         {
             var articles = _articleService.GetArticlesAndArchiveArticles();
-           
+
+       
+            if (categoryId != 0)
+            {
+                articles = articles.Where(a => a.CategoryId == categoryId).ToList();
+            }
+
+            if(latestOrMostPopular == "latest")
+            {
+                articles = articles.OrderByDescending(a => a.DateStamp).ToList();
+            }
+            else if (latestOrMostPopular == "mostpopular")
+            {
+                articles = articles.OrderByDescending(a => a.Likes).ToList();
+            }
+
+            if (editorsChoice == "editorschoice")
+            {
+                articles = articles.Where(a => a.IsEditorsChoice == true).ToList();
+            }
+
+
+
             const int pageSize = 9;
             if (pg < 1)
                 pg = 1;
@@ -255,22 +277,12 @@ namespace NextNews.Controllers
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
         // EditorsChoiceArticles
 
         public IActionResult EditorsChoice()
         {
             List<Article> editorsChoiceArticles = _articleService.GetArticles();
+     
             return View(editorsChoiceArticles);
         }
 
@@ -283,8 +295,11 @@ namespace NextNews.Controllers
         }
 
 
+        
 
-
+           
+        
+           
 
 
 
