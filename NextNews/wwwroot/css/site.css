@@ -203,6 +203,13 @@ column {
     margin-bottom: 20px; /* Adjust the margin to control the spacing */
     padding-left:10px;
 }
+/* Add this to your CSS file or in a <style> tag in the head of your HTML */
+.paragraph-spacing {
+    margin-bottom: 20px; /* Adjust the margin to control the spacing */
+    padding-left:10px;
+}
+
+
 
 
 
@@ -214,7 +221,7 @@ column {
 }
 
 #newsCarousel {
-    padding: 20px;
+   margin-top:-20px;
 
 }
 

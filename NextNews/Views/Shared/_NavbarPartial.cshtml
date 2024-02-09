@@ -48,25 +48,21 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-            <ul class="navbar-nav me-auto mb-2 mb-lg-1 ">
-
-
             <img src="~/images/nextnews.img/nextnews (5).jpg" style="width:12%;"/>
             
+            
+           
                  
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                
-
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" style="color:black; font-weight:bold" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'" asp-controller="Home" asp-action="Index">Home
                     </a>
                 </li>
 
-                <li class="nav-item dropdown transition-delay: 200s">
-                    <a class="nav-link dropdown.transition-delay: 1000s" asp-controller="CategoriesView" asp-action="ArticlesByCategories" asp-route-id="categoryid=4" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="true" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown" href="#" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
                         Local
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -77,7 +73,7 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown" asp-controller="CategoriesView" asp-action="Sweden" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
+                    <a class="nav-link dropdown" href="#" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
 
                         Sweden
                     </a>
@@ -178,7 +174,7 @@
            
 
             <form class="d-flex" asp-controller="Categories" asp-action="Search">
-                <input name="searchString" class="form-control" type="search" placeholder="Search On NEXTnews" aria-label="Search" style="width: 200px">
+                <input name="searchString" class="form-control" type="search" placeholder="Search On NEXTnews" aria-label="Search">
                 <button class="btn btn-outline-danger" type="submit">Search</button>
             </form>
 
@@ -190,10 +186,11 @@
 
         </div>
     </div>
+
 </nav>
-
-
  @await Component.InvokeAsync("BusinessApi")
+
+
 
 
 
