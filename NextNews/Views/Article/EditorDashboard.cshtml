@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "EditorDashboard";
+    ViewData["Title"] = "Editor Dashboard";
 }
 
 <style>
@@ -17,7 +17,7 @@
     }
 
     div.container {
-        max-width: 800px;
+        max-width: 900px;
         margin: 20px auto;
         background-color: #fff;
         padding: 20px;
@@ -50,6 +50,7 @@
                 background-color: #ddd;
                 color: black;
             }
+    
 </style>
 
 <div class="container">
@@ -57,10 +58,10 @@
 
     <ul class="navbar">
         <li><a href="/">Home</a></li>
-
-        <li><a asp-controller="Categories" asp-action="Index">Category List</a></li>
-        <li><a asp-controller="Article" asp-action="ListArticles">Articles List</a></li>
-        <li><a asp-controller="Subscription" asp-action="ListSubscription">Subscription List</a></li>
+        <li><a asp-controller="Article" asp-action="CreateArticle">Create Article</a></li>
+        <li><a asp-controller="Categories" asp-action="Index">Categories List</a></li>
+        <li><a asp-controller="Article" asp-action="ListArticles">List of Articles</a></li>
+        <li><a asp-controller="Subscription" asp-action="ListSubscription">Subscriptions List</a></li>
         <li><a asp-controller="Statistics" asp-action="Index">Statistics</a></li>
         <li><a asp-controller="Admin" asp-action="Dashboard">Admin Pages</a></li>
     </ul>

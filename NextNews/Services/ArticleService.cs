@@ -49,7 +49,7 @@ namespace NextNews.Services
 
         public List<Article> GetArticles()
         {
-            var objList = _context.Articles.Include(x => x.UsersLiked).Where(x=>x.Archive==false).ToList();
+            var objList = _context.Articles.Include(x => x.UsersLiked)/*.Where(x=>x.Archive==false)*/.ToList();
             return objList;
         }
 
