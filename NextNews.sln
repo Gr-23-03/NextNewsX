@@ -19,9 +19,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QueueTriggerEmail", "QueueT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeTriggerFunctionForNewsLetter", "TimeTriggerFunctionForNewsLetter\TimeTriggerFunctionForNewsLetter.csproj", "{9275863B-5F2D-4E86-B97D-2B4E6A4F8B56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueueTrggerForNewLetter", "QueueTrggerForNewLetter\QueueTrggerForNewLetter.csproj", "{84F930D8-9F31-4840-9D6F-4D228A00FF25}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QueueTrggerForNewLetter", "QueueTrggerForNewLetter\QueueTrggerForNewLetter.csproj", "{84F930D8-9F31-4840-9D6F-4D228A00FF25}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTriggerArchiveFunction", "TimeTriggerArchiveFunction\TimeTriggerArchiveFunction.csproj", "{C47AF6CA-8CF3-4E8F-AA3F-46ADED3B95BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeTriggerArchiveFunction", "TimeTriggerArchiveFunction\TimeTriggerArchiveFunction.csproj", "{C47AF6CA-8CF3-4E8F-AA3F-46ADED3B95BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureFunctionStockTable", "AzureFunctionStockTable\AzureFunctionStockTable.csproj", "{C26E714D-9CB5-4002-B8E7-4C8F27D0D0DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,10 @@ Global
 		{C47AF6CA-8CF3-4E8F-AA3F-46ADED3B95BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C47AF6CA-8CF3-4E8F-AA3F-46ADED3B95BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C47AF6CA-8CF3-4E8F-AA3F-46ADED3B95BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C26E714D-9CB5-4002-B8E7-4C8F27D0D0DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C26E714D-9CB5-4002-B8E7-4C8F27D0D0DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C26E714D-9CB5-4002-B8E7-4C8F27D0D0DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C26E714D-9CB5-4002-B8E7-4C8F27D0D0DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

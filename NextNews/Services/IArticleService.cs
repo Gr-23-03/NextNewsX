@@ -25,10 +25,13 @@ namespace NextNews.Services
 
         //string GetEditorsChoiceArticles();
 
-        public void CheckExpiredSubs();
-        public Task<List<LatestNewsViewModel>> LatestArticles();
-        public void ArticlesToArchive();
-        public List<Article> GetArticlesAndArchiveArticles();
+        void CheckExpiredSubs();
+        Task<List<LatestNewsViewModel>> LatestArticles();
+        void ArticlesToArchive();
+        List<Article> GetArticlesAndArchiveArticles();
+
+        int GetCategoryIdCategoryName(string categoryName);
+        
 
     }
 }

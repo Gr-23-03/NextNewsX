@@ -260,6 +260,15 @@ namespace NextNews.Services
         }
 
 
+        public int GetCategoryIdCategoryName(string categoryName)
+        {
+            var categoryId = _context.Categories.FirstOrDefault(c => c.Name == categoryName).Id;
+
+            return categoryId;
+        }
+
+
+
 
 
 
