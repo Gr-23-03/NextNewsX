@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using NextNews.Models.Database;
+using NextNews.Views.Shared.Components.SearchBar;
 
 namespace NextNews.ViewModels
 {
@@ -11,9 +12,9 @@ namespace NextNews.ViewModels
 
 
         public string SelectedCategory { get; set; }
-        public string SearchString { get; set; } 
+        public string SearchString { get; set; }
 
-
+        public SPager Paggination { get; set; }
 
     }
 }

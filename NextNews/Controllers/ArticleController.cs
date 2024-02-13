@@ -14,6 +14,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.CodeAnalysis.CSharp;
 using Pager = NextNews.Models.Pager;
 using Microsoft.AspNetCore.Routing;
+using System;
+using NextNews.Views.Shared.Components.SearchBar;
+using NextNews.Data;
+
 
 namespace NextNews.Controllers
 {
@@ -26,21 +30,50 @@ namespace NextNews.Controllers
         private readonly IUserService _userService;
         private readonly UserManager<User> _userManager;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly ApplicationDbContext _context;
 
 
-        public ArticleController(IArticleService articleService, IUserService userService, UserManager<User> userManager, IWebHostEnvironment webHostEnvironment)
+        public ArticleController(ApplicationDbContext context, IArticleService articleService, IUserService userService, UserManager<User> userManager, IWebHostEnvironment webHostEnvironment/*_context _context*/)
         {
             _articleService = articleService;
             _userService = userService;
             _userManager = userManager;
             _webHostEnvironment = webHostEnvironment;
+            _context = context;
         }
 
 
-        public IActionResult Index()
+        public IActionResult Index(string SearchText= "" ,  int pg =1)
         {
+            List<Article> articles;
+            if (SearchText != "" && SearchText != null)
+            {
+                articles = _context.Articles
+                    .Where(p => p.HeadLine.Contains(SearchText))
+                    .ToList();
+            }
+            else
+                articles = _context.Articles.ToList();
 
-            return RedirectToAction(nameof(ListArticles));
+            SPager SearchPager = new SPager()
+            { Action="Index", Controller="Article", SearchText= SearchText};
+            ViewBag.SearchText = SearchText;
+
+
+
+
+            const int pageSize = 10;
+            if (pg < 1)
+                pg = 1;
+
+            int recsCount = articles.Count();
+            int recSkip = (pg - 1 ) * pageSize;
+            List<Article> retArticles = articles.Skip(recSkip).Take(pageSize).ToList();
+            SPager SearchPager2 = new SPager(recsCount, pg, pageSize) { Action = "Index", Controller = "Article", SearchText = "SearchText" };
+            ViewBag.SearchPager = SearchPager2;
+            return View(retArticles);
+            //return View(articles);
+            //return RedirectToAction(nameof(ListArticles));
         }
 
 
@@ -81,7 +114,7 @@ namespace NextNews.Controllers
             var pager = new Pager(recsCount, pg, pageSize);
             int recSkip = (pg - 1) * pageSize;
             var data = articles.Skip(recSkip).Take(pager.PageSize).ToList();
-            this.ViewBag.Pager = pager;
+            ViewBag.Pager = pager;
             return View(data);
             //return View(articles);
         }
