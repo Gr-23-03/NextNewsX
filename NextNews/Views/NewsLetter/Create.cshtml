@@ -6,36 +6,55 @@
 
 
 
-<h4 style="margin:5px;">Subscribe</h4>
-<hr />
+<div class="row mt-3">
+
+    <div class="col-md-12" style="margin-bottom: 20px">
+        <h1 style="color: black; font-size: 60px; font-weight: bold;">Newsletter</h1>
+        <h2 style="color: black; font-size: 20px;">Sign up to receive the best of NEXTnews weekly &nbsp;</h2>
+        
+    </div>
+    </div>
+
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
+        <section>
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+        <div class="form-group mb-3">
                 <label asp-for="FirstName" class="control-label"></label>
                 <input asp-for="FirstName" class="form-control" />
                 <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
-            <div class="form-group">
+        <div class="form-group mb-3">
                 <label asp-for="LastName" class="control-label"></label>
                 <input asp-for="LastName" class="form-control" />
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
-            <div class="form-group">
+        <div class="form-group mb-3">
                 <label asp-for="DateofBirth" class="control-label"></label>
                 <input asp-for="DateofBirth" class="form-control" />
                 <span asp-validation-for="DateofBirth" class="text-danger"></span>
             </div>
-            <div class="form-group">
+        <div class="form-group mb-3">
                 <label asp-for="Email" class="control-label"></label>
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-            <div class="form-group" style="margin:5px;">
-                <input type="submit" value="Register" class="btn btn-primary" />
+        <div class="form-group mb-3" style="margin:5px;">
+                <input type="submit" value="Sign up" class="w-100 btn btn-lg btn-dark" />
             </div>
         </form>
+        </section>
+    </div>
+    <div class="col-md-6">
+        @* col-md-offset-2 *@
+        <section>
+
+            <img src="~/images/nextnews.img/nextnews (5).jpg" style="width:85%;padding-left:40px;padding-top:20px;" />  @* position:absolute;top:40% *@
+
+
+
+        </section>
     </div>
 </div>
 
