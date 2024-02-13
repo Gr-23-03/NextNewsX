@@ -413,6 +413,9 @@ column {
     animation-play-state: paused;
 }
 
+.ticker__item:hover {
+    cursor: pointer;
+}
 
 /*Top Story*/
 /* TOP Story label on left corner of the image */

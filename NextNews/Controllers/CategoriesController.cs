@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using NextNews.Data;
+using NextNews.Models;
 using NextNews.Models.Database;
 using NextNews.Services;
 using NextNews.ViewModels;
@@ -135,47 +136,49 @@ namespace NextNews.Controllers
 
         // search articles by category and article headline and by words
 
-        public async Task<IActionResult> Search(string searchString, int page)
+        public async Task<IActionResult> Search(string searchString, int pg = 1)
         {
-            if (string.IsNullOrEmpty(searchString))
+            const int pageSize = 9;
+            if (pg < 1)
+                pg = 1;
+
+            var articlesQuery = _context.Articles.Include(a => a.Category).AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchString))
             {
-                searchString = "";    // If searchSting is null then we create a empty string
+                searchString = searchString.Trim().ToLower();
+                articlesQuery = articlesQuery.Where(article => (article.Category != null && article.Category.Name.ToLower().Contains(searchString)) ||
+                                                               article.HeadLine.ToLower().Contains(searchString) ||
+                                                               article.ContentSummary.ToLower().Contains(searchString) ||
+                                                               article.Content.ToLower().Contains(searchString));
             }
-            else
-            {
-                searchString = searchString.Trim().ToLower();   //  Take away space on the beginning and end of searchString.
-            }                                                   
 
+            // Counting the total records that match the search criteria
+            int recsCount = await articlesQuery.CountAsync();
 
+            var pager = new Pager(recsCount, pg, pageSize);
+            int recSkip = (pg - 1) * pageSize;
 
+            // Fetching the paginated articles
+            var paginatedArticles = await articlesQuery.Skip(recSkip).Take(pageSize).ToListAsync();
 
-            var categoryQuery = from c in _context.Categories 
+            var categoryQuery = from c in _context.Categories
                                 orderby c.Id
                                 select c.Name.ToLower();
-
-
-            var articles = _context.Articles.Include(article => article.Category).Where(article => (article.Category != null && article.Category.Name.ToLower() == searchString.ToLower()) ||
-            (article.HeadLine.Contains(searchString) || article.ContentSummary.ToLower().Contains(searchString.ToLower()) || article.Content.ToLower().Contains(searchString.ToLower()))).ToList();
-
-
-
-
-
-
-
-
-
 
             var viewModel = new CategoryViewModel
             {
                 CategoryNames = new SelectList(await categoryQuery.Distinct().ToListAsync()),
-                Articles = articles,
-                SearchString = searchString // Passing the search string back to the view
+                Articles = paginatedArticles, // Using the paginated list of articles
+                SearchString = searchString, // Passing the search string back to the view
+                Pager = pager // Adding pager to the viewModel
             };
 
-    
             return View(viewModel);
         }
+
+
+      
 
 
 

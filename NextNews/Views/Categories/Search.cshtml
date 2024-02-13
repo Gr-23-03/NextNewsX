@@ -4,6 +4,14 @@
 
 @{
     ViewData["Title"] = "Search";
+    Pager pager = new Pager();
+    int pageNo = 0;
+
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
 }
 
 @* <h1>Search</h1> *@
@@ -69,7 +77,7 @@ else
 
 
 
-
+<partial name="_PagginationForSearch" model="@Model.Pager"></partial>
 
 @* <!-- Content of news articles -->
 <div id="news-articles">

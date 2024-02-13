@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using NextNews.Models;
 using NextNews.Models.Database;
 
 namespace NextNews.ViewModels
@@ -12,6 +13,7 @@ namespace NextNews.ViewModels
 
         public string SelectedCategory { get; set; }
         public string SearchString { get; set; } 
+        public Pager Pager { get; set; }
 
 
 
