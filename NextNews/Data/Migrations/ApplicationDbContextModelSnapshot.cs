@@ -34,7 +34,7 @@ namespace NextNews.Data.Migrations
 
                     b.HasIndex("UsersLikedId");
 
-                    b.ToTable("ArticleUser");
+                    b.ToTable("ArticleUser", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -225,7 +225,7 @@ namespace NextNews.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Articles");
+                    b.ToTable("Articles", (string)null);
                 });
 
             modelBuilder.Entity("NextNews.Models.Database.Category", b =>
@@ -244,7 +244,7 @@ namespace NextNews.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("NextNews.Models.Database.NewsLetterSubscriber", b =>
@@ -270,7 +270,7 @@ namespace NextNews.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("NewsLetterSubscribers");
+                    b.ToTable("NewsLetterSubscribers", (string)null);
                 });
 
             modelBuilder.Entity("NextNews.Models.Database.Subscription", b =>
@@ -308,7 +308,7 @@ namespace NextNews.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Subscriptions");
+                    b.ToTable("Subscriptions", (string)null);
                 });
 
             modelBuilder.Entity("NextNews.Models.Database.SubscriptionType", b =>
@@ -330,7 +330,7 @@ namespace NextNews.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SubscriptionTypes");
+                    b.ToTable("SubscriptionTypes", (string)null);
                 });
 
             modelBuilder.Entity("NextNews.Models.Database.User", b =>

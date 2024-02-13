@@ -1,11 +1,14 @@
 ﻿@model NextNews.ViewModels.CategoryViewModel
 
-
 @{
     ViewData["Title"] = "Search";
+
 }
 
 @* <h1>Search</h1> *@
+<style>
+    .hr-search{
+
 
 <style>
     .hr-search
@@ -24,6 +27,7 @@
 <br/>
 @await Component.InvokeAsync("SearchBar", Model.Paggination)
 <!-- Display the list of articles -->
+
 @if (Model.Articles != null && Model.Articles.Any())
 {
   
@@ -33,14 +37,23 @@
 
         @foreach (var article in Model.Articles)
         {
-            <div>
-                <h3>@article.HeadLine</h3> <br />
-                @Html.Raw(article.Content)
-
-
-
-
+            <div class="row mt-4">
+                <!-- Image Column -->
+                <div class="col-md-4">
+                    <img class="img-on-HomeIndex img-fluid" src="@article.ImageLink" alt="@article.HeadLine">
+                </div>
+                <!-- Summary and Date Column -->
+                <div class="col-md-8">
+                    <div class="latest-news-headline">
+                        <a asp-action="Details" asp-controller="Article" asp-route-id="@article.Id" class="latest-news-link">
+                            @article.HeadLine
+                        </a>
+                    </div>
+                    <p class="latest-news-summary">@article.ContentSummary</p>
+                    <p class="latest-news-date">Published on @article.DateStamp?.ToString("M") @article.DateStamp?.ToString("t")</p>
+                </div>
             </div>
+
 
             <hr class="hr-search" width="100%" size="15">
            
@@ -56,13 +69,15 @@
 
 
 
+
         }
+
     </div>
 }
 else
 {
     <div class="p-4">
-    <p><i><b>No articles found.</b></i></p>
+        <p><i><b>No articles found.</b></i></p>
     </div>
 }
 
@@ -71,6 +86,7 @@ else
 @await Component.InvokeAsync("SearchBar", Model.Paggination)
 
 
+<partial name="_PagginationForSearch" model="@Model.Pager"></partial>
 
 @* <!-- Content of news articles -->
 <div id="news-articles">
@@ -87,4 +103,6 @@ else
 
 
 
+
 @* <partial name="_PagginationPartialView" model="@Model" color="goldenrod" /> *@
+
