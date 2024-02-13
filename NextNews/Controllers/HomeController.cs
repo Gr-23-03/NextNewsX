@@ -39,10 +39,8 @@ namespace NextNews.Controllers
            Articles by categories */
         public IActionResult Index()
         {
-
             List<Article> allArticles = _articleService.GetArticles().ToList();
             List<Category> allCategories = _categoryService.GetCategories().ToList();
-
 
             int swedenId = allCategories.Where(a => a.Name == "Sweden").FirstOrDefault().Id;
             int localId = allCategories.Where(a => a.Name == "Local").FirstOrDefault().Id;
@@ -53,8 +51,6 @@ namespace NextNews.Controllers
             int artAndCultureId = allCategories.Where(a => a.Name == "Art & Culture").FirstOrDefault().Id;
             int weatherId = allCategories.Where(a => a.Name == "Weather").FirstOrDefault().Id;
             int entertainmentId = allCategories.Where(a => a.Name == "Entertainment").FirstOrDefault().Id;
-
-
 
             var vm = new HomeIndexVM()
             {
@@ -85,34 +81,7 @@ namespace NextNews.Controllers
                 ArticlesByCategoryArtAndCulture = allArticles.Where(a => a.CategoryId == artAndCultureId).OrderByDescending(a => a.DateStamp).Take(4).ToList(),
                 ArticlesByCategoryEntertainment = allArticles.Where(a => a.CategoryId == entertainmentId).OrderByDescending(a => a.DateStamp).Take(4).ToList(),
                 EditorsChoiceArticles = allArticles.Where(a => a.IsEditorsChoice == true).OrderByDescending(a => a.DateStamp).Take(4).ToList(),
-
-                //EditorsChoiceArticlesA = allArticles
-                //                        .Where(a => a.IsEditorsChoice == true)
-                //                        .OrderByDescending(a => a.DateStamp)
-                //                        .Take(2)  // Take the first two articles
-                //                        .ToList(),
-
-                //EditorsChoiceArticlesB = allArticles
-                //                        .Where(a => a.IsEditorsChoice == true)
-                //                        .OrderByDescending(a => a.DateStamp)
-                //                        .Skip(2)  // Skip the first two articles
-                //                        .Take(3)  // Take the next three articles
-                //                        .ToList(),
-
-                //EditorsChoiceArticlesC = allArticles
-                //                        .Where(a => a.IsEditorsChoice == true)
-                //                        .OrderByDescending(a => a.DateStamp)
-                //                        .Skip(5)  // Skip the first five articles
-                //                        .Take(3)  // Take the next three articles
-                //                        .ToList(),
-
-                //EditorsChoiceArticlesD = allArticles
-                //                        .Where(a => a.IsEditorsChoice == true)
-                //                        .OrderByDescending(a => a.DateStamp)
-                //                        .Skip(8)  // Skip the first 8 articles
-                //                        .Take(2)  // Take the next two articles
-                //                        .ToList(),
-
+            
             };
 
             return View(vm); 
@@ -141,5 +110,7 @@ namespace NextNews.Controllers
             return View();
 
         }
-}
+     
+    
     }
+}
