@@ -2,7 +2,7 @@
 
 @using NextNews.Services
 
-@inject ICategoryService _categoryService;
+ @inject ICategoryService _categoryService; 
 
 
 
@@ -26,11 +26,11 @@
 <div class="row">
 
     @*   ****  LOOP WITH LIST OF ARTICLES   ****   *@
-
+   
 
     @foreach (var item in Model)
     {
-
+  
         <div class="col-4 p-4" style="border:1px solid gray">
 
             @*  <img src="@item.ImageLink" style="width: 100%"  /> *@
@@ -60,13 +60,13 @@
 
         </div>
     }
-
+   </ul>
 </div>
 
-      
-  <partial name="_PagginationPartialView" model="@pager"></partial>
+      <br/>
+  <partial name="_PagginationPartialView" model="@ViewBag.Pager"></partial>
 
-
+  
 
 
 

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using MailKit.Search;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,7 +14,12 @@ using NextNews.Models;
 using NextNews.Models.Database;
 using NextNews.Services;
 using NextNews.ViewModels;
-using Pager = NextNews.Models.Pager;
+
+using NextNews.Views.Shared.Components.SearchBar;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+
+
+
 
 
 
@@ -141,6 +148,9 @@ namespace NextNews.Controllers
 
         public async Task<IActionResult> Search(string searchString, int pg = 1)
 
+
+        public async Task<IActionResult> Search(string searchString, int pg = 1, int perPage = 10)
+
         {
             const int pageSize = 9;
             if (pg < 1)
@@ -157,8 +167,14 @@ namespace NextNews.Controllers
                                                                article.Content.ToLower().Contains(searchString));
             }
 
-            // Counting the total records that match the search criteria
-            int recsCount = await articlesQuery.CountAsync();
+            else
+            {
+                searchString = searchString.Trim().ToLower();   //  Take away space on the beginning and end of searchString.
+            }
+
+
+          
+
 
             var pager = new Pager(recsCount, pg, pageSize);
             int recSkip = (pg - 1) * pageSize;
@@ -170,14 +186,40 @@ namespace NextNews.Controllers
             var categoryQuery = from c in _context.Categories
                                 orderby c.Id
                                 select c.Name.ToLower();
+            var articles = _context.Articles
+            .Where(a => a.HeadLine.Contains(searchString) || a.Content.Contains(searchString))
+                .ToList();
+
+
+            int totalCount = _context.Articles.Count();
+            int totalPages = (int)Math.Ceiling((double)totalCount / perPage);
+            var pagginatedArticles = articles               
+                .Skip((pg - 1) * perPage)
+                .Take(perPage)
+                .ToList();
+
+
+            ViewBag.CurrentPage = pg;
+            ViewBag.TotalPages = totalPages;
+
+
+
+            SPager pagginationObj = new SPager(articles.Count, pg, perPage) 
+            { 
+                Action = "Search", 
+                Controller = "Categories", 
+                SearchText = searchString
+            };   
+
 
 
             var viewModel = new CategoryViewModel
             {
                 CategoryNames = new SelectList(await categoryQuery.Distinct().ToListAsync()),
-                Articles = paginatedArticles, // Using the paginated list of articles
+                Articles = pagginatedArticles,
                 SearchString = searchString, // Passing the search string back to the view
-                Pager = pager // Adding pager to the viewModel
+                Paggination = pagginationObj
+
             };
 
 
