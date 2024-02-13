@@ -34,7 +34,7 @@ namespace NextNews.Data.Migrations
 
                     b.HasIndex("UsersLikedId");
 
-                    b.ToTable("ArticleUser");
+                    b.ToTable("ArticleUser", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -182,6 +182,9 @@ namespace NextNews.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("Archive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("AuthorName")
                         .HasColumnType("nvarchar(max)");
 
@@ -206,6 +209,9 @@ namespace NextNews.Data.Migrations
                     b.Property<string>("ImageLink2")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsEditorsChoice")
+                        .HasColumnType("bit");
+
                     b.Property<int?>("Likes")
                         .HasColumnType("int");
 
@@ -219,7 +225,7 @@ namespace NextNews.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Articles");
+                    b.ToTable("Articles", (string)null);
                 });
 
             modelBuilder.Entity("NextNews.Models.Database.Category", b =>
@@ -238,10 +244,10 @@ namespace NextNews.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
-            modelBuilder.Entity("NextNews.Models.Database.ContactFormMessage", b =>
+            modelBuilder.Entity("NextNews.Models.Database.NewsLetterSubscriber", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -249,28 +255,22 @@ namespace NextNews.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTime?>("DateofBirth")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Message")
-                        .IsRequired()
+                    b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Subject")
-                        .IsRequired()
+                    b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("ContactFormMessages");
+                    b.ToTable("NewsLetterSubscribers", (string)null);
                 });
 
             modelBuilder.Entity("NextNews.Models.Database.Subscription", b =>
@@ -308,7 +308,7 @@ namespace NextNews.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Subscriptions");
+                    b.ToTable("Subscriptions", (string)null);
                 });
 
             modelBuilder.Entity("NextNews.Models.Database.SubscriptionType", b =>
@@ -330,7 +330,7 @@ namespace NextNews.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SubscriptionTypes");
+                    b.ToTable("SubscriptionTypes", (string)null);
                 });
 
             modelBuilder.Entity("NextNews.Models.Database.User", b =>
