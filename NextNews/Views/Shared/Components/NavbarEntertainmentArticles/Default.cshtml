@@ -1,7 +1,7 @@
 ﻿<div class="container">
     <div class="row">
         <div class="col-12 col-md-4">
-            <a style="color:red; font-weight:bold; font-size:50px" href="#">@Model.CategoryName</a>
+            <a style="color:red; font-weight:bold; font-size:50px" href="@Url.Action("ArticlesByCategories", "CategoriesView", new { categoryId = 7 })">@Model.CategoryName</a>
             <div class="d-flex flex-column">
                 <ul>
                     @foreach (var item in Model.ArticlesInList)
