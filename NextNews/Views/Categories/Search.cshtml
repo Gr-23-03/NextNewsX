@@ -4,7 +4,6 @@
 @{
     ViewData["Title"] = "Search";
 
-
 }
 
 @* <h1>Search</h1> *@
@@ -56,3 +55,15 @@ else
 }
 
 
+
+
+
+<partial name="_PagginationForSearch" model="@Model.Pager"></partial>
+
+@* <!-- Content of news articles -->
+<div id="news-articles">
+    <!-- News articles go here -->
+</div>
+
+<!-- Pagination -->
+ *@

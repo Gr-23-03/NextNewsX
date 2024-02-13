@@ -33,7 +33,8 @@ namespace NextNews.Controllers
                 {
                     Date = entity.Timestamp,
                     Price = entity.close, // Assuming you have a 'Close' property for closing price
-                    Name=entity.name
+                    Name=entity.name,
+                    symbol=entity.symbol
                 });
             }
             return Ok(data);
@@ -46,5 +47,6 @@ namespace NextNews.Controllers
         public DateTimeOffset? Date { get; set; }
         public double Price { get; set; }
         public string Name{ get; set; }
+        public string symbol { get; set; }
     }
 }
