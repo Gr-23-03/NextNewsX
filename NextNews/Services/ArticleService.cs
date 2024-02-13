@@ -49,7 +49,7 @@ namespace NextNews.Services
 
         public List<Article> GetArticles()
         {
-            var objList = _context.Articles.Include(x => x.UsersLiked).Where(x=>x.Archive==false).ToList();
+            var objList = _context.Articles.Include(x => x.UsersLiked)/*.Where(x=>x.Archive==false)*/.ToList();
             return objList;
         }
 
@@ -258,6 +258,15 @@ namespace NextNews.Services
             var objList = _context.Articles.Include(x => x.UsersLiked).ToList();
             return objList;
         }
+
+
+        public int GetCategoryIdCategoryName(string categoryName)
+        {
+            var categoryId = _context.Categories.FirstOrDefault(c => c.Name == categoryName).Id;
+
+            return categoryId;
+        }
+
 
 
 

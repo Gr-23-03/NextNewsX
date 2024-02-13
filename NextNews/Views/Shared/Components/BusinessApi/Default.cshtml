@@ -1,21 +1,5 @@
 ﻿@model NextNews.Models.Database.Stock
 
-@* <div class="stock-ticker">
-    <div class="ticker-wrap">
-        <div class="ticker">
-            @foreach (var item in Model.top10)
-            {
-                <div class="ticker__item">
-                    <span class="corner-indicator @(item.percentChange >= 0 ? "positive" : "negative")"></span>
-                    <span class="stock-name"><strong>@item.name</strong></span>
-                    <span class="stock-change @(item.percentChange >= 0 ? "positive" : "negative")">
-                        @(item.percentChange >= 0 ? "+" : "")@item.percentChange.ToString("F2") %
-                    </span>
-                </div>
-            }
-        </div>
-    </div>
-</div> *@
 
 <div class="stock-ticker">
     <div class="ticker-wrap">
