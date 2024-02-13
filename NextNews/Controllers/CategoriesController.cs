@@ -12,23 +12,24 @@ using NextNews.Models;
 using NextNews.Models.Database;
 using NextNews.Services;
 using NextNews.ViewModels;
+using Pager = NextNews.Models.Pager;
+
+
+
+
 
 namespace NextNews.Controllers
 {
     public class CategoriesController : Controller
     {
-        
-
         private readonly ICategoryService _categoryService;
-
-
         private readonly ApplicationDbContext _context;
+
         public CategoriesController(ApplicationDbContext context, ICategoryService categoryService)
         {
             _categoryService = categoryService;
             _context = context;
         }
-
 
 
         //display list of categories
@@ -40,12 +41,12 @@ namespace NextNews.Controllers
 
 
         //create
-
         [Authorize(Roles = "Editor")]
         public IActionResult Create()
         {
             return View();
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -90,6 +91,7 @@ namespace NextNews.Controllers
             return View(category);
         }
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize] // Only authorized users can edit categories
@@ -109,6 +111,7 @@ namespace NextNews.Controllers
             return View(category);
         }
 
+
         [Authorize] 
         public async Task<IActionResult> Delete(int id)
         {
@@ -122,6 +125,7 @@ namespace NextNews.Controllers
             return View(category);
         }
 
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize]
@@ -132,11 +136,11 @@ namespace NextNews.Controllers
         }
 
 
-
-
         // search articles by category and article headline and by words
 
+
         public async Task<IActionResult> Search(string searchString, int pg = 1)
+
         {
             const int pageSize = 9;
             if (pg < 1)
@@ -162,9 +166,11 @@ namespace NextNews.Controllers
             // Fetching the paginated articles
             var paginatedArticles = await articlesQuery.Skip(recSkip).Take(pageSize).ToListAsync();
 
+
             var categoryQuery = from c in _context.Categories
                                 orderby c.Id
                                 select c.Name.ToLower();
+
 
             var viewModel = new CategoryViewModel
             {
@@ -173,6 +179,7 @@ namespace NextNews.Controllers
                 SearchString = searchString, // Passing the search string back to the view
                 Pager = pager // Adding pager to the viewModel
             };
+
 
             return View(viewModel);
         }

@@ -11,12 +11,12 @@ namespace NextNews.Data.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<bool>(
-                name: "IsActive",
-                table: "Subscriptions",
-                type: "bit",
-                nullable: false,
-                defaultValue: false);
+            //migrationBuilder.AddColumn<bool>(
+            //    name: "IsActive",
+            //    table: "Subscriptions",
+            //    type: "bit",
+            //    nullable: false,
+            //    defaultValue: false);
 
             migrationBuilder.CreateTable(
                 name: "ContactFormMessages",
@@ -42,9 +42,9 @@ namespace NextNews.Data.Migrations
             migrationBuilder.DropTable(
                 name: "ContactFormMessages");
 
-            migrationBuilder.DropColumn(
-                name: "IsActive",
-                table: "Subscriptions");
+            //migrationBuilder.DropColumn(
+            //    name: "IsActive",
+            //    table: "Subscriptions");
         }
     }
 }
