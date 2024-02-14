@@ -14,10 +14,14 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.CodeAnalysis.CSharp;
 using Pager = NextNews.Models.Pager;
 using Microsoft.AspNetCore.Routing;
+using System;
+using NextNews.Views.Shared.Components.SearchBar;
+using NextNews.Data;
+
+
 
 namespace NextNews.Controllers
 {
-
     // For Editor-specific actions
     //[Authorize(Policy = "Editor")]
     public class ArticleController : Controller
@@ -26,21 +30,54 @@ namespace NextNews.Controllers
         private readonly IUserService _userService;
         private readonly UserManager<User> _userManager;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly ApplicationDbContext _context;
 
 
-        public ArticleController(IArticleService articleService, IUserService userService, UserManager<User> userManager, IWebHostEnvironment webHostEnvironment)
+
+        public ArticleController(ApplicationDbContext context, IArticleService articleService, IUserService userService, UserManager<User> userManager, IWebHostEnvironment webHostEnvironment/*_context _context*/)
+
+       
+
         {
             _articleService = articleService;
             _userService = userService;
             _userManager = userManager;
             _webHostEnvironment = webHostEnvironment;
+            _context = context;
         }
 
 
-        public IActionResult Index()
+        public IActionResult Index(string SearchText= "" ,  int pg =1)
         {
+            List<Article> articles;
+            if (SearchText != "" && SearchText != null)
+            {
+                articles = _context.Articles
+                    .Where(p => p.HeadLine.Contains(SearchText))
+                    .ToList();
+            }
+            else
+                articles = _context.Articles.ToList();
 
-            return RedirectToAction(nameof(ListArticles));
+            SPager SearchPager = new SPager()
+            { Action="Index", Controller="Article", SearchText= SearchText};
+            ViewBag.SearchText = SearchText;
+
+
+
+
+            const int pageSize = 10;
+            if (pg < 1)
+                pg = 1;
+
+            int recsCount = articles.Count();
+            int recSkip = (pg - 1 ) * pageSize;
+            List<Article> retArticles = articles.Skip(recSkip).Take(pageSize).ToList();
+            SPager SearchPager2 = new SPager(recsCount, pg, pageSize) { Action = "Index", Controller = "Article", SearchText = "SearchText" };
+            ViewBag.SearchPager = SearchPager2;
+            return View(retArticles);
+            //return View(articles);
+            //return RedirectToAction(nameof(ListArticles));
         }
 
 
@@ -68,12 +105,32 @@ namespace NextNews.Controllers
             return View(vmList);
         }
 
-        //Action for list of article
 
-        public IActionResult ListArticles(int pg=1)
+        //Action for list of article
+        public IActionResult ListArticles(int categoryId, string latestOrMostPopular, string editorsChoice, int pg = 1)
         {
             var articles = _articleService.GetArticlesAndArchiveArticles();
-           
+    
+            if (categoryId != 0)
+            {
+                articles = articles.Where(a => a.CategoryId == categoryId).ToList();
+            }
+
+            if(latestOrMostPopular == "latest")
+            {
+                articles = articles.OrderByDescending(a => a.DateStamp).ToList();
+            }
+            else if (latestOrMostPopular == "mostpopular")
+            {
+                articles = articles.OrderByDescending(a => a.Likes).ToList();
+            }
+
+            if (editorsChoice == "editorschoice")
+            {
+                articles = articles.Where(a => a.IsEditorsChoice == true).ToList();
+            }
+
+
             const int pageSize = 9;
             if (pg < 1)
                 pg = 1;
@@ -81,31 +138,27 @@ namespace NextNews.Controllers
             var pager = new Pager(recsCount, pg, pageSize);
             int recSkip = (pg - 1) * pageSize;
             var data = articles.Skip(recSkip).Take(pager.PageSize).ToList();
-            this.ViewBag.Pager = pager;
+            ViewBag.Pager = pager;
             return View(data);
             //return View(articles);
         }
 
-        //Action to Add/Create article
 
+        //Action to Add/Create article
         [HttpPost]
         [Authorize(Roles = "Editor")]
-
-
         public IActionResult AddArticle(Article article)
         {
             article.DateStamp = DateTime.Now;
 
             if (ModelState.IsValid)
             {
-
                 article.ImageLink = _articleService.UploadImage(article.ImageFile).Result;
 
                 _articleService.AddArticle(article);
 
                 //article.ImageLink = _articleService.UploadImage(article.ImageFile).Result;
                 return RedirectToAction("Listarticles");
-
 
                 // Check if an image file is uploaded
                 if (article.ImageFile != null && article.ImageFile.Length > 0)
@@ -139,6 +192,7 @@ namespace NextNews.Controllers
         }
 
 
+
         [Authorize(Roles = "Editor")]
         public IActionResult CreateArticle()
         {
@@ -150,7 +204,6 @@ namespace NextNews.Controllers
 
 
         //details
-
         //[Authorize(Roles = "Editor")]
         public async Task<IActionResult> Details(int id)
         {
@@ -174,11 +227,10 @@ namespace NextNews.Controllers
             //}
 
 
-           
-
 
             //return View(article);
         }
+
 
 
         [Authorize(Roles = "Editor")]
@@ -193,6 +245,7 @@ namespace NextNews.Controllers
 
             return View(article);
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -213,6 +266,7 @@ namespace NextNews.Controllers
             return View(article);
         }
 
+
         [Authorize(Roles = "Editor")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -226,6 +280,7 @@ namespace NextNews.Controllers
             return View(article);
         }
 
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Editor")]
@@ -235,9 +290,9 @@ namespace NextNews.Controllers
             return RedirectToAction(nameof(ListArticles));
         }
 
+       
         // Method to add likes
         [Authorize]
-        
         public IActionResult Likes(int id, string returnUrl)
         {
             var userId = _userManager.GetUserId(User)!;
@@ -255,22 +310,11 @@ namespace NextNews.Controllers
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
         // EditorsChoiceArticles
-
         public IActionResult EditorsChoice()
         {
             List<Article> editorsChoiceArticles = _articleService.GetArticles();
+     
             return View(editorsChoiceArticles);
         }
 
@@ -281,9 +325,6 @@ namespace NextNews.Controllers
 
             return RedirectToAction("EditorsChoice");
         }
-
-
-
 
 
 

@@ -1,42 +1,108 @@
 ﻿@model NextNews.Models.Database.NewsLetterSubscriber
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Subscribe to Our Newsletter";
 }
 
+<!-- Load Bootstrap and Font Awesome for styling and icons -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
 
+<style>
+    body {
+        background-color: #f4f4f4;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-<h4 style="margin:5px;">Subscribe</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
+    .newsletter-signup {
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        transition: all 0.3s ease-in-out;
+    }
+
+        .newsletter-signup:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .newsletter-signup h1 {
+            color: #333;
+            font-weight: 800;
+        }
+
+        .newsletter-signup p {
+            font-size: 1.1em;
+        }
+
+    .form-control {
+        border-radius: 20px;
+        border: 2px solid #ddd;
+        transition: border-color .3s ease-in-out;
+    }
+
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: none;
+        }
+
+    .btn-custom {
+        background-color: #007bff;
+        color: #fff;
+        border-radius: 20px;
+        padding: 10px 24px;
+        font-size: 1em;
+        transition: background-color .3s ease-in-out;
+    }
+
+        .btn-custom:hover {
+            background-color: #0056b3;
+        }
+
+    .icon-container {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="newsletter-signup">
+                <div class="icon-container">
+                    <i class="fas fa-envelope-open-text fa-3x"></i>
+                </div>
+                <h1 class="text-center">Join Our Newsletter</h1>
+                <p class="text-center">Sign up to receive the latest news and updates from NEXTnews directly to your inbox.</p>
+                <form asp-action="Create">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <input asp-for="FirstName" class="form-control" placeholder="First Name">
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <input asp-for="LastName" class="form-control" placeholder="Last Name">
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input asp-for="DateofBirth" class="form-control" placeholder="Date of Birth">
+                        <span asp-validation-for="DateofBirth" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input asp-for="Email" type="email" class="form-control" placeholder="Email Address">
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-custom">Sign Up</button>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateofBirth" class="control-label"></label>
-                <input asp-for="DateofBirth" class="form-control" />
-                <span asp-validation-for="DateofBirth" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group" style="margin:5px;">
-                <input type="submit" value="Register" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

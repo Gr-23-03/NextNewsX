@@ -10,16 +10,10 @@ using System.Linq;
 using System.Collections.Generic;
 using Azure.Storage.Blobs;
 using NextNews.ViewModels;
-
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-
-
 using Microsoft.AspNetCore.Http.HttpResults;
 using System.Text.RegularExpressions;
-
-
-
 
 
 namespace NextNews.Services
@@ -28,30 +22,23 @@ namespace NextNews.Services
     {
         private readonly ApplicationDbContext _context;
         private readonly IConfiguration _configuration;
-
-
         private readonly BlobServiceClient _blobServiceClient;
-
-
 
 
         public ArticleService(ApplicationDbContext context, IConfiguration configuration)
         {
             _context = context;
             _configuration = configuration;
-
-
             _blobServiceClient = new BlobServiceClient(_configuration["AzureWebJobsStorage"]);
         }
 
 
-
-
         public List<Article> GetArticles()
         {
-            var objList = _context.Articles.Include(x => x.UsersLiked).Where(x=>x.Archive==false).ToList();
+            var objList = _context.Articles.Include(x => x.UsersLiked)/*.Where(x=>x.Archive==false)*/.ToList();
             return objList;
         }
+
 
         public void AddArticle(Article article)
         {
@@ -59,6 +46,7 @@ namespace NextNews.Services
             _context.SaveChanges();
             List<Category> categories = _context.Categories.ToList();
         }
+
 
         //details
         public async Task<Article> GetArticleByIdAsync(int id)
@@ -76,7 +64,6 @@ namespace NextNews.Services
 
 
         //delete category
-
         public async Task DeleteArticleAsync(int id)
         {
             var article = await _context.Articles.FindAsync(id);
@@ -86,6 +73,7 @@ namespace NextNews.Services
                 await _context.SaveChangesAsync();
             }
         }
+
 
         //Get Categories to select them in create view
         public List<Category> GetCategories()
@@ -120,7 +108,6 @@ namespace NextNews.Services
         }
 
 
-
         public void IncreamentViews(ArticleDetailsViewModel article)
         {
             if (article.Article.Views is null)
@@ -142,6 +129,7 @@ namespace NextNews.Services
             return _context.Articles.Where(a => a.CategoryId == categoryId).ToList();
         }
 
+
         public async Task<string> UploadImage(IFormFile file)
         {
             BlobContainerClient containerClient = _blobServiceClient
@@ -155,16 +143,12 @@ namespace NextNews.Services
         }
 
 
-        // Example data source (replace this with your actual data retrieval logic)
-        //private List<Article> _allArticles = new List<Article>();
-
         public List<Article> GetEditorsChoiceArticles()
         {
             var objList = _context.Articles.Where(a => a.IsEditorsChoice == true).ToList();
 
             return objList;
         }
-
 
 
         public void addOrRemoveEditorsChoice(string addOrRemove, int articleId)
@@ -186,6 +170,7 @@ namespace NextNews.Services
             }
         }
 
+
         public void CheckExpiredSubs()
         {
             var expiredSubscription = _context.Subscriptions.Where(s => s.Expired < DateTime.Now).ToList();
@@ -196,6 +181,8 @@ namespace NextNews.Services
             }
             _context.SaveChanges();
         }
+
+
         public async Task<List<LatestNewsViewModel>> LatestArticles()
         {
             var latestArticles = _context.Articles.OrderByDescending(obj => obj.DateStamp).Take(4).ToList();
@@ -221,6 +208,8 @@ namespace NextNews.Services
             return vmList;
 
         }
+
+
         private string GetSmallImageLink(string originalLink)
         {
             if (string.IsNullOrEmpty(originalLink))
@@ -233,11 +222,14 @@ namespace NextNews.Services
 
             return baseSmallImageUrl + fileName;
         }
+
+
         private string GetDetailArticle(int id)
         {
 
             return $"https://nextnews.azurewebsites.net/Article/Details/{id}";
         }
+
 
         public void ArticlesToArchive() 
         {
@@ -253,6 +245,7 @@ namespace NextNews.Services
            
         }
 
+
         public List<Article> GetArticlesAndArchiveArticles()
         {
             var objList = _context.Articles.Include(x => x.UsersLiked).ToList();
@@ -260,12 +253,17 @@ namespace NextNews.Services
         }
 
 
+        public int GetCategoryIdCategoryName(string categoryName)
+        {
+            var categoryId = _context.Categories.FirstOrDefault(c => c.Name == categoryName).Id;
+
+            return categoryId;
+        }
+
 
 
 
     }
-
-
 
 }
 

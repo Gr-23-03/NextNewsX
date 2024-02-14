@@ -12,6 +12,7 @@ using NextNews.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Stripe;
 using NextNews.Data.Migrations;
+using NuGet.Protocol;
 
 namespace NextNews.Controllers
 {
@@ -38,14 +39,17 @@ namespace NextNews.Controllers
       
         //Create Subscription For User
         [Authorize]
-        public IActionResult CreateUserSubscription() 
+        public async Task<IActionResult> CreateUserSubscription()
         {
+            var subscriptionTypes = await _subscriptionService.GetSubscriptionTypesAsync();
+            ViewBag.SubscriptionTypes = subscriptionTypes;
             return View();
         }
         [HttpPost]
         public async Task<IActionResult> CreateUserSubscription(Subscription input)
         {
             var userId = _userManager.GetUserId(User);
+           
             // Check if the user already has this subscription
             string resultMessage = _subscriptionService.CheckExistingSubscription(userId, input.SubscriptionTypeId);
             if (resultMessage != "Eligible for subscription")
@@ -53,6 +57,7 @@ namespace NextNews.Controllers
                 ViewBag.Message = resultMessage;
                 return View("Index", "Home");
             }
+
 
             // Assign roles based on subscription type
             var subscriptionType = _subscriptionService.GetSubscriptionType(input.SubscriptionTypeId);
@@ -75,8 +80,7 @@ namespace NextNews.Controllers
             await _userManager.AddClaimAsync(user, new Claim(claimType, claimValue));
 
 
-
-
+           
 
             // Redirect to Stripe for payment
             return await StripeCheckout(userId, input.SubscriptionTypeId);

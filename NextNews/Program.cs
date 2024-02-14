@@ -74,7 +74,7 @@ namespace NextNews
             builder.Services.AddScoped<ICategoryService,CategoryService>();
             builder.Services.AddScoped<IRoleManagementService, RoleManagementService>();
             builder.Services.AddScoped<IStockService, StockService>();
-
+            builder.Services.AddScoped<IContactService, ContactService>();
             builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
 
             builder.Services.AddScoped<IStatisticService, StatisticService>();
@@ -180,10 +180,11 @@ namespace NextNews
                 pattern: "{controller=Home}/{action=Index}/{id?}");
             app.MapRazorPages();
 
-          
+
 
 
             app.Run();
+
         }
     }
 }

@@ -56,6 +56,7 @@ namespace NextNews.Controllers
 
         public IActionResult Index()
         {
+
             string usrId = _userManager.GetUserId(HttpContext.User) ?? "";
             User usr = _userService.GetUserById(usrId);
 
@@ -88,9 +89,10 @@ namespace NextNews.Controllers
             }
 
 
+
+
             List<Article> allArticles = _articleService.GetArticles().ToList();
             List<Category> allCategories = _categoryService.GetCategories().ToList();
-
 
             int swedenId = allCategories.Where(a => a.Name == "Sweden").FirstOrDefault().Id;
             int localId = allCategories.Where(a => a.Name == "Local").FirstOrDefault().Id;
@@ -100,8 +102,7 @@ namespace NextNews.Controllers
             int healthId = allCategories.Where(a => a.Name == "Health").FirstOrDefault().Id;
             int artAndCultureId = allCategories.Where(a => a.Name == "Art & Culture").FirstOrDefault().Id;
             int weatherId = allCategories.Where(a => a.Name == "Weather").FirstOrDefault().Id;
-
-
+            int entertainmentId = allCategories.Where(a => a.Name == "Entertainment").FirstOrDefault().Id;
 
             var vm = new HomeIndexVM()
             {
@@ -124,12 +125,13 @@ namespace NextNews.Controllers
                 AllCategories = allCategories,
                 ArticlesByCategorySweden = allArticles.Where(a => a.CategoryId == swedenId).OrderByDescending(a => a.DateStamp).Take(3).ToList(),
                 ArticlesByCategoryLocal = allArticles.Where(a => a.CategoryId == localId).OrderByDescending(a => a.DateStamp).Take(3).ToList(),
-                ArticlesByCategoryBusiness = allArticles.Where(a => a.CategoryId == businessId).OrderByDescending(a => a.DateStamp).Take(3).ToList(),
-                ArticlesByCategorySport = allArticles.Where(a => a.CategoryId == sportId).OrderByDescending(a => a.DateStamp).Take(5).ToList(),
-                ArticlesByCategoryWorld = allArticles.Where(a => a.CategoryId == worldId).OrderByDescending(a => a.DateStamp).Take(5).ToList(),
-                ArticlesByCategoryHealth = allArticles.Where(a => a.CategoryId == healthId).OrderByDescending(a => a.DateStamp).Take(5).ToList(),
+                ArticlesByCategoryWorld = allArticles.Where(a => a.CategoryId == worldId).OrderByDescending(a => a.DateStamp).Take(3).ToList(),
+                ArticlesByCategoryBusiness = allArticles.Where(a => a.CategoryId == businessId).OrderByDescending(a => a.DateStamp).Take(4).ToList(),
+                ArticlesByCategorySport = allArticles.Where(a => a.CategoryId == sportId).OrderByDescending(a => a.DateStamp).Take(4).ToList(),
+                ArticlesByCategoryHealth = allArticles.Where(a => a.CategoryId == healthId).OrderByDescending(a => a.DateStamp).Take(4).ToList(),
                 ArticlesByCategoryWeather = allArticles.Where(a => a.CategoryId == weatherId).OrderByDescending(a => a.DateStamp).Take(4).ToList(),
                 ArticlesByCategoryArtAndCulture = allArticles.Where(a => a.CategoryId == artAndCultureId).OrderByDescending(a => a.DateStamp).Take(4).ToList(),
+
 
 
 
@@ -163,6 +165,11 @@ namespace NextNews.Controllers
                 //                        .Take(2)  // Take the next two articles
                 //                        .ToList(),
 
+
+                ArticlesByCategoryEntertainment = allArticles.Where(a => a.CategoryId == entertainmentId).OrderByDescending(a => a.DateStamp).Take(4).ToList(),
+                EditorsChoiceArticles = allArticles.Where(a => a.IsEditorsChoice == true).OrderByDescending(a => a.DateStamp).Take(4).ToList(),
+            
+
             };
 
 
@@ -187,6 +194,12 @@ namespace NextNews.Controllers
         //    var stockReport = await _stockService.GetStockHttpClient("us");
         //    return View(stockReport);
         //}
+        public ActionResult AboutUs()
+        {
+            return View();
 
+        }
+     
+    
     }
 }

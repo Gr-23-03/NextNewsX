@@ -187,12 +187,6 @@ namespace NextNews.Controllers
 
 
 
-   
-
-
-
-
-
 
     }
 }
