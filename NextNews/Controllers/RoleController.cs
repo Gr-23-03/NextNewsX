@@ -12,10 +12,12 @@ namespace NextNews.Controllers
     public class RoleController : Controller
     {
         RoleManager<IdentityRole> _roleManager;
+        private readonly IRoleManagementService _roleManagementService;
 
-        public RoleController(RoleManager<IdentityRole> roleManager )
+        public RoleController(RoleManager<IdentityRole> roleManager , IRoleManagementService roleManagementService)
         {
             _roleManager = roleManager;
+            _roleManagementService = roleManagementService;
            
         }
 
@@ -34,7 +36,51 @@ namespace NextNews.Controllers
 
 
 
-       
+        [HttpGet]
+        public IActionResult CreateRole()
+        {
+            return View();
+        }
+
+
+
+        // This is for creating dynamic role wihout seeding
+
+        [HttpPost]
+        public async Task<IActionResult> CreateRole(string roleName)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            bool result = await _roleManagementService.CreateRoleAsync(roleName);
+
+            if (result)
+            {
+
+                return RedirectToAction("CreationSuccessfully", "Role");
+            }
+            else
+            {
+
+                return View("CreationFailed", "Role");
+            }
+        }
+
+
+        [HttpGet]
+        public IActionResult CreationSuccessfully()
+        {
+            return View();
+        }
+
+
+        [HttpGet]
+        public IActionResult Failed()
+        {
+            return View();
+        }
 
 
 

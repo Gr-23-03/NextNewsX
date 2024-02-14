@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+
 using NextNews.Data;
 using NextNews.Helper;
 using NextNews.Models.Database;
@@ -105,16 +107,28 @@ namespace NextNews
                 options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
                 options.AddPolicy("Editor", policy => policy.RequireRole("Editor"));
                 options.AddPolicy("User", policy => policy.RequireRole("User"));
-                
+
+                options.AddPolicy("BasicUser", policy =>
+                {
+                    policy.RequireRole("Basic");
+                });
+
+                options.AddPolicy("PremiumUser", policy =>
+                {
+                    policy.RequireRole("Premium");
+
+
+                });
+
+
+             
+
+
+
+
             });
 
-
-
-
-
-
-
-
+ 
             var app = builder.Build();
 
 
