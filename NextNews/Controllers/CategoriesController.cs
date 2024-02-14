@@ -146,8 +146,7 @@ namespace NextNews.Controllers
         // search articles by category and article headline and by words
 
 
-        public async Task<IActionResult> Search(string searchString, int pg = 1)
-
+        //public async Task<IActionResult> Search(string searchString, int pg = 1);
 
         public async Task<IActionResult> Search(string searchString, int pg = 1, int perPage = 10)
 
@@ -156,6 +155,7 @@ namespace NextNews.Controllers
             if (pg < 1)
                 pg = 1;
 
+            int recsCount = _context.Articles.Count();
             var articlesQuery = _context.Articles.Include(a => a.Category).AsQueryable();
 
             if (!string.IsNullOrEmpty(searchString))
@@ -169,31 +169,24 @@ namespace NextNews.Controllers
 
             else
             {
-                searchString = searchString.Trim().ToLower();   //  Take away space on the beginning and end of searchString.
+                articlesQuery = _context.Articles;
             }
 
 
-          
-
-
             var pager = new Pager(recsCount, pg, pageSize);
-            int recSkip = (pg - 1) * pageSize;
-
-            // Fetching the paginated articles
-            var paginatedArticles = await articlesQuery.Skip(recSkip).Take(pageSize).ToListAsync();
 
 
             var categoryQuery = from c in _context.Categories
                                 orderby c.Id
                                 select c.Name.ToLower();
-            var articles = _context.Articles
-            .Where(a => a.HeadLine.Contains(searchString) || a.Content.Contains(searchString))
-                .ToList();
 
 
-            int totalCount = _context.Articles.Count();
+            int totalCount = articlesQuery.Count();
             int totalPages = (int)Math.Ceiling((double)totalCount / perPage);
-            var pagginatedArticles = articles               
+            
+            int articlesCount = articlesQuery.Count();
+
+            var pagginatedArticles = articlesQuery             
                 .Skip((pg - 1) * perPage)
                 .Take(perPage)
                 .ToList();
@@ -204,7 +197,7 @@ namespace NextNews.Controllers
 
 
 
-            SPager pagginationObj = new SPager(articles.Count, pg, perPage) 
+            SPager pagginationObj = new SPager(articlesCount, pg, perPage) 
             { 
                 Action = "Search", 
                 Controller = "Categories", 
