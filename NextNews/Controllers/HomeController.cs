@@ -14,8 +14,8 @@ namespace NextNews.Controllers
         private readonly IArticleService _articleService;
         private readonly IStockService _stockService;
         private readonly ICategoryService _categoryService;
-        
-        public HomeController(ILogger<HomeController> logger ,IUserService userService, 
+
+        public HomeController(ILogger<HomeController> logger, IUserService userService,
             IArticleService articleService, ICategoryService categoryService, IStockService stockService)
         {
             _logger = logger;
@@ -115,7 +115,7 @@ namespace NextNews.Controllers
 
             };
 
-            return View(vm); 
+            return View(vm);
         }
 
 
@@ -125,11 +125,11 @@ namespace NextNews.Controllers
         }
 
 
-         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-         public IActionResult Error()
-         {
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-         }
+        }
 
         //public async Task<IActionResult> StockReport()
         //{
@@ -141,5 +141,7 @@ namespace NextNews.Controllers
             return View();
 
         }
-}
+       
+
     }
+}
