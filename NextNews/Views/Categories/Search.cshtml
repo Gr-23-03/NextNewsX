@@ -23,8 +23,10 @@
 @*     <input class="form-control" type="search" placeholder="Search" name="searchString" aria-label="Search">
     <button class="btn btn-outline-success" type="submit" style="margin-left: 10px">Search</button> *@
 @* </form> *@
+
 <br/>
 <br/>
+
 @await Component.InvokeAsync("SearchBar", Model.Paggination)
 <!-- Display the list of articles -->
 
@@ -86,7 +88,7 @@ else
 @await Component.InvokeAsync("SearchBar", Model.Paggination)
 
 
-<partial name="_PagginationForSearch" model="@Model.Pager"></partial>
+@* <partial name="_PagginationForSearch" model="@Model"></partial> *@
 
 @* <!-- Content of news articles -->
 <div id="news-articles">
