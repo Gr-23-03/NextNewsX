@@ -1,6 +1,7 @@
 ﻿
 @{
     ViewData["Title"] = "Editor Dashboard";
+    // Layout = null;
 }
 
 <style>
@@ -16,16 +17,17 @@
         color: #333;
     }
 
-    div.container {
+    div.container1 {
         max-width: 900px;
         margin: 20px auto;
         background-color: #fff;
         padding: 20px;
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        
     }
 
-    ul.navbar {
+    ul.navbar1 {
         list-style-type: none;
         margin: 0;
         padding: 0;
@@ -41,7 +43,7 @@
         li a {
             display: block;
             color: white;
-            text-align: center;
+            
             padding: 14px 16px;
             text-decoration: none;
         }
@@ -53,10 +55,10 @@
     
 </style>
 
-<div class="container">
+<div class="container container1">
     <h1>Dashboard</h1>
 
-    <ul class="navbar">
+    <ul class="navbar navbar1">
         <li><a href="/">Home</a></li>
         <li><a asp-controller="Article" asp-action="CreateArticle">Create Article</a></li>
         <li><a asp-controller="Categories" asp-action="Index">Categories List</a></li>
