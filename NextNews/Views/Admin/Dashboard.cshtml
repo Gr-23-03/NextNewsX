@@ -43,8 +43,6 @@
         li a {
             display: block;
             color: white;
-            
-            padding: 14px 16px;
             text-decoration: none;
         }
 
@@ -55,14 +53,14 @@
 
 </style>
 
-<div class="container1">
+<div class="container container1">
     <h1>Dashboard</h1>
 
     <ul class="navbar navbar1" >
-        <li><a href="/">Home</a></li>
-        <li><a asp-controller="Admin" asp-action="Index">Statistics</a></li>  
-        <li><a asp-controller="User" asp-action="ManageUsers">Manage Users</a></li>
-        <li><a asp-controller="Role" asp-action="Index">List of Roles</a></li>
+        <li class="py-3 px-4"><a href="/">Home</a></li>
+        <li class="py-3 px-4"><a asp-controller="Admin" asp-action="Index">Statistics</a></li>
+        <li class="py-3 px-4"><a asp-controller="User" asp-action="ManageUsers">Manage Users</a></li>
+        <li class="py-3 px-4"><a asp-controller="Role" asp-action="Index">List of Roles</a></li>
     </ul>
 </div>
 
