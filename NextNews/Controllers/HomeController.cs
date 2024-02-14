@@ -1,9 +1,13 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NextNews.Models;
 using NextNews.Models.Database;
 using NextNews.Services;
 using NextNews.ViewModels;
+using Stripe;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace NextNews.Controllers
 {
@@ -15,14 +19,29 @@ namespace NextNews.Controllers
         private readonly IStockService _stockService;
         private readonly ICategoryService _categoryService;
 
+
         public HomeController(ILogger<HomeController> logger, IUserService userService,
             IArticleService articleService, ICategoryService categoryService, IStockService stockService)
+
+        private readonly UserManager<User> _userManager;
+        private readonly ISubscriptionService _subscriptionService;
+
+        public HomeController(
+            ILogger<HomeController> logger,
+            IUserService userService,
+            IArticleService articleService,
+            ICategoryService categoryService,
+            IStockService stockService,
+            UserManager<User> userManager,
+            ISubscriptionService subscriptionService)
         {
             _logger = logger;
             _userService = userService;
             _articleService = articleService;
             _stockService = stockService;
             _categoryService = categoryService;
+            _userManager = userManager;
+            _subscriptionService = subscriptionService;
         }
 
         //public IActionResult Index()
@@ -37,12 +56,48 @@ namespace NextNews.Controllers
         /* Most popular articles
            Latest articles 
            Articles by categories */
+
+
+
         public IActionResult Index()
         {
 
+            string usrId = _userManager.GetUserId(HttpContext.User) ?? "";
+            User usr = _userService.GetUserById(usrId);
+
+            if (usr != null)
+            {
+
+
+                bool premiumSubscription = _subscriptionService.HasSubscription(usrId, "Premium"); //_subscriptionService.GetSubscriptionsAsync().Any(s => s.SubscriptionType.Name == "Premium" && s.UserId == usr.Id && s.IsActive == true);
+               
+                bool basicSubscription = _subscriptionService.HasSubscription(usrId, "Basic"); //_subscriptionService.GetSubscriptionsAsync().Any(s => s.SubscriptionType.Name == "Basic" && s.UserId == usr.Id && s.IsActive == true);
+
+                if (premiumSubscription == true)
+                {
+                    ViewBag.SubscriptionTypeOfUser = "PremiumUser";
+                }
+                else if (basicSubscription == true)
+                {
+                    ViewBag.SubscriptionTypeOfUser = "BasicUser";
+                }
+                else
+                {
+                    ViewBag.SubscriptionTypeOfUser = "Another type of subscription";
+                }
+
+            }
+
+            else
+            {
+                ViewBag.SubscriptionTypeOfUser = "User not logged in";
+            }
+
+
+
+
             List<Article> allArticles = _articleService.GetArticles().ToList();
             List<Category> allCategories = _categoryService.GetCategories().ToList();
-
 
             int swedenId = allCategories.Where(a => a.Name == "Sweden").FirstOrDefault().Id;
             int localId = allCategories.Where(a => a.Name == "Local").FirstOrDefault().Id;
@@ -53,8 +108,6 @@ namespace NextNews.Controllers
             int artAndCultureId = allCategories.Where(a => a.Name == "Art & Culture").FirstOrDefault().Id;
             int weatherId = allCategories.Where(a => a.Name == "Weather").FirstOrDefault().Id;
             int entertainmentId = allCategories.Where(a => a.Name == "Entertainment").FirstOrDefault().Id;
-
-
 
             var vm = new HomeIndexVM()
             {
@@ -83,8 +136,12 @@ namespace NextNews.Controllers
                 ArticlesByCategoryHealth = allArticles.Where(a => a.CategoryId == healthId).OrderByDescending(a => a.DateStamp).Take(4).ToList(),
                 ArticlesByCategoryWeather = allArticles.Where(a => a.CategoryId == weatherId).OrderByDescending(a => a.DateStamp).Take(4).ToList(),
                 ArticlesByCategoryArtAndCulture = allArticles.Where(a => a.CategoryId == artAndCultureId).OrderByDescending(a => a.DateStamp).Take(4).ToList(),
-                ArticlesByCategoryEntertainment = allArticles.Where(a => a.CategoryId == entertainmentId).OrderByDescending(a => a.DateStamp).Take(4).ToList(),
-                EditorsChoiceArticles = allArticles.Where(a => a.IsEditorsChoice == true).OrderByDescending(a => a.DateStamp).Take(4).ToList(),
+
+
+
+
+
+                EditorsChoiceArticles = allArticles.Where(a => a.IsEditorsChoice == true).OrderByDescending(a => a.DateStamp).Take(5).ToList(),
 
                 //EditorsChoiceArticlesA = allArticles
                 //                        .Where(a => a.IsEditorsChoice == true)
@@ -113,7 +170,13 @@ namespace NextNews.Controllers
                 //                        .Take(2)  // Take the next two articles
                 //                        .ToList(),
 
+
+                ArticlesByCategoryEntertainment = allArticles.Where(a => a.CategoryId == entertainmentId).OrderByDescending(a => a.DateStamp).Take(4).ToList(),
+                EditorsChoiceArticles = allArticles.Where(a => a.IsEditorsChoice == true).OrderByDescending(a => a.DateStamp).Take(4).ToList(),
+            
+
             };
+
 
             return View(vm);
         }
@@ -141,7 +204,6 @@ namespace NextNews.Controllers
             return View();
 
         }
-       
 
     }
 }

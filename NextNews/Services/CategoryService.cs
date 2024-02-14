@@ -22,12 +22,14 @@ namespace NextNews.Services
             return await _context.Categories.ToListAsync();
         }
 
+
         public List<Category> GetCategories()
         {
             var objList = _context.Categories.ToList();
 
             return objList;
         }
+
 
         public List<Category> GetCategoriesToFooter()
         {
@@ -45,7 +47,6 @@ namespace NextNews.Services
         }
 
 
-
         //details category
         public async Task<Category> GetCategoryByIdAsync(int id)
         {
@@ -59,7 +60,6 @@ namespace NextNews.Services
         }
 
 
-
         //Update category
         public async Task UpdateCategoryAsync(Category category)
         {
@@ -68,9 +68,7 @@ namespace NextNews.Services
         }
 
 
-
         //delete category
-
         public async Task DeleteCategoryAsync(int id)
         {
             var category = await _context.Categories.FindAsync(id);

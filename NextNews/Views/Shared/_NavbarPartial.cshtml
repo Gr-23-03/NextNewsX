@@ -7,6 +7,15 @@
 
             <img src="~/images/NEXT.gif" style="width:30%; padding-left:30px;" />
 
+        </a>
+
+        @if (User.Identity.IsAuthenticated && User.IsInRole(" Premium"))
+         {
+
+           @await Component.InvokeAsync("BusinessApi")
+       }
+
+
         </a> *@
 <div class="container">
   <div class="row">
@@ -45,6 +54,7 @@
       // call the `updateDateTime` function every second
       setInterval(updateDateTime, 1000);
     </script>
+
     </div>
     <div class="col-7">
       <form class="d-flex" asp-controller="Categories" asp-action="Search">
@@ -82,8 +92,10 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
+
                             @await Component.InvokeAsync("NavbarLocalArticles")
                            
+
                         </li>  
                     </ul>
                 </li>
@@ -94,7 +106,9 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
+
                            @await Component.InvokeAsync("NavbarSwedenArticles")
+
                         </li>
                     </ul>
                 </li>
@@ -105,8 +119,10 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
-                            @await Component.InvokeAsync("NavbarWorldArticles")
-
+                             @if (User.Identity.IsAuthenticated)
+                            {
+                                @await Component.InvokeAsync("NavbarWorldArticles")
+                            }
                         </li>
                     </ul>
                 </li>
@@ -117,8 +133,10 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
-                            @await Component.InvokeAsync("NavbarBusinessArticles")
-
+                             @if (User.Identity.IsAuthenticated)
+                            {
+                                @await Component.InvokeAsync("NavbarBusinessArticles")
+                            }
                         </li>
                     </ul>
                 </li>
@@ -130,8 +148,10 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
-                            @await Component.InvokeAsync("NavbarSportArticles")
-
+                             @if (User.Identity.IsAuthenticated)
+                            {
+                                @await Component.InvokeAsync("NavbarSportArticles")
+                            }
                         </li>
                     </ul>
                 </li>
@@ -142,8 +162,10 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
-                            @await Component.InvokeAsync("NavbarArtArticles")
-
+                             @if (User.Identity.IsAuthenticated)
+                            {
+                                @await Component.InvokeAsync("NavbarArtArticles")
+                            }
                         </li>
                     </ul>
                 </li>
@@ -154,8 +176,10 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
-                            @await Component.InvokeAsync("NavbarEntertainmentArticles")
-
+                             @if (User.Identity.IsAuthenticated)
+                            {
+                                @await Component.InvokeAsync("NavbarEntertainmentArticles")
+                            }
                         </li>
                     </ul>
                 </li>
@@ -166,22 +190,81 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
-                            @await Component.InvokeAsync("NavbarHealthArticles")
-
+                             @if (User.Identity.IsAuthenticated)
+                            {
+                                @await Component.InvokeAsync("NavbarHealthArticles")
+                            }
                         </li>
                     </ul>
                 </li>
 
-                <li class="nav-item dropdown">
+
+              @*   <li class="nav-item dropdown">
                     <a class="nav-link dropdown" href="#" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
+
+
+                <li class="nav-item dropdown">
+
+                    <a class="nav-link dropdown" href="#" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
+
 
                         Weather
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                        <li>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12 col-md-4">
+                                        <a style=" color:red; font-weight:bold;font-size:50px" href="@Url.Action("ArticlesByCategories", "CategoriesView", new {categoryId = 6 })">Weather</a>
+                                        <div class="d-flex flex-column">
+                                            <a href="#">ALL</a>
+                                            <a href="#">Link 2</a>
+                                        </div>
+                                    </div>
+                                    <div class="row col-12 col-md-8">
+                                        <div class="picture-row">
+                                            <div class="picture-container">
+                                                <img src="http://placehold.it/400x300" alt="Picture 1" class="picture">
+                                                <div class="text-container">
+                                                    <p>Text for Picture 1</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="picture-container">
+                                                <img src="http://placehold.it/400x300" alt="Picture 2" class="picture">
+                                                <div class="text-container">
+                                                    <p>Text for Picture 2</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="picture-container">
+                                                <img src="http://placehold.it/400x300" alt="Picture 3" class="picture">
+                                                <div class="text-container">
+                                                    <p>Text for Picture 3</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="picture-container">
+                                                <img src="http://placehold.it/400x300" alt="Picture 4" class="picture">
+                                                <div class="text-container">
+                                                    <p>Text for Picture 4</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </li> *@
+
+
+
                            <li>
                             @await Component.InvokeAsync("NavbarWeatherArticles")
 
                         </li>
+
                     </ul>
                 </li>
                         
@@ -192,8 +275,12 @@
             <partial name="_loginPartial"> </partial/a>
            
 
+            
+
+
            <div>
                 <a asp-controller="Article" asp-action="EditorDashboard" class="btn" style="background-color: black; color: white;">Dashboard</a>
+
 
            </div>
 
@@ -202,8 +289,3 @@
 
 </nav>
  @await Component.InvokeAsync("BusinessApi")
-
-
-
-
-

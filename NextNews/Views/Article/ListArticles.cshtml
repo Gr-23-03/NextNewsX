@@ -2,7 +2,7 @@
 
 @using NextNews.Services
 
-@inject ICategoryService _categoryService;
+ @inject ICategoryService _categoryService; 
 
 
 
@@ -26,11 +26,11 @@
 <div class="row">
 
     @*   ****  LOOP WITH LIST OF ARTICLES   ****   *@
-
+   
 
     @foreach (var item in Model)
     {
-
+  
         <div class="col-4 p-4" style="border:1px solid gray">
 
             @*  <img src="@item.ImageLink" style="width: 100%"  /> *@
@@ -54,20 +54,19 @@
             <br />
 
 
-
-
-
             <a asp-action="Details" asp-controller="Article" asp-route-id="@item.Id" class="btn btn-outline-info" style="wavy">Read More </a>
             <a asp-action="Edit" asp-controller="Article" asp-route-id="@item.Id" class="btn btn-outline-info" style="wavy">Edit</a>
             <a asp-action="Delete" asp-controller="Article" asp-route-id="@item.Id" class="btn btn-outline-info" style="wavy">Delete</a>
 
         </div>
     }
-
+   </ul>
 </div>
 
-      
-  <partial name="_PagginationPartialView" model="@pager"></partial>
+      <br/>
+  <partial name="_PagginationPartialView" model="@ViewBag.Pager"></partial>
+
+  
 
 
 
@@ -77,6 +76,27 @@
 
 
 
+@* <div>
+    @foreach (var article in Model)
+    {
+        <div class="row mt-4">
+            <!-- Image Column -->
+            <div class="col-md-4">
+                <img class="img-on-HomeIndex img-fluid" src="@article.ImageLink" alt="@article.HeadLine">
+            </div>
+            <!-- Summary and Date Column -->
+            <div class="col-md-8">
+                <div class="latest-news-headline">
+                    <a asp-action="Details" asp-controller="Article" asp-route-id="@article.Id" class="latest-news-link">
+                        @article.HeadLine
+                    </a>
+                </div>
+                <p class="latest-news-summary">@article.ContentSummary</p>
+                <p class="latest-news-date">Published on @article.DateStamp?.ToString("M") @article.DateStamp?.ToString("t")</p>
+            </div>
+        </div>
+        <hr class="hr-search" width="100%" size="3">
+    }
 
-
-
+</div>
+ *@

@@ -19,11 +19,8 @@ namespace NextNews.Services
         IEnumerable<Article> GetArticlesByCategory(int categoryId);
         public Task<string> UploadImage(IFormFile file);
 
-       List<Article> GetEditorsChoiceArticles();
-
+        List<Article> GetEditorsChoiceArticles();
         void addOrRemoveEditorsChoice(string addOrRemove, int articleId);
-
-        //string GetEditorsChoiceArticles();
 
         void CheckExpiredSubs();
         Task<List<LatestNewsViewModel>> LatestArticles();
