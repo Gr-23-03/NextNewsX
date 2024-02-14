@@ -7,6 +7,15 @@
 
             <img src="~/images/NEXT.gif" style="width:30%; padding-left:30px;" />
 
+        </a>
+
+        @if (User.Identity.IsAuthenticated && User.IsInRole(" Premium"))
+         {
+
+           @await Component.InvokeAsync("BusinessApi")
+       }
+
+
         </a> *@
 <div class="container">
   <div class="row">
@@ -41,6 +50,7 @@
       // call the `updateDateTime` function every second
       setInterval(updateDateTime, 1000);
     </script>
+
     </div>
     <div class="col-7">
       <form class="d-flex" asp-controller="Categories" asp-action="Search">
@@ -78,8 +88,18 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
-                            @await Component.InvokeAsync("NavbarLocalArticles")
+
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                @await Component.InvokeAsync("NavbarLocalArticles")
+                                
+                            }
+                           
+                           
+
+                          
                             
+
                         </li>  
                     </ul>
                 </li>
@@ -90,7 +110,13 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            @await Component.InvokeAsync("NavbarSwedenArticles")
+
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                              @await Component.InvokeAsync("NavbarSwedenArticles")
+                            }
+
+
                         </li>
                     </ul>
                 </li>
@@ -101,8 +127,10 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
-                            @await Component.InvokeAsync("NavbarWorldArticles")
-
+                             @if (User.Identity.IsAuthenticated)
+                            {
+                                @await Component.InvokeAsync("NavbarWorldArticles")
+                            }
                         </li>
                     </ul>
                 </li>
@@ -113,8 +141,10 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
-                            @await Component.InvokeAsync("NavbarBusinessArticles")
-
+                             @if (User.Identity.IsAuthenticated)
+                            {
+                                @await Component.InvokeAsync("NavbarBusinessArticles")
+                            }
                         </li>
                     </ul>
                 </li>
@@ -125,8 +155,10 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
-                            @await Component.InvokeAsync("NavbarSportArticles")
-
+                             @if (User.Identity.IsAuthenticated)
+                            {
+                                @await Component.InvokeAsync("NavbarSportArticles")
+                            }
                         </li>
                     </ul>
                 </li>
@@ -137,8 +169,10 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
-                            @await Component.InvokeAsync("NavbarArtArticles")
-
+                             @if (User.Identity.IsAuthenticated)
+                            {
+                                @await Component.InvokeAsync("NavbarArtArticles")
+                            }
                         </li>
                     </ul>
                 </li>
@@ -149,8 +183,10 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
-                            @await Component.InvokeAsync("NavbarEntertainmentArticles")
-
+                             @if (User.Identity.IsAuthenticated)
+                            {
+                                @await Component.InvokeAsync("NavbarEntertainmentArticles")
+                            }
                         </li>
                     </ul>
                 </li>
@@ -161,11 +197,18 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
-                            @await Component.InvokeAsync("NavbarHealthArticles")
-
+                             @if (User.Identity.IsAuthenticated)
+                            {
+                                @await Component.InvokeAsync("NavbarHealthArticles")
+                            }
                         </li>
                     </ul>
                 </li>
+
+
+              @*   <li class="nav-item dropdown">
+                    <a class="nav-link dropdown" href="#" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
+
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown" asp-controller="CategoriesView" asp-action="ArticlesByCategories" asp-route-categoryId="6" style="color:black; font-weight:bold"
@@ -174,6 +217,7 @@
                        aria-expanded="false"
                        onmouseover="this.style.color='red'"
                        onmouseout="this.style.color='black'">
+
                         Weather
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -221,10 +265,14 @@
                                 </div>
                             </div>
 
+                        </li> *@
+
+
                            <li>
                             @await Component.InvokeAsync("NavbarWeatherArticles")
 
                         </li>
+
                     </ul>
                 </li>
  *@
@@ -240,8 +288,12 @@
             <partial name="_loginPartial"> </partial/a>
            
 
+            
+
+
            <div>
                 <a asp-controller="Article" asp-action="EditorDashboard" class="btn" style="background-color: black; color: white;">Dashboard</a>
+
 
            </div>
 

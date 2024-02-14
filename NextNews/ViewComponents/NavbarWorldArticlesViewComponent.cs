@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NextNews.Services;
 using NextNews.ViewModels;
 
@@ -16,7 +17,7 @@ namespace NextNews.ViewComponents
         }
 
 
-
+        [Authorize(Roles = "Premium")]
         public IViewComponentResult Invoke()
         {
 
