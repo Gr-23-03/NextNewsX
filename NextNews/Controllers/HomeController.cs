@@ -143,37 +143,7 @@ namespace NextNews.Controllers
 
                 EditorsChoiceArticles = allArticles.Where(a => a.IsEditorsChoice == true).OrderByDescending(a => a.DateStamp).Take(5).ToList(),
 
-                //EditorsChoiceArticlesA = allArticles
-                //                        .Where(a => a.IsEditorsChoice == true)
-                //                        .OrderByDescending(a => a.DateStamp)
-                //                        .Take(2)  // Take the first two articles
-                //                        .ToList(),
-
-                //EditorsChoiceArticlesB = allArticles
-                //                        .Where(a => a.IsEditorsChoice == true)
-                //                        .OrderByDescending(a => a.DateStamp)
-                //                        .Skip(2)  // Skip the first two articles
-                //                        .Take(3)  // Take the next three articles
-                //                        .ToList(),
-
-                //EditorsChoiceArticlesC = allArticles
-                //                        .Where(a => a.IsEditorsChoice == true)
-                //                        .OrderByDescending(a => a.DateStamp)
-                //                        .Skip(5)  // Skip the first five articles
-                //                        .Take(3)  // Take the next three articles
-                //                        .ToList(),
-
-                //EditorsChoiceArticlesD = allArticles
-                //                        .Where(a => a.IsEditorsChoice == true)
-                //                        .OrderByDescending(a => a.DateStamp)
-                //                        .Skip(8)  // Skip the first 8 articles
-                //                        .Take(2)  // Take the next two articles
-                //                        .ToList(),
-
-
-                ArticlesByCategoryEntertainment = allArticles.Where(a => a.CategoryId == entertainmentId).OrderByDescending(a => a.DateStamp).Take(4).ToList(),
-                EditorsChoiceArticles = allArticles.Where(a => a.IsEditorsChoice == true).OrderByDescending(a => a.DateStamp).Take(4).ToList(),
-            
+              
 
             };
 

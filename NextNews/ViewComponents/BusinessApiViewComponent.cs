@@ -14,6 +14,8 @@ namespace NextNews.ViewComponents
             _stockService = stockService;       
         }
 
+
+
         [Authorize(Roles = "Premium")]
         public async Task<IViewComponentResult> InvokeAsync()
         {
