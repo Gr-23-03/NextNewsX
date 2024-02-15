@@ -17,7 +17,11 @@
      &nbsp;
     
      <a asp-action="Create" asp-controller="NewsLetter" name=""rele="" style="target" accesskey="" data-drupal-link-system-path="newsletter" class="is-active">Newsletter</a>
-    </div>
+       &nbsp;
+     <a href="CurrencyRates" class="is-active"data-drupal-link-system-path="node/36">Currency Rates</a>
+     
+
+ </div>
     
    
   </div>
@@ -58,8 +62,9 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+         
             <img src="~/images/nextnews.img/nextnews (5).jpg" style="width:12%;"/>
-            
+            </a>
             
            
                  
@@ -70,31 +75,37 @@
                     </a>
                 </li>
 
-                <li class="nav-item dropdown transition-delay: 200s">
-                    <a class="nav-link dropdown.transition-delay: 1000s" href="@Url.Action("ArticlesByCategories", "CategoriesView", new {categoryId = 4 })" style="color:black; font-weight:bold" id="navbarDropdown" role="button" aria-expanded="true" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
-
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown" href="#" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
                         Local
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
+
+
                             @await Component.InvokeAsync("NavbarLocalArticles")
-                            
+                           
+
                         </li>  
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
+                    <a class="nav-link dropdown" href="#" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
 
-                    <a class="nav-link dropdown" href="@Url.Action("ArticlesByCategories", "CategoriesView", new {categoryId = 5 })" style="color:black; font-weight:bold" id="navbarDropdown" role="button" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
                         Sweden
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
-                            @await Component.InvokeAsync("NavbarSwedenArticles")
+
+
+                           @await Component.InvokeAsync("NavbarSwedenArticles")
+
+
                         </li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown" href="@Url.Action("ArticlesByCategories", "CategoriesView", new {categoryId = 3 })" style="color:black; font-weight:bold" id="navbarDropdown" role="button" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
+                    <a class="nav-link dropdown" href="#" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
 
                         World
                     </a>
@@ -106,7 +117,7 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown" href="@Url.Action("ArticlesByCategories", "CategoriesView", new {categoryId = 1 })" style="color:black; font-weight:bold" id="navbarDropdown" role="button" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
+                    <a class="nav-link dropdown" href="#" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
 
                         Business
                     </a>
@@ -118,7 +129,8 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown" href="@Url.Action("ArticlesByCategories", "CategoriesView", new {categoryId = 2 })" style="color:black; font-weight:bold" id="navbarDropdown" role="button" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
+                    <a class="nav-link dropdown" href="#" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
+
 
                         Sport
                     </a>
@@ -130,7 +142,7 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown" href="@Url.Action("ArticlesByCategories", "CategoriesView", new { categoryId = 9 })" style="color:black; font-weight:bold" id="navbarDropdown" role="button" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
+                    <a class="nav-link dropdown" href="#" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
 
                         Art & Culture
                     </a>
@@ -141,8 +153,8 @@
                         </li>
                     </ul>
                 </li>
-                @* <li class="nav-item dropdown">
-                    <a class="nav-link dropdown" href="@Url.Action("ArticlesByCategories", "CategoriesView", new { categoryId = 7 })" style="color:black; font-weight:bold" id="navbarDropdown" role="button" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown" href="#" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
 
                         Entertainment
                     </a>
@@ -154,7 +166,7 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown" href="@Url.Action("ArticlesByCategories", "CategoriesView", new {categoryId = 10 })" style="color:black; font-weight:bold" id="navbarDropdown" role="button" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
+                    <a class="nav-link dropdown" href="#" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
 
                         Health
                     </a>
@@ -167,15 +179,22 @@
                 </li>
 
                 <li class="nav-item dropdown">
+
                     <a class="nav-link dropdown" asp-controller="CategoriesView" asp-action="ArticlesByCategories" asp-route-categoryId="6" style="color:black; font-weight:bold"
                        id="navbarDropdown"
                        role="button"
                        aria-expanded="false"
                        onmouseover="this.style.color='red'"
                        onmouseout="this.style.color='black'">
+
+                    <a class="nav-link dropdown" href="#" style="color:black; font-weight:bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
+
+
+
                         Weather
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
                         <li>
                             <div class="container">
                                 <div class="row">
@@ -220,20 +239,19 @@
                                 </div>
                             </div>
 
+
+
+
+
                            <li>
                             @await Component.InvokeAsync("NavbarWeatherArticles")
 
                         </li>
                     </ul>
                 </li>
- *@
-                <li>
-                    <a class="nav-link" style="color:black; font-weight:bold" asp-action="GetStockDataView" asp-controller="Stock">
-                     Stock Markets
-                    </a>
-                </li>
                         
             </ul>
+           
 
                 
             <partial name="_loginPartial"> </partial/a>

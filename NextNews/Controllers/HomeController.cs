@@ -18,6 +18,11 @@ namespace NextNews.Controllers
         private readonly IArticleService _articleService;
         private readonly IStockService _stockService;
         private readonly ICategoryService _categoryService;
+
+
+        public HomeController(ILogger<HomeController> logger, IUserService userService,
+            IArticleService articleService, ICategoryService categoryService, IStockService stockService)
+
         private readonly UserManager<User> _userManager;
         private readonly ISubscriptionService _subscriptionService;
 
@@ -169,7 +174,6 @@ namespace NextNews.Controllers
             return View();
 
         }
-     
-    
+
     }
 }
