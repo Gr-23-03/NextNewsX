@@ -4,6 +4,7 @@
     ViewData["Title"] = "Subscribe to Our Newsletter";
 }
 
+<h1 class="text-center mb-5">@ViewBag.Message</h1>
 <!-- Load Bootstrap and Font Awesome for styling and icons -->
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
@@ -74,8 +75,8 @@
                     <i class="fas fa-envelope-open-text fa-3x"></i>
                 </div>
                 <h1 class="text-center">Join Our Newsletter</h1>
-                <p class="text-center">Sign up to receive the latest news and updates from NEXTnews directly to your inbox.</p>
-                <form asp-action="Create">
+                <p class="text-center">Sign up to receive the latest news and updates from NEXTNEWS directly to your inbox.</p>
+                <form id="newsletterForm" asp-action="Create">
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <input asp-for="FirstName" class="form-control" placeholder="First Name">
@@ -86,10 +87,7 @@
                             <span asp-validation-for="LastName" class="text-danger"></span>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <input asp-for="DateofBirth" class="form-control" placeholder="Date of Birth">
-                        <span asp-validation-for="DateofBirth" class="text-danger"></span>
-                    </div>
+                    
                     <div class="form-group">
                         <input asp-for="Email" type="email" class="form-control" placeholder="Email Address">
                         <span asp-validation-for="Email" class="text-danger"></span>
@@ -102,6 +100,36 @@
         </div>
     </div>
 </div>
+
+<!-- Confirmation message, initially hidden -->
+<div id="confirmationMessage" class="alert alert-success" style="display:none;">
+    <strong>Success!</strong> Thank you for subscribing to our newsletter.Soon you will get a confirmation email.
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#newsletterForm').submit(function (event) {
+            event.preventDefault(); // Prevent the default form submission
+            var formData = $(this).serialize(); // Serialize the form data
+
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'), // or the URL to your server-side script
+                data: formData,
+                success: function (response) {
+                    // Assuming the server responds with a success status
+                    $('#newsletterForm').hide(); // Hide the form
+                    $('#confirmationMessage').show(); // Show the confirmation message
+                },
+                error: function () {
+                    // Handle errors (optional)
+                    alert('There was a problem with your subscription. Please try again.');
+                }
+            });
+        });
+    });
+</script>
+
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 
