@@ -1,5 +1,5 @@
 ﻿@model NextNews.ViewModels.HomeIndexVM
-
+@using NextNews.ViewComponents
 @using NextNews.Services;
 
 @inject IArticleService _articleService;
@@ -291,10 +291,6 @@
                                 <a asp-action="Details" asp-controller="Article" asp-route-id="@categoryArticle.Id" class="latest-news-link" style="text-decoration: underline; font-size: 17px">
                                     @categoryArticle.HeadLine
 
-                                    @if (!premiumSubscription)
-                                    {
-                                        <span style="color:yellow"><i class="fas fa-lock"></i> </span>
-                                    }
 
                                 </a>
                             </div>
@@ -323,12 +319,6 @@
                                     <p class="latest-news-headline">@article.HeadLine</p>
                                     <p class="latest-news-summary">@article.ContentSummary</p>
 
-                                    @if (!premiumSubscription)
-                                    {
-                                        <span style="color:yellow"><i class="fas fa-lock"></i> </span>
-                                    }
-
-
                                     <p class="latest-news-date">Published on @article.DateStamp?.ToString("M") @article.DateStamp?.ToString("t")</p>
                                 </a>
                             </div>
@@ -345,6 +335,41 @@
                     </button>
 
                 </div>
+
+
+                @* Advertisement column *@
+                <div>
+                    <div class="">
+
+                        <div class="advertisement-column">
+                            <p>Ad</p>
+                            <div class="advertisement-item mb-3">
+                                <a href="https://www.lexicon.se">
+                                    <img src="https://www.lexicon.se/Static/images/logo-lexicon_2x.gif" class="img-fluid" alt="Advertisement 1">
+                                </a>
+                            </div>
+                            <div class="advertisement-item mb-3">
+                                <a href="https://www.lexicon.se">
+                                    <img src="https://motalajobb.se/wp-content/uploads/sites/8/2023/10/Lexicon.jpg" class="img-fluid" alt="Advertisement 2">
+                                </a>
+                            </div>
+                            <div class="advertisement-item mb-3">
+                                <a href="~/images/lexicon reklm.jpg">
+                                    <img src="~/images/lexicon reklm.jpg" class="img-fluid" alt="Advertisement 3">
+                                </a>
+                            </div>
+                            <div class="advertisement-item mb-3">
+                                <a href="https://www.lexicon.se/link/6c8fbd81c2554c9190539e9e88fcf758.aspx">
+                                    <img src="https://www.lexicon.se/link/6c8fbd81c2554c9190539e9e88fcf758.aspx" class="img-fluid" alt="Advertisement 4">
+                                </a>
+                            </div>
+                        </div>
+                        <br />
+                        @* div class="form-group mb-3"> *@
+                        @* Weather column *@
+
+
+
 
 
                 @* Advertisement column *@
@@ -378,273 +403,270 @@
 
                 @* Weather column *@
 
-                <div class="weather-column">
 
-                    <p>Weather</p>
+                                 @* Add your weather content here *@
+
+                        <div class="advertisement-column mb-3">
+                            <p>Weather</p>
+
 
                     <!-- Add your weather content here -->
 
-                </div>
 
-                <div class="form-group mb-3">
-                </div>
+                            @await Component.InvokeAsync(typeof(WheatherApiViewComponentAside), new { chosenCity = "Linköping" })
+
+                        </div>
+
 
                 @* Advertisement column *@
 
-                <div class="advertisement-column">
-                    <p>Ad</p>
-                    <div class="advertisement-item mb-3">
-                        <a href="https://www.lexicon.se">
-                            <img src="https://www.lexicon.se/link/1c207bb2aa544a77849bab48fa52fb82.aspx" class="img-fluid" alt="Advertisement 1">
-                        </a>
-                    </div>
-                    <div class="advertisement-item mb-3">
-                        <a href="https://www.tesla.com/sv_se">
-                            <h3>Tesla </h3><img src="https://i.pinimg.com/originals/ed/6c/f0/ed6cf0b9b48c336020037c310ac37f56.jpg" class="img-fluid" alt="Advertisement 2">
-                        </a>
-                    </div>
-                    <div class="advertisement-item mb-3">
-                        <a href="https://www.samsung.com/se">
-                            <img src="https://webset.b-cdn.net/wp-content/uploads/2024/01/Samsung-Galaxy-S24-3.jpg" class="img-fluid" alt="Advertisement 3">
-                        </a>
-                    </div>
+
+                        @* Advertisement column *@
+
 
                 </div>
 
-            </div>
+                        <div class="">
+                            <div class="advertisement-column" width="100%">
+                                <p>Ad</p>
+                                <div class="advertisement-item mb-1">
+                                    <a href="https://www.lexicon.se">
+                                        <img src="https://www.lexicon.se/link/1c207bb2aa544a77849bab48fa52fb82.aspx" class="img-fluid" alt="Advertisement 1">
+                                    </a>
+                                </div>
+                                <div class="advertisement-item mb-1">
+                                    <a href="https://www.tesla.com/sv_se">
+                                        <h3>Tesla </h3><img src="https://i.pinimg.com/originals/ed/6c/f0/ed6cf0b9b48c336020037c310ac37f56.jpg" class="img-fluid" alt="Advertisement 2">
+                                    </a>
+                                </div>
+                                <div class="advertisement-item mb-1">
+                                    <a href="https://www.samsung.com/se">
+                                        <img src="https://webset.b-cdn.net/wp-content/uploads/2024/01/Samsung-Galaxy-S24-3.jpg" class="img-fluid" alt="Advertisement 3">
+                                    </a>
+                                </div>
 
-            <div class="form-group mb-3">
-            </div>
 
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="form-group mb-3">
+
     </div>
 
-    <h2 style="color: black"><a asp-controller="Article" asp-action="ListArticles" asp-route-editorsChoice="editorschoice">Editor's Choice</a></h2>
+</div>
+</div>
 
-    <div class="row">
-        @foreach (var news in Model.EditorsChoiceArticles)
-        {
-            <div class="col-3">
-                <div class="article-imageLink">
-                    <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article ImageLink" style="width:100%">
-                </div>
-                <div class="latest-news-headline">
-                    <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
-                        @news.HeadLine
-                        @if (!premiumSubscription)
-                        {
-                            <span style="color:yellow"><i class="fas fa-lock"></i> </span>
-                        }
+<div class="form-group mb-3">
+</div>
 
-                    </a>
-                </div>
-                <p class="latest-news-summary">@news.ContentSummary</p>
-                <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
+
+<h2 style="color: black"><a asp-controller="Article" asp-action="ListArticles" asp-route-editorsChoice="editorschoice">Editor's Choice</a></h2>
+
+<div class="row">
+    @foreach (var news in Model.EditorsChoiceArticles)
+    {
+        <div class="col-3">
+            <div class="article-imageLink">
+                <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article ImageLink" style="width:100%">
+
             </div>
-        }
-    </div>
-
-    <div class="form-group mb-3">
-    </div>
-
-    @{
-        int catIdBusiness = _articleService.GetCategoryIdCategoryName("Business");
+            <div class="latest-news-headline">
+                <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
+                    @news.HeadLine
+                </a>
+            </div>
+            <p class="latest-news-summary">@news.ContentSummary</p>
+            <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
+        </div>
     }
+</div>
 
-    <h2 style="color: black"><a asp-controller="Article" asp-action="ListArticles" asp-route-categoryId="@catIdBusiness">Business</a></h2>
+<div class="form-group mb-3">
+</div>
 
-    <div class="row">
-        @foreach (var news in Model.ArticlesByCategoryBusiness)
-        {
-            <div class="col-3">
-                <div class="article-imageLink">
-                    <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article ImageLink" style="width:100%">
-                </div>
-                <div class="latest-news-headline">
-                    <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
-                        @news.HeadLine
+@{
+    int catIdBusiness = _articleService.GetCategoryIdCategoryName("Business");
+}
 
-                        @if (!premiumSubscription)
-                        {
-                            <span style="color:yellow"><i class="fas fa-lock"></i> </span>
-                        }
+<
+<h2 style="color: black"><a asp-controller="Article" asp-action="ListArticles" asp-route-categoryId="@catIdBusiness">Business</a></h2>
 
-                    </a>
-                </div>
-                <p class="latest-news-summary">@news.ContentSummary</p>
-                <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
+<div class="row">
+    @foreach (var news in Model.ArticlesByCategoryBusiness)
+    {
+        <div class="col-3">
+            <div class="article-imageLink">
+                <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article ImageLink" style="width:100%">
+
             </div>
-        }
-    </div>
-
-    <div class="form-group mb-3">
-    </div>
-
-    @{
-        int catIdWeather = _articleService.GetCategoryIdCategoryName("Weather");
+            <div class="latest-news-headline">
+                <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
+                    @news.HeadLine
+                </a>
+            </div>
+            <p class="latest-news-summary">@news.ContentSummary</p>
+            <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
+        </div>
     }
+</div>
 
-    <h2 style="color: black"><a asp-controller="Article" asp-action="ListArticles" asp-route-categoryId="@catIdWeather">Weather</a></h2>
+<div class="form-group mb-3">
+</div>
 
-    <div class="row">
-        @foreach (var news in Model.ArticlesByCategoryWeather)
-        {
-            <div class="col-3">
-                <div class="article-imageLink">
-                    <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article ImageLink" style="width:100%">
-                </div>
-                <div class="latest-news-headline">
-                    <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
-                        @news.HeadLine
+@{
+    int catIdWeather = _articleService.GetCategoryIdCategoryName("Weather");
+}
 
-                        @if (!premiumSubscription)
-                        {
-                            <span style="color:yellow"><i class="fas fa-lock"></i> </span>
-                        }
+<h2 style="color: black"><a asp-controller="Article" asp-action="ListArticles" asp-route-categoryId="@catIdWeather">Weather</a></h2>
 
 
+<div class="row">
+    @foreach (var news in Model.ArticlesByCategoryWeather)
+    {
+        <div class="col-3">
+            <div class="article-imageLink">
+                <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article ImageLink" style="width:100%">
 
-                    </a>
-                </div>
-                <p class="latest-news-summary">@news.ContentSummary</p>
-                <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
             </div>
-        }
-    </div>
-
-    <div class="form-group mb-3">
-    </div>
-
-    @{
-        int catIdHealth = _articleService.GetCategoryIdCategoryName("Health");
+            <div class="latest-news-headline">
+                <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
+                    @news.HeadLine
+                </a>
+            </div>
+            <p class="latest-news-summary">@news.ContentSummary</p>
+            <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
+        </div>
     }
+</div>
 
-    <h2 style="color: black"><a asp-controller="Article" asp-action="ListArticles" asp-route-categoryId="@catIdHealth">Health</a></h2>
+<div class="form-group mb-3">
+</div>
 
-    <div class="row">
-        @foreach (var news in Model.ArticlesByCategoryHealth)
-        {
-            <div class="col-3">
-                <div class="article-imageLink">
-                    <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article ImageLink" style="width:100%">
-                </div>
-                <div class="latest-news-headline">
-                    <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
-                        @news.HeadLine
+@{
+    int catIdHealth = _articleService.GetCategoryIdCategoryName("Health");
+}
 
-                        @if (!premiumSubscription)
-                        {
-                            <span style="color:yellow"><i class="fas fa-lock"></i> </span>
-                        }
+<h2 style="color: black"><a asp-controller="Article" asp-action="ListArticles" asp-route-categoryId="@catIdHealth">Health</a></h2>
 
 
+<div class="row">
+    @foreach (var news in Model.ArticlesByCategoryHealth)
+    {
+        <div class="col-3">
+            <div class="article-imageLink">
+                <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article ImageLink" style="width:100%">
 
-                    </a>
-                </div>
-                <p class="latest-news-summary">@news.ContentSummary</p>
-                <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
             </div>
-        }
-    </div>
-
-    <div class="form-group mb-3">
-    </div>
-
-    @{
-        int catIdSports = _articleService.GetCategoryIdCategoryName("Sport");
+            <div class="latest-news-headline">
+                <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
+                    @news.HeadLine
+                </a>
+            </div>
+            <p class="latest-news-summary">@news.ContentSummary</p>
+            <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
+        </div>
     }
+</div>
 
-    <h2 style="color: black"><a asp-controller="Article" asp-action="ListArticles" asp-route-categoryId="@catIdSports">Sport</a></h2>
+<div class="form-group mb-3">
+</div>
 
-    <div class="row">
-        @foreach (var news in Model.ArticlesByCategorySport)
-        {
-            <div class="col-3">
-                <div class="article-imageLink">
-                    <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article ImageLink" style="width:100%">
-                </div>
-                <div class="latest-news-headline">
-                    <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
-                        @news.HeadLine
+@{
+    int catIdSports = _articleService.GetCategoryIdCategoryName("Sport");
+}
 
-                        @if (!premiumSubscription)
-                        {
-                            <span style="color:yellow"><i class="fas fa-lock"></i> </span>
-                        }
+<h2 style="color: black"><a asp-controller="Article" asp-action="ListArticles" asp-route-categoryId="@catIdSports">Sport</a></h2>
 
 
-                    </a>
-                </div>
-                <p class="latest-news-summary">@news.ContentSummary</p>
-                <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
+<div class="row">
+    @foreach (var news in Model.ArticlesByCategorySport)
+    {
+        <div class="col-3">
+            <div class="article-imageLink">
+                <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article ImageLink" style="width:100%">
+
             </div>
-        }
-    </div>
-
-    <div class="form-group mb-3">
-    </div>
-
-    <div class="form-group mb-3">
-    </div>
-@* 
-    @{
-        int catIdEntertainment = _articleService.GetCategoryIdCategoryName("Entertainment");
+            <div class="latest-news-headline">
+                <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
+                    @news.HeadLine
+                </a>
+            </div>
+            <p class="latest-news-summary">@news.ContentSummary</p>
+            <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
+        </div>
     }
+</div>
 
-    <h2 style="color: black"><a asp-controller="Article" asp-action="ListArticles" asp-route-categoryId="@catIdEntertainment">Entertainment</a></h2>
+<div class="form-group mb-3">
+</div>
 
-    <div class="row">
-        @foreach (var news in Model.ArticlesByCategoryEntertainment)
-        {
-            <div class="col-3">
-                <div class="article-imageLink">
-                    <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article ImageLink" style="width:100%">
-                </div>
-                <div class="latest-news-headline">
-                    <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
-                        @news.HeadLine
-                    </a>
-                </div>
-                <p class="latest-news-summary">@news.ContentSummary</p>
-                <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
+
+@{
+    int catIdEntertainment = _articleService.GetCategoryIdCategoryName("Entertainment");
+}
+
+
+<h2 style="color: black"><a asp-controller="Article" asp-action="ListArticles" asp-route-categoryId="@catIdEntertainment">Entertainment</a></h2>
+
+
+<div class="row">
+    @foreach (var news in Model.ArticlesByCategoryEntertainment)
+    {
+        <div class="col-3">
+            <div class="article-imageLink">
+                <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article ImageLink" style="width:100%">
             </div>
-        }
-    </div> *@
-  
-
-    @{
-        int catIdArtAndCulture = _articleService.GetCategoryIdCategoryName("Art & Culture");
+            <div class="latest-news-headline">
+                <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
+                    @news.HeadLine
+                </a>
+            </div>
+            <p class="latest-news-summary">@news.ContentSummary</p>
+            <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
+        </div>
     }
+</div>
 
-    <h2 style="color: black"><a asp-controller="Article" asp-action="ListArticles" asp-route-categoryId="@catIdArtAndCulture">Art & Culture</a></h2>
+<div class="form-group mb-3">
+</div>
 
-    <div class="row">
 
-        @foreach (var news in Model.ArticlesByCategoryArtAndCulture)
-        {
-            <div class="col-3">
-                <div class="article-imageLink">
-                    <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article ImageLink" style="width:100%">
-                </div>
-                <div class="latest-news-headline">
-                    <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
-                        @news.HeadLine
+@{
+    int catIdArtAndCulture = _articleService.GetCategoryIdCategoryName("Art & Culture");
+}
 
-                        @if (!premiumSubscription)
-                        {
-                            <span style="color:yellow"><i class="fas fa-lock"></i> </span>
-                        }
+<h2 style="color: black"><a asp-controller="Article" asp-action="ListArticles" asp-route-categoryId="@catIdArtAndCulture">Art & Culture</a></h2>
 
-                    </a>
-                </div>
-                <p class="latest-news-summary">@news.ContentSummary</p>
-                <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
+<div class="row">
+
+
+    @foreach (var news in Model.ArticlesByCategoryArtAndCulture)
+    {
+        <div class="col-3">
+            <div class="article-imageLink">
+                <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article ImageLink" style="width:100%">
             </div>
-        }
-    </div>
+            <div class="latest-news-headline">
+                <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
+                    @news.HeadLine
+                </a>
+            </div>
+            <p class="latest-news-summary">@news.ContentSummary</p>
+            <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
+        </div>
+    }
+</div>
+
+                </div>
+
+
 
 </div>
 

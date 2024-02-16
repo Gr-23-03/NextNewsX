@@ -1,6 +1,6 @@
-﻿@model NextNews.Models.Wheather
-
-<style>
+﻿ @model NextNews.Models.Wheather
+ 
+ <style>
     #weatherDetails {
         display: none;
         max-width: 400px;
@@ -34,9 +34,13 @@
         }
 </style>
 
+
 <div>
+   
     <div id="weatherDetails">
+       
         <h2>Weather Information</h2>
+        <img src="@Model.icon.url" alt="Weather Icon" />
         <p>City: @Model.City</p>
         <p>Summary: @Model.Summary</p>
         <p>Temperature (Celsius): @Model.TemperatureCelsius</p>
@@ -45,11 +49,12 @@
         <p>Wind Speed: @Model.windSpeed</p>
         <p>Date: @Model.date</p>
         <p>Unix Time: @Model.unixTime</p>
-        <img src="@Model.icon.url" alt="Weather Icon" />
+      
+       
     </div>
-</div>
 
-<img id="cloudIcon" src="@Model.icon.url" alt="Cloud Icon" style="cursor: pointer;">
+</div>
+<img id="cloudIcon" src="@Model.icon.url" alt="Cloud Icon" style="cursor: pointer" />
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
