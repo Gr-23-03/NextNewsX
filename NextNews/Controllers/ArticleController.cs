@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Routing;
 using System;
 using NextNews.Views.Shared.Components.SearchBar;
 using NextNews.Data;
+using Stripe;
 
 
 
@@ -31,19 +32,24 @@ namespace NextNews.Controllers
         private readonly UserManager<User> _userManager;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly ApplicationDbContext _context;
+        private readonly ISubscriptionService _subscriptionService;
 
 
 
-        public ArticleController(ApplicationDbContext context, IArticleService articleService, IUserService userService, UserManager<User> userManager, IWebHostEnvironment webHostEnvironment/*_context _context*/)
-
-       
-
+        public ArticleController(
+            ApplicationDbContext context, 
+            IArticleService articleService, 
+            IUserService userService, 
+            UserManager<User> userManager, 
+            IWebHostEnvironment webHostEnvironment, 
+            ISubscriptionService subscriptionService)
         {
             _articleService = articleService;
             _userService = userService;
             _userManager = userManager;
             _webHostEnvironment = webHostEnvironment;
             _context = context;
+            _subscriptionService = subscriptionService;
         }
 
 
@@ -217,6 +223,49 @@ namespace NextNews.Controllers
                 .OrderByDescending(a => a.DateStamp).Take(3).ToList(),
             };
             _articleService.IncreamentViews(vm);
+
+
+
+            string usrId = _userManager.GetUserId(HttpContext.User) ?? "";
+            User usr = _userService.GetUserById(usrId);
+
+            if (usr != null)
+            {
+
+
+                bool premiumSubscription = _subscriptionService.HasSubscription(usrId, "Premium"); //_subscriptionService.GetSubscriptionsAsync().Any(s => s.SubscriptionType.Name == "Premium" && s.UserId == usr.Id && s.IsActive == true);
+
+                bool basicSubscription = _subscriptionService.HasSubscription(usrId, "Basic"); //_subscriptionService.GetSubscriptionsAsync().Any(s => s.SubscriptionType.Name == "Basic" && s.UserId == usr.Id && s.IsActive == true);
+
+                if (premiumSubscription == true)
+                {
+                    ViewBag.SubscriptionTypeOfUser = "PremiumUser";
+                }
+                else if (basicSubscription == true)
+                {
+                    ViewBag.SubscriptionTypeOfUser = "BasicUser";
+                }
+                else
+                {
+                    ViewBag.SubscriptionTypeOfUser = "Another type of subscription";
+                }
+
+            }
+
+            else
+            {
+                ViewBag.SubscriptionTypeOfUser = "User not logged in";
+            }
+
+
+
+
+
+
+
+
+
+
             return View(vm);
 
             //var article = await _articleService.GetArticleByIdAsync(id);

@@ -12,10 +12,12 @@
 
 @{
     ViewData["Title"] = "Details";
-    
+
     // Hide text for not Premium subscribers
     bool premiumSubscription = false;
-    if (ViewBag.SubscriptionTypeOfUser == "PremiumUser")
+    string subscrType = ViewBag.SubscriptionTypeOfUser;
+
+    if (subscrType == "PremiumUser")
     {
         premiumSubscription = true;
     }
@@ -38,13 +40,13 @@
         <strong>@Model.Article.ContentSummary</strong>  <br /> <br />
         
         
-         @if (premiumSubscription)
+         @if(premiumSubscription)
         {
             <div>@Html.Raw(Model.Article.Content)</div>
         }
         else
         {
-            <h5 style="color:darkred"><i>You need a premium account for reading this!</i></h5>
+            <h5 style="color:yellow"><i>You need a premium account for reading this!</i></h5>
         }
       
 
