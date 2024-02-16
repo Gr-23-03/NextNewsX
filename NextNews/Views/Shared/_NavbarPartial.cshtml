@@ -1,5 +1,8 @@
+@using NextNews.ViewComponents
 
 <nav class="navbar navbar-light bg-white">
+
+    
    
      @* <div class="container d-flex justify-content-between align-items-center"> *@
       
@@ -11,6 +14,9 @@
 <div class="container">
   <div class="row">
    <div class="col">
+
+       @await Component.InvokeAsync(typeof(WheatherApiViewComponent), new { chosenCity = "Linköping" })
+       
       <a href="/Home/AboutUs" class="is-active"data-drupal-link-system-path="node/36">About Us</a>
      &nbsp;
     
