@@ -242,6 +242,10 @@ namespace NextNews.Services
         {
             return _context.Subscriptions.Any(s => s.SubscriptionType!.Name == subscriptionName && s.UserId == userId && s.IsActive == true);
         }
+
+        
+
+
     }
 }
 
