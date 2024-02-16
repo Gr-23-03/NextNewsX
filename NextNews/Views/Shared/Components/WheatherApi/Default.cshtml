@@ -33,8 +33,9 @@
             margin-top: 10px;
         }
 </style>
-
-
+<div>
+<img id="cloudIcon" src="@Model.icon.url" alt="Cloud Icon" style="cursor: pointer" />
+</div>
 <div>
    
     <div id="weatherDetails">
@@ -50,11 +51,11 @@
         <p>Date: @Model.date</p>
         <p>Unix Time: @Model.unixTime</p>
       
-       
+      
     </div>
-
+   
 </div>
-<img id="cloudIcon" src="@Model.icon.url" alt="Cloud Icon" style="cursor: pointer" />
+
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
