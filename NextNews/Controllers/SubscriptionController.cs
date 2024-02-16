@@ -12,6 +12,7 @@ using NextNews.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Stripe;
 using NextNews.Data.Migrations;
+using NuGet.Protocol;
 
 namespace NextNews.Controllers
 {
@@ -38,14 +39,17 @@ namespace NextNews.Controllers
       
         //Create Subscription For User
         [Authorize]
-        public IActionResult CreateUserSubscription() 
+        public async Task<IActionResult> CreateUserSubscription()
         {
+            var subscriptionTypes = await _subscriptionService.GetSubscriptionTypesAsync();
+            ViewBag.SubscriptionTypes = subscriptionTypes;
             return View();
         }
         [HttpPost]
         public async Task<IActionResult> CreateUserSubscription(Subscription input)
         {
             var userId = _userManager.GetUserId(User);
+           
             // Check if the user already has this subscription
             string resultMessage = _subscriptionService.CheckExistingSubscription(userId, input.SubscriptionTypeId);
             if (resultMessage != "Eligible for subscription")
@@ -53,6 +57,31 @@ namespace NextNews.Controllers
                 ViewBag.Message = resultMessage;
                 return View("Index", "Home");
             }
+
+
+            // Assign roles based on subscription type
+            var subscriptionType = _subscriptionService.GetSubscriptionType(input.SubscriptionTypeId);
+            var roleToAssign = subscriptionType.Name == "Basic" ? "Basic" : "Premium";
+
+            // Assign role to user
+            var user = await _userManager.FindByIdAsync(userId);
+            await _userManager.AddToRoleAsync(user, roleToAssign);
+
+
+            // Add claim based on subscription type
+            var claimType = "SubscriptionType";
+            var claimValue = subscriptionType.Name;
+            var existingClaims = await _userManager.GetClaimsAsync(user);
+            var existingSubscriptionClaim = existingClaims.FirstOrDefault(c => c.Type == claimType);
+            if (existingSubscriptionClaim != null)
+            {
+                await _userManager.RemoveClaimAsync(user, existingSubscriptionClaim);
+            }
+            await _userManager.AddClaimAsync(user, new Claim(claimType, claimValue));
+
+
+           
+
             // Redirect to Stripe for payment
             return await StripeCheckout(userId, input.SubscriptionTypeId);
         }
@@ -118,7 +147,7 @@ namespace NextNews.Controllers
                 var subscriptionTypeId = int.Parse(session.Metadata["SubscriptionTypeId"]);
                 _subscriptionService.CompleteSubscription(userId, subscriptionTypeId);
 
-                string htmlTemplate = System.IO.File.ReadAllText("C:\\Users\\zain\\source\\repos\\NextNews\\NextNews\\Views\\Shared\\EmailTemplate.cshtml");
+                string htmlTemplate = System.IO.File.ReadAllText("~/Views/Shared/EmailTemplate.cshtml");  //giving error check it
                 string personalizedContent = $"Welcome to your NextNews account. You can use your account to sign into the NextNews website and use special features. Subscriptions to the suite of NextNews newsletters can also be managed using your account. The NextNews takes your data privacy seriously. To learn more, read our privacy policy and account FAQs.All the best, Regards NextNews";
                 string htmlMessage = htmlTemplate.Replace("{{main_content}}", personalizedContent);
                 _emailSender.SendEmailAsync(userEmail, "NextNews Subscription", htmlMessage);
@@ -300,6 +329,63 @@ namespace NextNews.Controllers
             }
             return View(vmList);
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //[Authorize(Roles = "Basic")]
+
+        //[Authorize(Policy = "BasicWeatherAccess")]
+        //public IActionResult BasicContent()
+        //{
+        //    // Get the categories the user has access to (e.g., from claims or database)
+        //    var userCategories = ((ClaimsIdentity)User.Identity).Claims
+        //        .Where(c => c.Type == ClaimTypes.Role)
+        //        .Select(c => c.Value)
+        //        .ToList();
+
+        //    // Check if the user has access to the "Weather" category
+        //    if (userCategories.Contains("Weather"))
+        //    {
+        //        // User has access to the "Weather" category, return the view
+        //        return View();
+        //    }
+        //    else
+        //    {
+        //        // User does not have access to the "Weather" category, return unauthorized view or redirect
+        //        return View("Unauthorized");
+        //    }
+        //}
+
+
+
+        [Authorize(Policy = "BasicWeatherAccess")]
+        public IActionResult BasicContent()
+        {
+            // Only users with the "Basic" role and the "WeatherCategory" claim set to "Weather" will reach here
+            return View();
+        }
+
+
+
+
+
+        [Authorize(Roles = "Premium")]
+        public IActionResult PremiumContent()
+        {
+            return View();
+        }
+
 
 
 

@@ -127,14 +127,38 @@ namespace NextNews.Areas.Identity.Pages.Account
                         return RedirectToAction("EditorDashboard", "Article");
                     }
 
-                    if (!User.IsInRole("Admin") || !User.IsInRole("Editor"))
+                    //if (!User.IsInRole("Admin") || !User.IsInRole("Editor"))
+                    //{
+                    //    _logger.LogInformation("User logged in.");
+                    //    return RedirectToAction("Index", "Home");
+                    //}
+
+
+
+                    if (User.IsInRole("Basic") || User.IsInRole("Premium"))
                     {
                         _logger.LogInformation("User logged in.");
-                        return RedirectToAction("UserDashboard", "User");
+                        return RedirectToAction("Index", "Home");
                     }
+
+
+
+
+                    //_logger.LogInformation("User logged in.");
+                    //return LocalRedirect(returnUrl);
+
+                    //if (User.IsInRole("Basic") )
+                    //{
+                    //    _logger.LogInformation("User logged in.");
+                    //    return RedirectToAction("BasicContent", "Subscription");
+                    //}
 
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
+
+
+
+
                 }
                 if (result.RequiresTwoFactor)
                 {

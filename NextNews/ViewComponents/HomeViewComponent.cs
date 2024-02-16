@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NextNews.Services;
 
 namespace NextNews.ViewComponents
@@ -16,6 +17,7 @@ namespace NextNews.ViewComponents
             _articleService = articleService;
         }
 
+        [Authorize(Roles = "Premium")]
         public IViewComponentResult Invoke()
         {
             var objList = _articleService.GetArticles();

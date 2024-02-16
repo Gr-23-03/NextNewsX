@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NextNews.Models.Database;
 using NextNews.Services;
 
@@ -14,6 +15,8 @@ namespace NextNews.ViewComponents
         }
 
 
+
+        [Authorize(Roles = "Premium")]
         public async Task<IViewComponentResult> InvokeAsync()
         {
             try

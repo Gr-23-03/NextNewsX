@@ -106,6 +106,8 @@ namespace NextNews.Areas.Identity.Pages.Account
 
             public string LastName { get; set; }
 
+            [DataType(DataType.Date)]
+            [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
             public DateTime DateofBirth { get; set; }
 
 

@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Routing;
 using System;
 using NextNews.Views.Shared.Components.SearchBar;
 using NextNews.Data;
+using Stripe;
 
 
 
@@ -31,19 +32,24 @@ namespace NextNews.Controllers
         private readonly UserManager<User> _userManager;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly ApplicationDbContext _context;
+        private readonly ISubscriptionService _subscriptionService;
 
 
 
-        public ArticleController(ApplicationDbContext context, IArticleService articleService, IUserService userService, UserManager<User> userManager, IWebHostEnvironment webHostEnvironment/*_context _context*/)
-
-       
-
+        public ArticleController(
+            ApplicationDbContext context, 
+            IArticleService articleService, 
+            IUserService userService, 
+            UserManager<User> userManager, 
+            IWebHostEnvironment webHostEnvironment, 
+            ISubscriptionService subscriptionService)
         {
             _articleService = articleService;
             _userService = userService;
             _userManager = userManager;
             _webHostEnvironment = webHostEnvironment;
             _context = context;
+            _subscriptionService = subscriptionService;
         }
 
 
@@ -106,17 +112,53 @@ namespace NextNews.Controllers
         }
 
 
-        //Action for list of article
+        ////Action for list of article
+        //public IActionResult ListArticles(int categoryId, string latestOrMostPopular, string editorsChoice, int pg = 1)
+        //{
+        //    var articles = _articleService.GetArticlesAndArchiveArticles();
+
+        //    if (categoryId != 0)
+        //    {
+        //        articles = articles.Where(a => a.CategoryId == categoryId).ToList();
+        //    }
+
+        //    if(latestOrMostPopular == "latest")
+        //    {
+        //        articles = articles.OrderByDescending(a => a.DateStamp).ToList();
+        //    }
+        //    else if (latestOrMostPopular == "mostpopular")
+        //    {
+        //        articles = articles.OrderByDescending(a => a.Likes).ToList();
+        //    }
+
+        //    if (editorsChoice == "editorschoice")
+        //    {
+        //        articles = articles.Where(a => a.IsEditorsChoice == true).ToList();
+        //    }
+
+
+        //    const int pageSize = 9;
+        //    if (pg < 1)
+        //        pg = 1;
+        //    int recsCount = articles.Count;
+        //    var pager = new Pager(recsCount, pg, pageSize);
+        //    int recSkip = (pg - 1) * pageSize;
+        //    var data = articles.Skip(recSkip).Take(pager.PageSize).ToList();
+        //    ViewBag.Pager = pager;
+        //    return View(data);
+        //    //return View(articles);
+        //}
+        // Action for list of articles
         public IActionResult ListArticles(int categoryId, string latestOrMostPopular, string editorsChoice, int pg = 1)
         {
             var articles = _articleService.GetArticlesAndArchiveArticles();
-    
+
             if (categoryId != 0)
             {
                 articles = articles.Where(a => a.CategoryId == categoryId).ToList();
             }
 
-            if(latestOrMostPopular == "latest")
+            if (latestOrMostPopular == "latest")
             {
                 articles = articles.OrderByDescending(a => a.DateStamp).ToList();
             }
@@ -130,6 +172,8 @@ namespace NextNews.Controllers
                 articles = articles.Where(a => a.IsEditorsChoice == true).ToList();
             }
 
+            // Sort articles by Id in descending order
+            articles = articles.OrderByDescending(a => a.Id).ToList();
 
             const int pageSize = 9;
             if (pg < 1)
@@ -140,8 +184,8 @@ namespace NextNews.Controllers
             var data = articles.Skip(recSkip).Take(pager.PageSize).ToList();
             ViewBag.Pager = pager;
             return View(data);
-            //return View(articles);
         }
+
 
 
         //Action to Add/Create article
@@ -217,6 +261,49 @@ namespace NextNews.Controllers
                 .OrderByDescending(a => a.DateStamp).Take(3).ToList(),
             };
             _articleService.IncreamentViews(vm);
+
+
+
+            string usrId = _userManager.GetUserId(HttpContext.User) ?? "";
+            User usr = _userService.GetUserById(usrId);
+
+            if (usr != null)
+            {
+
+
+                bool premiumSubscription = _subscriptionService.HasSubscription(usrId, "Premium"); //_subscriptionService.GetSubscriptionsAsync().Any(s => s.SubscriptionType.Name == "Premium" && s.UserId == usr.Id && s.IsActive == true);
+
+                bool basicSubscription = _subscriptionService.HasSubscription(usrId, "Basic"); //_subscriptionService.GetSubscriptionsAsync().Any(s => s.SubscriptionType.Name == "Basic" && s.UserId == usr.Id && s.IsActive == true);
+
+                if (premiumSubscription == true)
+                {
+                    ViewBag.SubscriptionTypeOfUser = "PremiumUser";
+                }
+                else if (basicSubscription == true)
+                {
+                    ViewBag.SubscriptionTypeOfUser = "BasicUser";
+                }
+                else
+                {
+                    ViewBag.SubscriptionTypeOfUser = "Another type of subscription";
+                }
+
+            }
+
+            else
+            {
+                ViewBag.SubscriptionTypeOfUser = "User not logged in";
+            }
+
+
+
+
+
+
+
+
+
+
             return View(vm);
 
             //var article = await _articleService.GetArticleByIdAsync(id);

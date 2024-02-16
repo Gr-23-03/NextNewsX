@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using NextNews.Models.Database;
 using NextNews.Services;
+using Microsoft.AspNetCore.Authorization;
 
 
 public class EditorsChoiceViewComponent : ViewComponent
@@ -16,6 +17,7 @@ public class EditorsChoiceViewComponent : ViewComponent
 
     }
 
+    [Authorize(Roles = "Premium")]
     public async Task<IViewComponentResult> InvokeAsync()
     {
         var editorChoiceArticles = _articleService.GetEditorsChoiceArticles();

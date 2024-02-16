@@ -24,7 +24,7 @@ namespace NextNews.Services
 
         public List<Subscription> GetSubscriptionsAsync()
         {
-            var subscriberList= _context.Subscriptions.ToList();
+            var subscriberList= _context.Subscriptions.Include(s => s.SubscriptionType).ToList();
             return subscriberList;
         }
 
@@ -63,17 +63,24 @@ namespace NextNews.Services
                 await _context.SaveChangesAsync();
             }
         }
+
+
         //
 
         public SubscriptionType GetSubscriptionType(int subscriptionTypeId)
         {
             return _context.SubscriptionTypes.FirstOrDefault(st => st.Id == subscriptionTypeId);
         }
+
+
+
         //Get Subscription Types
         public async Task<List<SubscriptionType>> GetSubscriptionTypesAsync()
         {
             return await _context.SubscriptionTypes.ToListAsync();
         }
+
+
         //Create Subscription Types
         public async Task CreateSubscriptionTypesAsync(SubscriptionType subscriptionType)
         {
@@ -230,6 +237,15 @@ namespace NextNews.Services
 
             return soonExpirySubscription;
         }
+
+        public bool HasSubscription(string userId, string subscriptionName)
+        {
+            return _context.Subscriptions.Any(s => s.SubscriptionType!.Name == subscriptionName && s.UserId == userId && s.IsActive == true);
+        }
+
+        
+
+
     }
 }
 
