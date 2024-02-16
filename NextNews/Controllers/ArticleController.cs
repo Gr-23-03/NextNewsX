@@ -112,17 +112,53 @@ namespace NextNews.Controllers
         }
 
 
-        //Action for list of article
+        ////Action for list of article
+        //public IActionResult ListArticles(int categoryId, string latestOrMostPopular, string editorsChoice, int pg = 1)
+        //{
+        //    var articles = _articleService.GetArticlesAndArchiveArticles();
+
+        //    if (categoryId != 0)
+        //    {
+        //        articles = articles.Where(a => a.CategoryId == categoryId).ToList();
+        //    }
+
+        //    if(latestOrMostPopular == "latest")
+        //    {
+        //        articles = articles.OrderByDescending(a => a.DateStamp).ToList();
+        //    }
+        //    else if (latestOrMostPopular == "mostpopular")
+        //    {
+        //        articles = articles.OrderByDescending(a => a.Likes).ToList();
+        //    }
+
+        //    if (editorsChoice == "editorschoice")
+        //    {
+        //        articles = articles.Where(a => a.IsEditorsChoice == true).ToList();
+        //    }
+
+
+        //    const int pageSize = 9;
+        //    if (pg < 1)
+        //        pg = 1;
+        //    int recsCount = articles.Count;
+        //    var pager = new Pager(recsCount, pg, pageSize);
+        //    int recSkip = (pg - 1) * pageSize;
+        //    var data = articles.Skip(recSkip).Take(pager.PageSize).ToList();
+        //    ViewBag.Pager = pager;
+        //    return View(data);
+        //    //return View(articles);
+        //}
+        // Action for list of articles
         public IActionResult ListArticles(int categoryId, string latestOrMostPopular, string editorsChoice, int pg = 1)
         {
             var articles = _articleService.GetArticlesAndArchiveArticles();
-    
+
             if (categoryId != 0)
             {
                 articles = articles.Where(a => a.CategoryId == categoryId).ToList();
             }
 
-            if(latestOrMostPopular == "latest")
+            if (latestOrMostPopular == "latest")
             {
                 articles = articles.OrderByDescending(a => a.DateStamp).ToList();
             }
@@ -136,6 +172,8 @@ namespace NextNews.Controllers
                 articles = articles.Where(a => a.IsEditorsChoice == true).ToList();
             }
 
+            // Sort articles by Id in descending order
+            articles = articles.OrderByDescending(a => a.Id).ToList();
 
             const int pageSize = 9;
             if (pg < 1)
@@ -146,8 +184,8 @@ namespace NextNews.Controllers
             var data = articles.Skip(recSkip).Take(pager.PageSize).ToList();
             ViewBag.Pager = pager;
             return View(data);
-            //return View(articles);
         }
+
 
 
         //Action to Add/Create article
