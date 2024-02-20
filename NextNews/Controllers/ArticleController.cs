@@ -413,6 +413,11 @@ namespace NextNews.Controllers
             return RedirectToAction("EditorsChoice");
         }
 
+        public IActionResult ArchiveArticle() 
+        { 
+         var articles=  _articleService.GetArchiveArticles();
+            return View(articles);
+        }
 
 
 

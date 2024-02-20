@@ -260,6 +260,11 @@ namespace NextNews.Services
             return categoryId;
         }
 
+        public List<Article> GetArchiveArticles() 
+        { 
+        var articles =_context.Articles.Where(a => a.Archive==true).ToList();   
+            return articles;
+        } 
 
 
 
