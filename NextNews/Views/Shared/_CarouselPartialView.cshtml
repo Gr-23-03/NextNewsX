@@ -30,9 +30,9 @@
                 <div class="carousel-item @(active ? "active" : "")">
                     <div class="article-info-container" style="display: flex; justify-content: center;">
                         <div style="text-align: center;">
-                            <div class="article-imageLink">
+                         @*    <div class="article-imageLink">
                                 <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article ImageLink" style="width:50%; height:auto;">
-                            </div>
+                            </div> *@
                             <div class="latest-news-headline">
                                 <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
                                     @news.HeadLine

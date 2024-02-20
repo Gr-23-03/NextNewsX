@@ -35,9 +35,31 @@ namespace NextNews.Services
 
         public List<Article> GetArticles()
         {
-            var objList = _context.Articles.Include(x => x.UsersLiked)/*.Where(x=>x.Archive==false)*/.ToList();
+            var objList = _context.Articles.Include(x => x.UsersLiked).Include(c => c.Category)/*.Where(x=>x.Archive==false)*/.ToList();
             return objList;
         }
+
+    //    // Method to get latest articles
+    //public List<Article> GetLatestArticles()
+    //{
+    //    return GetArticles().OrderByDescending(obj => obj.DateStamp).ToList();
+    //}
+
+    //// Method to get most popular articles
+    //public List<Article> GetMostPopularArticles()
+    //{
+    //    return GetArticles().OrderByDescending(obj => obj.Likes).ToList();
+    //}
+
+    //// Method to get editor's choice articles
+    //public List<Article> GetEditorsChoiceArticles()
+    //{
+    //    return GetArticles().Where(a => a.IsEditorsChoice).ToList();
+    //}
+
+
+
+
 
 
         public void AddArticle(Article article)

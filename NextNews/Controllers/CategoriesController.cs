@@ -23,8 +23,6 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 
 
-
-
 namespace NextNews.Controllers
 {
     public class CategoriesController : Controller
@@ -143,17 +141,20 @@ namespace NextNews.Controllers
         }
 
 
-        // search articles by category and article headline and by words
 
+
+        // search articles by category and article headline and by words
 
         //public async Task<IActionResult> Search(string searchString, int pg = 1);
 
         public async Task<IActionResult> Search(string searchString, int pg = 1, int perPage = 10)
 
+
         {
             const int pageSize = 9;
             if (pg < 1)
                 pg = 1;
+
 
             int recsCount = _context.Articles.Count();
             var articlesQuery = _context.Articles.Include(a => a.Category).AsQueryable();
@@ -161,6 +162,7 @@ namespace NextNews.Controllers
             if (!string.IsNullOrEmpty(searchString))
             {
                 searchString = searchString.Trim().ToLower();
+
                 articlesQuery = articlesQuery.Where(article => (article.Category != null && article.Category.Name.ToLower().Contains(searchString)) ||
                                                                article.HeadLine.ToLower().Contains(searchString) ||
                                                                article.ContentSummary.ToLower().Contains(searchString) ||
@@ -176,9 +178,11 @@ namespace NextNews.Controllers
             var pager = new Pager(recsCount, pg, pageSize);
 
 
+
             var categoryQuery = from c in _context.Categories
                                 orderby c.Id
                                 select c.Name.ToLower();
+
 
 
             int totalCount = articlesQuery.Count();
@@ -213,8 +217,8 @@ namespace NextNews.Controllers
                 SearchString = searchString, // Passing the search string back to the view
                 Paggination = pagginationObj
 
-            };
 
+            };
 
             return View(viewModel);
         }
@@ -224,15 +228,10 @@ namespace NextNews.Controllers
 
 
 
+
+
+
     }
+
 }
-
-
-
-
-
-
-
-
-
 
