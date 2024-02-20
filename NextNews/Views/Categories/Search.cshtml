@@ -1,24 +1,20 @@
 ﻿
 @model NextNews.ViewModels.CategoryViewModel
-
 @{
     ViewData["Title"] = "Search";
-
-
 }
+<h1>Search</h1>
 
-@* <h1>Search</h1> *@
 <style>
-    .hr-search{
-
-        background-color: gray
+    .hr-search {
+        background-color: gray;
     }
-
 </style>
 
 <form asp-action="Search" asp-controller="Categories" method="get" class="d-flex">
-    <input class="form-control" type="search" placeholder="Search" name="searchString" aria-label="Search">
-    <button class="btn btn-outline-success" type="submit" style="margin-left: 10px">Search</button>
+    <input class="form-control" type="search" placeholder="Search Articles" name="searchString" aria-label="Search Articles">
+  @*   <input class="form-control" type="search" placeholder="Search Categories" name="category" aria-label="Search Categories">
+   *@  <button class="btn btn-outline-success" type="submit" style="margin-left: 10px">Search</button>
 </form>
 
 @if (Model.Articles != null && Model.Articles.Any())
@@ -45,7 +41,6 @@
             </div>
             <hr class="hr-search" width="100%" size="3">
         }
-
     </div>
 }
 else
@@ -55,4 +50,5 @@ else
     </div>
 }
 
+<partial name="_PaginationForSearch" model="@Model.Pager"></partial>
 
