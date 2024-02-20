@@ -12,7 +12,15 @@
 
 @{
     ViewData["Title"] = "Details";
-    
+
+    // Hide text for not Premium subscribers
+    bool premiumSubscription = false;
+    string subscrType = ViewBag.SubscriptionTypeOfUser;
+
+    if (subscrType == "PremiumUser")
+    {
+        premiumSubscription = true;
+    }
 
 }
 
@@ -29,10 +37,24 @@
        
         <br />
         <img src="@Model.Article.ImageLink" style="width:100%;" />   <br />  <br /> 
-        <strong>@Model.Article.ContentSummary</strong>  <br /> <br /> 
-        <div>@Html.Raw(Model.Article.Content)</div>
+        <strong>@Model.Article.ContentSummary</strong>  <br /> <br />
         
+        
+         @if(premiumSubscription)
+        {
+            <div>@Html.Raw(Model.Article.Content)</div>
+        }
+        else
+        {
+            <h5 style="color:yellow"><i>You need a premium account for reading this!</i></h5>
+        }
+      
+
     </div>
+
+
+
+
     <div class="col-3" style="border:6px;" padding:"3px" >
 
         <h2 style="color: black">Latest News</h2>
@@ -66,9 +88,12 @@
     
 
     <a class="btn btn-success" id="likeButton" data-id="@Model.Article.Id" asp-action="Likes" asp-controller="Article" >Like</a>
-    <a asp-action="Edit" asp-route-id="@Model?.Article.Id">Edit</a> 
-    <a asp-action="Index">Back to List</a>
+    
 </div>
+
+
+
+
 
 <script>
     var isLiked = false; // Initialize the flag

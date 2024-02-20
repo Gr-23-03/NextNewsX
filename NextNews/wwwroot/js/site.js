@@ -49,3 +49,23 @@ form.onsubmit = function () {
     form.appendChild(input);
 };
 
+    $(document).ready(function () {
+        $("#cloudIcon").click(function () {
+            $("#weatherDetails").show();
+        });
+
+    $(document).mousemove(function () {
+        $("#weatherDetails").hide();
+        });
+    });
+
+
+  
+
+
+
+
+
+
+    
+

@@ -29,6 +29,9 @@ namespace NextNews.Services
 
         int GetCategoryIdCategoryName(string categoryName);
 
+        public List<Article> GetArchiveArticles();
+
+
         
     }
 }

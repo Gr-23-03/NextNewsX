@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NextNews.Services;
 using NextNews.ViewModels;
 
@@ -15,7 +16,7 @@ namespace NextNews.ViewComponents
             _categoryService = categoryService;
         }
 
-
+        [Authorize(Roles = "Premium")]
         public IViewComponentResult Invoke()
         {
 

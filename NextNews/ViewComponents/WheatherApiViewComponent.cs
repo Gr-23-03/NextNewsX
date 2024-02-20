@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System.Text.Json.Serialization;
 using System.Net.Http.Headers;
 using NextNews.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace NextNews.ViewComponents
 {
@@ -17,6 +18,8 @@ namespace NextNews.ViewComponents
             _weatherService = weatherService;
         }
 
+
+        [Authorize(Roles = "Basic , Premium")]
         public async Task<IViewComponentResult> InvokeAsync(string chosenCity)
         {
             var weatherData = await _weatherService.GetWeatherReport("Linköping");

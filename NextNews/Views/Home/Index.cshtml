@@ -1,5 +1,5 @@
 ﻿@model NextNews.ViewModels.HomeIndexVM
-
+@using NextNews.ViewComponents
 @using NextNews.Services;
 
 @inject IArticleService _articleService;
@@ -8,6 +8,22 @@
     ViewData["Title"] = "Home Page";
 
 }
+
+
+@{
+    // Determine if the user is a basic user (role)
+    bool isBasicUser = User.Identity.IsAuthenticated && User.IsInRole("Basic");
+
+    // Hide text for not Premium subscribers
+    bool premiumSubscription = false;
+    if (ViewBag.SubscriptionTypeOfUser == "PremiumUser")
+    {
+        premiumSubscription = true;
+    }
+
+
+}
+
 
 <partial name="_CarouselPartialView" model="Model.LatestArticles"></partial>
 
@@ -19,14 +35,20 @@
     <div class="col-md-6">
 
         <div class="article-container">
-            <a asp-action="Details" asp-controller="Article" asp-route-id="@Model.TopStoryArticle.Id">           
+            <a asp-action="Details" asp-controller="Article" asp-route-id="@Model.TopStoryArticle.Id">
                 <div class="overlay">
                     <span class="top-story-label">Top Story</span>
                 </div>
                 <img class="img-on-HomeIndex" src="@Model.TopStoryArticle.ImageLink" alt="Article Image" style="width:100%">
                 <h2>@Model.TopStoryArticle.LinkText</h2>
                 <h4>@Model.TopStoryArticle.ContentSummary</h4>
+
+                @if (!premiumSubscription)
+                {
+                    <span style="color:yellow"><i class="fas fa-lock"></i> </span>
+                }
             </a>
+
             <p class="MostPopular-news-date">Published on @Model.TopStoryArticle.DateStamp?.ToString("M") @Model.TopStoryArticle.DateStamp?.ToString("t")</p>
         </div>
 
@@ -54,9 +76,19 @@
                     <div class="latest-news-headline">
                          @* <a asp-action="Details" asp-controller="Article" asp-route-id="@firstArticle.Id" class="sports-news-link"> *@
                         @firstArticle.HeadLine
+
                           @*  </a> *@
                     </div>
                 </a>
+
+
+                        @if (!premiumSubscription)
+                        {
+                            <span style="color:yellow"><i class="fas fa-lock"></i> </span>
+                        }
+
+                    </a>
+                </div>
 
                 <div class="sweden-news-item mb-3">
                 </div>
@@ -71,12 +103,22 @@
                 {
                     <div class="col-12 col-md-6 mb-3">
                         <a asp-action="Details" asp-controller="Article" asp-route-id="@categoryArticle.Id" class="latest-news-link">
+
                             <div class="article-imageLink">
                                 <img class="img-on-HomeIndex img-fluid" src="@categoryArticle.ImageLink" alt="Article ImageLink">
                             </div>
                             <div class="latest-news-headline">
                                 @categoryArticle.HeadLine
                             </div>
+
+                            @categoryArticle.HeadLine
+
+                            @if (!premiumSubscription)
+                            {
+                                <span style="color:yellow"><i class="fas fa-lock"></i> </span>
+                            }
+
+
                         </a>
                             <p class="latest-news-summary">@categoryArticle.ContentSummary</p>
                             <p class="latest-news-date">Published on @categoryArticle.DateStamp?.ToString("M") @categoryArticle.DateStamp?.ToString("t")</p>
@@ -107,9 +149,18 @@
                     <div class="latest-news-headline">
                      @*  <a asp-action="Details" asp-controller="Article" asp-route-id="@firstArticle.Id" class="sports-news-link"> *@
                         @firstArticle.HeadLine
+
                      @*  </a> *@
                     </div>
                 </a>
+                        @if (!premiumSubscription)
+                        {
+                            <span style="color:yellow"><i class="fas fa-lock"></i> </span>
+                        }
+
+                    </a>
+                </div>
+
                 <div class="local-news-item mb-3">
                 </div>
                 <p class="latest-news-summary">@firstArticle.ContentSummary</p>
@@ -123,19 +174,31 @@
                 {
                     <div class="col-12 col-md-6 mb-3">
                         <a asp-action="Details" asp-controller="Article" asp-route-id="@categoryArticle.Id" class="latest-news-link">
+
                             <div class="article-imageLink">
                                 <img class="img-on-HomeIndex img-fluid" src="@categoryArticle.ImageLink" alt="Article ImageLink">
                             </div>
                             <div class="latest-news-headline">
                                 @categoryArticle.HeadLine
                             </div>
+
+                            @categoryArticle.HeadLine
+
+                            @if (!premiumSubscription)
+                            {
+                                <span style="color:yellow"><i class="fas fa-lock"></i> </span>
+                            }
+
+
                         </a>
                         <p class="latest-news-summary">@categoryArticle.ContentSummary</p>
                         <p class="latest-news-date">Published on @categoryArticle.DateStamp?.ToString("M") @categoryArticle.DateStamp?.ToString("t")</p>
 
+
                     </div>
                 }
             </div>
+
 
         <div class="form-group mb-3">
         </div>
@@ -159,9 +222,21 @@
                     <div class="latest-news-headline">
                      @*  <a asp-action="Details" asp-controller="Article" asp-route-id="@firstArticle.Id" class="sports-news-link"> *@
                         @firstArticle.HeadLine
+
                      @*  </a> *@
                     </div>
                 </a>
+
+
+                        @if (!premiumSubscription)
+                        {
+                            <span style="color:yellow"><i class="fas fa-lock"></i> </span>
+                        }
+
+
+                    </a>
+                </div>
+
                 <div class="world-news-item mb-3">
                 </div>
                 <p class="latest-news-summary">@firstArticle.ContentSummary</p>
@@ -175,12 +250,23 @@
                 {
                     <div class="col-12 col-md-6 mb-3">
                         <a asp-action="Details" asp-controller="Article" asp-route-id="@categoryArticle.Id" class="latest-news-link">
+
                             <div class="article-imageLink">
                                 <img class="img-on-HomeIndex img-fluid" src="@categoryArticle.ImageLink" alt="Article ImageLink">
                             </div>
                             <div class="latest-news-headline">
                                 @categoryArticle.HeadLine
                             </div>
+
+                            @categoryArticle.HeadLine
+
+                            @if (!premiumSubscription)
+                            {
+                                <span style="color:yellow"><i class="fas fa-lock"></i> </span>
+                            }
+
+
+
                         </a>
                         <p class="latest-news-summary">@categoryArticle.ContentSummary</p>
                         <p class="latest-news-date">Published on @categoryArticle.DateStamp?.ToString("M") @categoryArticle.DateStamp?.ToString("t")</p>
@@ -195,6 +281,7 @@
     @*  Right Column *@
 
     <div class="col-md-6">
+
 
             <div class="row">
                 <div class="col-12 col-md-6 mb-3">
@@ -217,6 +304,7 @@
                                 </a>
                                 <p class="latest-news-summary">@news.ContentSummary</p>
                                 <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
+
                             </div>
                         </div>
                     }
@@ -238,6 +326,7 @@
                         }
                     </div>
                 </div>
+
 
                 <div class="col-12 col-md-6">
                     <h2 style="background-color: black; border-radius: 5px; text-align: center; padding: 5px">
@@ -291,33 +380,27 @@
                             </a>
                         </div>
                     </div>
-                     @* Weather column *@
+                   
+                <div class="form-group mb-3">
+                </div>
 
-            <div class="weather-column">
+                @* Weather column *@
 
-                <p>Weather</p> 
+                        <div class="weather-column mb-3">
+                            <p>Weather</p>
 
-               <!-- Add your weather content here -->
+                    <!-- Add your weather content here -->
+                          
+                            @await Component.InvokeAsync(typeof(WheatherApiViewComponentAside), new { chosenCity = "Linköping" })
 
+                        </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-            </div>
 
         <div class="form-group mb-3">
         </div>  
 
-        @* Advertisement column *@
+                        @* Advertisement column *@
+                  
 
         <div class="advertisement-column">
              <p>Advertisement</p>
@@ -379,16 +462,16 @@
                 </a>
                 <p class="latest-news-summary">@news.ContentSummary</p>
                 <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
+
             </div>
-        }
+        </div>
     </div>
 
     <div class="form-group mb-3">
+
     </div>
 
-    @{
-        int catIdBusiness = _articleService.GetCategoryIdCategoryName("Business");
-    }
+
 
         <h2 style="color: black"><a asp-controller="Article" asp-action="LatestArticlesByCategory" asp-route-categoryId="@catIdBusiness">Business</a></h2>
   
@@ -413,12 +496,11 @@
         }
     </div>
 
-    <div class="form-group mb-3">
-    </div>
 
-    @{
-        int catIdWeather = _articleService.GetCategoryIdCategoryName("Weather");
-    }
+
+<div class="form-group mb-3">
+</div>
+
 
         <h2 style="color: black"><a asp-controller="Article" asp-action="LatestArticlesByCategory" asp-route-categoryId="@catIdWeather">Weather</a></h2>
 
@@ -443,12 +525,28 @@
         }
     </div>
 
-    <div class="form-group mb-3">
-    </div>
+<h2 style="color: black"><a asp-controller="Article" asp-action="ListArticles" asp-route-editorsChoice="editorschoice">Editor's Choice</a></h2>
 
-    @{
-        int catIdHealth = _articleService.GetCategoryIdCategoryName("Health");
+
+<div class="row">
+    @foreach (var news in Model.EditorsChoiceArticles)
+    {
+        <div class="col-3">
+            <div class="article-imageLink">
+                <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article ImageLink" style="width:100%">
+
+            </div>
+            <div class="latest-news-headline">
+                <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
+                    @news.HeadLine
+                </a>
+            </div>
+            <p class="latest-news-summary">@news.ContentSummary</p>
+            <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
+        </div>
     }
+</div>
+
 
         <h2 style="color: black"><a asp-controller="Article" asp-action="LatestArticlesByCategory" asp-route-categoryId="@catIdHealth">Health</a></h2>
 
@@ -473,12 +571,36 @@
         }
     </div>
 
-    <div class="form-group mb-3">
-    </div>
+<div class="form-group mb-3">
+</div>
 
-    @{
-        int catIdSports = _articleService.GetCategoryIdCategoryName("Sport");
+@{
+    int catIdBusiness = _articleService.GetCategoryIdCategoryName("Business");
+}
+
+
+<
+<h2 style="color: black"><a asp-controller="Article" asp-action="ListArticles" asp-route-categoryId="@catIdBusiness">Business</a></h2>
+
+<div class="row">
+    @foreach (var news in Model.ArticlesByCategoryBusiness)
+    {
+        <div class="col-3">
+            <div class="article-imageLink">
+                <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article ImageLink" style="width:100%">
+
+            </div>
+            <div class="latest-news-headline">
+                <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
+                    @news.HeadLine
+                </a>
+            </div>
+            <p class="latest-news-summary">@news.ContentSummary</p>
+            <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
+        </div>
     }
+</div>
+
 
         <h2 style="color: black"><a asp-controller="Article" asp-action="LatestArticlesByCategory" asp-route-categoryId="@catIdSports">Sport</a></h2>
 
@@ -499,16 +621,48 @@
                 </a>
                 <p class="latest-news-summary">@news.ContentSummary</p>
                 <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
+
             </div>
-        }
-    </div>
-
-    <div class="form-group mb-3">
-    </div>
-
-    @{
-        int catIdEntertainment = _articleService.GetCategoryIdCategoryName("Entertainment");
+            <div class="latest-news-headline">
+                <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
+                    @news.HeadLine
+                </a>
+            </div>
+            <p class="latest-news-summary">@news.ContentSummary</p>
+            <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
+        </div>
     }
+</div>
+
+<div class="form-group mb-3">
+</div>
+
+@{
+    int catIdHealth = _articleService.GetCategoryIdCategoryName("Health");
+}
+
+<h2 style="color: black"><a asp-controller="Article" asp-action="ListArticles" asp-route-categoryId="@catIdHealth">Health</a></h2>
+
+
+<div class="row">
+    @foreach (var news in Model.ArticlesByCategoryHealth)
+    {
+        <div class="col-3">
+            <div class="article-imageLink">
+                <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article ImageLink" style="width:100%">
+
+            </div>
+            <div class="latest-news-headline">
+                <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
+                    @news.HeadLine
+                </a>
+            </div>
+            <p class="latest-news-summary">@news.ContentSummary</p>
+            <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
+        </div>
+    }
+</div>
+
 
         <h2 style="color: black"><a asp-controller="Article" asp-action="LatestArticlesByCategory" asp-route-categoryId="@catIdEntertainment">Entertainment</a></h2>
 
@@ -529,12 +683,22 @@
                 </a>
                 <p class="latest-news-summary">@news.ContentSummary</p>
                 <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
-            </div>
-        }
-    </div>
 
-    <div class="form-group mb-3">
-    </div>
+            </div>
+            <div class="latest-news-headline">
+                <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
+                    @news.HeadLine
+                </a>
+            </div>
+            <p class="latest-news-summary">@news.ContentSummary</p>
+            <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
+        </div>
+    }
+</div>
+
+<div class="form-group mb-3">
+</div>
+
 
         @{
             int catIdArtAndCulture = _articleService.GetCategoryIdCategoryName("Art & Culture");
@@ -562,11 +726,15 @@
         </div>
 
 </div>
+
 </div>
+
+              
+
 
 
 
 @* View Component for Editors choice *@
 
-@* @await Component.InvokeAsync("EditorsChoice") *@
+
 

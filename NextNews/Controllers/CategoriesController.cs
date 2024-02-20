@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using MailKit.Search;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,7 +14,12 @@ using NextNews.Models;
 using NextNews.Models.Database;
 using NextNews.Services;
 using NextNews.ViewModels;
-using Pager = NextNews.Models.Pager;
+
+using NextNews.Views.Shared.Components.SearchBar;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+
+
+
 
 
 
@@ -134,54 +141,90 @@ namespace NextNews.Controllers
         }
 
 
-        public async Task<IActionResult> Search(string searchString, string category, int pg = 1)
+
+
+        // search articles by category and article headline and by words
+
+        //public async Task<IActionResult> Search(string searchString, int pg = 1);
+
+        public async Task<IActionResult> Search(string searchString, int pg = 1, int perPage = 10)
+
+
         {
             const int pageSize = 9;
             if (pg < 1)
                 pg = 1;
 
+
+            int recsCount = _context.Articles.Count();
             var articlesQuery = _context.Articles.Include(a => a.Category).AsQueryable();
 
             if (!string.IsNullOrEmpty(searchString))
             {
                 searchString = searchString.Trim().ToLower();
-                articlesQuery = articlesQuery.Where(article =>
-                    article.HeadLine.ToLower().Contains(searchString) ||
-                    article.ContentSummary.ToLower().Contains(searchString) ||
-                    article.Content.ToLower().Contains(searchString));
+
+                articlesQuery = articlesQuery.Where(article => (article.Category != null && article.Category.Name.ToLower().Contains(searchString)) ||
+                                                               article.HeadLine.ToLower().Contains(searchString) ||
+                                                               article.ContentSummary.ToLower().Contains(searchString) ||
+                                                               article.Content.ToLower().Contains(searchString));
             }
 
-            if (!string.IsNullOrEmpty(category))
+            else
             {
-                category = category.Trim().ToLower();
-                articlesQuery = articlesQuery.Where(article =>
-                    article.Category != null && article.Category.Name.ToLower().Contains(category));
+                articlesQuery = _context.Articles;
             }
 
-            // Counting the total records that match the search criteria
-            int recsCount = await articlesQuery.CountAsync();
 
             var pager = new Pager(recsCount, pg, pageSize);
-            int recSkip = (pg - 1) * pageSize;
 
-            // Fetching the paginated articles
-            var paginatedArticles = await articlesQuery.Skip(recSkip).Take(pageSize).ToListAsync();
+
 
             var categoryQuery = from c in _context.Categories
                                 orderby c.Id
                                 select c.Name.ToLower();
 
+
+
+            int totalCount = articlesQuery.Count();
+            int totalPages = (int)Math.Ceiling((double)totalCount / perPage);
+            
+            int articlesCount = articlesQuery.Count();
+
+            var pagginatedArticles = articlesQuery             
+                .Skip((pg - 1) * perPage)
+                .Take(perPage)
+                .ToList();
+
+
+            ViewBag.CurrentPage = pg;
+            ViewBag.TotalPages = totalPages;
+
+
+
+            SPager pagginationObj = new SPager(articlesCount, pg, perPage) 
+            { 
+                Action = "Search", 
+                Controller = "Categories", 
+                SearchText = searchString
+            };   
+
+
+
             var viewModel = new CategoryViewModel
             {
                 CategoryNames = new SelectList(await categoryQuery.Distinct().ToListAsync()),
-                Articles = paginatedArticles, // Using the paginated list of articles
+                Articles = pagginatedArticles,
                 SearchString = searchString, // Passing the search string back to the view
-                SelectedCategory = category, // Passing the selected category back to the view
-                Pager = pager // Adding pager to the viewModel
+                Paggination = pagginationObj
+
+
             };
 
             return View(viewModel);
         }
+
+
+      
 
 
 

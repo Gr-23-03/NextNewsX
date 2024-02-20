@@ -32,6 +32,7 @@ namespace NextNews.Services
         public void UpgradeSubscription(string userId, int newSubscriptionTypeId);
         //public List<Subscription> SubscriberExpiredSoon();
         public List<SubscriptionWithUserEmailVM> SubscriberExpiredSoon();
+        bool HasSubscription(string userId, string subscriptionName);
 
     }
 }

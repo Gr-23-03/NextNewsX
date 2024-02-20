@@ -1,86 +1,95 @@
 ﻿@model NextNews.Models.Database.Subscription
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Subscription Details";
     var isBasicPlan = Model.SubscriptionTypeId == 1;
     var isPremiumPlan = Model.SubscriptionTypeId == 2;
 }
 
-<h1>Details</h1>
+<style>
+    .details-container {
+        max-width: 600px;
+        margin: auto;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-<div>
-    <h4>Subscription</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Created)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Created)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Expired)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Expired)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PaymentComplete)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PaymentComplete)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.IsActive)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.IsActive)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.SubscriptionType)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.SubscriptionType.Name) <!-- Assuming SubscriptionType has a Name property -->
-        </dd>
-    </dl>
-</div>
+    .details-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
 
-    <div>
-        <!-- Check if the user is on the basic plan and can upgrade -->
+    .details-body {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .detail-row {
+        margin-bottom: 10px;
+    }
+
+    .detail-title {
+        font-weight: bold;
+    }
+
+    .action-buttons {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .action-button {
+        margin: 5px;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .edit-button {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+        .edit-button:hover {
+            background-color: #45a049;
+        }
+
+    .list-button {
+        background-color: #008CBA;
+        color: white;
+    }
+
+        .list-button:hover {
+            background-color: #007bb5;
+        }
+</style>
+
+<div class="details-container">
+    <div class="details-header">
+        <h1>Subscription Details</h1>
+    </div>
+    <div class="details-body">
+        <div class="detail-row"><span class="detail-title">Price:</span> @Model.Price.ToString()</div>
+        <div class="detail-row"><span class="detail-title">Created:</span> @Model.Created.ToString()</div>
+        <div class="detail-row"><span class="detail-title">Expires:</span> @Model.Expired?.ToString("d")</div>
+        <div class="detail-row"><span class="detail-title">Payment Complete:</span> @Model.PaymentComplete.ToString()</div>
+        <div class="detail-row"><span class="detail-title">Active:</span> @Model.IsActive.ToString()</div>
+        @* <div class="detail-row"><span class="detail-title">Subscription Type:</span> @Model.SubscriptionType.Name</div> *@
+    </div>
+    <div class="action-buttons">
         @if (Model.IsActive)
         {
-            <div>
-                <!-- Upgrade option if the user is on the basic plan -->
-                @if (isBasicPlan)
-                {
-                    <a asp-action="ChangeSubscription" asp-route-newSubscriptionTypeId="2" class="btn btn-primary">Upgrade to Premium</a>
-                }
-
-                <!-- Downgrade option if the user is on the premium plan -->
-                @if (isPremiumPlan)
-                {
-                    <a asp-action="ChangeSubscription" asp-route-newSubscriptionTypeId="1" class="btn btn-secondary">Downgrade to Basic</a>
-                }
-            </div>
+            if (isBasicPlan)
+            {
+                <button onclick="location.href='@Url.Action("ChangeSubscription", new { newSubscriptionTypeId = 2 })'" class="action-button edit-button">Upgrade to Premium</button>
+            }
+            else if (isPremiumPlan)
+            {
+                <button onclick="location.href='@Url.Action("ChangeSubscription", new { newSubscriptionTypeId = 1 })'" class="action-button edit-button">Downgrade to Basic</button>
+            }
         }
-        else
-        {
-            <p>Your subscription is currently inactive.</p>
-        }
-
-
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+     
+    </div>
 </div>
