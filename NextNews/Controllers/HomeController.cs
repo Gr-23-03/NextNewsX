@@ -134,12 +134,13 @@ namespace NextNews.Controllers
                 ArticlesByCategoryHealth = allArticles.Where(a => a.CategoryId == healthId).OrderByDescending(a => a.DateStamp).Take(4).ToList(),
                 ArticlesByCategoryWeather = allArticles.Where(a => a.CategoryId == weatherId).OrderByDescending(a => a.DateStamp).Take(4).ToList(),
                 ArticlesByCategoryArtAndCulture = allArticles.Where(a => a.CategoryId == artAndCultureId).OrderByDescending(a => a.DateStamp).Take(4).ToList(),
+                ArticlesByCategoryEntertainment = allArticles.Where(a => a.CategoryId == artAndCultureId).OrderByDescending(a => a.DateStamp).Take(4).ToList(),
+              
 
 
 
 
-
-                EditorsChoiceArticles = allArticles.Where(a => a.IsEditorsChoice == true).OrderByDescending(a => a.DateStamp).Take(5).ToList(),
+                EditorsChoiceArticles = allArticles.Where(a => a.IsEditorsChoice == true).OrderByDescending(a => a.DateStamp).Take(4).ToList(),
 
               
 

@@ -148,8 +148,6 @@ namespace NextNews.Controllers
         //public async Task<IActionResult> Search(string searchString, int pg = 1);
 
         public async Task<IActionResult> Search(string searchString, int pg = 1, int perPage = 10)
-
-
         {
             const int pageSize = 9;
             if (pg < 1)
