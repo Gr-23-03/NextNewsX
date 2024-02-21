@@ -454,7 +454,7 @@ namespace NextNews.Controllers
         }
 
 
-        [Authorize(Roles = "Editor")]
+        [Authorize(Roles = "Admin, Editor")]
         public IActionResult EditorDashboard()
         {
             return View();
