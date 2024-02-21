@@ -21,9 +21,9 @@
 
 
 <h1>List of Articles</h1>
-<a a asp-controller="Article" asp-action="CreateArticle">Create Article</a>
+<a asp-controller="Article" asp-action="CreateArticle" class="btn btn-dark btn-lg btn-block btn-custom py-3 px-4">Create Article</a>
 
-<div class="row">
+<div class="row" style="margin-top: 10px;">
 
     @*   ****  LOOP WITH LIST OF ARTICLES   ****   *@
    
@@ -35,7 +35,7 @@
 
             @*  <img src="@item.ImageLink" style="width: 100%"  /> *@
             <br />
-            <a asp-action="Details" asp-route-id="@item.Id">
+            <a asp-action="Details"  asp-route-id="@item.Id" >
                 <img src="@item.ImageLink" @item.LinkText style="width: 100%" />
             </a>
 
@@ -62,6 +62,7 @@
     }
    </ul>
 </div>
+
 
       <br/>
   <partial name="_PagginationPartialView" model="@ViewBag.Pager"></partial>
