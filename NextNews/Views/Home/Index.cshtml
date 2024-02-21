@@ -462,9 +462,9 @@
     <div class="form-group mb-3">
     </div>
 
-        @{
+        @* @{
             int catIdWorld = _articleService.GetCategoryIdCategoryName("World");
-        }
+        } *@
 
         <h2 style="color: black"><a asp-controller="Article" asp-action="LatestArticlesByCategory" asp-route-categoryId="@catIdWorld">World</a></h2>
 
