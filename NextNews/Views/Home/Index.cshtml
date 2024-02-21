@@ -42,7 +42,7 @@
 
                 @if (!premiumSubscription)
                 {
-                <span style="color:yellow"><i class="fas fa-lock"></i> </span>
+                <span style="color:red"><i class="fas fa-lock"></i> </span>
                 }
 
             </a>
@@ -78,7 +78,7 @@
 
                         @if (!premiumSubscription)
                         {
-                            <span style="color:yellow"><i class="fas fa-lock"></i> </span>
+                            <span style="color:red"><i class="fas fa-lock"></i> </span>
                         }
                 </a>
 
@@ -104,7 +104,7 @@
 
                             @if (!premiumSubscription)
                             {
-                                <span style="color:yellow"><i class="fas fa-lock"></i> </span>
+                                <span style="color:red"><i class="fas fa-lock"></i> </span>
                             }
                         </a>
                             <p class="latest-news-summary">@categoryArticle.ContentSummary</p>
@@ -141,7 +141,7 @@
 
                      @if (!premiumSubscription)
                      {
-                      <span style="color:yellow"><i class="fas fa-lock"></i> </span>
+                      <span style="color:red"><i class="fas fa-lock"></i> </span>
                      }
                 </a>
                 <div class="local-news-item mb-3">
@@ -166,7 +166,7 @@
 
                             @if (!premiumSubscription)
                             {
-                                <span style="color:yellow"><i class="fas fa-lock"></i> </span>
+                                <span style="color:red"><i class="fas fa-lock"></i> </span>
                             }
                         </a>
                         <p class="latest-news-summary">@categoryArticle.ContentSummary</p>
@@ -203,7 +203,7 @@
 
                         @if (!premiumSubscription)
                         {
-                            <span style="color:yellow"><i class="fas fa-lock"></i> </span>
+                            <span style="color:red"><i class="fas fa-lock"></i> </span>
                         }
                 </a>
                 <div class="world-news-item mb-3">
@@ -228,7 +228,7 @@
 
                             @if (!premiumSubscription)
                             {
-                                <span style="color:yellow"><i class="fas fa-lock"></i> </span>
+                                <span style="color:red"><i class="fas fa-lock"></i> </span>
                             }
                         </a>
                         <p class="latest-news-summary">@categoryArticle.ContentSummary</p>
@@ -266,7 +266,7 @@
 
                                     @if (!premiumSubscription)
                                     {
-                                        <span style="color:yellow"><i class="fas fa-lock"></i> </span>
+                                        <span style="color:red"><i class="fas fa-lock"></i> </span>
                                     }
                                 </a>
                                 <p class="latest-news-summary">@news.ContentSummary</p>
@@ -308,6 +308,10 @@
                                     <a asp-action="Details" asp-controller="Article" asp-route-id="@article.Id" class="latest-news-link">
                                         <img class="img-on-HomeIndex" src="@article.ImageLink" alt="Article Image" style="width:100%">
                                         <p class="latest-news-headline">@article.HeadLine</p>
+                                        @if (!premiumSubscription)
+                                        {
+                                            <span style="color:red"><i class="fas fa-lock"></i> </span>
+                                        }
                                         <p class="latest-news-date">Published on @article.DateStamp?.ToString("M") @article.DateStamp?.ToString("t")</p>
                                     </a>
                                 </div>
@@ -433,6 +437,12 @@
                         @news.HeadLine
                         @* </a> *@
                    </div>
+                        @if (!premiumSubscription)
+                        {
+                            <span style="color:red"><i class="fas fa-lock"></i> </span>
+                        }
+
+
                 </a>
                 <p class="latest-news-summary">@news.ContentSummary</p>
                 <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
@@ -463,6 +473,12 @@
                         @news.HeadLine
                          @*  </a> *@
                     </div>
+
+                        @if (!premiumSubscription)
+                        {
+                            <span style="color:red"><i class="fas fa-lock"></i> </span>
+                        }
+
                 </a>
                 <p class="latest-news-summary">@news.ContentSummary</p>
                 <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
@@ -493,6 +509,13 @@
                         @news.HeadLine
                    @*  </a> *@
                     </div>
+
+                        @if (!premiumSubscription)
+                        {
+                            <span style="color:red"><i class="fas fa-lock"></i> </span>
+                        }
+
+
                 </a>
                 <p class="latest-news-summary">@news.ContentSummary</p>
                 <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
@@ -523,6 +546,12 @@
                         @news.HeadLine
                     @* </a> *@
                     </div>
+
+                        @if (!premiumSubscription)
+                        {
+                            <span style="color:red"><i class="fas fa-lock"></i> </span>
+                        }
+
                 </a>
                 <p class="latest-news-summary">@news.ContentSummary</p>
                 <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
@@ -553,6 +582,12 @@
                         @news.HeadLine
                         @* </a> *@
                     </div>
+
+                        @if (!premiumSubscription)
+                        {
+                            <span style="color:red"><i class="fas fa-lock"></i> </span>
+                        }
+
                 </a>
                 <p class="latest-news-summary">@news.ContentSummary</p>
                 <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
@@ -583,6 +618,13 @@
                         @news.HeadLine
                         @*  </a> *@
                     </div>
+
+                        @if (!premiumSubscription)
+                        {
+                            <span style="color:red"><i class="fas fa-lock"></i> </span>
+                        }
+
+
                 </a>
                 <p class="latest-news-summary">@news.ContentSummary</p>
                 <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
@@ -610,6 +652,13 @@
                         <div class="latest-news-headline">
                             @news.HeadLine
                         </div>
+
+                        @if (!premiumSubscription)
+                        {
+                            <span style="color:red"><i class="fas fa-lock"></i> </span>
+                        }
+
+
                     </a>
                         <p class="latest-news-summary">@news.ContentSummary</p>
                         <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>

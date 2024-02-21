@@ -441,9 +441,9 @@ namespace NextNews.Controllers
             return RedirectToAction(nameof(ListArticles));
         }
 
-       
+
         // Method to add likes
-        [Authorize]
+        [Authorize(Roles = "Premium")]
         public IActionResult Likes(int id, string returnUrl)
         {
             var userId = _userManager.GetUserId(User)!;

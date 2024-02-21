@@ -28,7 +28,7 @@ namespace NextNews.Controllers
         private readonly IEmailSender _emailSender;
 
         private readonly IWebHostEnvironment _env;
-        public SubscriptionController(IWebHostEnvironment env, ISubscriptionService subscriptionService, IUserService userService, UserManager<User> userManager, IEmailSender emailSender
+        public SubscriptionController(IWebHostEnvironment env, ISubscriptionService subscriptionService, IUserService userService, UserManager<User> userManager, IEmailSender emailSender)
         {
             _subscriptionService = subscriptionService;
             _userService = userService;
