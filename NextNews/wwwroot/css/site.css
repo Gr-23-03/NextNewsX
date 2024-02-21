@@ -323,33 +323,21 @@ column {
 
 
 /* Weather Column */
-@keyframes flash {
-    0% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-    }
-}
-
 .weather-column {
     border: 1px solid #ccc;
     background-color: #f5f5f5;
-    /*padding: 5px;*/
-    text-align: center;
-    height: 800px;
-    animation: flash 2s infinite; /* Adjust animation duration as needed */
+    text-align: center; /* Center the content horizontally */
+    padding: 10px; /* Add padding to the column */
 }
 
     .weather-column p {
         margin: 0;
         font-weight: bold;
     }
+
+.weather-item {
+    margin-bottom: 10px; /* Add margin between advertisement items */
+}
 
 /*Weather Icon*/
 .ql-size-large {
@@ -434,4 +422,3 @@ column {
 .ticker-wrap:hover .ticker {
     animation-play-state: paused;
 }
-  

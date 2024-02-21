@@ -179,65 +179,6 @@
         <div class="form-group mb-3">
         </div>
 
-        @{
-            int catIdWorld = _articleService.GetCategoryIdCategoryName("World");
-        }
-
-            <h2 style="color: black"><a asp-controller="Article" asp-action="LatestArticlesByCategory" asp-route-categoryId="@catIdWorld">World</a></h2>
-
-        <div class="col-12">
-
-            @if (Model.ArticlesByCategoryWorld.Any())
-            {
-                var firstArticle = Model.ArticlesByCategoryWorld.First();
-                 
-                <a asp-action="Details" asp-controller="Article" asp-route-id="@firstArticle.Id" class="sports-news-link">
-                    <div>
-                    <img class="img-on-HomeIndex" src="@firstArticle.ImageLink" alt="Article Image" style="width:100%">
-                    </div>
-                    <div class="latest-news-headline">
-                     @*  <a asp-action="Details" asp-controller="Article" asp-route-id="@firstArticle.Id" class="sports-news-link"> *@
-                        @firstArticle.HeadLine
-                     @*  </a> *@
-                    </div>
-
-                        @if (!premiumSubscription)
-                        {
-                            <span style="color:yellow"><i class="fas fa-lock"></i> </span>
-                        }
-                </a>
-                <div class="world-news-item mb-3">
-                </div>
-                <p class="latest-news-summary">@firstArticle.ContentSummary</p>
-                <p class="latest-news-date">Published on @firstArticle.DateStamp?.ToString("M") @firstArticle.DateStamp?.ToString("t")</p>
-            }
-
-        </div>
-
-            <div class="row">
-                @foreach (var categoryArticle in Model.ArticlesByCategoryWorld.Skip(1))
-                {
-                    <div class="col-12 col-md-6 mb-3">
-                        <a asp-action="Details" asp-controller="Article" asp-route-id="@categoryArticle.Id" class="latest-news-link">
-                            <div class="article-imageLink">
-                                <img class="img-on-HomeIndex img-fluid" src="@categoryArticle.ImageLink" alt="Article ImageLink">
-                            </div>
-                            <div class="latest-news-headline">
-                                @categoryArticle.HeadLine
-                            </div>
-
-                            @if (!premiumSubscription)
-                            {
-                                <span style="color:yellow"><i class="fas fa-lock"></i> </span>
-                            }
-                        </a>
-                        <p class="latest-news-summary">@categoryArticle.ContentSummary</p>
-                        <p class="latest-news-date">Published on @categoryArticle.DateStamp?.ToString("M") @categoryArticle.DateStamp?.ToString("t")</p>
-
-                    </div>
-                }
-            </div>
-
     </div>
 
 
@@ -269,7 +210,7 @@
                                         <span style="color:yellow"><i class="fas fa-lock"></i> </span>
                                     }
                                 </a>
-                                <p class="latest-news-summary">@news.ContentSummary</p>
+                               @*  <p class="latest-news-summary">@news.ContentSummary</p> *@
                                 <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
                             </div>
                         </div>
@@ -358,54 +299,62 @@
                     <div class="form-group mb-3">
                     </div>
 
-                     @* Weather column *@
+                           @* Advertisement column *@
 
-            <div class="weather-column">
+                           <div class="advertisement-column">
+                              <p>Advertisement</p>
+                              <div class="advertisement-item mb-3">
+                                <a href="https://www.lexicon.se">
+                                   <img src="https://www.lexicon.se/link/1c207bb2aa544a77849bab48fa52fb82.aspx" class="img-fluid" alt="Advertisement 1">
+                                </a>
+                              </div>
+                              <div class="advertisement-item mb-3">
+                                <a href="https://www.tesla.com/sv_se">
+                                   <h3>Tesla </h3><img src="https://i.pinimg.com/originals/ed/6c/f0/ed6cf0b9b48c336020037c310ac37f56.jpg" class="img-fluid" alt="Advertisement 2">
+                                </a>
+                              </div>
+                              <div class="advertisement-item mb-3">
+                                <a href="https://www.samsung.com/se">
+                                   <img src="https://webset.b-cdn.net/wp-content/uploads/2024/01/Samsung-Galaxy-S24-3.jpg" class="img-fluid" alt="Advertisement 3">
+                                </a>
+                              </div>         
+                           </div>
+
+                    <div class="form-group mb-3">
+                    </div>
+                    <div class="form-group mb-3">
+                    </div>
+
+                    @* Weather column *@
+
+                    <div class="weather-column">
                         <div class="form-group mb-3">
                         </div>
 
-                <p>Weather</p>
+                        <p>Weather</p>
+                        <div class="weather-item mb-3">
 
-                        @await Component.InvokeAsync(typeof(WheatherApiViewComponentAside), new { chosenCity = "Linköping" })
+                            @await Component.InvokeAsync(typeof(WheatherApiViewComponentAside), new { chosenCity = "Linköping" })
 
-            </div>
+                        </div>
+                    </div>
 
-        <div class="form-group mb-3">
-        </div>
-         <div class="form-group mb-3">
-         </div>
-
-        @* Advertisement column *@
-
-        <div class="advertisement-column">
-             <p>Advertisement</p>
-            <div class="advertisement-item mb-3">
-                <a href="https://www.lexicon.se">
-                            <img src="https://www.lexicon.se/link/1c207bb2aa544a77849bab48fa52fb82.aspx" class="img-fluid" alt="Advertisement 1">
-                </a>
-            </div>
-            <div class="advertisement-item mb-3">
-                <a href="https://www.tesla.com/sv_se">
-                     <h3>Tesla </h3><img src="https://i.pinimg.com/originals/ed/6c/f0/ed6cf0b9b48c336020037c310ac37f56.jpg" class="img-fluid" alt="Advertisement 2">
-                </a>
-            </div>
-            <div class="advertisement-item mb-3">
-                <a href="https://www.samsung.com/se">
-                            <img src="https://webset.b-cdn.net/wp-content/uploads/2024/01/Samsung-Galaxy-S24-3.jpg" class="img-fluid" alt="Advertisement 3">
-                </a>
-            </div>         
-        </div>                    
                 </div>
             </div>
 
         <div class="form-group mb-3">
         </div>
+        <div class="form-group mb-3">
+        </div>
+            
+           @* Video *@
+
+            <h2 style="color: black; font-size: 24px; font-weight: bold; text-align:center;">News Video Clips</h2>
+
             <div class="form-group mb-3">
             </div>
 
-       @* Video *@
-
-       <iframe width="540" height="320" src="https://www.youtube.com/embed/pux5_bdWBDU" title="Trump’s legal battles enter critical 48 hours" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe width="540" height="320" src="https://www.youtube.com/embed/pux5_bdWBDU" title="Trump’s legal battles enter critical 48 hours" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
             <div class="form-group mb-3">
             </div>
@@ -414,8 +363,7 @@
 
         <div class="form-group mb-3">
         </div>
-        <div class="form-group mb-3">
-        </div>
+       
 
         <h2 style="color: black"><a asp-controller="Article" asp-action="LatestMostpopularEditorschoice" asp-route-editorsChoice="editorschoice">Editor's Choice</a></h2>
 
@@ -442,6 +390,36 @@
 
     <div class="form-group mb-3">
     </div>
+
+        @{
+            int catIdWorld = _articleService.GetCategoryIdCategoryName("World");
+        }
+
+        <h2 style="color: black"><a asp-controller="Article" asp-action="LatestArticlesByCategory" asp-route-categoryId="@catIdWorld">World</a></h2>
+
+        <div class="row">
+            @foreach (var news in Model.ArticlesByCategoryWorld)
+            {
+                <div class="col-md-3 mb-3">
+
+                    <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link">
+                        <div class="article-imageLink">
+                            <img class="img-on-HomeIndex" src="@news.ImageLink" alt="Article ImageLink" style="width:100%">
+                        </div>
+                        <div class="latest-news-headline">
+                            @* <a asp-action="Details" asp-controller="Article" asp-route-id="@news.Id" class="latest-news-link"> *@
+                            @news.HeadLine
+                            @*  </a> *@
+                        </div>
+                    </a>
+                    <p class="latest-news-summary">@news.ContentSummary</p>
+                    <p class="latest-news-date">Published on @news.DateStamp?.ToString("M") @news.DateStamp?.ToString("t")</p>
+                </div>
+            }
+        </div>
+
+        <div class="form-group mb-3">
+        </div>
 
     @{
         int catIdBusiness = _articleService.GetCategoryIdCategoryName("Business");
