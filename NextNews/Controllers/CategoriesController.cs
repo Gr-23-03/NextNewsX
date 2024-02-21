@@ -14,6 +14,7 @@ using NextNews.Models;
 using NextNews.Models.Database;
 using NextNews.Services;
 using NextNews.ViewModels;
+using Pager = NextNews.Models.Pager;
 
 using NextNews.Views.Shared.Components.SearchBar;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
