@@ -1,4 +1,5 @@
 ﻿using Azure.Data.Tables;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NextNews.Models.Database;
 using Stripe;
@@ -12,12 +13,18 @@ namespace NextNews.Controllers
         {
             return View();
         }
+
+
+      
         [HttpGet("getstockdata")]
         public IActionResult GetStockDataView()
         {
             
             return View("GetStockData");
         }
+
+
+        [Authorize(Roles = "Premium")]
 
         [HttpGet("stock/getstockdata")]
         public async Task<IActionResult> GetStockData() 

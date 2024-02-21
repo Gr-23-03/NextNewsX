@@ -13,6 +13,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Stripe;
 using NextNews.Data.Migrations;
 using NuGet.Protocol;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
+
+
 
 namespace NextNews.Controllers
 {
@@ -22,12 +26,23 @@ namespace NextNews.Controllers
         private readonly IUserService _userService;
         private readonly UserManager<User> _userManager;
         private readonly IEmailSender _emailSender;
-        public SubscriptionController(ISubscriptionService subscriptionService, IUserService userService, UserManager<User> userManager, IEmailSender emailSender)
+
+        //private readonly IHostEnvironment _hostEnvironment;
+
+        private readonly IHostEnvironment _hostingEnvironment;
+
+        public SubscriptionController(ISubscriptionService subscriptionService,
+            IUserService userService, 
+            UserManager<User> userManager, 
+            IEmailSender emailSender, 
+            IHostEnvironment  hostEnvironment )
         {
             _subscriptionService = subscriptionService;
             _userService = userService;
             _userManager = userManager;
             _emailSender = emailSender;
+            _hostingEnvironment = hostEnvironment;
+            
         }
 
         public IActionResult Index()
@@ -147,10 +162,23 @@ namespace NextNews.Controllers
                 var subscriptionTypeId = int.Parse(session.Metadata["SubscriptionTypeId"]);
                 _subscriptionService.CompleteSubscription(userId, subscriptionTypeId);
 
-                string htmlTemplate = System.IO.File.ReadAllText("~/Views/Shared/EmailTemplate.cshtml");  //giving error check it
+                //string htmlTemplate = System.IO.File.ReadAllText("~/Views/Shared/EmailTemplate.cshtml");
+                //string personalizedContent = $"Welcome to your NextNews account. You can use your account to sign into the NextNews website and use special features. Subscriptions to the suite of NextNews newsletters can also be managed using your account. The NextNews takes your data privacy seriously. To learn more, read our privacy policy and account FAQs.All the best, Regards NextNews";
+                //string htmlMessage = htmlTemplate.Replace("{{main_content}}", personalizedContent);
+                //_emailSender.SendEmailAsync(userEmail, "NextNews Subscription", htmlMessage);
+
+                string templatePath = Path.Combine(_hostingEnvironment.ContentRootPath, "Views", "Shared", "EmailTemplate.cshtml");
+                string htmlTemplate = System.IO.File.ReadAllText(templatePath);
+
                 string personalizedContent = $"Welcome to your NextNews account. You can use your account to sign into the NextNews website and use special features. Subscriptions to the suite of NextNews newsletters can also be managed using your account. The NextNews takes your data privacy seriously. To learn more, read our privacy policy and account FAQs.All the best, Regards NextNews";
                 string htmlMessage = htmlTemplate.Replace("{{main_content}}", personalizedContent);
+
                 _emailSender.SendEmailAsync(userEmail, "NextNews Subscription", htmlMessage);
+
+
+
+
+
                 return View("Success");
             }
             return View("Register");
